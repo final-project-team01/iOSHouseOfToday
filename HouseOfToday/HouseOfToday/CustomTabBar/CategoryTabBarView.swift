@@ -12,21 +12,6 @@ class CategoryTabBarView: UIView {
 
   var categoryTitles: [String] = []
 
-  lazy var categoryTabBarCollectionView: UICollectionView = {
-    let flowLayout = UICollectionViewFlowLayout()
-    flowLayout.scrollDirection = .horizontal
-
-    let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-    cv.showsHorizontalScrollIndicator = false
-    cv.backgroundColor = .white
-
-    addSubview(cv)
-    cv.dataSource = self.self
-    cv.delegate = self.self
-    cv.register(cell: CategoryTabBarCell.self)
-    return cv
-  }()
-
   /// 스크롤 가능한지 값 설정하기
   /// 마이페이지는 false 로 설정하고
   /// 홈은 true 로 설정해야 한다.
@@ -48,12 +33,29 @@ class CategoryTabBarView: UIView {
     }
   }
 
+  lazy var categoryTabBarCollectionView: UICollectionView = {
+    let flowLayout = UICollectionViewFlowLayout()
+    flowLayout.scrollDirection = .horizontal
+
+    let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+    cv.showsHorizontalScrollIndicator = false
+    cv.backgroundColor = .white
+
+    addSubview(cv)
+    cv.dataSource = self.self
+    cv.delegate = self.self
+    cv.register(cell: CategoryTabBarCell.self)
+    return cv
+  }()
+
   lazy var indicatorBar: UIView = {
     let v = UIView()
     v.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
     addSubview(v)
     return v
   }()
+
+  let fontSize = ("마" as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
@@ -94,6 +96,7 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
 
   // MARK: - UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
     collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
 
     let widthSize = self.frame.width / CGFloat(categoryTitles.count)
