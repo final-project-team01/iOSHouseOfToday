@@ -1,5 +1,5 @@
 //
-//  ServiceError.swift
+//  SeviceError.swift
 //  HouseOfToday
 //
 //  Created by CHANGGUEN YU on 10/07/2019.

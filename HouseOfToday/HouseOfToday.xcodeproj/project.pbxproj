@@ -7,131 +7,143 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15E05C3E0976B8135872146B /* Pods_HouseOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABD2EB0DE9BF4D8B8F741A6B /* Pods_HouseOfToday.framework */; };
-		42FF926122D5711200639BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF926022D5711200639BAF /* AppDelegate.swift */; };
-		42FF926322D5711200639BAF /* StoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF926222D5711200639BAF /* StoreVC.swift */; };
-		42FF926822D5711400639BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42FF926722D5711400639BAF /* Assets.xcassets */; };
-		42FF926B22D5711400639BAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42FF926922D5711400639BAF /* LaunchScreen.storyboard */; };
-		42FF927722D5749F00639BAF /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF927622D5749F00639BAF /* ServiceError.swift */; };
+		42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928722D5A48300639BAF /* AppDelegate.swift */; };
+		42FF928A22D5A48300639BAF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928922D5A48300639BAF /* ViewController.swift */; };
+		42FF928F22D5A48400639BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42FF928E22D5A48400639BAF /* Assets.xcassets */; };
+		42FF929222D5A48400639BAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42FF929022D5A48400639BAF /* LaunchScreen.storyboard */; };
+		42FF929B22D5A5D800639BAF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 42FF929A22D5A5D800639BAF /* .swiftlint.yml */; };
+		42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92A122D5A96E00639BAF /* SeviceError.swift */; };
+		C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		01A0374B666CF280459A6331 /* Pods-HouseOfToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HouseOfToday.release.xcconfig"; path = "Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday.release.xcconfig"; sourceTree = "<group>"; };
-		42FF925D22D5711200639BAF /* HouseOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		42FF926022D5711200639BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		42FF926222D5711200639BAF /* StoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVC.swift; sourceTree = "<group>"; };
-		42FF926722D5711400639BAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		42FF926A22D5711400639BAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		42FF926C22D5711400639BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		42FF927622D5749F00639BAF /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
-		ABD2EB0DE9BF4D8B8F741A6B /* Pods_HouseOfToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HouseOfToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0BFEC059BBED09D6944A4A8 /* Pods-HouseOfToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HouseOfToday.debug.xcconfig"; path = "Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday.debug.xcconfig"; sourceTree = "<group>"; };
+		38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HouseOfToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42FF928422D5A48300639BAF /* HouseOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42FF928722D5A48300639BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		42FF928922D5A48300639BAF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		42FF928E22D5A48400639BAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		42FF929122D5A48400639BAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		42FF929322D5A48400639BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42FF929A22D5A5D800639BAF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		42FF92A122D5A96E00639BAF /* SeviceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeviceError.swift; sourceTree = "<group>"; };
+		595FD3D34B2CBF9BA9F127D2 /* Pods-HouseOfToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HouseOfToday.release.xcconfig"; path = "Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday.release.xcconfig"; sourceTree = "<group>"; };
+		8B1420F34D9A33A09D55FE4A /* Pods-HouseOfToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HouseOfToday.debug.xcconfig"; path = "Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		42FF925A22D5711200639BAF /* Frameworks */ = {
+		42FF928122D5A48300639BAF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15E05C3E0976B8135872146B /* Pods_HouseOfToday.framework in Frameworks */,
+				C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		226C81A145D4A1197FF6F620 /* Frameworks */ = {
+		42FF927B22D5A48300639BAF = {
 			isa = PBXGroup;
 			children = (
-				ABD2EB0DE9BF4D8B8F741A6B /* Pods_HouseOfToday.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2D5457E6BABC480633FE5C5C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B0BFEC059BBED09D6944A4A8 /* Pods-HouseOfToday.debug.xcconfig */,
-				01A0374B666CF280459A6331 /* Pods-HouseOfToday.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		42FF925422D5711200639BAF = {
-			isa = PBXGroup;
-			children = (
-				42FF925F22D5711200639BAF /* HouseOfToday */,
-				42FF925E22D5711200639BAF /* Products */,
-				2D5457E6BABC480633FE5C5C /* Pods */,
-				226C81A145D4A1197FF6F620 /* Frameworks */,
+				42FF929A22D5A5D800639BAF /* .swiftlint.yml */,
+				42FF928622D5A48300639BAF /* HouseOfToday */,
+				42FF928522D5A48300639BAF /* Products */,
+				EFB7A024F5AE262807C76DFA /* Pods */,
+				F4F30DB5C721F798F5CCCB91 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		42FF925E22D5711200639BAF /* Products */ = {
+		42FF928522D5A48300639BAF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				42FF925D22D5711200639BAF /* HouseOfToday.app */,
+				42FF928422D5A48300639BAF /* HouseOfToday.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		42FF925F22D5711200639BAF /* HouseOfToday */ = {
+		42FF928622D5A48300639BAF /* HouseOfToday */ = {
 			isa = PBXGroup;
 			children = (
-				42FF926022D5711200639BAF /* AppDelegate.swift */,
-				42FF926922D5711400639BAF /* LaunchScreen.storyboard */,
-				42FF926722D5711400639BAF /* Assets.xcassets */,
-				42FF926C22D5711400639BAF /* Info.plist */,
-				42FF927522D5721000639BAF /* Service */,
-				42FF927422D571B700639BAF /* Models */,
-				42FF927322D571B100639BAF /* Controller */,
-				42FF927222D571A600639BAF /* View */,
+				42FF928722D5A48300639BAF /* AppDelegate.swift */,
+				42FF929E22D5A8DB00639BAF /* Utility */,
+				42FF929C22D5A8B100639BAF /* Service */,
+				42FF929D22D5A8D200639BAF /* Model */,
+				42FF929F22D5A8F500639BAF /* View&Cell */,
+				42FF92A022D5A90400639BAF /* Controller */,
+				42FF928E22D5A48400639BAF /* Assets.xcassets */,
+				42FF929022D5A48400639BAF /* LaunchScreen.storyboard */,
+				42FF929322D5A48400639BAF /* Info.plist */,
 			);
 			path = HouseOfToday;
 			sourceTree = "<group>";
 		};
-		42FF927222D571A600639BAF /* View */ = {
+		42FF929C22D5A8B100639BAF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				42FF92A122D5A96E00639BAF /* SeviceError.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		42FF929D22D5A8D200639BAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = View;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		42FF927322D571B100639BAF /* Controller */ = {
+		42FF929E22D5A8DB00639BAF /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				42FF926222D5711200639BAF /* StoreVC.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		42FF929F22D5A8F500639BAF /* View&Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View&Cell";
+			sourceTree = "<group>";
+		};
+		42FF92A022D5A90400639BAF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				42FF928922D5A48300639BAF /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		42FF927422D571B700639BAF /* Models */ = {
+		EFB7A024F5AE262807C76DFA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				8B1420F34D9A33A09D55FE4A /* Pods-HouseOfToday.debug.xcconfig */,
+				595FD3D34B2CBF9BA9F127D2 /* Pods-HouseOfToday.release.xcconfig */,
 			);
-			path = Models;
+			path = Pods;
 			sourceTree = "<group>";
 		};
-		42FF927522D5721000639BAF /* Service */ = {
+		F4F30DB5C721F798F5CCCB91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				42FF927622D5749F00639BAF /* ServiceError.swift */,
+				38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */,
 			);
-			path = Service;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		42FF925C22D5711200639BAF /* HouseOfToday */ = {
+		42FF928322D5A48300639BAF /* HouseOfToday */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 42FF926F22D5711400639BAF /* Build configuration list for PBXNativeTarget "HouseOfToday" */;
+			buildConfigurationList = 42FF929622D5A48400639BAF /* Build configuration list for PBXNativeTarget "HouseOfToday" */;
 			buildPhases = (
-				5B6A24A5AD8A3C13A17F687C /* [CP] Check Pods Manifest.lock */,
-				42FF925922D5711200639BAF /* Sources */,
-				42FF925A22D5711200639BAF /* Frameworks */,
-				42FF925B22D5711200639BAF /* Resources */,
+				08E84A6DD1D657D8DFCF6B29 /* [CP] Check Pods Manifest.lock */,
+				42FF928022D5A48300639BAF /* Sources */,
+				42FF928122D5A48300639BAF /* Frameworks */,
+				42FF928222D5A48300639BAF /* Resources */,
+				42FF929922D5A52400639BAF /* ShellScript */,
+				C3A21411CE12439EFFF680F9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -139,25 +151,25 @@
 			);
 			name = HouseOfToday;
 			productName = HouseOfToday;
-			productReference = 42FF925D22D5711200639BAF /* HouseOfToday.app */;
+			productReference = 42FF928422D5A48300639BAF /* HouseOfToday.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		42FF925522D5711200639BAF /* Project object */ = {
+		42FF927C22D5A48300639BAF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "CHANGGUEN YU";
 				TargetAttributes = {
-					42FF925C22D5711200639BAF = {
+					42FF928322D5A48300639BAF = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
 				};
 			};
-			buildConfigurationList = 42FF925822D5711200639BAF /* Build configuration list for PBXProject "HouseOfToday" */;
+			buildConfigurationList = 42FF927F22D5A48300639BAF /* Build configuration list for PBXProject "HouseOfToday" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -165,30 +177,31 @@
 				en,
 				Base,
 			);
-			mainGroup = 42FF925422D5711200639BAF;
-			productRefGroup = 42FF925E22D5711200639BAF /* Products */;
+			mainGroup = 42FF927B22D5A48300639BAF;
+			productRefGroup = 42FF928522D5A48300639BAF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				42FF925C22D5711200639BAF /* HouseOfToday */,
+				42FF928322D5A48300639BAF /* HouseOfToday */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		42FF925B22D5711200639BAF /* Resources */ = {
+		42FF928222D5A48300639BAF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42FF926B22D5711400639BAF /* LaunchScreen.storyboard in Resources */,
-				42FF926822D5711400639BAF /* Assets.xcassets in Resources */,
+				42FF929B22D5A5D800639BAF /* .swiftlint.yml in Resources */,
+				42FF929222D5A48400639BAF /* LaunchScreen.storyboard in Resources */,
+				42FF928F22D5A48400639BAF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5B6A24A5AD8A3C13A17F687C /* [CP] Check Pods Manifest.lock */ = {
+		08E84A6DD1D657D8DFCF6B29 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -210,26 +223,65 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		42FF929922D5A52400639BAF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint autocorrect\n";
+		};
+		C3A21411CE12439EFFF680F9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		42FF925922D5711200639BAF /* Sources */ = {
+		42FF928022D5A48300639BAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42FF927722D5749F00639BAF /* ServiceError.swift in Sources */,
-				42FF926322D5711200639BAF /* StoreVC.swift in Sources */,
-				42FF926122D5711200639BAF /* AppDelegate.swift in Sources */,
+				42FF928A22D5A48300639BAF /* ViewController.swift in Sources */,
+				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
+				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		42FF926922D5711400639BAF /* LaunchScreen.storyboard */ = {
+		42FF929022D5A48400639BAF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				42FF926A22D5711400639BAF /* Base */,
+				42FF929122D5A48400639BAF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -237,7 +289,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		42FF926D22D5711400639BAF /* Debug */ = {
+		42FF929422D5A48400639BAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -298,7 +350,7 @@
 			};
 			name = Debug;
 		};
-		42FF926E22D5711400639BAF /* Release */ = {
+		42FF929522D5A48400639BAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -353,9 +405,9 @@
 			};
 			name = Release;
 		};
-		42FF927022D5711400639BAF /* Debug */ = {
+		42FF929722D5A48400639BAF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0BFEC059BBED09D6944A4A8 /* Pods-HouseOfToday.debug.xcconfig */;
+			baseConfigurationReference = 8B1420F34D9A33A09D55FE4A /* Pods-HouseOfToday.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -372,9 +424,9 @@
 			};
 			name = Debug;
 		};
-		42FF927122D5711400639BAF /* Release */ = {
+		42FF929822D5A48400639BAF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01A0374B666CF280459A6331 /* Pods-HouseOfToday.release.xcconfig */;
+			baseConfigurationReference = 595FD3D34B2CBF9BA9F127D2 /* Pods-HouseOfToday.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -394,25 +446,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		42FF925822D5711200639BAF /* Build configuration list for PBXProject "HouseOfToday" */ = {
+		42FF927F22D5A48300639BAF /* Build configuration list for PBXProject "HouseOfToday" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				42FF926D22D5711400639BAF /* Debug */,
-				42FF926E22D5711400639BAF /* Release */,
+				42FF929422D5A48400639BAF /* Debug */,
+				42FF929522D5A48400639BAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		42FF926F22D5711400639BAF /* Build configuration list for PBXNativeTarget "HouseOfToday" */ = {
+		42FF929622D5A48400639BAF /* Build configuration list for PBXNativeTarget "HouseOfToday" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				42FF927022D5711400639BAF /* Debug */,
-				42FF927122D5711400639BAF /* Release */,
+				42FF929722D5A48400639BAF /* Debug */,
+				42FF929822D5A48400639BAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 42FF925522D5711200639BAF /* Project object */;
+	rootObject = 42FF927C22D5A48300639BAF /* Project object */;
 }

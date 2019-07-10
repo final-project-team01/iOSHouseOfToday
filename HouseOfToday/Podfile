@@ -7,4 +7,5 @@ target 'HouseOfToday' do
 
   # Pods for HouseOfToday
   pod 'SwiftLint'
+  pod 'SnapKit', '~> 5.0.0'
 end
