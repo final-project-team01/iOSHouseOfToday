@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */; };
+		42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */; };
+		42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */; };
 		42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928722D5A48300639BAF /* AppDelegate.swift */; };
 		42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928922D5A48300639BAF /* HomeVC.swift */; };
 		42FF928F22D5A48400639BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42FF928E22D5A48400639BAF /* Assets.xcassets */; };
@@ -14,6 +17,7 @@
 		42FF929B22D5A5D800639BAF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 42FF929A22D5A5D800639BAF /* .swiftlint.yml */; };
 		42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92A122D5A96E00639BAF /* SeviceError.swift */; };
 		42FF92A622D5B44D00639BAF /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */; };
+		42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92A722D5B5EA00639BAF /* StoreVC.swift */; };
 		8E5B59E522D5AC7100BB01E8 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59E422D5AC7100BB01E8 /* Logger.swift */; };
 		8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59E622D5AD1100BB01E8 /* UIControlExtensions.swift */; };
 		8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59E822D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift */; };
@@ -24,6 +28,9 @@
 
 /* Begin PBXFileReference section */
 		38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HouseOfToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
+		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
+		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
 		42FF928422D5A48300639BAF /* HouseOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42FF928722D5A48300639BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42FF928922D5A48300639BAF /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -33,6 +40,7 @@
 		42FF929A22D5A5D800639BAF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		42FF92A122D5A96E00639BAF /* SeviceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeviceError.swift; sourceTree = "<group>"; };
 		42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
+		42FF92A722D5B5EA00639BAF /* StoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVC.swift; sourceTree = "<group>"; };
 		595FD3D34B2CBF9BA9F127D2 /* Pods-HouseOfToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HouseOfToday.release.xcconfig"; path = "Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday.release.xcconfig"; sourceTree = "<group>"; };
 		8B1420F34D9A33A09D55FE4A /* Pods-HouseOfToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HouseOfToday.debug.xcconfig"; path = "Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday.debug.xcconfig"; sourceTree = "<group>"; };
 		8E5B59E422D5AC7100BB01E8 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -124,6 +132,10 @@
 			isa = PBXGroup;
 			children = (
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
+				42FF92A722D5B5EA00639BAF /* StoreVC.swift */,
+				42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */,
+				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
+				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
 			);
 			path = Controller;
@@ -304,12 +316,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
+				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
 				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
+				42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
+				42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */,
 				42FF92A622D5B44D00639BAF /* MainTabBarVC.swift in Sources */,
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,
+				42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */,
 				8E5B59E522D5AC7100BB01E8 /* Logger.swift in Sources */,
 				8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */,
 			);
