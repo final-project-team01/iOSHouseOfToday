@@ -50,7 +50,7 @@ class CategoryTabBarView: UIView {
 
   lazy var indicatorBar: UIView = {
     let v = UIView()
-    v.backgroundColor = .black
+    v.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
     addSubview(v)
     return v
   }()
@@ -62,6 +62,11 @@ class CategoryTabBarView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
 
+    makeConstraints()
+//    categoryTabBarCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+  }
+
+  private func makeConstraints() {
     categoryTabBarCollectionView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
@@ -70,7 +75,6 @@ class CategoryTabBarView: UIView {
       $0.leading.bottom.equalToSuperview()
       $0.height.equalTo(self.snp.height).multipliedBy(0.1)
     }
-
   }
 }
 
@@ -90,6 +94,8 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
 
   // MARK: - UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+
     let widthSize = self.frame.width / CGFloat(categoryTitles.count)
 
     // CollectionView 의 Cell Size 결정할 때 indicatorBar 의 layout 도 같이 잡아준다.
@@ -102,10 +108,6 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
   // MARK: - UICollectionViewDelegate
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    // rgb(15, 188, 249)
-    let cell = collectionView.cellForItem(at: indexPath) as! CategoryTabBarCell
-    cell.label.textColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-
     let widthSize = self.frame.width / CGFloat(categoryTitles.count)
     setIndicatorLeading = widthSize * CGFloat(indexPath.item)
     UIView.animate(withDuration: 0.5,
@@ -117,10 +119,6 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
                     self.layoutIfNeeded()
     },
                    completion: nil)
-  }
-  func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-    let cell = collectionView.cellForItem(at: indexPath) as! CategoryTabBarCell
-    cell.label.textColor = .black
   }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {

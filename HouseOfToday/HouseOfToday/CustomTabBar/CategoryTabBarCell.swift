@@ -14,12 +14,18 @@ class CategoryTabBarCell: UICollectionViewCell {
   lazy var label: UILabel = {
     let lb = UILabel()
     lb.text = "Text"
-    lb.font = UIFont.boldSystemFont(ofSize: 16)
+    lb.font = UIFont.boldSystemFont(ofSize: 18)
     lb.textColor = .black
 
     addSubview(lb)
     return lb
   }()
+
+  override var isSelected: Bool {
+    didSet {
+      label.textColor = self.isSelected ?  #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) : .black
+    }
+  }
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)

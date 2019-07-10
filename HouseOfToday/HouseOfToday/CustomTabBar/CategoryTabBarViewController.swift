@@ -55,7 +55,14 @@ class CategoryTabBarViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    makeConstraints()
+  }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+  }
+
+  private func makeConstraints() {
     categoryTabBarView.snp.makeConstraints {
       $0.top.equalTo(view.safeAreaLayoutGuide)
       $0.leading.trailing.equalToSuperview()
