@@ -1,0 +1,6 @@
+framework module Pods_HouseOfToday {
+  umbrella header "Pods-HouseOfToday-umbrella.h"
+
+  export *
+  module * { export * }
+}
