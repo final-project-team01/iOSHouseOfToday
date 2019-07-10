@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainTabBarVC.swift
 //  HouseOfToday
 //
 //  Created by CHANGGUEN YU on 10/07/2019.
@@ -8,11 +8,10 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+class MainTabBarVC: UITabBarController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
   }
-
 }
