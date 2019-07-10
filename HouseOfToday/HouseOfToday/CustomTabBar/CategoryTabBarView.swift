@@ -10,13 +10,15 @@ import UIKit
 
 class CategoryTabBarView: UIView {
 
+  var categoryTitles: [String] = []
+
   lazy var categoryTabBarCollectionView: UICollectionView = {
     let flowLayout = UICollectionViewFlowLayout()
     flowLayout.scrollDirection = .horizontal
 
     let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     cv.showsHorizontalScrollIndicator = false
-    cv.backgroundColor = .yellow
+    cv.backgroundColor = .white
 
     addSubview(cv)
     cv.dataSource = self.self
@@ -34,6 +36,15 @@ class CategoryTabBarView: UIView {
     }
     set {
       categoryTabBarCollectionView.isScrollEnabled = newValue
+    }
+  }
+
+  /// IndicatorBar Leading Position 결정하기
+  var setIndicatorLeading: CGFloat = 0 {
+    didSet {
+      indicatorBar.snp.updateConstraints {
+        $0.leading.equalTo(self.setIndicatorLeading)
+      }
     }
   }
 
@@ -67,19 +78,19 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
   // MARK: - UICollectionViewDataSource
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return menuTitles.count
+    return categoryTitles.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeue(CategoryTabBarCell.self, indexPath)
-    cell.label.text = menuTitles[indexPath.item]
+    cell.label.text = categoryTitles[indexPath.item]
 
     return cell
   }
 
   // MARK: - UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let widthSize = self.frame.width / CGFloat(menuTitles.count)
+    let widthSize = self.frame.width / CGFloat(categoryTitles.count)
 
     // CollectionView 의 Cell Size 결정할 때 indicatorBar 의 layout 도 같이 잡아준다.
     indicatorBar.snp.makeConstraints {
@@ -91,11 +102,12 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
   // MARK: - UICollectionViewDelegate
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    let widthSize = self.frame.width / CGFloat(menuTitles.count)
+    // rgb(15, 188, 249)
+    let cell = collectionView.cellForItem(at: indexPath) as! CategoryTabBarCell
+    cell.label.textColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
 
-    indicatorBar.snp.updateConstraints {
-      $0.leading.equalTo( widthSize * CGFloat(indexPath.item) )
-    }
+    let widthSize = self.frame.width / CGFloat(categoryTitles.count)
+    setIndicatorLeading = widthSize * CGFloat(indexPath.item)
     UIView.animate(withDuration: 0.5,
                    delay: 0,
                    usingSpringWithDamping: 0.7,
@@ -106,17 +118,19 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
     },
                    completion: nil)
   }
+  func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    let cell = collectionView.cellForItem(at: indexPath) as! CategoryTabBarCell
+    cell.label.textColor = .black
+  }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    let leftInset = scrollView.contentInset.left
+
     let leftOffset = scrollView.contentOffset.x
-    print("leftInset :", leftInset)
-    print("leftOffset :", leftOffset)
 
+    // 컬렉션 뷰 움직이면 indicatorBar 도 같이 움직이게
     indicatorBar.snp.updateConstraints {
-      $0.leading.equalTo(-leftOffset)
+      $0.leading.equalTo(setIndicatorLeading - leftOffset)
     }
-
   }
 
 }

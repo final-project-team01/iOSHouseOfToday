@@ -11,18 +11,30 @@ import SnapKit
 /// 목표
 /// 카테고리의 개수를 설정하고, 그 개수에 따라 유동적으로 카테고리를 만들어야 한다.
 
-let menuTitles = ["프로필", "나의 쇼핑"]
-
 class CategoryTabBarViewController: UIViewController {
 
-  let categoryView = CategoryView()
-  let categoryTabBarView = CategoryTabBarView()
+  /// 카테고리를 설정할 때 얘를 설정한다.
+  private var categoryTitles = ["프로필", "나의 쇼핑", "테스트"]
+
+  func setCategories(_ categories: [String] ) {
+    categoryTitles = categories
+  }
+
+  private lazy var categoryView: CategoryView = {
+    let cv = CategoryView()
+    view.addSubview(cv)
+    return cv
+  }()
+
+  private lazy var categoryTabBarView: CategoryTabBarView = {
+    let ctv = CategoryTabBarView()
+    ctv.categoryTitles = self.categoryTitles
+    view.addSubview(ctv)
+    return ctv
+  }()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    view.addSubview(categoryTabBarView)
-    view.addSubview(categoryView)
 
     categoryTabBarView.snp.makeConstraints {
       $0.top.equalTo(view.safeAreaLayoutGuide)

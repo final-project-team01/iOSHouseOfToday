@@ -15,7 +15,7 @@ class CategoryTabBarCell: UICollectionViewCell {
     let lb = UILabel()
     lb.text = "Text"
     lb.font = UIFont.boldSystemFont(ofSize: 16)
-    lb.textColor = .lightGray
+    lb.textColor = .black
 
     addSubview(lb)
     return lb
