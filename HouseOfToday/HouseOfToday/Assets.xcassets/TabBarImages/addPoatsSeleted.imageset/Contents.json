@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "addPoatsSeleted.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "addPoatsSeleted.png",
       "scale" : "2x"
     },
     {
