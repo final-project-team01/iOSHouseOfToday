@@ -20,7 +20,7 @@ public func logger(
     let fileName = fileUrl.deletingPathExtension().lastPathComponent
 
     let header = header.isEmpty ? "" : "[ \(header) ] - "
-    let content = contents.reduce("") { $0 + " " + String(describing: $1) }
+    _ = contents.reduce("") { $0 + " " + String(describing: $1) }
 
     let str = """
     \(emoji) \(timestamp) \
