@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ExpertVC.swift
 //  HouseOfToday
 //
 //  Created by CHANGGUEN YU on 10/07/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+class ExpertVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()

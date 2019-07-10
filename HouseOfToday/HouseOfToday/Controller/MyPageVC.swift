@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MyPageVC.swift
 //  HouseOfToday
 //
 //  Created by CHANGGUEN YU on 10/07/2019.
@@ -8,11 +8,10 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+class MyPageVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
   }
 
 }
