@@ -13,13 +13,28 @@ import SnapKit
 
 class CategoryTabBarViewController: UIViewController {
 
+  // MARK: - CategoryTabBarViewController 를 초기화할때 설정 값들
   /// 카테고리를 설정할 때 얘를 설정한다.
   private var categoryTitles = ["프로필", "나의 쇼핑", "테스트"]
 
-  func setCategories(_ categories: [String] ) {
-    categoryTitles = categories
+  /// 카테고리가 일정 수 넘어가면 true 로 설정해서 카테고리를 움직일 수 있게 한다.
+  private var categoryTabBarScrollIsEnabled: Bool = true
+
+  init(_ categoryTitles: [String], _ tabBarScrollIsEnabled: Bool ) {
+    super.init(nibName: nil, bundle: nil)
+    self.categoryTitles = categoryTitles
+    self.categoryTabBarScrollIsEnabled = tabBarScrollIsEnabled
   }
 
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+  }
+
+  // MARK: - 변수선언
   private lazy var categoryView: CategoryView = {
     let cv = CategoryView()
     view.addSubview(cv)
@@ -33,6 +48,7 @@ class CategoryTabBarViewController: UIViewController {
     return ctv
   }()
 
+  // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
 

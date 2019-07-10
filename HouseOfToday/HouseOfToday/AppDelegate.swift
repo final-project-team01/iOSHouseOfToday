@@ -18,12 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
     window?.makeKeyAndVisible()
-    //window?.rootViewController = ViewController()
-
-    /// 창식 테스트
-    let tabBarController = UITabBarController()
-    tabBarController.setViewControllers([CategoryTabBarViewController()], animated: true)
-    window?.rootViewController = tabBarController
+    window?.rootViewController = ViewController()
 
     return true
   }
