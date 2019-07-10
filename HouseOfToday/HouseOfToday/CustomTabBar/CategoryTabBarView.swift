@@ -17,14 +17,14 @@ class CategoryTabBarView: UIView {
     let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     cv.showsHorizontalScrollIndicator = false
     cv.backgroundColor = .yellow
-    
+
     addSubview(cv)
     cv.dataSource = self.self
     cv.delegate = self.self
     cv.register(cell: CategoryTabBarCell.self)
     return cv
   }()
-  
+
   /// 스크롤 가능한지 값 설정하기
   /// 마이페이지는 false 로 설정하고
   /// 홈은 true 로 설정해야 한다.
@@ -105,6 +105,18 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
                     self.layoutIfNeeded()
     },
                    completion: nil)
+  }
+
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    let leftInset = scrollView.contentInset.left
+    let leftOffset = scrollView.contentOffset.x
+    print("leftInset :", leftInset)
+    print("leftOffset :", leftOffset)
+
+    indicatorBar.snp.updateConstraints {
+      $0.leading.equalTo(-leftOffset)
+    }
+
   }
 
 }
