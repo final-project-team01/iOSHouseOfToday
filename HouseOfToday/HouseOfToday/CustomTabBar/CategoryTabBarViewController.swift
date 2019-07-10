@@ -15,7 +15,7 @@ class CategoryTabBarViewController: UIViewController {
 
   // MARK: - CategoryTabBarViewController 를 초기화할때 설정 값들
   /// 카테고리를 설정할 때 얘를 설정한다.
-  private var categoryTitles = ["프로필", "나의 쇼핑", "테스트"]
+  private var categoryTitles: [String]?
 
   /// 카테고리가 일정 수 넘어가면 true 로 설정해서 카테고리를 움직일 수 있게 한다.
   private var categoryTabBarScrollIsEnabled: Bool = true
@@ -29,7 +29,6 @@ class CategoryTabBarViewController: UIViewController {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
-
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
@@ -43,7 +42,12 @@ class CategoryTabBarViewController: UIViewController {
 
   private lazy var categoryTabBarView: CategoryTabBarView = {
     let ctv = CategoryTabBarView()
-    ctv.categoryTitles = self.categoryTitles
+    if let categoryTitles = self.categoryTitles {
+      ctv.categoryTitles = categoryTitles
+    } else {
+      ctv.categoryTitles = []
+      logger("Initializer must need the parameters but It's not provided")
+    }
     view.addSubview(ctv)
     return ctv
   }()
