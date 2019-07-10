@@ -18,14 +18,6 @@ class CategoryTabBarViewController: UIViewController {
   let categoryView = CategoryView()
   let categoryTabBarView = CategoryTabBarView()
 
-  lazy var testLabel: UILabel = {
-    let lb = UILabel()
-    lb.text = "text"
-    lb.backgroundColor = .yellow
-    view.addSubview(lb)
-    return lb
-  }()
-
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -41,10 +33,6 @@ class CategoryTabBarViewController: UIViewController {
     categoryView.snp.makeConstraints {
       $0.top.equalTo(categoryTabBarView.snp.bottom)
       $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-    }
-
-    testLabel.snp.makeConstraints {
-      $0.bottom.equalTo(view.safeAreaLayoutGuide)
     }
   }
 
