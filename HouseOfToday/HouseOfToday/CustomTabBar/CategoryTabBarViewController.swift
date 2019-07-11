@@ -39,6 +39,7 @@ class CategoryTabBarViewController: UIViewController {
   // MARK: - 변수선언
   private lazy var categoryView: CategoryView = {
     let cv = CategoryView()
+    cv.categoryViews = self.categoryViews
     view.addSubview(cv)
     return cv
   }()

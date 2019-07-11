@@ -21,15 +21,6 @@ class CategoryTabBarView: UIView {
     }
   }
 
-  /// IndicatorBar Leading Position 결정하기
-  var setIndicatorLeading: CGFloat = 0 {
-    didSet {
-      indicatorBar.snp.updateConstraints {
-        $0.leading.equalTo(self.setIndicatorLeading)
-      }
-    }
-  }
-
   lazy var categoryTabBarCollectionView: UICollectionView = {
     let flowLayout = UICollectionViewFlowLayout()
     flowLayout.scrollDirection = .horizontal
@@ -50,6 +41,15 @@ class CategoryTabBarView: UIView {
     addSubview(v)
     return v
   }()
+
+  /// IndicatorBar Leading Position 결정하기
+  var setIndicatorLeading: CGFloat = 0 {
+    didSet {
+      indicatorBar.snp.updateConstraints {
+        $0.leading.equalTo(self.setIndicatorLeading)
+      }
+    }
+  }
 
   // TODO: - 글자 크기에 따라서 IndicatorBar 따라오는거 구현 보류. 너무 어렵다.
   let fontSize = ("마" as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
