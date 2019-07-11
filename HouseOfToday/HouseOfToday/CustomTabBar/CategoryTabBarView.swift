@@ -53,6 +53,8 @@ class CategoryTabBarView: UIView {
 
   let fontSize = ("마" as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
 
+  var widthSize: CGFloat!
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
@@ -61,7 +63,7 @@ class CategoryTabBarView: UIView {
     super.init(frame: frame)
 
     makeConstraints()
-//    categoryTabBarCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+
   }
 
   private func makeConstraints() {
@@ -95,7 +97,7 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
 
     collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
 
-    let widthSize = self.frame.width / CGFloat(categoryTitles.count)
+    widthSize = self.frame.width / CGFloat(categoryTitles.count)
 
     // CollectionView 의 Cell Size 결정할 때 indicatorBar 의 layout 도 같이 잡아준다.
     indicatorBar.snp.makeConstraints {
@@ -107,7 +109,6 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
   // MARK: - UICollectionViewDelegate
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    let widthSize = self.frame.width / CGFloat(categoryTitles.count)
     setIndicatorLeading = widthSize * CGFloat(indexPath.item)
     UIView.animate(withDuration: 0.5,
                    delay: 0,
