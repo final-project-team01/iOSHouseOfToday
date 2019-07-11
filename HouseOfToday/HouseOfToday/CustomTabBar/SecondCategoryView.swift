@@ -1,5 +1,5 @@
 //
-//  CategoryView.swift
+//  SecondCategoryView.swift
 //  HouseOfToday
 //
 //  Created by chang sic jung on 11/07/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryView: UIView {
+class SecondCategoryView: UIView {
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
@@ -16,7 +16,6 @@ class CategoryView: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = .green
+    backgroundColor = .yellow
   }
-
 }

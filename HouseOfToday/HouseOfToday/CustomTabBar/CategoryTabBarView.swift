@@ -51,6 +51,7 @@ class CategoryTabBarView: UIView {
     return v
   }()
 
+  // TODO: - 글자 크기에 따라서 IndicatorBar 따라오는거 구현 보류. 너무 어렵다.
   let fontSize = ("마" as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
 
   var widthSize: CGFloat!

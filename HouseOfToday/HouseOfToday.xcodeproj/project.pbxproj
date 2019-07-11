@@ -20,8 +20,10 @@
 		8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */; };
 		8E5B59EF22D5BFF500BB01E8 /* CategoryTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EE22D5BFF500BB01E8 /* CategoryTabBarViewController.swift */; };
 		8E5B59F222D5C84D00BB01E8 /* CategoryTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59F122D5C84D00BB01E8 /* CategoryTabBarView.swift */; };
-		8E5B59F422D5C92900BB01E8 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59F322D5C92900BB01E8 /* CategoryView.swift */; };
+		8E5B59F422D5C92900BB01E8 /* FirstCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59F322D5C92900BB01E8 /* FirstCategoryView.swift */; };
 		8E5B59F622D5CA6500BB01E8 /* CategoryTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59F522D5CA6500BB01E8 /* CategoryTabBarCell.swift */; };
+		8E5B59F822D7580D00BB01E8 /* SecondCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59F722D7580D00BB01E8 /* SecondCategoryView.swift */; };
+		8E5B59FA22D75AD100BB01E8 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59F922D75AD100BB01E8 /* CategoryView.swift */; };
 		C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,8 +46,10 @@
 		8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableExtensions.swift; sourceTree = "<group>"; };
 		8E5B59EE22D5BFF500BB01E8 /* CategoryTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTabBarViewController.swift; sourceTree = "<group>"; };
 		8E5B59F122D5C84D00BB01E8 /* CategoryTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTabBarView.swift; sourceTree = "<group>"; };
-		8E5B59F322D5C92900BB01E8 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		8E5B59F322D5C92900BB01E8 /* FirstCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCategoryView.swift; sourceTree = "<group>"; };
 		8E5B59F522D5CA6500BB01E8 /* CategoryTabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTabBarCell.swift; sourceTree = "<group>"; };
+		8E5B59F722D7580D00BB01E8 /* SecondCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCategoryView.swift; sourceTree = "<group>"; };
+		8E5B59F922D75AD100BB01E8 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,7 +163,9 @@
 			children = (
 				8E5B59EE22D5BFF500BB01E8 /* CategoryTabBarViewController.swift */,
 				8E5B59F122D5C84D00BB01E8 /* CategoryTabBarView.swift */,
-				8E5B59F322D5C92900BB01E8 /* CategoryView.swift */,
+				8E5B59F922D75AD100BB01E8 /* CategoryView.swift */,
+				8E5B59F322D5C92900BB01E8 /* FirstCategoryView.swift */,
+				8E5B59F722D7580D00BB01E8 /* SecondCategoryView.swift */,
 				8E5B59F522D5CA6500BB01E8 /* CategoryTabBarCell.swift */,
 			);
 			path = CustomTabBar;
@@ -324,9 +330,11 @@
 				42FF928A22D5A48300639BAF /* ViewController.swift in Sources */,
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
 				8E5B59EF22D5BFF500BB01E8 /* CategoryTabBarViewController.swift in Sources */,
+				8E5B59F822D7580D00BB01E8 /* SecondCategoryView.swift in Sources */,
 				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
 				8E5B59F622D5CA6500BB01E8 /* CategoryTabBarCell.swift in Sources */,
-				8E5B59F422D5C92900BB01E8 /* CategoryView.swift in Sources */,
+				8E5B59F422D5C92900BB01E8 /* FirstCategoryView.swift in Sources */,
+				8E5B59FA22D75AD100BB01E8 /* CategoryView.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,

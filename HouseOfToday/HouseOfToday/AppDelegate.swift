@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /// 창식 feature branch
     let tabBarController = UITabBarController()
-    tabBarController.setViewControllers([CategoryTabBarViewController(["프로필", "나의쇼핑", "마이페이지"], with: true)], animated: true)
+    tabBarController.setViewControllers([CategoryTabBarViewController(["프로필", "나의쇼핑"], [FirstCategoryView(), SecondCategoryView()], withScrollOption: false)], animated: true)
     window?.rootViewController = tabBarController
 
     return true
