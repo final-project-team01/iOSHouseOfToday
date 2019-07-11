@@ -15,12 +15,9 @@ class CategoryTabBarView: UIView {
   /// 스크롤 가능한지 값 설정하기
   /// 마이페이지는 false 로 설정하고
   /// 홈은 true 로 설정해야 한다.
-  var isScrollEnabled: Bool {
-    get {
-      return categoryTabBarCollectionView.isScrollEnabled
-    }
-    set {
-      categoryTabBarCollectionView.isScrollEnabled = newValue
+  var isScrollEnabled: Bool! {
+    didSet {
+      categoryTabBarCollectionView.isScrollEnabled = self.isScrollEnabled
     }
   }
 
@@ -40,7 +37,6 @@ class CategoryTabBarView: UIView {
     let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     cv.showsHorizontalScrollIndicator = false
     cv.backgroundColor = .white
-
     addSubview(cv)
     cv.dataSource = self.self
     cv.delegate = self.self
