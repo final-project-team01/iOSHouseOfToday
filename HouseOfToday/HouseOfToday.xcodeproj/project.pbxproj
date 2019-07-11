@@ -10,6 +10,7 @@
 		42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */; };
 		42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */; };
 		42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */; };
+		42C4E5C222D70BBE00A88466 /* AddUserActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */; };
 		42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928722D5A48300639BAF /* AppDelegate.swift */; };
 		42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928922D5A48300639BAF /* HomeVC.swift */; };
 		42FF928F22D5A48400639BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42FF928E22D5A48400639BAF /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
 		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
+		42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserActivityView.swift; path = HouseOfToday/Controller/AddUserActivityView.swift; sourceTree = SOURCE_ROOT; };
 		42FF928422D5A48300639BAF /* HouseOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42FF928722D5A48300639BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42FF928922D5A48300639BAF /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		42FF929F22D5A8F500639BAF /* View&Cell */ = {
 			isa = PBXGroup;
 			children = (
+				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
 			);
 			path = "View&Cell";
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			files = (
 				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
 				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
+				42C4E5C222D70BBE00A88466 /* AddUserActivityView.swift in Sources */,
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
 				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
 				42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */,
