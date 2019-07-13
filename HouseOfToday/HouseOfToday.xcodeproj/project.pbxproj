@@ -32,7 +32,7 @@
 		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
 		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
-		42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserActivityView.swift; path = HouseOfToday/Controller/AddUserActivityView.swift; sourceTree = SOURCE_ROOT; };
+		42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserActivityView.swift; path = "HouseOfToday/View&Cell/AddUserActivityView.swift"; sourceTree = SOURCE_ROOT; };
 		42FF928422D5A48300639BAF /* HouseOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42FF928722D5A48300639BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42FF928922D5A48300639BAF /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -64,6 +64,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42C4E5C322D81BFD00A88466 /* View&Cell */ = {
+			isa = PBXGroup;
+			children = (
+				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
+			);
+			path = "View&Cell";
+			sourceTree = "<group>";
+		};
+		42C4E5C422D81C4E00A88466 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		42FF927B22D5A48300639BAF = {
 			isa = PBXGroup;
 			children = (
@@ -89,8 +104,8 @@
 				42FF928722D5A48300639BAF /* AppDelegate.swift */,
 				42FF929E22D5A8DB00639BAF /* Utility */,
 				42FF929C22D5A8B100639BAF /* Service */,
-				42FF929D22D5A8D200639BAF /* Model */,
-				42FF929F22D5A8F500639BAF /* View&Cell */,
+				42C4E5C422D81C4E00A88466 /* Model */,
+				42C4E5C322D81BFD00A88466 /* View&Cell */,
 				42FF92A022D5A90400639BAF /* Controller */,
 				42FF928E22D5A48400639BAF /* Assets.xcassets */,
 				42FF929022D5A48400639BAF /* LaunchScreen.storyboard */,
@@ -107,13 +122,6 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		42FF929D22D5A8D200639BAF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		42FF929E22D5A8DB00639BAF /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,14 +129,6 @@
 				8E5B59E222D5AC3F00BB01E8 /* Helpers */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		42FF929F22D5A8F500639BAF /* View&Cell */ = {
-			isa = PBXGroup;
-			children = (
-				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
-			);
-			path = "View&Cell";
 			sourceTree = "<group>";
 		};
 		42FF92A022D5A90400639BAF /* Controller */ = {
