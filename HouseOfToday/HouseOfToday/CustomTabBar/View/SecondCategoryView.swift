@@ -10,12 +10,26 @@ import UIKit
 
 class SecondCategoryView: UIView {
 
+  lazy var secondLabel: UILabel = {
+    let lb = UILabel()
+    lb.backgroundColor = .yellow
+    lb.text = "두 번째"
+    addSubview(lb)
+    return lb
+  }()
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = .yellow
+    makeConstraints()
+  }
+
+  private func makeConstraints() {
+    secondLabel.snp.makeConstraints {
+      $0.center.equalToSuperview()
+    }
   }
 }

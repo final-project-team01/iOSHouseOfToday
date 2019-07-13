@@ -10,12 +10,26 @@ import UIKit
 
 class FirstCategoryView: UIView {
 
+  lazy var firstLabel: UILabel = {
+    let lb = UILabel()
+    lb.backgroundColor = .yellow
+    lb.text = "첫 번째"
+    addSubview(lb)
+    return lb
+  }()
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = .red
+    makeConstraints()
+  }
+
+  private func makeConstraints() {
+    firstLabel.snp.makeConstraints {
+      $0.center.equalToSuperview()
+    }
   }
 }

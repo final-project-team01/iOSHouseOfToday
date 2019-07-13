@@ -9,7 +9,7 @@
 import UIKit
 
 class CategoryView: UIView {
-  
+
   var categoryViews: [UIView] = []
 
   lazy var pageCollectionView: UICollectionView = {
@@ -19,9 +19,9 @@ class CategoryView: UIView {
     let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     cv.isPagingEnabled = true
     cv.showsHorizontalScrollIndicator = false
-    cv.backgroundColor = .white
+    cv.backgroundColor = .green
     addSubview(cv)
-    cv.register(cell: CategoryTabBarCell.self)
+    cv.register(cell: CategoryCell.self)
     cv.dataSource = self.self
     cv.delegate = self.self
     return cv
@@ -33,7 +33,13 @@ class CategoryView: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = .green
+    makeConstraints()
+  }
+
+  private func makeConstraints() {
+    pageCollectionView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
   }
 
 }
@@ -43,13 +49,22 @@ extension CategoryView: UICollectionViewDataSource, UICollectionViewDelegateFlow
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return categoryViews.count
   }
-  
+
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    // 여기서부터 다시 시작. 임시로 return 해놓기
-    return UICollectionViewCell()
+
+    let cell = collectionView.dequeue(CategoryCell.self, indexPath)
+    cell.categoryView = categoryViews[indexPath.row]
+
+    return cell
   }
-  
+
   // MARK: - UICollectionViewDelegateFlowLayout
-  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    // 셀 사이즈 잡고 -> 셀 안에있는 뷰의 오토레이아웃 대로 잡히고
+    return CGSize(width: self.bounds.width, height: self.bounds.height)
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
 }
