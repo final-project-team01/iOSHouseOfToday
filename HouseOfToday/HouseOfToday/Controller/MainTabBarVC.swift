@@ -14,7 +14,7 @@ import UIKit
 final class MainTabBarVC: UITabBarController {
 
   private var isShowUserActivityView = false
-  private var didSelectedTabBarItem = 0
+  private var didSelectedTabBarItemIndex = 0
 
   private let homeVC = HomeVC()
   private let storeVC = StoreVC()
@@ -25,19 +25,15 @@ final class MainTabBarVC: UITabBarController {
   private lazy var addUserActivityButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "addPostsSeleted"), for: .normal)
+    button.imageView?.contentMode = .scaleAspectFit
+    button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     button.showsTouchWhenHighlighted = true
     button.addTarget(self, action: #selector(clickedUserActivityButton(_:)), for: .touchUpInside)
     button.isHighlighted = false
-    view.insertSubview(button, aboveSubview: self.tabBar)
+    if let lastSubView = tabBar.subviews.last { // tabbar subviews 중 last subview에 버튼을 add한다
+      lastSubView.addSubview(button)
+    }
     return button
-  }()
-
-  private lazy var animateView: UIView = {
-    let view = UIView(frame: CGRect.zero)
-    view.backgroundColor = .red
-
-//    self
-    return view
   }()
 
   override func viewDidLoad() {
@@ -45,27 +41,34 @@ final class MainTabBarVC: UITabBarController {
     self.delegate = self
     tabBar.backgroundColor = .white
     setupTabBarItems()
+
   }
 
   // setupTabBarItems: tabbarItem Image 연결
   private func setupTabBarItems() {
 
     homeVC.tabBarItem.image = UIImage(named: "home")
-    homeVC.tabBarItem.selectedImage = UIImage(named: "homeSeleted")
-
-    storeVC.tabBarItem.image = UIImage(named: "shop")
-    storeVC.tabBarItem.selectedImage = UIImage(named: "shopSeleted")
+//    homeVC.tabBarItem.selectedImage = UIImage(named: "homeSeleted")
+    print("a")
+    storeVC.tabBarItem.image = UIImage(named: "store")
+//    storeVC.tabBarItem.selectedImage = UIImage(named: "shopSeleted")
 
     expertVC.tabBarItem.image = UIImage(named: "expert")
-    expertVC.tabBarItem.selectedImage = UIImage(named: "expertSeleted")
+//    expertVC.tabBarItem.selectedImage = UIImage(named: "expertSeleted")
 
-    myPageVC.tabBarItem.image = UIImage(named: "user")
-    myPageVC.tabBarItem.selectedImage = UIImage(named: "userSeleted")
+    myPageVC.tabBarItem.image = UIImage(named: "myPage")
+//    myPageVC.tabBarItem.selectedImage = UIImage(named: "userSeleted")
 
     addUserActivityVC.tabBarItem.image = UIImage(named: "1addPostsSeleted")
 
     viewControllers = [homeVC, storeVC, expertVC, myPageVC, addUserActivityVC]
 
+    if let items = tabBar.items {
+      for tabBarItem in items {
+        tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+      }
+    }
+    self.tabBar.unselectedItemTintColor = .darkGray
   }
 
   // viewDidLayoutSubviews: Layout이 다 잡힌후에 호출되는 function
@@ -73,17 +76,14 @@ final class MainTabBarVC: UITabBarController {
     super.viewDidLayoutSubviews()
 
     if tabBar.subviews.count == 5, addUserActivityButton.translatesAutoresizingMaskIntoConstraints {
-      print("viewDidLayoutSubviews")
-      addUserActivityButton.translatesAutoresizingMaskIntoConstraints = false
-      addUserActivityButton.centerXAnchor.constraint(equalTo: tabBar.subviews[4].centerXAnchor).isActive = true
-      addUserActivityButton.centerYAnchor.constraint(equalTo: tabBar.subviews[4].centerYAnchor).isActive = true
+      addUserActivityButton.snp.makeConstraints {
+        $0.edges.equalToSuperview()
+      }
     }
   }
 
   override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-    didSelectedTabBarItem = tabBar.items?.firstIndex(of: item) ?? selectedIndex
-
-    print("didSelect: \(tabBar.items?.firstIndex(of: item)), selected: \(selectedIndex)")
+    didSelectedTabBarItemIndex = tabBar.items?.firstIndex(of: item) ?? selectedIndex
   }
 
   // clickedUserActivityButton: tabbar button 클릭시 호출
@@ -104,6 +104,9 @@ final class MainTabBarVC: UITabBarController {
     }
     // show
     viewControllers?[selectedIndex].showAnimateVC()
+
+    // selected tabbar color setting
+    self.tabBar.tintColor = .darkGray
   }
 
   // hideActivityVC: 현재 tabbar가 띄운 뷰 컨트롤러에서 dismiss
@@ -116,7 +119,11 @@ final class MainTabBarVC: UITabBarController {
     }
 
     // hide
-    viewControllers?[selectedIndex].presentedViewController?.dismiss(animated: true, completion: nil)
+    if let viewController = viewControllers?[selectedIndex].presentedViewController as? AddUserActivityVC {
+      viewController.customDismiss()
+    }
+    // selected tabbar color setting
+    self.tabBar.tintColor = #colorLiteral(red: 0, green: 0.4795769453, blue: 1, alpha: 1)
   }
 
   // getAnimationButtonStatus: adduserActivityButton 상태 반환
@@ -125,7 +132,6 @@ final class MainTabBarVC: UITabBarController {
     print(addUserActivityButton.transform == .identity)
     return addUserActivityButton.transform != .identity
   }
-
 }
 
 extension MainTabBarVC: UITabBarControllerDelegate {
@@ -134,14 +140,10 @@ extension MainTabBarVC: UITabBarControllerDelegate {
     if getAnimationButtonStatus() {
 
       hideActivityVC { // dissmiss activityVC
-        tabBarController.selectedIndex = self.didSelectedTabBarItem
+        tabBarController.selectedIndex = self.didSelectedTabBarItemIndex
       }
-
-      return false      // activityVC를 dissmiss를 에니메이션으로 보여준후에 tabbar에 선택된
+      return false      // false: 자동으로 반응을 하지 않도록 한다.
     }
-
-    print("shouldSelect: \(viewController)")
-
     return true
   }
 }

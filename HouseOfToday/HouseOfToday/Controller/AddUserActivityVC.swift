@@ -8,11 +8,26 @@
 
 import UIKit
 
-class AddUserActivityVC: UIViewController {
+extension AddUserActivityVC {
+  static var presentAlert: Notification.Name {
+    return Notification.Name("presentAlert")
+  }
+}
+
+final class AddUserActivityVC: UIViewController {
+
+  private let notiCenter = NotificationCenter.default
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    view.backgroundColor = .yellow
+    notiCenter.addObserver(self, selector: #selector(knowHowTouchAlertPresnet(_:)),
+      name: AddUserActivityVC.presentAlert,
+      object: nil)
+
+  }
+
+  deinit {
+    notiCenter.removeObserver(self, name: AddUserActivityVC.presentAlert, object: nil)
   }
 
   override func loadView() {
@@ -22,18 +37,42 @@ class AddUserActivityVC: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
+    // show animation 실행
     if let userView = view as? AddUserActivityView {
       userView.showView()
     }
-
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    if let userView = view as? AddUserActivityView {
-      userView.hideView()
 
-    }
+    // hide animation 실행
+//    if let userView = view as? AddUserActivityView {
+//      userView.hideView()
+//    }
   }
 
+  func customDismiss() {
+
+    UIView.animate(withDuration: 0.5, animations: {
+      if let userView = self.view as? AddUserActivityView {
+        userView.hideView()
+        userView.layoutIfNeeded()
+      }
+    }) { (_) in
+      self.presentingViewController?.dismiss(animated: false, completion: nil)
+    }
+
+  }
+
+  // alert action present
+  @objc func knowHowTouchAlertPresnet(_ sender: Notification) {
+    guard let userInfo = sender.userInfo as? [String: UIAlertController],
+        let alert = userInfo["alert"]
+    else {
+      return print("fail down casting")
+    }
+
+    present(alert, animated: true)
+  }
 }
