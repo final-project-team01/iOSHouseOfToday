@@ -40,7 +40,7 @@ class CategoryTabBarView: UIView {
   // TODO: - 글자 크기에 따라서 IndicatorBar 따라오는거 구현 보류. 너무 어렵다.
   let fontSize = ("마" as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
 
-  var widthSize: CGFloat!
+  var didSelectCategoryCell: ((IndexPath) -> Void)?
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
@@ -79,7 +79,7 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
 
     collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
 
-    widthSize = self.frame.width / CGFloat(categoryTitles.count)
+    let widthSize = self.frame.width / CGFloat(categoryTitles.count)
 
     // CollectionView 의 Cell Size 결정할 때 indicatorBar 의 layout 도 같이 잡아준다.
     return CGSize(width: widthSize, height: self.frame.height)
@@ -87,7 +87,10 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
 
   // MARK: - UICollectionViewDelegate
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+    guard let callback = didSelectCategoryCell else {
+      return
+    }
+    callback(indexPath)
   }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {

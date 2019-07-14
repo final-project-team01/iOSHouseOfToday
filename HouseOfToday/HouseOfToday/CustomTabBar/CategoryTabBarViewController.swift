@@ -62,6 +62,7 @@ class CategoryTabBarViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    didSelectCategoryCell()
     makeConstraints()
   }
 
@@ -70,14 +71,34 @@ class CategoryTabBarViewController: UIViewController {
 
   }
 
+  private func didSelectCategoryCell() {
+    // 콜백으로 시점문제 해결
+    let widthSize = UIScreen.main.bounds.width / CGFloat(categoryTitles.count)
+    self.categoryTabBarView.didSelectCategoryCell = {
+      [weak self] index in
+      
+      // 내가 필요한 값 전달
+      self?.indicatorBarView.didSelectCategoryCell = index
+      
+       // Controller 부분에서 애니메이션 적용.
+      UIView.animate(withDuration: 0.5,
+                     delay: 0,
+                     usingSpringWithDamping: 0.7,
+                     initialSpringVelocity: 1,
+                     options: .curveEaseInOut,
+                     animations: {
+                      self?.view.layoutIfNeeded()
+      },
+                     completion: nil)
+
+    }
+  }
+
   // 시점문제를 해결해서 값을 한번만 할당하려는 flag
   private var firstCallFlagForAssignment = true
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     if firstCallFlagForAssignment {
-      //indicatorBarView.frameWidth = self.indicatorBarView.frame.width
-//      indicatorBarView.setNeedsUpdateConstraints()
-//      indicatorBarView.setNeedsLayout()
       firstCallFlagForAssignment.toggle()
     }
   }

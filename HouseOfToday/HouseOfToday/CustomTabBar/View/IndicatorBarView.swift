@@ -33,6 +33,16 @@ class IndicatorBarView: UIView {
     }
   }
 
+  var didSelectCategoryCell: IndexPath? {
+    didSet {
+      let widthSize = UIScreen.main.bounds.width / CGFloat(categoryTitles.count)
+      self.snp.updateConstraints {
+        $0.leading.equalTo(widthSize * CGFloat(self.didSelectCategoryCell!.row))
+      }
+
+    }
+  }
+
   /// 다이나믹 오토 레이아웃으로 시작점 잡아야 하고
 //  setIndicatorLeading = widthSize * CGFloat(indexPath.item)
 //  UIView.animate(withDuration: 0.5,
