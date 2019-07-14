@@ -25,6 +25,7 @@
 		8E5B59F822D7580D00BB01E8 /* SecondCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59F722D7580D00BB01E8 /* SecondCategoryView.swift */; };
 		8E5B59FA22D75AD100BB01E8 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59F922D75AD100BB01E8 /* CategoryView.swift */; };
 		8E5B5A0022D82E8200BB01E8 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59FF22D82E8200BB01E8 /* CategoryCell.swift */; };
+		8E5B5A0222DB005A00BB01E8 /* IndicatorBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B5A0122DB005A00BB01E8 /* IndicatorBarView.swift */; };
 		C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		8E5B59F722D7580D00BB01E8 /* SecondCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCategoryView.swift; sourceTree = "<group>"; };
 		8E5B59F922D75AD100BB01E8 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		8E5B59FF22D82E8200BB01E8 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		8E5B5A0122DB005A00BB01E8 /* IndicatorBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				8E5B59F122D5C84D00BB01E8 /* CategoryTabBarView.swift */,
+				8E5B5A0122DB005A00BB01E8 /* IndicatorBarView.swift */,
 				8E5B59F922D75AD100BB01E8 /* CategoryView.swift */,
 				8E5B59F322D5C92900BB01E8 /* FirstCategoryView.swift */,
 				8E5B59F722D7580D00BB01E8 /* SecondCategoryView.swift */,
@@ -350,6 +353,7 @@
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
 				8E5B59EF22D5BFF500BB01E8 /* CategoryTabBarViewController.swift in Sources */,
 				8E5B59F822D7580D00BB01E8 /* SecondCategoryView.swift in Sources */,
+				8E5B5A0222DB005A00BB01E8 /* IndicatorBarView.swift in Sources */,
 				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
 				8E5B59F622D5CA6500BB01E8 /* CategoryTabBarCell.swift in Sources */,
 				8E5B59F422D5C92900BB01E8 /* FirstCategoryView.swift in Sources */,

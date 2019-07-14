@@ -37,19 +37,26 @@ class CategoryTabBarViewController: UIViewController {
   }
 
   // MARK: - 변수선언
-  private lazy var categoryView: CategoryView = {
-    let cv = CategoryView()
-    cv.categoryViews = self.categoryViews
-    view.addSubview(cv)
-    return cv
-  }()
-
   private lazy var categoryTabBarView: CategoryTabBarView = {
     let ctv = CategoryTabBarView()
     ctv.isScrollEnabled = self.categoryTabBarScrollIsEnabled
     ctv.categoryTitles = categoryTitles
     view.addSubview(ctv)
     return ctv
+  }()
+
+  private lazy var indicatorBarView: IndicatorBarView = {
+    let v = IndicatorBarView()
+    view.addSubview(v)
+    v.categoryTitles = categoryTitles
+    return v
+  }()
+
+  private lazy var categoryView: CategoryView = {
+    let cv = CategoryView()
+    cv.categoryViews = self.categoryViews
+    view.addSubview(cv)
+    return cv
   }()
 
   // MARK: - LifeCycle
@@ -60,17 +67,34 @@ class CategoryTabBarViewController: UIViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+
+  }
+
+  // 시점문제를 해결해서 값을 한번만 할당하려는 flag
+  private var firstCallFlagForAssignment = true
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    print(indicatorBarView.frame.width)
+    if firstCallFlagForAssignment {
+      indicatorBarView.frameWidth = self.indicatorBarView.frame.width
+    }
   }
 
   private func makeConstraints() {
     categoryTabBarView.snp.makeConstraints {
       $0.top.equalTo(view.safeAreaLayoutGuide)
       $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(view.snp.height).multipliedBy(0.05)
+      $0.height.equalTo(view.snp.height).multipliedBy(0.045)
+    }
+
+    indicatorBarView.snp.makeConstraints {
+      $0.top.equalTo(categoryTabBarView.snp.bottom)
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(categoryTabBarView.snp.height).multipliedBy(0.1)
     }
 
     categoryView.snp.makeConstraints {
-      $0.top.equalTo(categoryTabBarView.snp.bottom)
+      $0.top.equalTo(indicatorBarView.snp.bottom)
       $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
     }
   }

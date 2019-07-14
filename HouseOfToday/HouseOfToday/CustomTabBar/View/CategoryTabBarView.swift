@@ -36,21 +36,6 @@ class CategoryTabBarView: UIView {
   }()
 
   // 인디케이터 바 나누기 시작하자
-  lazy var indicatorBar: UIView = {
-    let v = UIView()
-    v.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-    addSubview(v)
-    return v
-  }()
-
-  /// IndicatorBar Leading Position 결정하기
-  var setIndicatorLeading: CGFloat = 0 {
-    didSet {
-      indicatorBar.snp.updateConstraints {
-        $0.leading.equalTo(self.setIndicatorLeading)
-      }
-    }
-  }
 
   // TODO: - 글자 크기에 따라서 IndicatorBar 따라오는거 구현 보류. 너무 어렵다.
   let fontSize = ("마" as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
@@ -71,11 +56,6 @@ class CategoryTabBarView: UIView {
   private func makeConstraints() {
     categoryTabBarCollectionView.snp.makeConstraints {
       $0.edges.equalToSuperview()
-    }
-
-    indicatorBar.snp.makeConstraints {
-      $0.leading.bottom.equalToSuperview()
-      $0.height.equalTo(self.snp.height).multipliedBy(0.1)
     }
   }
 }
@@ -102,25 +82,12 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
     widthSize = self.frame.width / CGFloat(categoryTitles.count)
 
     // CollectionView 의 Cell Size 결정할 때 indicatorBar 의 layout 도 같이 잡아준다.
-    indicatorBar.snp.makeConstraints {
-      $0.width.equalTo(widthSize)
-    }
     return CGSize(width: widthSize, height: self.frame.height)
   }
 
   // MARK: - UICollectionViewDelegate
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    setIndicatorLeading = widthSize * CGFloat(indexPath.item)
-    UIView.animate(withDuration: 0.5,
-                   delay: 0,
-                   usingSpringWithDamping: 0.7,
-                   initialSpringVelocity: 1,
-                   options: .curveEaseInOut,
-                   animations: {
-                    self.layoutIfNeeded()
-    },
-                   completion: nil)
   }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -128,9 +95,6 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
     let leftOffset = scrollView.contentOffset.x
 
     // 컬렉션 뷰 움직이면 indicatorBar 도 같이 움직이게
-    indicatorBar.snp.updateConstraints {
-      $0.leading.equalTo(setIndicatorLeading - leftOffset)
-    }
   }
 
 }
