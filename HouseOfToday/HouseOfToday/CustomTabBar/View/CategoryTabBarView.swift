@@ -42,6 +42,8 @@ class CategoryTabBarView: UIView {
 
   var didSelectCategoryCell: ((IndexPath) -> Void)?
 
+  var categoryDidScroll: ((UIScrollView) -> Void)?
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
@@ -87,15 +89,14 @@ extension CategoryTabBarView: UICollectionViewDataSource, UICollectionViewDelega
 
   // MARK: - UICollectionViewDelegate
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    guard let callback = didSelectCategoryCell else {
-      return
-    }
+    guard let callback = didSelectCategoryCell else { return logger() }
     callback(indexPath)
   }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-    let leftOffset = scrollView.contentOffset.x
+    guard let callback = categoryDidScroll else { return logger() }
+    callback(scrollView)
+    //let leftOffset = scrollView.contentOffset.x
 
     // 컬렉션 뷰 움직이면 indicatorBar 도 같이 움직이게
   }

@@ -63,6 +63,7 @@ class CategoryTabBarViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     didSelectCategoryCell()
+    categoryDidScroll()
     makeConstraints()
   }
 
@@ -73,13 +74,12 @@ class CategoryTabBarViewController: UIViewController {
 
   private func didSelectCategoryCell() {
     // 콜백으로 시점문제 해결
-    let widthSize = UIScreen.main.bounds.width / CGFloat(categoryTitles.count)
     self.categoryTabBarView.didSelectCategoryCell = {
       [weak self] index in
-      
+
       // 내가 필요한 값 전달
       self?.indicatorBarView.didSelectCategoryCell = index
-      
+
        // Controller 부분에서 애니메이션 적용.
       UIView.animate(withDuration: 0.5,
                      delay: 0,
@@ -91,6 +91,18 @@ class CategoryTabBarViewController: UIViewController {
       },
                      completion: nil)
 
+    }
+  }
+
+  // 스크롤이랑 같이 움직이게 하기 하는중
+  private func categoryDidScroll() {
+    self.categoryTabBarView.categoryDidScroll = {
+      [weak self] scrollView in
+      let widthSize = UIScreen.main.bounds.width / CGFloat(self!.categoryTitles.count)
+      let leftOffset = scrollView.contentOffset.x
+//      self?.indicatorBarView.snp.updateConstraints {
+//        $0.leading.equalTo(widthSize * CGFloat(self?.didSelectCategoryCell.row) + leftOffset)
+//      }
     }
   }
 
