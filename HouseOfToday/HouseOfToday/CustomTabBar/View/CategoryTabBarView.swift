@@ -35,6 +35,7 @@ class CategoryTabBarView: UIView {
     return cv
   }()
 
+  // 인디케이터 바 나누기 시작하자
   lazy var indicatorBar: UIView = {
     let v = UIView()
     v.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
