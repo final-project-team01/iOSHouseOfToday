@@ -144,7 +144,6 @@ final class ProfileUserCell: UITableViewCell {
   override func updateConstraints() {
     super.updateConstraints()
 
-    // stackView
     let followStackView = UIStackView(arrangedSubviews: [followerButton, followingButton])
     followStackView.axis = .horizontal
     followStackView.alignment = .leading
@@ -212,7 +211,7 @@ final class ProfileUserCell: UITableViewCell {
     }
 
     snsButtonStackView.snp.makeConstraints { make in
-      make.top.equalTo(topStackView.snp.bottom).offset(30)
+      make.top.equalTo(topStackView.snp.bottom).offset(15)
       make.leading.trailing.bottom.equalToSuperview().inset(10).labeled("snsButtonStackView")
     }
 

@@ -14,10 +14,9 @@ class ProfileVC: UIViewController {
   lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.dataSource = self.self
-//    tableView.register(cell: ProfileUserCell.self)
+    tableView.delegate = self.self
+    tableView.register(cell: ProfileUserCell.self)
     tableView.register(cell: ProfileBaseCell.self)
-//    tableView.rowHeight = 220 // FIXME: - 셀높이 임시 저장
-    tableView.rowHeight = 120
     view.addSubview(tableView)
     return tableView
   }()
@@ -40,32 +39,41 @@ class ProfileVC: UIViewController {
 
 }
 
-// FIXME: - 각각의 셀높이 조정
-extension ProfileVC: UITableViewDataSource {
+extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 2
+    return 7
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-    let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
+    switch indexPath.row {
+    case 0:
+      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileUserCell.identifier, for: indexPath) as! ProfileUserCell
+      cell.backgroundColor = .red
+      return cell
 
-    return cell
+    case 1:
+      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
+      // subtitle 없애기
+      return cell
 
-//    switch indexPath.row {
-//    case 0:
-//      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileUserCell.identifier, for: indexPath) as! ProfileUserCell
-//      cell.backgroundColor = .red
-//      return cell
+    default:
+      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
+      return cell
+    }
 
-//      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileUserCell.identifier, for: indexPath) as! ProfileUserCell
-//      cell.backgroundColor = .yellow
-//      return cell
-//
-//    default:
-//      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
-//      return cell
-//    }
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    switch indexPath.row {
+    case 0:
+      return 200
+    case 1:
+      return 100
+    default:
+      return 70
+
+    }
 
   }
 

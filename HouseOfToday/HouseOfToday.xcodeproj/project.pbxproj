@@ -163,8 +163,8 @@
 		AB7EEA6F22D81D9C00F33663 /* View&Cell */ = {
 			isa = PBXGroup;
 			children = (
-				AB7EEA7022D81DBD00F33663 /* ProfileBaseCell.swift */,
 				AB7EEA7122D81DBD00F33663 /* ProfileUserCell.swift */,
+				AB7EEA7022D81DBD00F33663 /* ProfileBaseCell.swift */,
 			);
 			path = "View&Cell";
 			sourceTree = "<group>";

@@ -14,14 +14,14 @@ class ProfileBaseCell: UITableViewCell {
   lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "나의 쇼핑"
-    label.font = UIFont.boldSystemFont(ofSize: 20)
+    label.font = UIFont.boldSystemFont(ofSize: 18)
     addSubview(label)
     return label
   }()
 
   lazy var subTitleLabel: UILabel = {
     let label = UILabel()
-    label.text = "첫사진을 올리면 +1000P"
+    label.text = "첫사진을 올리면 +1000p"
     label.backgroundColor = #colorLiteral(red: 0.9656298757, green: 0.5998463631, blue: 0.5986141562, alpha: 1)
     label.font = UIFont.boldSystemFont(ofSize: 18)
     addSubview(label)
@@ -73,11 +73,10 @@ class ProfileBaseCell: UITableViewCell {
 
   lazy var rightSideCellButton: UIButton = {
     let button = UIButton(type: .custom)
-    button.setImage(UIImage(named: "바로가기"), for: .normal)
     button.setTitleColor(.white, for: .normal)
     button.setTitle("바로가기", for: .normal)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
     button.backgroundColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-
     addSubview(button)
     return button
   }()
@@ -96,7 +95,7 @@ class ProfileBaseCell: UITableViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    subTitleLabel.layer.cornerRadius = subTitleLabel.frame.height / 2
+    subTitleLabel.layer.cornerRadius = subTitleLabel.frame.height / 3
     subTitleLabel.clipsToBounds = true
 
     rightSideCellButton.layer.cornerRadius = rightSideCellButton.frame.height / 10
@@ -106,18 +105,18 @@ class ProfileBaseCell: UITableViewCell {
       make.width.equalTo(2)
       make.height.equalTo(beingOrderCount.snp.height)
     }
-
-    print("detailStackView: \(detailStackView.frame)")
   }
 
   override func updateConstraints() {
     super.updateConstraints()
 
+    let padding: CGFloat = 10
+
     let titleStackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
     titleStackView.axis = .horizontal
-    titleStackView.alignment = .center
-    titleStackView.distribution = .fill
-    titleStackView.spacing = 10
+    titleStackView.alignment = .leading
+    titleStackView.distribution = .equalCentering
+    titleStackView.spacing = padding
 
     addSubview(titleStackView)
 
@@ -125,27 +124,27 @@ class ProfileBaseCell: UITableViewCell {
     detailStackView.axis = .horizontal
     detailStackView.alignment = .fill
     detailStackView.distribution = .equalSpacing
-    detailStackView.spacing = 5
+    detailStackView.spacing = padding
 
     addSubview(detailStackView)
 
     titleStackView.snp.makeConstraints { make in
-      make.centerY.equalTo(rightSideCellButton.snp.centerY).offset(-10)
-      make.leading.equalToSuperview().inset(20)
-
+      make.centerY.equalTo(rightSideCellButton.snp.centerY).offset(-padding)
+      make.leading.equalToSuperview().inset(padding * 2)
+      make.trailing.lessThanOrEqualTo(rightSideCellButton.snp.leading).offset(-padding)
     }
 
     detailStackView.snp.makeConstraints { make in
-      make.leading.equalToSuperview().inset(20)
-      make.top.equalTo(titleStackView.snp.bottom).offset(10)
-
+      make.top.equalTo(rightSideCellButton.snp.centerY).offset(padding)
+      make.leading.equalToSuperview().inset(padding * 2)
+      make.trailing.lessThanOrEqualTo(rightSideCellButton.snp.leading).offset(-padding)
     }
 
     rightSideCellButton.snp.makeConstraints { make in
-      make.width.equalToSuperview().multipliedBy(0.2)
-      make.top.bottom.equalToSuperview().inset(40)
-//      make.leading.equalTo(detailStackView.snp.trailing).offset(20)
-      make.trailing.equalToSuperview().inset(20)
+      make.centerY.equalToSuperview()
+      make.width.equalToSuperview().multipliedBy(0.17)
+      make.height.equalToSuperview().multipliedBy(0.33)
+      make.trailing.equalToSuperview().inset(padding * 2)
     }
 
   }
