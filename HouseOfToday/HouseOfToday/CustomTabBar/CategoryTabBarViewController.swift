@@ -74,9 +74,11 @@ class CategoryTabBarViewController: UIViewController {
   private var firstCallFlagForAssignment = true
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    print(indicatorBarView.frame.width)
     if firstCallFlagForAssignment {
-      indicatorBarView.frameWidth = self.indicatorBarView.frame.width
+      //indicatorBarView.frameWidth = self.indicatorBarView.frame.width
+//      indicatorBarView.setNeedsUpdateConstraints()
+//      indicatorBarView.setNeedsLayout()
+      firstCallFlagForAssignment.toggle()
     }
   }
 
@@ -89,7 +91,8 @@ class CategoryTabBarViewController: UIViewController {
 
     indicatorBarView.snp.makeConstraints {
       $0.top.equalTo(categoryTabBarView.snp.bottom)
-      $0.leading.trailing.equalToSuperview()
+      $0.leading.equalToSuperview()
+      //$0.width.equalTo(40)
       $0.height.equalTo(categoryTabBarView.snp.height).multipliedBy(0.1)
     }
 
