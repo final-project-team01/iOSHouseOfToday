@@ -80,6 +80,9 @@ class CategoryTabBarViewController: UIViewController {
       // 내가 필요한 값 전달
       self?.indicatorBarView.didSelectCategoryCell = index
 
+      // 스크롤을 위해 index 공유하기
+      self?.didSelectedCategoryCell = index
+
        // Controller 부분에서 애니메이션 적용.
       UIView.animate(withDuration: 0.5,
                      delay: 0,
@@ -94,15 +97,17 @@ class CategoryTabBarViewController: UIViewController {
     }
   }
 
+  private var didSelectedCategoryCell: IndexPath?
   // 스크롤이랑 같이 움직이게 하기 하는중
   private func categoryDidScroll() {
     self.categoryTabBarView.categoryDidScroll = {
       [weak self] scrollView in
       let widthSize = UIScreen.main.bounds.width / CGFloat(self!.categoryTitles.count)
       let leftOffset = scrollView.contentOffset.x
-//      self?.indicatorBarView.snp.updateConstraints {
-//        $0.leading.equalTo(widthSize * CGFloat(self?.didSelectCategoryCell.row) + leftOffset)
-//      }
+
+            self?.indicatorBarView.snp.updateConstraints {
+        $0.leading.equalTo(widthSize * CGFloat(self?.didSelectedCategoryCell?.row ?? 0) - leftOffset)
+      }
     }
   }
 
