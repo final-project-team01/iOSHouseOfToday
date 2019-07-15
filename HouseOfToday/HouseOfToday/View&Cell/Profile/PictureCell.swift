@@ -17,22 +17,18 @@ class PictureCell: UITableViewCell {
     static let lineSpacing: CGFloat = 3.0
     static let edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
   }
-  
-  
+
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     updateConstraints()
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func updateConstraints() {
     super.updateConstraints()
-    
-    
-    
-    
+
   }
 }
