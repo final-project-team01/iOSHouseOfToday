@@ -27,6 +27,8 @@ class CategoryView: UIView {
     return cv
   }()
 
+  var categoryViewDidEndScroll: ((Int) -> Void)?
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
@@ -66,5 +68,17 @@ extension CategoryView: UICollectionViewDataSource, UICollectionViewDelegateFlow
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
+  }
+
+  // MARK: - Delegate
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    print("offset : \(scrollView.contentOffset)")
+    print("velocity : \(velocity)")
+    print("targetContentOffset : \(targetContentOffset.pointee)")
+    let itemAt = Int(targetContentOffset.pointee.x / UIScreen.main.bounds.width)
+
+    guard let pageDidScroll = categoryViewDidEndScroll else { return logger() }
+    pageDidScroll(itemAt)
+
   }
 }

@@ -62,9 +62,10 @@ class CategoryTabBarViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    didSelectCategoryCell()
+    didSelectCategoryTabBarCell()
     categoryDidScroll()
     makeConstraints()
+    categoryViewDidEndScroll()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -72,7 +73,9 @@ class CategoryTabBarViewController: UIViewController {
 
   }
 
-  private func didSelectCategoryCell() {
+  // MARK: - CallBack 함수들
+
+  private func didSelectCategoryTabBarCell() {
     // 콜백으로 시점문제 해결
     self.categoryTabBarView.didSelectCategoryCell = {
       [weak self] index in
@@ -94,11 +97,12 @@ class CategoryTabBarViewController: UIViewController {
       },
                      completion: nil)
 
+      self?.categoryView.pageCollectionView.selectItem(at: index, animated: true, scrollPosition: .centeredHorizontally)
     }
   }
 
+  // scroll 에서 didSelectedCategoryCell 정보 필요해서 변수로 만들었다.
   private var didSelectedCategoryCell: IndexPath?
-  // 스크롤이랑 같이 움직이게 하기 하는중
   private func categoryDidScroll() {
     self.categoryTabBarView.categoryDidScroll = {
       [weak self] scrollView in
@@ -111,12 +115,12 @@ class CategoryTabBarViewController: UIViewController {
     }
   }
 
-  // 시점문제를 해결해서 값을 한번만 할당하려는 flag
-  private var firstCallFlagForAssignment = true
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    if firstCallFlagForAssignment {
-      firstCallFlagForAssignment.toggle()
+  private func categoryViewDidEndScroll() {
+    categoryView.categoryViewDidEndScroll = {
+      [weak self] itemAt in
+      guard let self = self else { return logger() }
+      self.categoryTabBarView.categoryTabBarCollectionView.selectItem(at: IndexPath(item: itemAt, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+      self.categoryTabBarView.collectionView(self.categoryTabBarView.categoryTabBarCollectionView, didSelectItemAt: IndexPath(item: itemAt, section: 0))
     }
   }
 
