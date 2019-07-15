@@ -10,9 +10,20 @@ import UIKit
 
 final class StoreVC: UIViewController {
 
+  let service = HouseOfTodayService()
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .green
+
+    service.fetchProductCategoryList { result in
+      switch result {
+      case .success(let list):
+        print("success!!! List Count: \(list.count)")
+      case .failure(let error):
+        print("fetchProductCategoryList Error: \(error.localizedDescription)")
+      }
+    }
+
   }
 
 }

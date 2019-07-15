@@ -20,14 +20,17 @@ final class AddUserActivityVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    notiCenter.addObserver(self, selector: #selector(knowHowTouchAlertPresnet(_:)),
-      name: AddUserActivityVC.presentAlert,
-      object: nil)
 
+    notiCenter.addObserver(self,
+                           selector: #selector(knowHowTouchAlertPresnet(_:)),
+                           name: AddUserActivityVC.presentAlert,
+                           object: nil)
   }
 
   deinit {
-    notiCenter.removeObserver(self, name: AddUserActivityVC.presentAlert, object: nil)
+    notiCenter.removeObserver(self,
+                              name: AddUserActivityVC.presentAlert,
+                              object: nil)
   }
 
   override func loadView() {
@@ -36,25 +39,14 @@ final class AddUserActivityVC: UIViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-
     // show animation 실행
     if let userView = view as? AddUserActivityView {
       userView.showView()
     }
   }
 
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-
-    // hide animation 실행
-//    if let userView = view as? AddUserActivityView {
-//      userView.hideView()
-//    }
-  }
-
   func customDismiss() {
-
-    UIView.animate(withDuration: 0.5, animations: {
+    UIView.animate(withDuration: 0.33, animations: {
       if let userView = self.view as? AddUserActivityView {
         userView.hideView()
         userView.layoutIfNeeded()
@@ -62,7 +54,6 @@ final class AddUserActivityVC: UIViewController {
     }) { (_) in
       self.presentingViewController?.dismiss(animated: false, completion: nil)
     }
-
   }
 
   // alert action present
@@ -72,7 +63,6 @@ final class AddUserActivityVC: UIViewController {
     else {
       return print("fail down casting")
     }
-
     present(alert, animated: true)
   }
 }
