@@ -11,6 +11,15 @@ import SnapKit
 
 class ProfileBaseCell: UITableViewCell {
 
+  enum TitleName: String {
+
+    case myShoping        = "나의 쇼핑"
+    case picture          = "사진"
+    case houseWarming     = "집들이"
+    case reviewWriting    = "리뷰쓰기"
+    case review           = "리뷰"
+  }
+
   lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "나의 쇼핑"
@@ -21,9 +30,10 @@ class ProfileBaseCell: UITableViewCell {
 
   lazy var subTitleLabel: UILabel = {
     let label = UILabel()
-    label.text = "첫사진을 올리면 +1000p"
+    label.text = " 첫사진을 올리면 +1000p "
     label.backgroundColor = #colorLiteral(red: 0.9656298757, green: 0.5998463631, blue: 0.5986141562, alpha: 1)
-    label.font = UIFont.boldSystemFont(ofSize: 18)
+    label.textColor = .white
+    label.font = UIFont.boldSystemFont(ofSize: 15)
     addSubview(label)
     return label
   }()
@@ -53,7 +63,7 @@ class ProfileBaseCell: UITableViewCell {
     return label
   }()
 
-  lazy var pointTextLeable: UILabel = {
+  lazy var pointTextLabel: UILabel = {
     let label = UILabel()
     label.text = "포인트"
     label.textColor = .lightGray
@@ -81,7 +91,80 @@ class ProfileBaseCell: UITableViewCell {
     return button
   }()
 
-  var detailStackView: UIStackView!
+  //각각 cell에 맞게 속성 변경
+  func setLabelItems(title: TitleName, subTitle: String = "", orderCount: String = "", point: String = "") {
+
+    switch title {
+    case .myShoping:
+      titleLabel.text = title.rawValue
+      subTitleLabel.isHidden = true
+      beingOrderCount.text = orderCount
+      pointNum.text = "\(point)P"
+
+    case .picture:
+      titleLabel.text = title.rawValue
+
+      beingOrder.isHidden = true
+      beingOrderCount.isHidden = true
+      pointTextLabel.isHidden = true
+      pointNum.isHidden = true
+      seperateLabel.isHidden = true
+
+      rightSideCellButton.setTitle("올리기", for: .normal)
+      rightSideCellButton.backgroundColor = .white
+      rightSideCellButton.setTitleColor( #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1), for: .normal)
+      rightSideCellButton.contentHorizontalAlignment = .right
+
+    case .houseWarming:
+
+      titleLabel.text = title.rawValue
+
+      beingOrder.isHidden = true
+      beingOrderCount.isHidden = true
+      pointTextLabel.isHidden = true
+      pointNum.isHidden = true
+      seperateLabel.isHidden = true
+
+      rightSideCellButton.isHidden = true
+
+      subTitleLabel.text = subTitle
+      subTitleLabel.backgroundColor = .white
+      subTitleLabel.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
+
+    case .reviewWriting:
+
+      titleLabel.text = title.rawValue
+      subTitleLabel.isHidden = true
+
+      beingOrder.isHidden = true
+      beingOrderCount.isHidden = true
+      pointTextLabel.isHidden = true
+      pointNum.isHidden = true
+      seperateLabel.isHidden = true
+
+      rightSideCellButton.setTitle("리뷰쓰기", for: .normal)
+
+    case .review:
+
+      titleLabel.text = title.rawValue
+
+      subTitleLabel.text = subTitle
+      subTitleLabel.backgroundColor = .white
+      subTitleLabel.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
+
+      beingOrder.isHidden = true
+      beingOrderCount.isHidden = true
+      pointTextLabel.isHidden = true
+      pointNum.isHidden = true
+      seperateLabel.isHidden = true
+
+      rightSideCellButton.isHidden = true
+
+    default:
+      break
+    }
+
+  }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -95,9 +178,12 @@ class ProfileBaseCell: UITableViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    subTitleLabel.layer.cornerRadius = subTitleLabel.frame.height / 3
+    // FIXME: - 갑자기 cornerRadius가 안잡힘ㅠㅠ
+    print("subTitleLabel.frame.height: \(subTitleLabel.frame.height)")
+    subTitleLabel.layer.cornerRadius = subTitleLabel.frame.height / 2
     subTitleLabel.clipsToBounds = true
 
+    print("rightSideCellButton.frame.height: \(rightSideCellButton.frame.height)")
     rightSideCellButton.layer.cornerRadius = rightSideCellButton.frame.height / 10
     rightSideCellButton.clipsToBounds = true
 
@@ -105,6 +191,8 @@ class ProfileBaseCell: UITableViewCell {
       make.width.equalTo(2)
       make.height.equalTo(beingOrderCount.snp.height)
     }
+
+    print("layoutSubviews")
   }
 
   override func updateConstraints() {
@@ -120,7 +208,7 @@ class ProfileBaseCell: UITableViewCell {
 
     addSubview(titleStackView)
 
-    detailStackView = UIStackView(arrangedSubviews: [beingOrder, beingOrderCount, seperateLabel, pointTextLeable, pointNum])
+   let detailStackView = UIStackView(arrangedSubviews: [beingOrder, beingOrderCount, seperateLabel, pointTextLabel, pointNum])
     detailStackView.axis = .horizontal
     detailStackView.alignment = .fill
     detailStackView.distribution = .equalSpacing
@@ -129,13 +217,14 @@ class ProfileBaseCell: UITableViewCell {
     addSubview(detailStackView)
 
     titleStackView.snp.makeConstraints { make in
-      make.centerY.equalTo(rightSideCellButton.snp.centerY).offset(-padding)
-      make.leading.equalToSuperview().inset(padding * 2)
+//      make.centerY.equalTo(rightSideCellButton.snp.centerY).offset(-padding)
+      make.top.leading.equalToSuperview().inset(padding * 2)
       make.trailing.lessThanOrEqualTo(rightSideCellButton.snp.leading).offset(-padding)
     }
 
     detailStackView.snp.makeConstraints { make in
-      make.top.equalTo(rightSideCellButton.snp.centerY).offset(padding)
+//      make.top.equalTo(rightSideCellButton.snp.centerY).offset(padding)
+      make.top.equalTo(titleStackView.snp.bottom).offset(padding)
       make.leading.equalToSuperview().inset(padding * 2)
       make.trailing.lessThanOrEqualTo(rightSideCellButton.snp.leading).offset(-padding)
     }
@@ -143,7 +232,7 @@ class ProfileBaseCell: UITableViewCell {
     rightSideCellButton.snp.makeConstraints { make in
       make.centerY.equalToSuperview()
       make.width.equalToSuperview().multipliedBy(0.17)
-      make.height.equalToSuperview().multipliedBy(0.33)
+      make.height.equalTo(30)
       make.trailing.equalToSuperview().inset(padding * 2)
     }
 
