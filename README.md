@@ -4,14 +4,16 @@ Team House Of Today iOS App project
 # App Clone Project (오늘의 집)
 
 ## 주요 페이지
-### 홈
+* ### 홈
 <img src="https://user-images.githubusercontent.com/38423205/61270996-455fdf00-a7de-11e9-976d-ba937a8b86d4.png" width="300">
 
-### 스토어
-![IMG_1707](https://user-images.githubusercontent.com/38423205/61270998-455fdf00-a7de-11e9-8c26-f2595ef02343.png)
+* ### 스토어
+<img src="https://user-images.githubusercontent.com/38423205/61270998-455fdf00-a7de-11e9-8c26-f2595ef02343.png" width="300">
 
-### 마이페이지
-![IMG_1708](https://user-images.githubusercontent.com/38423205/61270997-455fdf00-a7de-11e9-9572-b586bc90f59f.png)
+
+* ### 마이페이지
+<img src="https://user-images.githubusercontent.com/38423205/61270997-455fdf00-a7de-11e9-9572-b586bc90f59f.png" width="300">
+
 
 ## 주요 기능
 * ### 결제 시스템
