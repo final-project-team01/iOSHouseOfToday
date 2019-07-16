@@ -18,13 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
     window?.makeKeyAndVisible()
-<<<<<<< HEAD
     // window?.rootViewController = ViewController()
     window?.rootViewController = MainTabBarVC()
-=======
-//    window?.rootViewController = MainTabBarVC()
-    window?.rootViewController = MypageVC()
->>>>>>> 88e29df93c803c54c474bbd37d6c3c80aa6be898
 
     return true
   }
