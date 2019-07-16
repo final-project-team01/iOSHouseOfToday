@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.backgroundColor = .white
     window?.makeKeyAndVisible()
 //    window?.rootViewController = MainTabBarVC()
-    window?.rootViewController = ProfileVC()
+    window?.rootViewController = MypageVC()
 
     return true
   }

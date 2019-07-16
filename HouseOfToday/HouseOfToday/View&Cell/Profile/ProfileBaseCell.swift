@@ -9,7 +9,9 @@
 import UIKit
 import SnapKit
 
-class ProfileBaseCell: UITableViewCell {
+final class ProfileBaseCell: UITableViewCell {
+
+    // FIXME: - StackView 빼내기
 
   enum TitleName: String {
 
@@ -20,7 +22,7 @@ class ProfileBaseCell: UITableViewCell {
     case review           = "리뷰"
   }
 
-  lazy var titleLabel: UILabel = {
+  private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "나의 쇼핑"
     label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -28,7 +30,7 @@ class ProfileBaseCell: UITableViewCell {
     return label
   }()
 
-  lazy var subTitleLabel: UILabel = {
+  private lazy var subTitleLabel: UILabel = {
     let label = UILabel()
     label.text = " 첫사진을 올리면 +1000p "
     label.backgroundColor = #colorLiteral(red: 0.9656298757, green: 0.5998463631, blue: 0.5986141562, alpha: 1)
@@ -38,7 +40,7 @@ class ProfileBaseCell: UITableViewCell {
     return label
   }()
 
-  lazy var beingOrder: UILabel = {
+  private lazy var beingOrder: UILabel = {
     let label = UILabel()
     label.text = "진행중 주문"
     label.textColor = .lightGray
@@ -47,7 +49,7 @@ class ProfileBaseCell: UITableViewCell {
     return label
   }()
 
-  lazy var beingOrderCount: UILabel = {
+  private lazy var beingOrderCount: UILabel = {
     let label = UILabel()
     label.text = "0"
     label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
@@ -56,14 +58,14 @@ class ProfileBaseCell: UITableViewCell {
     return label
   }()
 
-  lazy var seperateLabel: UILabel = {
+  private lazy var seperateLabel: UILabel = {
     let label = UILabel()
     label.backgroundColor = .lightGray
     addSubview(label)
     return label
   }()
 
-  lazy var pointTextLabel: UILabel = {
+  private lazy var pointTextLabel: UILabel = {
     let label = UILabel()
     label.text = "포인트"
     label.textColor = .lightGray
@@ -72,7 +74,7 @@ class ProfileBaseCell: UITableViewCell {
     return label
   }()
 
-  lazy var pointNum: UILabel = {
+  private lazy var pointNum: UILabel = {
     let label = UILabel()
     label.text = "0P"
     label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
@@ -81,7 +83,7 @@ class ProfileBaseCell: UITableViewCell {
     return label
   }()
 
-  lazy var rightSideCellButton: UIButton = {
+  private lazy var rightSideCellButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitleColor(.white, for: .normal)
     button.setTitle("바로가기", for: .normal)
@@ -89,6 +91,32 @@ class ProfileBaseCell: UITableViewCell {
     button.backgroundColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
     addSubview(button)
     return button
+  }()
+
+  let padding: CGFloat = 10
+
+  private lazy var titleStackView: UIStackView = {
+  let titleStackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
+  titleStackView.axis = .horizontal
+  titleStackView.alignment = .leading
+  titleStackView.distribution = .equalCentering
+  titleStackView.spacing = padding
+
+  addSubview(titleStackView)
+
+    return titleStackView
+  }()
+
+  private lazy var detailStackView: UIStackView = {
+  let detailStackView = UIStackView(arrangedSubviews: [beingOrder, beingOrderCount, seperateLabel, pointTextLabel, pointNum])
+  detailStackView.axis = .horizontal
+  detailStackView.alignment = .fill
+  detailStackView.distribution = .equalSpacing
+  detailStackView.spacing = padding
+
+  addSubview(detailStackView)
+
+    return detailStackView
   }()
 
   //각각 cell에 맞게 속성 변경
@@ -178,12 +206,9 @@ class ProfileBaseCell: UITableViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    // FIXME: - 갑자기 cornerRadius가 안잡힘ㅠㅠ
-    print("subTitleLabel.frame.height: \(subTitleLabel.frame.height)")
     subTitleLabel.layer.cornerRadius = subTitleLabel.frame.height / 2
     subTitleLabel.clipsToBounds = true
 
-    print("rightSideCellButton.frame.height: \(rightSideCellButton.frame.height)")
     rightSideCellButton.layer.cornerRadius = rightSideCellButton.frame.height / 10
     rightSideCellButton.clipsToBounds = true
 
@@ -192,29 +217,10 @@ class ProfileBaseCell: UITableViewCell {
       make.height.equalTo(beingOrderCount.snp.height)
     }
 
-    print("layoutSubviews")
   }
 
   override func updateConstraints() {
     super.updateConstraints()
-
-    let padding: CGFloat = 10
-
-    let titleStackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
-    titleStackView.axis = .horizontal
-    titleStackView.alignment = .leading
-    titleStackView.distribution = .equalCentering
-    titleStackView.spacing = padding
-
-    addSubview(titleStackView)
-
-   let detailStackView = UIStackView(arrangedSubviews: [beingOrder, beingOrderCount, seperateLabel, pointTextLabel, pointNum])
-    detailStackView.axis = .horizontal
-    detailStackView.alignment = .fill
-    detailStackView.distribution = .equalSpacing
-    detailStackView.spacing = padding
-
-    addSubview(detailStackView)
 
     titleStackView.snp.makeConstraints { make in
 //      make.centerY.equalTo(rightSideCellButton.snp.centerY).offset(-padding)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PictureCell: UITableViewCell {
+final class PictureCell: UITableViewCell {
 
   private enum UI {
     static let itemsInLine: CGFloat = 3

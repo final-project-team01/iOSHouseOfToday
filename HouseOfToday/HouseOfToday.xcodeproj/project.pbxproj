@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */; };
-		42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */; };
 		42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */; };
 		42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928722D5A48300639BAF /* AppDelegate.swift */; };
 		42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928922D5A48300639BAF /* HomeVC.swift */; };
@@ -23,17 +22,19 @@
 		8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59E822D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift */; };
 		8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */; };
 		8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */; };
-		AB14239222D5DB320029F5FC /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14239122D5DB320029F5FC /* ProfileVC.swift */; };
 		AB7EEA7222D81DBD00F33663 /* ProfileBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA7022D81DBD00F33663 /* ProfileBaseCell.swift */; };
 		AB7EEA7322D81DBD00F33663 /* ProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA7122D81DBD00F33663 /* ProfileUserCell.swift */; };
 		AB7EEA7722DCA4E900F33663 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA7622DCA4E900F33663 /* PictureCell.swift */; };
+		AB7EEA7A22DD5E0600F33663 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA7922DD5E0600F33663 /* ProfileView.swift */; };
+		AB7EEA7E22DD623200F33663 /* MypageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA7D22DD623200F33663 /* MypageVC.swift */; };
+		AB7EEA8022DD630100F33663 /* MyshoppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA7F22DD630100F33663 /* MyshoppingView.swift */; };
+		AB7EEA8222DD687D00F33663 /* VoucherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8122DD687D00F33663 /* VoucherCell.swift */; };
 		C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HouseOfToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
-		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
 		42FF928422D5A48300639BAF /* HouseOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42FF928722D5A48300639BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,10 +53,13 @@
 		8E5B59E822D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCollectionViewExtensions.swift; sourceTree = "<group>"; };
 		8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableExtensions.swift; sourceTree = "<group>"; };
-		AB14239122D5DB320029F5FC /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		AB7EEA7022D81DBD00F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA7122D81DBD00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA7622DCA4E900F33663 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		AB7EEA7922DD5E0600F33663 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		AB7EEA7D22DD623200F33663 /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MypageVC.swift; path = /Users/daisy/Desktop/gitRepos/iOSHouseOfToday/HouseOfToday/HouseOfToday/Controller/MypageVC.swift; sourceTree = "<absolute>"; };
+		AB7EEA7F22DD630100F33663 /* MyshoppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyshoppingView.swift; sourceTree = "<group>"; };
+		AB7EEA8122DD687D00F33663 /* VoucherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,10 +139,9 @@
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
 				42FF92A722D5B5EA00639BAF /* StoreVC.swift */,
 				42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */,
-				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
-				AB14239122D5DB320029F5FC /* ProfileVC.swift */,
+				AB7EEA7D22DD623200F33663 /* MypageVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -176,6 +179,9 @@
 				AB7EEA7122D81DBD00F33663 /* ProfileUserCell.swift */,
 				AB7EEA7022D81DBD00F33663 /* ProfileBaseCell.swift */,
 				AB7EEA7622DCA4E900F33663 /* PictureCell.swift */,
+				AB7EEA7922DD5E0600F33663 /* ProfileView.swift */,
+				AB7EEA7F22DD630100F33663 /* MyshoppingView.swift */,
+				AB7EEA8122DD687D00F33663 /* VoucherCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -335,22 +341,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB7EEA7E22DD623200F33663 /* MypageVC.swift in Sources */,
 				AB7EEA7322D81DBD00F33663 /* ProfileUserCell.swift in Sources */,
-				AB14239222D5DB320029F5FC /* ProfileVC.swift in Sources */,
 				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
-				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
+				AB7EEA8022DD630100F33663 /* MyshoppingView.swift in Sources */,
 				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
 				42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */,
 				AB7EEA7222D81DBD00F33663 /* ProfileBaseCell.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */,
+				AB7EEA7A22DD5E0600F33663 /* ProfileView.swift in Sources */,
 				42FF92A622D5B44D00639BAF /* MainTabBarVC.swift in Sources */,
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,
 				42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */,
 				8E5B59E522D5AC7100BB01E8 /* Logger.swift in Sources */,
 				AB7EEA7722DCA4E900F33663 /* PictureCell.swift in Sources */,
+				AB7EEA8222DD687D00F33663 /* VoucherCell.swift in Sources */,
 				8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

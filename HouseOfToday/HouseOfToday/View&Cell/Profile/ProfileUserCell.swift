@@ -11,7 +11,7 @@ import SnapKit
 
 final class ProfileUserCell: UITableViewCell {
 
-  lazy var userImageButton: UIButton = {
+  private lazy var userImageButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "userImage"), for: .normal)
     button.layer.cornerRadius = button.frame.width / 2
@@ -20,7 +20,7 @@ final class ProfileUserCell: UITableViewCell {
     return button
   }()
 
-  lazy var userNameLabel: UILabel = {
+  private lazy var userNameLabel: UILabel = {
     let label = UILabel()
     label.text = "데이지코"
     label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -28,7 +28,7 @@ final class ProfileUserCell: UITableViewCell {
     return label
   }()
 
-  lazy var followerButton: UIButton = {
+  private lazy var followerButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("팔로워 0", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
@@ -37,7 +37,7 @@ final class ProfileUserCell: UITableViewCell {
     return button
   }()
 
-  lazy var followingButton: UIButton = {
+  private lazy var followingButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("팔로잉 1", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
@@ -46,7 +46,7 @@ final class ProfileUserCell: UITableViewCell {
     return button
   }()
 
-  lazy var inviteFrendsButton: UIButton = {
+  private lazy var inviteFrendsButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("친구초대 +5,000P", for: .normal)
     button.setTitleColor(.black, for: .normal)
@@ -57,28 +57,28 @@ final class ProfileUserCell: UITableViewCell {
     return button
   }()
 
-  lazy var notiButton: UIButton = {
+  private lazy var notiButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "noti"), for: .normal)
     addSubview(button)
     return button
   }()
 
-  lazy var scrapButton: UIButton = {
+  private lazy var scrapButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "bookMark"), for: .normal)
     addSubview(button)
     return button
   }()
 
-  lazy var likeButton: UIButton = {
+  private lazy var likeButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "like"), for: .normal)
     addSubview(button)
     return button
   }()
 
-  lazy var notiLabel: UILabel = {
+  private lazy var notiLabel: UILabel = {
     let label = UILabel()
     label.text = "알림"
     label.font = UIFont.boldSystemFont(ofSize: 13)
@@ -86,7 +86,7 @@ final class ProfileUserCell: UITableViewCell {
     return label
   }()
 
-  lazy var scrapLabel: UILabel = {
+  private lazy var scrapLabel: UILabel = {
     let label = UILabel()
     label.text = "스크랩북"
     label.font = UIFont.boldSystemFont(ofSize: 13)
@@ -94,7 +94,7 @@ final class ProfileUserCell: UITableViewCell {
     return label
   }()
 
-  lazy var scrapCount: UILabel = {
+  private lazy var scrapCount: UILabel = {
     let label = UILabel()
     label.text = " 1"
     label.font = UIFont.boldSystemFont(ofSize: 13)
@@ -103,7 +103,7 @@ final class ProfileUserCell: UITableViewCell {
     return label
   }()
 
-  lazy var likeLabel: UILabel = {
+  private lazy var likeLabel: UILabel = {
     let label = UILabel()
     label.text = "좋아요"
     label.font = UIFont.boldSystemFont(ofSize: 13)
@@ -111,7 +111,7 @@ final class ProfileUserCell: UITableViewCell {
     return label
   }()
 
-  lazy var likeCount: UILabel = {
+  private lazy var likeCount: UILabel = {
     let label = UILabel()
     label.text = " 2"
     label.font = UIFont.boldSystemFont(ofSize: 13)
@@ -119,6 +119,88 @@ final class ProfileUserCell: UITableViewCell {
     addSubview(label)
     return label
   }()
+
+  private lazy var followStackView: UIStackView = {
+  let followStackView = UIStackView(arrangedSubviews: [followerButton, followingButton])
+  followStackView.axis = .horizontal
+  followStackView.alignment = .leading
+  followStackView.distribution = .fill
+  followStackView.spacing = 10
+  return followStackView
+  }()
+
+  private lazy var userInfoStackView: UIStackView = {
+  let userInfoStackView = UIStackView(arrangedSubviews: [userNameLabel, followStackView, inviteFrendsButton])
+  userInfoStackView.axis = .vertical
+  userInfoStackView.alignment = .leading
+  userInfoStackView.distribution = .fill
+  userInfoStackView.spacing = 5
+    return userInfoStackView
+  }()
+
+  private lazy var topStackView: UIStackView = {
+  let topStackView = UIStackView(arrangedSubviews: [userImageButton, userInfoStackView])
+  topStackView.axis = .horizontal
+  topStackView.alignment = .leading
+  topStackView.distribution = .fill
+  topStackView.spacing = 30
+
+  addSubview(topStackView)
+
+    return topStackView
+  }()
+
+  private lazy var notiStackView: UIStackView = {
+  let notiStackView = UIStackView(arrangedSubviews: [notiButton, notiLabel])
+  notiStackView.axis = .vertical
+  notiStackView.alignment = .center
+  notiStackView.distribution = .equalCentering
+    return notiStackView
+  }()
+
+  private lazy var scrapTextStackView: UIStackView = {
+  let scrapTextStackView = UIStackView(arrangedSubviews: [scrapLabel, scrapCount])
+  scrapTextStackView.axis = .horizontal
+  scrapTextStackView.alignment = .fill
+  scrapTextStackView.distribution = .equalCentering
+    return scrapTextStackView
+  }()
+
+  private lazy var scrapStackView: UIStackView = {
+  let scrapStackView = UIStackView(arrangedSubviews: [scrapButton, scrapTextStackView])
+  scrapStackView.axis = .vertical
+  scrapStackView.alignment = .center
+  scrapStackView.distribution = .equalCentering
+  return scrapStackView
+}()
+
+  private lazy var likeTextStackView: UIStackView = {
+  let likeTextStackView = UIStackView(arrangedSubviews: [likeLabel, likeCount])
+  likeTextStackView.axis = .horizontal
+  likeTextStackView.alignment = .center
+  likeTextStackView.distribution = .equalCentering
+  return likeTextStackView
+}()
+
+  private lazy var likeStackView: UIStackView = {
+  let likeStackView = UIStackView(arrangedSubviews: [likeButton, likeTextStackView])
+  likeStackView.axis = .vertical
+  likeStackView.alignment = .center
+  likeStackView.distribution = .equalCentering
+  return likeStackView
+}()
+
+  private lazy var snsButtonStackView: UIStackView = {
+  let snsButtonStackView = UIStackView(arrangedSubviews: [notiStackView, scrapStackView, likeStackView])
+  snsButtonStackView.axis = .horizontal
+  snsButtonStackView.alignment = .fill
+  snsButtonStackView.distribution = .fillEqually
+  snsButtonStackView.spacing = 5
+
+  addSubview(snsButtonStackView)
+
+  return snsButtonStackView
+}()
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -143,59 +225,6 @@ final class ProfileUserCell: UITableViewCell {
 
   override func updateConstraints() {
     super.updateConstraints()
-
-    let followStackView = UIStackView(arrangedSubviews: [followerButton, followingButton])
-    followStackView.axis = .horizontal
-    followStackView.alignment = .leading
-    followStackView.distribution = .fill
-    followStackView.spacing = 10
-
-    let userInfoStackView = UIStackView(arrangedSubviews: [userNameLabel, followStackView, inviteFrendsButton])
-    userInfoStackView.axis = .vertical
-    userInfoStackView.alignment = .leading
-    userInfoStackView.distribution = .fill
-    userInfoStackView.spacing = 5
-
-    let topStackView = UIStackView(arrangedSubviews: [userImageButton, userInfoStackView])
-    topStackView.axis = .horizontal
-    topStackView.alignment = .leading
-    topStackView.distribution = .fill
-    topStackView.spacing = 30
-
-    addSubview(topStackView)
-
-    let notiStackView = UIStackView(arrangedSubviews: [notiButton, notiLabel])
-    notiStackView.axis = .vertical
-    notiStackView.alignment = .center
-    notiStackView.distribution = .equalCentering
-
-    let scrapTextStackView = UIStackView(arrangedSubviews: [scrapLabel, scrapCount])
-    scrapTextStackView.axis = .horizontal
-    scrapTextStackView.alignment = .fill
-    scrapTextStackView.distribution = .equalCentering
-
-    let scrapStackView = UIStackView(arrangedSubviews: [scrapButton, scrapTextStackView])
-    scrapStackView.axis = .vertical
-    scrapStackView.alignment = .center
-    scrapStackView.distribution = .equalCentering
-
-    let likeTextStackView = UIStackView(arrangedSubviews: [likeLabel, likeCount])
-    likeTextStackView.axis = .horizontal
-    likeTextStackView.alignment = .center
-    likeTextStackView.distribution = .equalCentering
-
-    let likeStackView = UIStackView(arrangedSubviews: [likeButton, likeTextStackView])
-    likeStackView.axis = .vertical
-    likeStackView.alignment = .center
-    likeStackView.distribution = .equalCentering
-
-    let snsButtonStackView = UIStackView(arrangedSubviews: [notiStackView, scrapStackView, likeStackView])
-    snsButtonStackView.axis = .horizontal
-    snsButtonStackView.alignment = .fill
-    snsButtonStackView.distribution = .fillEqually
-    snsButtonStackView.spacing = 5
-
-    addSubview(snsButtonStackView)
 
     userImageButton.snp.makeConstraints { make in
       make.width.equalToSuperview().multipliedBy(0.25)

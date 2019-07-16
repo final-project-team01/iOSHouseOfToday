@@ -16,7 +16,7 @@ class MainTabBarVC: UITabBarController {
   let homeVC = HomeVC()
   let storeVC = StoreVC()
   let expertVC = ExpertVC()
-  let myPageVC = MyPageVC()
+  let myPageVC = MypageVC()
   let addUserActivityVC = AddUserActivityVC()
 
   override func viewDidLoad() {
