@@ -13,6 +13,7 @@ import UIKit
 */
 final class MainTabBarVC: UITabBarController {
 
+<<<<<<< HEAD
   private var isShowUserActivityView = false
   private var didSelectedTabBarItemIndex = 0
 
@@ -35,6 +36,13 @@ final class MainTabBarVC: UITabBarController {
     }
     return button
   }()
+=======
+  let homeVC = HomeVC()
+  let storeVC = StoreVC()
+  let expertVC = ExpertVC()
+  let myPageVC = MypageVC()
+  let addUserActivityVC = AddUserActivityVC()
+>>>>>>> 88e29df93c803c54c474bbd37d6c3c80aa6be898
 
   override func viewDidLoad() {
     super.viewDidLoad()
