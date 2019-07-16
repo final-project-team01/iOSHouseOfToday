@@ -73,9 +73,7 @@ extension CategoryView: UICollectionViewDataSource, UICollectionViewDelegateFlow
 
   // MARK: - Delegate
   func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    print("offset : \(scrollView.contentOffset)")
-    print("velocity : \(velocity)")
-    print("targetContentOffset : \(targetContentOffset.pointee)")
+
     let itemAt = Int(targetContentOffset.pointee.x / UIScreen.main.bounds.width)
 
     guard let pageDidScroll = categoryViewDidEndScroll else { return logger() }
