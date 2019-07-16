@@ -20,6 +20,7 @@ class CategoryView: UIView {
     cv.isPagingEnabled = true
     cv.showsHorizontalScrollIndicator = false
     cv.backgroundColor = .white
+    cv.allowsSelection = false
     addSubview(cv)
     cv.register(cell: CategoryCell.self)
     cv.dataSource = self.self
