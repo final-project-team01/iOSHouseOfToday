@@ -20,6 +20,7 @@ final class PictureCell: UITableViewCell {
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    selectionStyle = .none // FIXME: - 여기에도 없애야 하나?
     updateConstraints()
   }
 

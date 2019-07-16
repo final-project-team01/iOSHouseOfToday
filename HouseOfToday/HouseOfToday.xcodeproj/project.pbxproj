@@ -41,6 +41,7 @@
 		AB7EEA9222DDD52400F33663 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9122DDD52400F33663 /* ProfileView.swift */; };
 		AB7EEA9422DDD54500F33663 /* MyshoppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9322DDD54500F33663 /* MyshoppingView.swift */; };
 		AB7EEA9622DDD56600F33663 /* VoucherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9522DDD56600F33663 /* VoucherCell.swift */; };
+		AB7EEA9822DDDD7300F33663 /* BeingOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9722DDDD7300F33663 /* BeingOrderCell.swift */; };
 		C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		AB7EEA9122DDD52400F33663 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AB7EEA9322DDD54500F33663 /* MyshoppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyshoppingView.swift; sourceTree = "<group>"; };
 		AB7EEA9522DDD56600F33663 /* VoucherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherCell.swift; sourceTree = "<group>"; };
+		AB7EEA9722DDDD7300F33663 /* BeingOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeingOrderCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,8 +248,9 @@
 			children = (
 				AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */,
 				AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */,
-				AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */,
+				AB7EEA9722DDDD7300F33663 /* BeingOrderCell.swift */,
 				AB7EEA9122DDD52400F33663 /* ProfileView.swift */,
+				AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */,
 				AB7EEA9322DDD54500F33663 /* MyshoppingView.swift */,
 				AB7EEA9522DDD56600F33663 /* VoucherCell.swift */,
 			);
@@ -425,6 +428,7 @@
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				AB7EEA9022DDD4FB00F33663 /* PictureCell.swift in Sources */,
 				AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */,
+				AB7EEA9822DDDD7300F33663 /* BeingOrderCell.swift in Sources */,
 				42C4E5C822DC567900A88466 /* UserAcitivityCell.swift in Sources */,
 				42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */,
 				42FF92A622D5B44D00639BAF /* MainTabBarVC.swift in Sources */,

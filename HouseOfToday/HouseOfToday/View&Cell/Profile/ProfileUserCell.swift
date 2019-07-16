@@ -204,7 +204,7 @@ final class ProfileUserCell: UITableViewCell {
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+    selectionStyle = .none //셀에서도 선택되었을 때 표시 막아줘야한다.
     updateConstraints()
   }
 
