@@ -10,6 +10,9 @@ import UIKit
 
 class MyPageVC: UIViewController {
 
+  override func loadView() {
+    view = ProfileView()
+  }
   override func viewDidLoad() {
     super.viewDidLoad()
   }
