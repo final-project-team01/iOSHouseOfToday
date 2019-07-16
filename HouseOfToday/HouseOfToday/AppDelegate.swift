@@ -18,12 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
     window?.makeKeyAndVisible()
-    //window?.rootViewController = ViewController()
-
-    /// 창식 feature branch
-    let tabBarController = UITabBarController()
-    tabBarController.setViewControllers([CategoryTabBarViewController(["프로필", "나의쇼핑"], [FirstCategoryView(), SecondCategoryView()], withScrollOption: true)], animated: true)
-    window?.rootViewController = tabBarController
 
     return true
   }
