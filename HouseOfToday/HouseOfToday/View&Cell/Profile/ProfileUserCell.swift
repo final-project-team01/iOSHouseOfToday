@@ -3,7 +3,7 @@
 //  HouseOfToday
 //
 //  Created by Daisy on 10/07/2019.
-//  Copyright © 2019 CHANGGUEN YU. All rights reserved.
+//  Copyright © 2019 Daisy. All rights reserved.
 //
 
 import UIKit
