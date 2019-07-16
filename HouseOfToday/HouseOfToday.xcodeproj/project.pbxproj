@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */; };
+		42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */; };
+		42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */; };
+		42C4E5C222D70BBE00A88466 /* AddUserActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */; };
 		42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928722D5A48300639BAF /* AppDelegate.swift */; };
-		42FF928A22D5A48300639BAF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928922D5A48300639BAF /* ViewController.swift */; };
+		42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928922D5A48300639BAF /* HomeVC.swift */; };
 		42FF928F22D5A48400639BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42FF928E22D5A48400639BAF /* Assets.xcassets */; };
 		42FF929222D5A48400639BAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42FF929022D5A48400639BAF /* LaunchScreen.storyboard */; };
 		42FF929B22D5A5D800639BAF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 42FF929A22D5A5D800639BAF /* .swiftlint.yml */; };
 		42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92A122D5A96E00639BAF /* SeviceError.swift */; };
+		42FF92A622D5B44D00639BAF /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */; };
+		42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92A722D5B5EA00639BAF /* StoreVC.swift */; };
 		8E5B59E522D5AC7100BB01E8 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59E422D5AC7100BB01E8 /* Logger.swift */; };
 		8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59E622D5AD1100BB01E8 /* UIControlExtensions.swift */; };
 		8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59E822D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift */; };
@@ -31,14 +37,20 @@
 
 /* Begin PBXFileReference section */
 		38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HouseOfToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
+		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
+		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
+		42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserActivityView.swift; path = "HouseOfToday/View&Cell/AddUserActivityView.swift"; sourceTree = SOURCE_ROOT; };
 		42FF928422D5A48300639BAF /* HouseOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42FF928722D5A48300639BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		42FF928922D5A48300639BAF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		42FF928922D5A48300639BAF /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		42FF928E22D5A48400639BAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42FF929122D5A48400639BAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42FF929322D5A48400639BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42FF929A22D5A5D800639BAF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		42FF92A122D5A96E00639BAF /* SeviceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeviceError.swift; sourceTree = "<group>"; };
+		42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
+		42FF92A722D5B5EA00639BAF /* StoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVC.swift; sourceTree = "<group>"; };
 		595FD3D34B2CBF9BA9F127D2 /* Pods-HouseOfToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HouseOfToday.release.xcconfig"; path = "Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday.release.xcconfig"; sourceTree = "<group>"; };
 		8B1420F34D9A33A09D55FE4A /* Pods-HouseOfToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HouseOfToday.debug.xcconfig"; path = "Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday.debug.xcconfig"; sourceTree = "<group>"; };
 		8E5B59E422D5AC7100BB01E8 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -68,6 +80,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42C4E5C322D81BFD00A88466 /* View&Cell */ = {
+			isa = PBXGroup;
+			children = (
+				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
+			);
+			path = "View&Cell";
+			sourceTree = "<group>";
+		};
+		42C4E5C422D81C4E00A88466 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		42FF927B22D5A48300639BAF = {
 			isa = PBXGroup;
 			children = (
@@ -112,13 +139,6 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		42FF929D22D5A8D200639BAF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		42FF929E22D5A8DB00639BAF /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,17 +148,15 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		42FF929F22D5A8F500639BAF /* View&Cell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "View&Cell";
-			sourceTree = "<group>";
-		};
 		42FF92A022D5A90400639BAF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				42FF928922D5A48300639BAF /* ViewController.swift */,
+				42FF928922D5A48300639BAF /* HomeVC.swift */,
+				42FF92A722D5B5EA00639BAF /* StoreVC.swift */,
+				42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */,
+				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
+				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
+				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -350,6 +368,9 @@
 			files = (
 				8E5B59F222D5C84D00BB01E8 /* CategoryTabBarView.swift in Sources */,
 				42FF928A22D5A48300639BAF /* ViewController.swift in Sources */,
+				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
+				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
+				42C4E5C222D70BBE00A88466 /* AddUserActivityView.swift in Sources */,
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
 				8E5B59EF22D5BFF500BB01E8 /* CategoryTabBarViewController.swift in Sources */,
 				8E5B59F822D7580D00BB01E8 /* SecondCategoryView.swift in Sources */,
@@ -358,9 +379,13 @@
 				8E5B59F622D5CA6500BB01E8 /* CategoryTabBarCell.swift in Sources */,
 				8E5B59F422D5C92900BB01E8 /* FirstCategoryView.swift in Sources */,
 				8E5B59FA22D75AD100BB01E8 /* CategoryView.swift in Sources */,
+				42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
+				42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */,
+				42FF92A622D5B44D00639BAF /* MainTabBarVC.swift in Sources */,
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,
+				42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */,
 				8E5B59E522D5AC7100BB01E8 /* Logger.swift in Sources */,
 				8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */,
 				8E5B5A0022D82E8200BB01E8 /* CategoryCell.swift in Sources */,
@@ -503,7 +528,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KH53J489YG;
+				DEVELOPMENT_TEAM = H7746RVFJ9;
 				INFOPLIST_FILE = HouseOfToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -522,7 +547,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KH53J489YG;
+				DEVELOPMENT_TEAM = H7746RVFJ9;
 				INFOPLIST_FILE = HouseOfToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
