@@ -27,7 +27,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "쿠폰"
     label.textColor = .lightGray
-    label.font = UIFont.boldSystemFont(ofSize: 15)
+    label.font = UIFont.boldSystemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -36,7 +36,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "0"
     label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-    label.font = UIFont.boldSystemFont(ofSize: 15)
+    label.font = UIFont.boldSystemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -53,7 +53,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "포인트"
     label.textColor = .lightGray
-    label.font = UIFont.boldSystemFont(ofSize: 15)
+    label.font = UIFont.boldSystemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -62,7 +62,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "1000"
     label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-    label.font = UIFont.boldSystemFont(ofSize: 15)
+    label.font = UIFont.boldSystemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -70,10 +70,10 @@ final class VoucherCell: UITableViewCell {
   private lazy var gradeButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "grade"), for: .normal)
-    button.imageView?.contentMode = ContentMode.scaleToFill // FIXME: - 왜 버튼이 짜부될까?
+    button.imageView?.contentMode = ContentMode.scaleToFill
     button.layer.borderColor = UIColor.lightGray.cgColor // FIXME: - 왜 안먹냥?
-    button.setTitle("구매등급 Welcomoe", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+//    button.setTitle("구매등급 Welcomoe", for: .normal)
+//    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
     button.setTitleColor(.blue, for: .normal)
     addSubview(button)
     return button
@@ -83,7 +83,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "구매등급"
     label.textColor = .lightGray
-    label.font = UIFont.boldSystemFont(ofSize: 15)
+    label.font = UIFont.boldSystemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -92,7 +92,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "Welcome"
     label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-    label.font = UIFont.boldSystemFont(ofSize: 15)
+    label.font = UIFont.boldSystemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -126,12 +126,41 @@ final class VoucherCell: UITableViewCell {
     return gradeLabelStackView
    }()
 
+  private lazy var couponStackView: UIStackView = {
+    let couponStackView = UIStackView(arrangedSubviews: [couponButton, couponLabelStackView])
+    couponStackView.axis = .vertical
+    couponStackView.alignment = .center
+    couponStackView.distribution = .fillEqually
+    couponStackView.spacing = padding
+
+    return couponStackView
+  }()
+
+  private lazy var pointStackView: UIStackView = {
+    let pointStackView = UIStackView(arrangedSubviews: [pointButton, pointLabelStackView])
+    pointStackView.axis = .vertical
+    pointStackView.alignment = .center
+    pointStackView.distribution = .fillEqually
+    pointStackView.spacing = padding
+
+    return pointStackView
+  }()
+
+  private lazy var gradeStackView: UIStackView = {
+    let gradeStackView = UIStackView(arrangedSubviews: [gradeButton, gradeLabelStackView])
+    gradeStackView.axis = .vertical
+    gradeStackView.alignment = .center
+    gradeStackView.distribution = .fillEqually
+    gradeStackView.spacing = padding
+
+    return gradeStackView
+  }()
+
   private lazy var buttonStackView: UIStackView = {
-  let buttonStackView = UIStackView(arrangedSubviews: [couponButton, pointButton, gradeButton])
+  let buttonStackView = UIStackView(arrangedSubviews: [couponStackView, pointStackView, gradeStackView])
   buttonStackView.axis = .horizontal
   buttonStackView.alignment = .fill
   buttonStackView.distribution = .fillEqually
-  buttonStackView.spacing = padding
 
   addSubview(buttonStackView)
   return buttonStackView
@@ -150,6 +179,8 @@ final class VoucherCell: UITableViewCell {
     super .layoutSubviews()
 
   }
+  
+  
 
   override func updateConstraints() {
     super.updateConstraints()
@@ -161,6 +192,7 @@ final class VoucherCell: UITableViewCell {
                                                        right: 10)
       )
     }
+
   }
 
 }
