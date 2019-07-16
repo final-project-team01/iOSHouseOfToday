@@ -19,7 +19,7 @@ class CategoryView: UIView {
     let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     cv.isPagingEnabled = true
     cv.showsHorizontalScrollIndicator = false
-    cv.backgroundColor = .green
+    cv.backgroundColor = .white
     addSubview(cv)
     cv.register(cell: CategoryCell.self)
     cv.dataSource = self.self

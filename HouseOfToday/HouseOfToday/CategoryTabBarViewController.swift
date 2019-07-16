@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import SnapKit
-/// 목표
-/// 카테고리의 개수를 설정하고, 그 개수에 따라 유동적으로 카테고리를 만들어야 한다.
 
 class CategoryTabBarViewController: UIViewController {
 
@@ -22,7 +19,7 @@ class CategoryTabBarViewController: UIViewController {
 
   private var categoryViews: [UIView]!
 
-  init(_ categoryTitles: [String], _ categoryViews: [UIView], withScrollOption tabBarScrollIsEnabled: Bool ) {
+  init(withTitles categoryTitles: [String], withViews categoryViews: [UIView], withScrollOption tabBarScrollIsEnabled: Bool ) {
     super.init(nibName: nil, bundle: nil)
     self.categoryTitles = categoryTitles
     self.categoryViews = categoryViews

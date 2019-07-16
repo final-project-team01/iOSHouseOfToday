@@ -19,7 +19,7 @@ final class MainTabBarVC: UITabBarController {
   private let homeVC = HomeVC()
   private let storeVC = StoreVC()
   private let expertVC = ExpertVC()
-  private let myPageVC = CategoryTabBarViewController(["a", "t"], [FirstCategoryView(), SecondCategoryView()], withScrollOption: true)
+  private let myPageVC = MyPageVC()
   private let addUserActivityVC = AddUserActivityVC()
 
   private lazy var addUserActivityButton: UIButton = {

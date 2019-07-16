@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyPageVC: UIViewController {
+class MyPageVC: CategoryTabBarViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
