@@ -15,7 +15,7 @@ class AddUserActivityView: UIView {
 
   lazy var clearView: UIView = {
     let view = UIView(frame: CGRect.zero)
-    view.backgroundColor = .red//UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+    view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
     addSubview(view)
     return view
   }()
@@ -24,6 +24,14 @@ class AddUserActivityView: UIView {
     let view = UIView(frame: CGRect.zero)
     view.backgroundColor = .blue
     return view
+  }()
+
+  lazy var userActingTableView: UITableView = {
+    let tableView = UITableView(frame: CGRect.zero)
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    tableView.dataSource = self
+    tableView.delegate = self
+    return tableView
   }()
 
   lazy var knowHowButton: UIButton = {
@@ -83,12 +91,21 @@ class AddUserActivityView: UIView {
         $0.leading.equalToSuperview().offset(15)
       }
     }
+
+    if userActingTableView.translatesAutoresizingMaskIntoConstraints {
+
+      clearView.addSubview(userActingTableView)
+      userActingTableView.snp.makeConstraints {
+        $0.top.equalTo(self.snp.bottom)
+        $0.leading.equalToSuperview()
+        $0.trailing.equalToSuperview()
+        $0.height.equalToSuperview().multipliedBy(0.5)
+      }
+    }
   }
 
   public func showView() {
-    UIView.animate(withDuration: 0.3) {
-
-//      self.clearView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+    UIView.animate(withDuration: 0.33) {
 
       self.activityView.snp.updateConstraints {
         $0.top.equalTo(self.snp.bottom).offset(-UIScreen.main.bounds.height/2 - self.safeAreaInsets.bottom)
@@ -98,12 +115,11 @@ class AddUserActivityView: UIView {
   }
 
   public func hideView() {
-//    UIView.animate(withDuration: 0.3) {
-      self.activityView.snp.updateConstraints {
-        $0.top.equalTo(self.snp.bottom).offset(0)
-      }
-//      self.layoutIfNeeded()
-//    }
+
+    self.clearView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+    self.activityView.snp.updateConstraints {
+      $0.top.equalTo(self.snp.bottom).offset(0)
+    }
   }
 
   @objc private func knowHowTouch(_ sender: UIButton) {
@@ -119,4 +135,22 @@ class AddUserActivityView: UIView {
     notiCenter.post(name: AddUserActivityVC.presentAlert, object: sender, userInfo: ["alert": alert])
   }
 
+}
+
+extension AddUserActivityView: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    print("a")
+    return 4
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    print("cell")
+    return cell
+  }
+}
+
+extension AddUserActivityView: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  }
 }

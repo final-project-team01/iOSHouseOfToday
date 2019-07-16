@@ -10,9 +10,15 @@ import UIKit
 
 final class StoreVC: UIViewController {
 
+  let service = HouseOfTodayService()
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .green
+
+  }
+
+  override func loadView() {
+    view = StoreHomeView()
   }
 
 }

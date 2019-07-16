@@ -19,7 +19,7 @@ final class MainTabBarVC: UITabBarController {
   private let homeVC = HomeVC()
   private let storeVC = StoreVC()
   private let expertVC = ExpertVC()
-  private let myPageVC = MyPageVC()
+  private let myPageVC = CategoryTabBarViewController(["a", "t"], [FirstCategoryView(), SecondCategoryView()], withScrollOption: true)
   private let addUserActivityVC = AddUserActivityVC()
 
   private lazy var addUserActivityButton: UIButton = {
@@ -49,16 +49,12 @@ final class MainTabBarVC: UITabBarController {
 
     homeVC.tabBarItem.image = UIImage(named: "home")
 //    homeVC.tabBarItem.selectedImage = UIImage(named: "homeSeleted")
-    print("a")
     storeVC.tabBarItem.image = UIImage(named: "store")
 //    storeVC.tabBarItem.selectedImage = UIImage(named: "shopSeleted")
-
     expertVC.tabBarItem.image = UIImage(named: "expert")
 //    expertVC.tabBarItem.selectedImage = UIImage(named: "expertSeleted")
-
     myPageVC.tabBarItem.image = UIImage(named: "myPage")
 //    myPageVC.tabBarItem.selectedImage = UIImage(named: "userSeleted")
-
     addUserActivityVC.tabBarItem.image = UIImage(named: "1addPostsSeleted")
 
     viewControllers = [homeVC, storeVC, expertVC, myPageVC, addUserActivityVC]
