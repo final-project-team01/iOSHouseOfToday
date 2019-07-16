@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  StoreVC.swift
 //  HouseOfToday
 //
 //  Created by CHANGGUEN YU on 10/07/2019.
@@ -8,11 +8,17 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+final class StoreVC: UIViewController {
+
+  let service = HouseOfTodayService()
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
+  }
+
+  override func loadView() {
+    view = StoreHomeView()
   }
 
 }
