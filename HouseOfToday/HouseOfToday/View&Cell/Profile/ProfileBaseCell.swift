@@ -11,8 +11,6 @@ import SnapKit
 
 final class ProfileBaseCell: UITableViewCell {
 
-  // FIXME: - StackView 빼내기
-
   enum TitleName: String {
 
     case myShoping        = "나의 쇼핑"
@@ -196,6 +194,7 @@ final class ProfileBaseCell: UITableViewCell {
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    selectionStyle = .none
     updateConstraints()
   }
 

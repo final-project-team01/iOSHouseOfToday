@@ -121,7 +121,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     case 0:
       return 200
     case 1:
-      return 90
+      return 105  //profile 은 90
     default:
       return 60
 
