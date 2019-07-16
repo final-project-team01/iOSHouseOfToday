@@ -137,10 +137,11 @@
 		42C4E5C322D81BFD00A88466 /* View&Cell */ = {
 			isa = PBXGroup;
 			children = (
+				42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
+				42490F2B22DCA21800EE1A01 /* Store */,
 				AB7EEA8922DDD32200F33663 /* Profile */,
 				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
 				42C4E5C722DC567900A88466 /* UserAcitivityCell.swift */,
-				42490F2B22DCA21800EE1A01 /* Store */,
 			);
 			path = "View&Cell";
 			sourceTree = "<group>";
@@ -180,8 +181,6 @@
 				42FF929C22D5A8B100639BAF /* Service */,
 				42C4E5C422D81C4E00A88466 /* Model */,
 				42C4E5C322D81BFD00A88466 /* View&Cell */,
-				42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
-				42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */,
 				42FF92A022D5A90400639BAF /* Controller */,
 				42FF928E22D5A48400639BAF /* Assets.xcassets */,
 				42FF929022D5A48400639BAF /* LaunchScreen.storyboard */,
@@ -218,6 +217,7 @@
 				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
+				42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
