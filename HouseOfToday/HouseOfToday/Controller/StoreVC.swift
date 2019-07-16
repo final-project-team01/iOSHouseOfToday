@@ -15,15 +15,10 @@ final class StoreVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    service.fetchProductCategoryList { result in
-      switch result {
-      case .success(let list):
-        print("success!!! List Count: \(list.count)")
-      case .failure(let error):
-        print("fetchProductCategoryList Error: \(error.localizedDescription)")
-      }
-    }
+  }
 
+  override func loadView() {
+    view = StoreHomeView()
   }
 
 }

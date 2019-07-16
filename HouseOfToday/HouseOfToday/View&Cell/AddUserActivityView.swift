@@ -28,7 +28,6 @@ class AddUserActivityView: UIView {
 
   lazy var userActingTableView: UITableView = {
     let tableView = UITableView(frame: CGRect.zero)
-    tableView
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     tableView.dataSource = self
     tableView.delegate = self

@@ -19,5 +19,4 @@ struct CategoryList: Decodable {
     case name
     case imageURL = "image"
   }
-
 }
