@@ -10,21 +10,39 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+  private lazy var mainImageView: UIImageView = {
+    let iv = UIImageView(frame: .zero)
+
+    view.addSubview(iv)
+    return iv
+  }()
+
+  private lazy var kakaoLoginButton: UIButton = {
+    let bt = UIButton(type: .custom)
+    bt.frame = .zero
+    return bt
+  }()
+
+  private lazy var naverLoginButton: UIButton = {
+    let bt = UIButton(type: .custom)
+    bt.frame = .zero
+    return bt
+  }()
+
+  private lazy var googleLoginButton: UIButton = {
+    let bt = UIButton(type: .custom)
+    bt.frame = .zero
+    return bt
+  }()
+
+  private lazy var signUpLabel: UILabel = {
+    let lb = UILabel(frame: .zero)
+
+    return lb
+  }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
