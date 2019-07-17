@@ -16,15 +16,14 @@ class BeingOrderCell: UITableViewCell {
     label.text = "진행중인 주문 (최근 3개월)"
     label.textColor = .black
     label.font = UIFont.boldSystemFont(ofSize: 18)
+//    attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.darkGray, range: (fontSize as! NSString).range(of: "(최근 3개월)"))
     addSubview(label)
     return label
   }()
 
-  // FIXME: - 글자 크기와 색상 부분적으로 변경
-
-  let adjustfont = UIFont(name: "Helvetica", size: 17)
-
-//  let attributedString = NSMutableAttributedString(string: beingOrderTitleLabel.text)
+  // FIXME: - 폰트크기랑 색상 바꾸기
+  let fontSize = UIFont.systemFont(ofSize: 15)
+  lazy var attributedStr = NSMutableAttributedString(string: beingOrderTitleLabel.text ?? "")
 
   var arrowArray: [UILabel] = []
 
@@ -177,7 +176,6 @@ class BeingOrderCell: UITableViewCell {
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-
     selectionStyle = .none
     makeArrowArray()
     updateConstraints()

@@ -31,6 +31,7 @@ final class ProfileView: UIView {
     tableView.register(cell: MyshoppingThumbCell.self)
     tableView.register(cell: ProfileUserCell.self)
     tableView.register(cell: ProfileBaseCell.self)
+    tableView.register(cell: PictureTableViewCell.self)
     tableView.allowsSelection = false
     tableView.refreshControl = refreshControl
 
@@ -82,10 +83,15 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             return cell
     //사진
     case 2:
-      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
-      cell.setLabelItems(title: .picture)
+//      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
+//      cell.setLabelItems(title: .picture)
+//      cell.separatorInset = UIEdgeInsets.zero
+//      return cell
+
+      let cell = tableView.dequeueReusableCell(withIdentifier: PictureTableViewCell.identifier, for: indexPath) as! PictureTableViewCell
       cell.separatorInset = UIEdgeInsets.zero
       return cell
+
     //집들이
     case 3:
       let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
@@ -117,6 +123,8 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
       return 230
     case 1:
       return 100
+    case 2:
+      return 300
     default:
       return 80
 
