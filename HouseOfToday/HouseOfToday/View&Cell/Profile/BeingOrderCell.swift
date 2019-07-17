@@ -191,8 +191,8 @@ class BeingOrderCell: UITableViewCell {
     super.updateConstraints()
 
     beingOrderTitleLabel.snp.makeConstraints { make in
-      make.top.leading.trailing.equalToSuperview().inset(UIEdgeInsets(top: padding * 1.5,
-                                                             left: padding * 2,
+      make.top.leading.trailing.equalToSuperview().inset(UIEdgeInsets(top: padding * 2,
+                                                             left: padding * 1.5,
                                                              bottom: 0,
                                                              right: 0)
       )
@@ -202,7 +202,7 @@ class BeingOrderCell: UITableViewCell {
       make.leading.trailing.bottom.equalToSuperview().inset(UIEdgeInsets(top: 0,
                                                        left: padding * 2,
                                                        bottom: 0,
-                                                       right: padding * 2)
+                                                       right: padding * 1.5)
       )
       make.top.equalTo(beingOrderTitleLabel.snp.bottom).inset(padding * 3)
     }

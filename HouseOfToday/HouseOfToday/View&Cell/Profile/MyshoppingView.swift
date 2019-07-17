@@ -60,6 +60,7 @@ extension MyshoppingView: UITableViewDataSource, UITableViewDelegate {
 
     case 1:
       let cell = tableView.dequeueReusableCell(withIdentifier: BeingOrderCell.identifier, for: indexPath) as! BeingOrderCell
+      cell.separatorInset = UIEdgeInsets.zero
       return cell
 
     case 2:
@@ -100,9 +101,9 @@ extension MyshoppingView: UITableViewDataSource, UITableViewDelegate {
     case 0:
       return 100
     case 1:
-      return 120
+      return 150
     default:
-      return 60
+      return 80
 
     }
 

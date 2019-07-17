@@ -28,6 +28,7 @@ final class ProfileView: UIView {
     let tableView = UITableView()
     tableView.dataSource = self.self
     tableView.delegate = self.self
+    tableView.register(cell: MyshoppingThumbCell.self)
     tableView.register(cell: ProfileUserCell.self)
     tableView.register(cell: ProfileBaseCell.self)
     tableView.allowsSelection = false
@@ -76,10 +77,8 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
 
     //나의 쇼핑
     case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
-            cell.setLabelItems(title: .myShoping, orderCount: "0", point: "0")
+            let cell = tableView.dequeueReusableCell(withIdentifier: MyshoppingThumbCell.identifier, for: indexPath) as! MyshoppingThumbCell
             cell.separatorInset = UIEdgeInsets.zero
-
             return cell
     //사진
     case 2:
@@ -115,11 +114,11 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     switch indexPath.row {
     case 0:
-      return 200
+      return 230
     case 1:
-      return 90
+      return 100
     default:
-      return 60
+      return 80
 
     }
 

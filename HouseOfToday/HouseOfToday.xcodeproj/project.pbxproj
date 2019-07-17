@@ -43,6 +43,7 @@
 		AB7EEA9622DDD56600F33663 /* VoucherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9522DDD56600F33663 /* VoucherCell.swift */; };
 		AB7EEA9822DDDD7300F33663 /* BeingOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9722DDDD7300F33663 /* BeingOrderCell.swift */; };
 		AB7EEA9A22DEEE2700F33663 /* MyshoppingBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9922DEEE2700F33663 /* MyshoppingBaseCell.swift */; };
+		AB7EEA9C22DF05BF00F33663 /* MyshoppingThumbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9B22DF05BF00F33663 /* MyshoppingThumbCell.swift */; };
 		C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		AB7EEA9522DDD56600F33663 /* VoucherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherCell.swift; sourceTree = "<group>"; };
 		AB7EEA9722DDDD7300F33663 /* BeingOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeingOrderCell.swift; sourceTree = "<group>"; };
 		AB7EEA9922DEEE2700F33663 /* MyshoppingBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyshoppingBaseCell.swift; sourceTree = "<group>"; };
+		AB7EEA9B22DF05BF00F33663 /* MyshoppingThumbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyshoppingThumbCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 			children = (
 				AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */,
 				AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */,
+				AB7EEA9B22DF05BF00F33663 /* MyshoppingThumbCell.swift */,
 				AB7EEA9722DDDD7300F33663 /* BeingOrderCell.swift */,
 				AB7EEA9522DDD56600F33663 /* VoucherCell.swift */,
 				AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */,
@@ -431,6 +434,7 @@
 				AB7EEA9A22DEEE2700F33663 /* MyshoppingBaseCell.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				AB7EEA9022DDD4FB00F33663 /* PictureCell.swift in Sources */,
+				AB7EEA9C22DF05BF00F33663 /* MyshoppingThumbCell.swift in Sources */,
 				AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */,
 				AB7EEA9822DDDD7300F33663 /* BeingOrderCell.swift in Sources */,
 				42C4E5C822DC567900A88466 /* UserAcitivityCell.swift in Sources */,

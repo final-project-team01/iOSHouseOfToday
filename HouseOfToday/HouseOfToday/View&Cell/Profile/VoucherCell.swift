@@ -10,6 +10,20 @@ import UIKit
 
 final class VoucherCell: UITableViewCell {
 
+  private lazy var firstSeperateLabel: UILabel = {
+    let label = UILabel()
+    label.backgroundColor = #colorLiteral(red: 0.9281312823, green: 0.9253783226, blue: 0.9316661358, alpha: 1)
+    addSubview(label)
+    return label
+  }()
+
+  private lazy var secondSeperateLabel: UILabel = {
+    let label = UILabel()
+    label.backgroundColor = #colorLiteral(red: 0.9281312823, green: 0.9253783226, blue: 0.9316661358, alpha: 1)
+    addSubview(label)
+    return label
+  }()
+
   private lazy var couponButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "coupon"), for: .normal)
@@ -27,7 +41,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "쿠폰"
     label.textColor = .black
-    label.font = UIFont.systemFont(ofSize: 13)
+    label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
     return label
   }()
@@ -36,7 +50,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "0"
     label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-    label.font = UIFont.boldSystemFont(ofSize: 13)
+    label.font = UIFont.boldSystemFont(ofSize: 12)
     addSubview(label)
     return label
   }()
@@ -53,7 +67,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "포인트"
     label.textColor = .black
-    label.font = UIFont.systemFont(ofSize: 13)
+    label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
     return label
   }()
@@ -62,7 +76,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "1000"
     label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-    label.font = UIFont.boldSystemFont(ofSize: 13)
+    label.font = UIFont.boldSystemFont(ofSize: 12)
     addSubview(label)
     return label
   }()
@@ -71,9 +85,6 @@ final class VoucherCell: UITableViewCell {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "grade"), for: .normal)
     button.imageView?.contentMode = ContentMode.scaleToFill
-    button.layer.borderColor = UIColor.lightGray.cgColor // FIXME: - 왜 안먹냥?
-    //    button.setTitle("구매등급 Welcomoe", for: .normal)
-    //    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
     button.setTitleColor(.blue, for: .normal)
     addSubview(button)
     return button
@@ -83,7 +94,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "구매등급"
     label.textColor = .black
-    label.font = UIFont.systemFont(ofSize: 13)
+    label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
     return label
   }()
@@ -92,7 +103,7 @@ final class VoucherCell: UITableViewCell {
     let label = UILabel()
     label.text = "Welcome"
     label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-    label.font = UIFont.boldSystemFont(ofSize: 13)
+    label.font = UIFont.boldSystemFont(ofSize: 12)
     addSubview(label)
     return label
   }()
@@ -157,10 +168,10 @@ final class VoucherCell: UITableViewCell {
   }()
 
   private lazy var buttonStackView: UIStackView = {
-    let buttonStackView = UIStackView(arrangedSubviews: [couponStackView, pointStackView, gradeStackView])
+    let buttonStackView = UIStackView(arrangedSubviews: [couponStackView, firstSeperateLabel, pointStackView, secondSeperateLabel, gradeStackView])
     buttonStackView.axis = .horizontal
     buttonStackView.alignment = .fill
-    buttonStackView.distribution = .fillEqually
+    buttonStackView.distribution = .equalCentering
 
     addSubview(buttonStackView)
     return buttonStackView
@@ -176,20 +187,19 @@ final class VoucherCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func layoutSubviews() {
-    super .layoutSubviews()
-
-  }
-
   override func updateConstraints() {
     super.updateConstraints()
 
     buttonStackView.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(UIEdgeInsets(top: 0,
-                                                       left: 10,
-                                                       bottom: 0,
-                                                       right: 10)
-      )
+      make.edges.equalToSuperview()
+    }
+
+    firstSeperateLabel.snp.makeConstraints { make in
+      make.width.equalTo(1.1)
+    }
+
+    secondSeperateLabel.snp.makeConstraints { make in
+      make.width.equalTo(1.1)
     }
 
   }

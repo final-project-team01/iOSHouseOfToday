@@ -87,7 +87,8 @@ final class MyshoppingBaseCell: UITableViewCell {
     super.updateConstraints()
 
     titleLabel.snp.makeConstraints { make in
-      make.top.leading.bottom.equalToSuperview().inset(padding * 2)
+      make.top.bottom.equalToSuperview().inset(padding * 2)
+      make.leading.equalToSuperview().inset(padding * 1.5)
       make.trailing.equalTo(countLabel.snp.leading).inset(-padding)
     }
 
@@ -96,9 +97,9 @@ final class MyshoppingBaseCell: UITableViewCell {
     }
 
     arrowView.snp.makeConstraints { make in
-      make.width.height.equalTo(17)
-      make.top.bottom.trailing.equalToSuperview().inset(padding * 2)
-      make.trailing.equalToSuperview().inset(padding * 2)
+      make.width.height.equalTo(15)
+      make.top.bottom.equalToSuperview().inset(padding * 3.25)
+      make.trailing.equalToSuperview().inset(padding * 1.2)
     }
   }
 }
