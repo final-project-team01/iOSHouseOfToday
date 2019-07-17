@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.backgroundColor = .white
     window?.makeKeyAndVisible()
     // window?.rootViewController = ViewController()
-    window?.rootViewController = MainTabBarVC()
+    //window?.rootViewController = MainTabBarVC()
+    window?.rootViewController = LoginViewController()
 
     return true
   }
