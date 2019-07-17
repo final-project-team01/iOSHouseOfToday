@@ -50,12 +50,6 @@ class SwipeView: UIButton {
     self.setupTimer()
   }
 
-//  convenience init(pageCount: Int) {
-//    self.init(frame: CGRect.zero)
-//    self.pageNumber = pageCount
-////    setupTimer()
-//  }
-
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -66,29 +60,25 @@ class SwipeView: UIButton {
 
   override func updateConstraints() {
     super.updateConstraints()
-    print("updateConstraints")
+//    print("updateConstraints")
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    print("layoutSubviews")
+//    print("layoutSubviews")
 
     scrollViewAutoLayout()
-
   }
 
   private func scrollViewAutoLayout() {
     if collectionView.translatesAutoresizingMaskIntoConstraints {
 
       collectionView.snp.makeConstraints {
-//        $0.top.equalTo(self.snp.topMargin)
-//        $0.leading.trailing.equalToSuperview()
-//        $0.height.equalToSuperview()//.multipliedBy(0.2)
         $0.edges.equalToSuperview()
       }
 
       pageControl.snp.makeConstraints {
-        $0.bottom.equalTo(collectionView.snp.bottom)//.offset(0)
+        $0.bottom.equalTo(collectionView.snp.bottom)
         $0.leading.equalToSuperview().offset(5)
       }
     }

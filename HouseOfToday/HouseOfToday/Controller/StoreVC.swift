@@ -12,13 +12,16 @@ final class StoreVC: UIViewController {
 
   let service = HouseOfTodayService()
 
+  let storeHomeView = StoreHomeView()
+
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    print("StoreVC: viewDidLoad")
   }
 
   override func loadView() {
-    view = StoreHomeView()
+    view = storeHomeView
+    print("StoreVC: loadView")
   }
 
 }

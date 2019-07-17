@@ -15,6 +15,8 @@
 		42490F6A22DDC15200EE1A01 /* IndicatorBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6722DDC15200EE1A01 /* IndicatorBarView.swift */; };
 		42490F6B22DDC15200EE1A01 /* CategoryTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6822DDC15200EE1A01 /* CategoryTabBarView.swift */; };
 		42490F7022DECC6400EE1A01 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6F22DECC6400EE1A01 /* SwipeView.swift */; };
+		42490F7622DEE51300EE1A01 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F7522DEE51300EE1A01 /* CategoryListView.swift */; };
+		42490F7822DF0E0300EE1A01 /* StoreHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F7722DF0E0300EE1A01 /* StoreHomeHeaderView.swift */; };
 		42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */; };
 		42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */; };
 		42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */; };
@@ -55,6 +57,8 @@
 		42490F6722DDC15200EE1A01 /* IndicatorBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorBarView.swift; sourceTree = "<group>"; };
 		42490F6822DDC15200EE1A01 /* CategoryTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTabBarView.swift; sourceTree = "<group>"; };
 		42490F6F22DECC6400EE1A01 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
+		42490F7522DEE51300EE1A01 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
+		42490F7722DF0E0300EE1A01 /* StoreHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHomeHeaderView.swift; sourceTree = "<group>"; };
 		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
 		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 			children = (
 				42C4E5C922DC887800A88466 /* StoreHomeView.swift */,
 				42490F6F22DECC6400EE1A01 /* SwipeView.swift */,
+				42490F7522DEE51300EE1A01 /* CategoryListView.swift */,
+				42490F7722DF0E0300EE1A01 /* StoreHomeHeaderView.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 			files = (
 				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
 				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
+				42490F7822DF0E0300EE1A01 /* StoreHomeHeaderView.swift in Sources */,
 				42C4E5C222D70BBE00A88466 /* AddUserActivityView.swift in Sources */,
 				42490F2A22DC8E1400EE1A01 /* HouseOfTodayServiceType.swift in Sources */,
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
@@ -444,6 +451,7 @@
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,
 				42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */,
+				42490F7622DEE51300EE1A01 /* CategoryListView.swift in Sources */,
 				AB7EEA9422DDD54500F33663 /* MyshoppingView.swift in Sources */,
 				42490F6422DDC14600EE1A01 /* CategoryCell.swift in Sources */,
 				42490F6922DDC15200EE1A01 /* CategoryView.swift in Sources */,

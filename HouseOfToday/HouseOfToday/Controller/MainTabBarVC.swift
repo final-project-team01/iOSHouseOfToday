@@ -125,7 +125,6 @@ final class MainTabBarVC: UITabBarController {
   // getAnimationButtonStatus: adduserActivityButton 상태 반환
   // return: true -> button 이 선택되어 있는 상태
   private func getAnimationButtonStatus() -> Bool {
-    print(addUserActivityButton.transform == .identity)
     return addUserActivityButton.transform != .identity
   }
 }
