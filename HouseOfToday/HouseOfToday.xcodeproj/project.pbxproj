@@ -14,6 +14,7 @@
 		42490F6922DDC15200EE1A01 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6622DDC15200EE1A01 /* CategoryView.swift */; };
 		42490F6A22DDC15200EE1A01 /* IndicatorBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6722DDC15200EE1A01 /* IndicatorBarView.swift */; };
 		42490F6B22DDC15200EE1A01 /* CategoryTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6822DDC15200EE1A01 /* CategoryTabBarView.swift */; };
+		42490F7022DECC6400EE1A01 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6F22DECC6400EE1A01 /* SwipeView.swift */; };
 		42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */; };
 		42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */; };
 		42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */; };
@@ -53,10 +54,11 @@
 		42490F6622DDC15200EE1A01 /* CategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		42490F6722DDC15200EE1A01 /* IndicatorBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorBarView.swift; sourceTree = "<group>"; };
 		42490F6822DDC15200EE1A01 /* CategoryTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTabBarView.swift; sourceTree = "<group>"; };
+		42490F6F22DECC6400EE1A01 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
 		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
-		42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserActivityView.swift; path = "HouseOfToday/View&Cell/AddUserActivityView.swift"; sourceTree = SOURCE_ROOT; };
+		42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserActivityView.swift; path = "HouseOfToday/View&Cell/Axtivity/AddUserActivityView.swift"; sourceTree = SOURCE_ROOT; };
 		42C4E5C522DB238900A88466 /* HouseOfTodayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseOfTodayService.swift; sourceTree = "<group>"; };
 		42C4E5C722DC567900A88466 /* UserAcitivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAcitivityCell.swift; sourceTree = "<group>"; };
 		42C4E5C922DC887800A88466 /* StoreHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHomeView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				42C4E5C922DC887800A88466 /* StoreHomeView.swift */,
+				42490F6F22DECC6400EE1A01 /* SwipeView.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -134,14 +137,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		42490F6C22DDDA8300EE1A01 /* Axtivity */ = {
+			isa = PBXGroup;
+			children = (
+				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
+				42C4E5C722DC567900A88466 /* UserAcitivityCell.swift */,
+			);
+			path = Axtivity;
+			sourceTree = "<group>";
+		};
 		42C4E5C322D81BFD00A88466 /* View&Cell */ = {
 			isa = PBXGroup;
 			children = (
+				42490F6C22DDDA8300EE1A01 /* Axtivity */,
 				42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
 				42490F2B22DCA21800EE1A01 /* Store */,
 				AB7EEA8922DDD32200F33663 /* Profile */,
-				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
-				42C4E5C722DC567900A88466 /* UserAcitivityCell.swift */,
 			);
 			path = "View&Cell";
 			sourceTree = "<group>";
@@ -422,6 +433,7 @@
 				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
 				42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */,
 				AB7EEA9222DDD52400F33663 /* ProfileView.swift in Sources */,
+				42490F7022DECC6400EE1A01 /* SwipeView.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				AB7EEA9022DDD4FB00F33663 /* PictureCell.swift in Sources */,
 				AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */,

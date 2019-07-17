@@ -21,7 +21,6 @@ final class StoreHomeView: UIView {
     page.hidesForSinglePage = true
     page.currentPageIndicatorTintColor = .white
     page.pageIndicatorTintColor = .darkGray
-//    page.contentScaleFactor = 0.5// = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 10)
     addSubview(page)
     page.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     return page
@@ -29,9 +28,6 @@ final class StoreHomeView: UIView {
 
   private lazy var flowLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
-    layout.minimumLineSpacing = 1
-    layout.minimumInteritemSpacing = 1
-    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     layout.scrollDirection = .horizontal
     layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 5)
     return layout
@@ -40,41 +36,44 @@ final class StoreHomeView: UIView {
   private lazy var collectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     colV.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Item")
-    colV.backgroundColor = .black
+    colV.backgroundColor = .white
     colV.dataSource = self
     colV.delegate = self
     addSubview(colV)
     return colV
   }()
 
-  private lazy var categoryButton: UIButton = {
-    let btn = UIButton(type: .custom)
-    btn.setImage(UIImage(named: "interiorQuestion"), for: .normal)
-    btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
-    btn.setTitle("test", for: .normal)
-    btn.setTitleColor(.darkGray, for: .normal)
-    btn.titleEdgeInsets = UIEdgeInsets(top: 80, left: 0, bottom: 0, right: 30)
-    btn.layer.borderColor = UIColor.black.cgColor
-    btn.layer.borderWidth = 2
-    addSubview(btn)
-    return btn
+  private lazy var categoryButtonArray: [UIButton] = {
+    var btnArray = Array<UIButton>()
+    for _ in 0..<(categoryList?.count ?? 0) {
+      btnArray.append(UIButton(type: .custom))
+      if let last = btnArray.last {
+        last.setImage(UIImage(named: "interiorQuestion"), for: .normal)
+        last.setTitle("test", for: .normal)
+        last.setTitleColor(.darkGray, for: .normal)
+        last.layer.borderColor = UIColor.lightGray.cgColor
+        last.layer.borderWidth = 0.5
+        addSubview(last)
+      }
+    }
+    return btnArray
+  }()
+
+  private lazy var swipeView: SwipeView = {
+    let view = SwipeView()
+    view.pageNumber = 10
+    addSubview(view)
+    return view
   }()
 
   private var timer = Timer()
 
   private let colorList: [UIColor] = [.red, .blue, .black, .brown, .cyan, .darkGray, .green, .magenta, .orange, .yellow]
 
+  private var categoryList: [CategoryList]?
+
   override init(frame: CGRect) {
     super.init(frame: frame)
-
-    service.fetchProductCategoryList { result in
-      switch result {
-      case .success(let list):
-        print("success!!! List Count: \(list.count)")
-      case .failure(let error):
-        print("fetchProductCategoryList Error: \(error.localizedDescription)")
-      }
-    }
 
     setupTimer()
   }
@@ -102,12 +101,31 @@ final class StoreHomeView: UIView {
     collectionView.selectItem(at: IndexPath(item: itemAt, section: 0), animated: true, scrollPosition: .centeredHorizontally)
   }
 
+  private func fetchProductCategoryList() {
+    service.fetchProductCategoryList { result in
+      switch result {
+      case .success(let list):
+        print("success!!! List Count: \(list.count)")
+        self.categoryList = list
+      case .failure(let error):
+        print("fetchProductCategoryList Error: \(error.localizedDescription)")
+      }
+    }
+  }
+
+  override func updateConstraints() {
+    super.updateConstraints()
+    print("updateConstraints")
+  }
+
   override func layoutSubviews() {
     super.layoutSubviews()
+    print("layoutSubviews")
 
     scrollViewAutoLayout()
 
     categoryListButtonsAutolayout()
+
   }
 
   private func scrollViewAutoLayout() {
@@ -124,16 +142,38 @@ final class StoreHomeView: UIView {
         $0.leading.equalToSuperview().offset(5)
       }
     }
+
+    if swipeView.translatesAutoresizingMaskIntoConstraints {
+      swipeView.snp.makeConstraints {
+        $0.top.equalTo(collectionView.snp.bottom)
+        $0.leading.trailing.equalToSuperview()
+        $0.height.equalToSuperview().multipliedBy(0.2)
+      }
+    }
   }
 
   private func categoryListButtonsAutolayout() {
-    categoryButton.snp.makeConstraints {
-      $0.top.equalTo(collectionView.snp.bottom)
-      $0.leading.equalToSuperview()
-      $0.width.equalToSuperview().multipliedBy(0.33)
-      $0.height.equalTo(categoryButton.snp.width)
 
+    for categoryButton in categoryButtonArray {
+      categoryButton.snp.makeConstraints {
+        $0.top.equalTo(collectionView.snp.bottom)
+        $0.leading.equalToSuperview()
+        $0.width.equalToSuperview().multipliedBy(0.33)
+        $0.height.equalTo(categoryButton.snp.width)
+      }
     }
+
+    setupCategoryListButtonImageTitleEdgeInset()
+  }
+
+  private func setupCategoryListButtonImageTitleEdgeInset() {
+    let spacing: CGFloat = 6.0
+//    if let imageSize = categoryButton.imageView?.frame.size {
+//      categoryButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageSize.width, bottom: -(imageSize.height + spacing), right: 0)
+//    }
+//    if let titleSize = categoryButton.titleLabel?.frame.size {
+//      categoryButton.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0, bottom: 0, right: -titleSize.width)
+//    }
   }
 }
 
