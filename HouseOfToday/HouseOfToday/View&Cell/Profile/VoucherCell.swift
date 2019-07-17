@@ -26,8 +26,8 @@ final class VoucherCell: UITableViewCell {
   private lazy var couponLabel: UILabel = {
     let label = UILabel()
     label.text = "쿠폰"
-    label.textColor = .lightGray
-    label.font = UIFont.boldSystemFont(ofSize: 13)
+    label.textColor = .black
+    label.font = UIFont.systemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -52,8 +52,8 @@ final class VoucherCell: UITableViewCell {
   private lazy var pointLabel: UILabel = {
     let label = UILabel()
     label.text = "포인트"
-    label.textColor = .lightGray
-    label.font = UIFont.boldSystemFont(ofSize: 13)
+    label.textColor = .black
+    label.font = UIFont.systemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -82,8 +82,8 @@ final class VoucherCell: UITableViewCell {
   private lazy var gradeLabel: UILabel = {
     let label = UILabel()
     label.text = "구매등급"
-    label.textColor = .lightGray
-    label.font = UIFont.boldSystemFont(ofSize: 13)
+    label.textColor = .black
+    label.font = UIFont.systemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
