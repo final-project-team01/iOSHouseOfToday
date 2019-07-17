@@ -10,7 +10,22 @@ import UIKit
 
 class BeingOrderCell: UITableViewCell {
 
-  private lazy var beingOrderTitleLabel: UILabel = {
+   private lazy var beingOrderTitleLabel: UILabel = {
+    let label = UILabel()
+    label.text = "진행중인 주문 (최근 3개월)"
+    label.textColor = .black
+    label.font = UIFont.boldSystemFont(ofSize: 20)
+    addSubview(label)
+    return label
+  }()
+
+  // FIXME: - 글자 크기와 색상 부분적으로 변경
+
+  let adjustfont = UIFont(name: "Helvetica", size: 17)
+
+//  let attributedString = NSMutableAttributedString(string: beingOrderTitleLabel.text)
+
+   private lazy var waittingInsert: UILabel = {
     let label = UILabel()
     label.text = "진행중인 주문 (최근 3개월)"
     label.textColor = .black
@@ -48,6 +63,7 @@ class BeingOrderCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     selectionStyle = .none
     updateConstraints()
+
   }
 
   required init?(coder aDecoder: NSCoder) {
