@@ -10,6 +10,7 @@ import UIKit
 
 final class StoreHomeView: UIView {
 
+  // MARK: - Property
   var pageNumber: Int = 3
   private let colorList: [UIColor] = [.red, .blue, .black, .brown, .cyan, .darkGray, .green, .magenta, .orange, .yellow]
 
@@ -18,7 +19,7 @@ final class StoreHomeView: UIView {
 
     let margin: CGFloat = self.safeAreaInsets.bottom
     layout.itemSize = CGSize(width: UIScreen.main.bounds.width/2 - 25, height: UIScreen.main.bounds.height / 2 - margin)
-    layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+//    layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     return layout
   }()
 
@@ -34,6 +35,7 @@ final class StoreHomeView: UIView {
     return colV
   }()
 
+  // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
   }
@@ -47,6 +49,8 @@ final class StoreHomeView: UIView {
     super.updateConstraints()
 //    print("updateConstraints")
   }
+
+  // MARK: - configure
 
   override func layoutSubviews() {
     super.layoutSubviews()
@@ -63,10 +67,11 @@ final class StoreHomeView: UIView {
 
 }
 
+// MARK: - UICollectionViewDataSource
 extension StoreHomeView: UICollectionViewDataSource {
 
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 3
+    return 4
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -79,6 +84,12 @@ extension StoreHomeView: UICollectionViewDataSource {
     } else {
       if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "DefaultHeaderView", for: indexPath) as? DefaultHeaderView {
 
+        if indexPath.section == 1 {
+          header.hideButton(false)
+        } else {
+          header.hideButton(true)
+        }
+
         return header
       }
     }
@@ -87,6 +98,12 @@ extension StoreHomeView: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    switch section {
+    case 0:
+      return 0
+    default:
+      break
+    }
     return pageNumber
   }
 
@@ -98,6 +115,7 @@ extension StoreHomeView: UICollectionViewDataSource {
   }
 }
 
+// MARK: - UICollectionViewDelegate
 extension StoreHomeView: UICollectionViewDelegate {
 
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -105,6 +123,7 @@ extension StoreHomeView: UICollectionViewDelegate {
   }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension StoreHomeView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
@@ -116,12 +135,20 @@ extension StoreHomeView: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    if indexPath.section == 0 {
+    if indexPath.section == 1 {
       return CGSize(width: UIScreen.main.bounds.width - 25, height: UIScreen.main.bounds.height / 5)
-    } else if indexPath.section == 1 {
+    } else if indexPath.section == 2 {
       return CGSize(width: UIScreen.main.bounds.width/2 - 25, height: UIScreen.main.bounds.height / 10)
     } else {
       return CGSize(width: UIScreen.main.bounds.width/2 - 25, height: UIScreen.main.bounds.height / 2 - self.safeAreaInsets.bottom)
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    if section == 0 {
+      return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    } else {
+      return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     }
   }
 }

@@ -10,8 +10,6 @@ import UIKit
 
 final class StoreVC: UIViewController {
 
-  let service = HouseOfTodayService()
-
   let storeHomeView = StoreHomeView()
 
   override func viewDidLoad() {

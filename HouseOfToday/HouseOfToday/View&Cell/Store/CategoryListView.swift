@@ -8,8 +8,9 @@
 
 import UIKit
 
-class CategoryListView: UIView {
+final class CategoryListView: UIView {
 
+  // MARK: - Property
   static var height = (UIScreen.main.bounds.width / 4) * 3
 
   let service: HouseOfTodayServiceType = HouseOfTodayService()
@@ -45,6 +46,7 @@ class CategoryListView: UIView {
     return btnArray
   }()
 
+  // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     print("init: CategoryListView")
@@ -67,8 +69,9 @@ class CategoryListView: UIView {
 
   }
 
+  // MARK: - configure
   private func categoryListButtonsAutolayout() {
-   // if let categoryButtonArray = categoryButtonArray {
+    //if let categoryButtonArray = categoryButtonArray {
       print("start Autolayout iner")
       logger()
 
@@ -95,26 +98,9 @@ class CategoryListView: UIView {
             }
           }
         }
-  //    }
+    //  }
     }
 
-    setupCategoryListButtonImageTitleEdgeInset()
-  }
-
-  private func setupCategoryListButtonImageTitleEdgeInset() {
-
- //   if let categoryButtonArray = categoryButtonArray {
-//      let width = UIScreen.main.bounds.width / 4.0
-//      for categoryButton in categoryButtonArray {
-//
-//        categoryButton.imageEdgeInsets = UIEdgeInsets(top: width / 10, left: width / 5, bottom: width / 5 + width / 10, right: width / 5)
-//        categoryButton.imageView?.backgroundColor = .clear
-//        if let imageWidth = categoryButton.imageView?.frame.width {
-//          categoryButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -(imageWidth + 50), right: 0)
-//          print("image: \(imageWidth)")
-//        }
-//      }
-//    }
   }
 
   private func getCategoryInfo(category list: [CategoryList]) {
@@ -126,10 +112,7 @@ class CategoryListView: UIView {
       let width = UIScreen.main.bounds.width / 4.0
       categoryButtonArray[index].imageEdgeInsets = UIEdgeInsets(top: width / 10, left: width / 5, bottom: width / 5 + width / 10, right: width / 5)
       categoryButtonArray[index].imageView?.backgroundColor = .blue
-//      if let imageWidth = categoryButtonArray[index].imageView?.frame.width {
-        categoryButtonArray[index].titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -60, right: 0)
-//        print("image: \(imageWidth)")
-//      }
+      categoryButtonArray[index].titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -60, right: 0)
     }
   }
 

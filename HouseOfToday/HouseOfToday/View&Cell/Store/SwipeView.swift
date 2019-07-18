@@ -8,8 +8,9 @@
 
 import UIKit
 
-class SwipeView: UIButton {
+final class SwipeView: UIButton {
 
+  // MARK: - Property
   static var height = UIScreen.main.bounds.height / 5
 
   var pageNumber: Int = 10
@@ -40,6 +41,7 @@ class SwipeView: UIButton {
     colV.backgroundColor = .white
     colV.dataSource = self
     colV.delegate = self
+    colV.isPagingEnabled = false
     addSubview(colV)
     return colV
   }()
@@ -47,6 +49,7 @@ class SwipeView: UIButton {
   private var timer = Timer()
   private let colorList: [UIColor] = [.red, .blue, .black, .brown, .cyan, .darkGray, .green, .magenta, .orange, .yellow]
 
+  // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     pageNumber = 0
@@ -61,6 +64,7 @@ class SwipeView: UIButton {
     timer.fire()  // scheduledTimer 해제
   }
 
+  // MARK: - configure
   override func updateConstraints() {
     super.updateConstraints()
 //    print("updateConstraints")
@@ -87,6 +91,7 @@ class SwipeView: UIButton {
     }
   }
 
+  // MARK: - Swipe Timer
   private func setupTimer() {
     timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [weak self] (_) in
       guard let `self` = self else { return }
@@ -103,6 +108,7 @@ class SwipeView: UIButton {
 
 }
 
+// MARK: - UICollectionViewDataSource
 extension SwipeView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return pageNumber
@@ -115,6 +121,7 @@ extension SwipeView: UICollectionViewDataSource {
   }
 }
 
+// MARK: - UICollectionViewDelegate
 extension SwipeView: UICollectionViewDelegate {
   func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
     let itemAt = Int(targetContentOffset.pointee.x / frame.width + 0.5)
@@ -129,6 +136,7 @@ extension SwipeView: UICollectionViewDelegate {
   }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension SwipeView: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

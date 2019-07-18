@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StoreHomeHeaderView: UICollectionReusableView {
+final class StoreHomeHeaderView: UICollectionReusableView {
 
   static var height = CategoryListView.height + SwipeView.height//UIScreen.main.bounds.height/6
 
