@@ -55,10 +55,10 @@ class PictureTableViewCell: UITableViewCell {
   // FIXME: - imagePicker
   private lazy var uploadPictureButton: UIButton = {
     let button = UIButton(type: .custom)
-    button.setTitle("사진올리기", for: .normal)
-    button.setTitleColor( #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-//    button.setBackgroundImage(UIImage(named: "camera"), for: .normal)
+//    button.setTitle("사진올리기", for: .normal)
+//    button.setTitleColor( #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
+//    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    button.setBackgroundImage(UIImage(named: "camera"), for: .normal)
     button.layer.borderColor = UIColor.darkGray.cgColor
     button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     addSubview(button)
