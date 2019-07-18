@@ -11,14 +11,17 @@ import SnapKit
 
 class PictureCollectionViewCell: UICollectionViewCell {
 
+  //test용
   private lazy var collectionCell: UILabel = {
     let label = UILabel()
-    label.backgroundColor = .yellow
-    label.layer.cornerRadius = 20
+    label.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+    label.layer.cornerRadius = 5
     label.clipsToBounds = true
     addSubview(label)
     return label
   }()
+
+  // FIXME: - imageView 추가
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -33,6 +36,7 @@ class PictureCollectionViewCell: UICollectionViewCell {
     collectionCell.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
+
   }
 
 }

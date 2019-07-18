@@ -14,7 +14,7 @@ class BeingOrderCell: UITableViewCell {
    private lazy var beingOrderTitleLabel: UILabel = {
     let label = UILabel()
     label.text = "진행중인 주문 (최근 3개월)"
-    label.textColor = .black
+    label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
     label.font = UIFont.boldSystemFont(ofSize: 18)
 //    attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.darkGray, range: (fontSize as! NSString).range(of: "(최근 3개월)"))
     addSubview(label)
@@ -30,7 +30,7 @@ class BeingOrderCell: UITableViewCell {
    private lazy var waittingDepositLabel: UILabel = {
     let label = UILabel()
     label.text = "입금\n대기"
-    label.textColor = .black
+    label.textColor = #colorLiteral(red: 0.1326085031, green: 0.1326085031, blue: 0.1326085031, alpha: 1)
     label.numberOfLines = 0
     label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
@@ -49,7 +49,7 @@ class BeingOrderCell: UITableViewCell {
   private lazy var completePaymentLabel: UILabel = {
     let label = UILabel()
     label.text = "결제\n완료"
-    label.textColor = .black
+    label.textColor = #colorLiteral(red: 0.1326085031, green: 0.1326085031, blue: 0.1326085031, alpha: 1)
     label.numberOfLines = 0
     label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
@@ -69,7 +69,7 @@ class BeingOrderCell: UITableViewCell {
     let label = UILabel()
     label.text = "배송\n준비"
     label.numberOfLines = 0
-    label.textColor = .black
+    label.textColor = #colorLiteral(red: 0.1326085031, green: 0.1326085031, blue: 0.1326085031, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
     return label
@@ -87,7 +87,7 @@ class BeingOrderCell: UITableViewCell {
   private lazy var beingDeliveryLabel: UILabel = {
     let label = UILabel()
     label.text = "배송중"
-    label.textColor = .black
+    label.textColor = #colorLiteral(red: 0.1326085031, green: 0.1326085031, blue: 0.1326085031, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
     return label
@@ -106,7 +106,7 @@ class BeingOrderCell: UITableViewCell {
     let label = UILabel()
     label.text = "배송\n완료"
     label.numberOfLines = 0
-    label.textColor = .black
+    label.textColor = #colorLiteral(red: 0.1326085031, green: 0.1326085031, blue: 0.1326085031, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
     return label
@@ -125,7 +125,7 @@ class BeingOrderCell: UITableViewCell {
     let label = UILabel()
     label.text = "리뷰\n쓰기"
     label.numberOfLines = 0
-    label.textColor = .black
+    label.textColor = #colorLiteral(red: 0.1326085031, green: 0.1326085031, blue: 0.1326085031, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 12)
     addSubview(label)
     return label

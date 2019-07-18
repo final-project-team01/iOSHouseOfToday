@@ -21,6 +21,7 @@ final class ProfileBaseCell: UITableViewCell {
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "나의 쇼핑"
+    label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
     label.font = UIFont.boldSystemFont(ofSize: 18)
     addSubview(label)
     return label
@@ -54,9 +55,7 @@ final class ProfileBaseCell: UITableViewCell {
     titleStackView.alignment = .leading
     titleStackView.distribution = .equalCentering
     titleStackView.spacing = padding
-
     addSubview(titleStackView)
-
     return titleStackView
   }()
 
@@ -69,7 +68,7 @@ final class ProfileBaseCell: UITableViewCell {
       titleLabel.text = title.rawValue
 
       rightSideCellButton.setTitle("올리기", for: .normal)
-      rightSideCellButton.backgroundColor = .white
+      rightSideCellButton.backgroundColor = .clear
       rightSideCellButton.setTitleColor( #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1), for: .normal)
       rightSideCellButton.contentHorizontalAlignment = .right
 

@@ -124,7 +124,11 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     case 1:
       return 100
     case 2:
-      return 300
+//      let baseHeight:CGFloat = 30
+//      let itemCount = items.count % 3
+//      let itemHieght:CGFloat = 70
+//      let sum = baseHeight + ((itemCount + 1) * itemHieght)
+      return 520
     default:
       return 80
 
