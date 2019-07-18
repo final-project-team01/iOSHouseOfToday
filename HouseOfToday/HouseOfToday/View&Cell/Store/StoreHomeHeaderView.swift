@@ -8,7 +8,9 @@
 
 import UIKit
 
-class StoreHomeHeaderView: UIView {
+class StoreHomeHeaderView: UICollectionReusableView {
+
+  static var height = CategoryListView.height + SwipeView.height//UIScreen.main.bounds.height/6
 
   private lazy var swipeView: SwipeView = {
     let view = SwipeView()
@@ -18,6 +20,7 @@ class StoreHomeHeaderView: UIView {
   }()
 
   private lazy var categoryListView: CategoryListView = {
+    print("categoryListView: create")
     let view = CategoryListView()
     return view
   }()
@@ -26,6 +29,7 @@ class StoreHomeHeaderView: UIView {
     super.init(frame: frame)
     addSubview(swipeView)
     addSubview(categoryListView)
+    backgroundColor = .white
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -47,7 +51,7 @@ class StoreHomeHeaderView: UIView {
       swipeView.snp.makeConstraints {
         $0.top.equalTo(self.safeAreaLayoutGuide.snp.top)
         $0.leading.trailing.equalToSuperview()
-        $0.height.equalToSuperview().multipliedBy(0.2)
+        $0.height.equalTo(SwipeView.height)
       }
     }
   }

@@ -10,20 +10,44 @@ import UIKit
 
 class CategoryListView: UIView {
 
+  static var height = (UIScreen.main.bounds.width / 4) * 3
+
   let service: HouseOfTodayServiceType = HouseOfTodayService()
+
+  let buttonCount = 10
 
   private var categoryList: [CategoryList] = [] {
     didSet {
       print("categoryList didSet")
-      categoryButtonArray = self.makeCategoryButton(category: categoryList)
+
+      DispatchQueue.main.async {
+        self.getCategoryInfo(category: self.categoryList)
+        //      categoryButtonArray = self.makeCategoryButton(category: categoryList)
+      }
+
     }
   }
 
-  private var categoryButtonArray: [UIButton]?
+  private lazy var categoryButtonArray: [UIButton] = {
+    var btnArray = Array<UIButton>()
+
+    for index in 0..<buttonCount {
+      btnArray.append(UIButton())
+      if let last = btnArray.last {
+        last.setTitleColor(.darkGray, for: .normal)
+        last.layer.borderColor = UIColor.lightGray.cgColor
+        last.layer.borderWidth = 0.3
+        last.imageView?.backgroundColor = .blue
+        addSubview(last)
+      }
+    }
+    print("btnArray.count", btnArray.count)
+    return btnArray
+  }()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-//    backgroundColor = .bluex
+    print("init: CategoryListView")
     fetchProductCategoryList()
   }
 
@@ -36,26 +60,22 @@ class CategoryListView: UIView {
 
     categoryListButtonsAutolayout()
 
-//    categoryButtonArray.first?.frame.width
-    print("width: \(categoryButtonArray?.first?.frame.width)")
   }
 
   override func updateConstraints() {
     super.updateConstraints()
 
-    print("width: \(categoryButtonArray?.first?.frame.width)")
   }
 
   private func categoryListButtonsAutolayout() {
-    print("start Autolayout: \(categoryButtonArray?.count)")
-    if let categoryButtonArray = categoryButtonArray {
+   // if let categoryButtonArray = categoryButtonArray {
       print("start Autolayout iner")
+      logger()
 
       let divide = 4.0
       for index in 0..<categoryButtonArray.count {
 
         if categoryButtonArray[index].translatesAutoresizingMaskIntoConstraints {
-
           categoryButtonArray[index].snp.makeConstraints {
             let snp = index < Int(divide) ? self.snp.top : categoryButtonArray[index - Int(divide)].snp.bottom
 
@@ -75,7 +95,7 @@ class CategoryListView: UIView {
             }
           }
         }
-      }
+  //    }
     }
 
     setupCategoryListButtonImageTitleEdgeInset()
@@ -83,15 +103,33 @@ class CategoryListView: UIView {
 
   private func setupCategoryListButtonImageTitleEdgeInset() {
 
-    if let categoryButtonArray = categoryButtonArray {
+ //   if let categoryButtonArray = categoryButtonArray {
+//      let width = UIScreen.main.bounds.width / 4.0
+//      for categoryButton in categoryButtonArray {
+//
+//        categoryButton.imageEdgeInsets = UIEdgeInsets(top: width / 10, left: width / 5, bottom: width / 5 + width / 10, right: width / 5)
+//        categoryButton.imageView?.backgroundColor = .clear
+//        if let imageWidth = categoryButton.imageView?.frame.width {
+//          categoryButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -(imageWidth + 50), right: 0)
+//          print("image: \(imageWidth)")
+//        }
+//      }
+//    }
+  }
+
+  private func getCategoryInfo(category list: [CategoryList]) {
+
+    for index in 0..<categoryButtonArray.count {
+      categoryButtonArray[index].setImage(list[index].image, for: .normal)
+      categoryButtonArray[index].setTitle(list[index].name, for: .normal)
+
       let width = UIScreen.main.bounds.width / 4.0
-      for categoryButton in categoryButtonArray {
-        if let imageSize = categoryButton.imageView?.frame.size {
-          categoryButton.imageEdgeInsets = UIEdgeInsets(top: width / 10, left: width / 5, bottom: width / 5 + width / 10, right: width / 5)
-          categoryButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -(width/5 + 50), right: 0)
-//          categoryButton.bringSubviewToFront(categoryButton)
-        }
-      }
+      categoryButtonArray[index].imageEdgeInsets = UIEdgeInsets(top: width / 10, left: width / 5, bottom: width / 5 + width / 10, right: width / 5)
+      categoryButtonArray[index].imageView?.backgroundColor = .blue
+//      if let imageWidth = categoryButtonArray[index].imageView?.frame.width {
+        categoryButtonArray[index].titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -60, right: 0)
+//        print("image: \(imageWidth)")
+//      }
     }
   }
 
@@ -102,25 +140,26 @@ class CategoryListView: UIView {
       btnArray.append(UIButton(type: .custom))
       if let last = btnArray.last {
 
-        DispatchQueue.global().async {
-          do {
-            if let url = URL(string: categoryList.imageURL) {
-              let data = try Data(contentsOf: url)
-              DispatchQueue.main.async {
-                last.setImage(UIImage(data: data), for: .normal)
-
-              }
-            }
-          } catch {
-            print("makeCategoryButton id: \(categoryList.id), Error: \(error.localizedDescription)")
-          }
-        }
-
+//        DispatchQueue.global().async {
+//          do {
+//            if let url = URL(string: categoryList.imageURL) {
+//              let data = try Data(contentsOf: url)
+//              DispatchQueue.main.async {
+//                last.setImage(UIImage(data: data), for: .normal)
+//                print("makeCategoryButton")
+//              }
+//            }
+//          } catch {
+//            print("makeCategoryButton id: \(categoryList.id), Error: \(error.localizedDescription)")
+//          }
+//        }
+        last.setImage(categoryList.image, for: .normal)
         last.setTitle(categoryList.name, for: .normal)
-        last.setTitleColor(.darkGray, for: .normal)
-        last.layer.borderColor = UIColor.lightGray.cgColor
-        last.layer.borderWidth = 0.5
-        addSubview(last)
+
+//        last.setTitleColor(.darkGray, for: .normal)
+//        last.layer.borderColor = UIColor.lightGray.cgColor
+//        last.layer.borderWidth = 0.5
+//        addSubview(last)
       }
     }
 
@@ -129,6 +168,7 @@ class CategoryListView: UIView {
   }
 
   private func fetchProductCategoryList() {
+    print("fetchProductCategoryList Start")
     service.fetchProductCategoryList { result in
       switch result {
       case .success(let list):

@@ -24,4 +24,9 @@ final class StoreVC: UIViewController {
     print("StoreVC: loadView")
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    print("viewDidAppear")
+  }
+
 }

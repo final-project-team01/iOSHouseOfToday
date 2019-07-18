@@ -10,6 +10,8 @@ import UIKit
 
 class SwipeView: UIButton {
 
+  static var height = UIScreen.main.bounds.height / 5
+
   var pageNumber: Int = 10
 
   private lazy var pageControl: UIPageControl = {
@@ -27,7 +29,8 @@ class SwipeView: UIButton {
   private lazy var flowLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-    layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 5)
+    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: StoreHomeHeaderView.height)
     return layout
   }()
 
@@ -123,5 +126,13 @@ extension SwipeView: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
     pageControl.currentPage = indexPath.item
+  }
+}
+
+extension SwipeView: UICollectionViewDelegateFlowLayout {
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    return CGSize(width: UIScreen.main.bounds.width, height: SwipeView.height)
   }
 }
