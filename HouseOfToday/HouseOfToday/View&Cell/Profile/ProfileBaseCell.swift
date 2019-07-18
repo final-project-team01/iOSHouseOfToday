@@ -12,8 +12,6 @@ import SnapKit
 final class ProfileBaseCell: UITableViewCell {
 
   enum TitleName: String {
-
-    case myShoping        = "나의 쇼핑"
     case picture          = "사진"
     case houseWarming     = "집들이"
     case reviewWriting    = "리뷰쓰기"
@@ -23,6 +21,7 @@ final class ProfileBaseCell: UITableViewCell {
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "나의 쇼핑"
+    label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
     label.font = UIFont.boldSystemFont(ofSize: 18)
     addSubview(label)
     return label
@@ -33,49 +32,6 @@ final class ProfileBaseCell: UITableViewCell {
     label.text = " 첫사진을 올리면 +1000p "
     label.backgroundColor = #colorLiteral(red: 0.9656298757, green: 0.5998463631, blue: 0.5986141562, alpha: 1)
     label.textColor = .white
-    label.font = UIFont.boldSystemFont(ofSize: 15)
-    addSubview(label)
-    return label
-  }()
-
-  private lazy var beingOrder: UILabel = {
-    let label = UILabel()
-    label.text = "진행중 주문"
-    label.textColor = .lightGray
-    label.font = UIFont.boldSystemFont(ofSize: 15)
-    addSubview(label)
-    return label
-  }()
-
-  private lazy var beingOrderCount: UILabel = {
-    let label = UILabel()
-    label.text = "0"
-    label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-    label.font = UIFont.boldSystemFont(ofSize: 15)
-    addSubview(label)
-    return label
-  }()
-
-  private lazy var seperateLabel: UILabel = {
-    let label = UILabel()
-    label.backgroundColor = .lightGray
-    addSubview(label)
-    return label
-  }()
-
-  private lazy var pointTextLabel: UILabel = {
-    let label = UILabel()
-    label.text = "포인트"
-    label.textColor = .lightGray
-    label.font = UIFont.boldSystemFont(ofSize: 15)
-    addSubview(label)
-    return label
-  }()
-
-  private lazy var pointNum: UILabel = {
-    let label = UILabel()
-    label.text = "0P"
-    label.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
     label.font = UIFont.boldSystemFont(ofSize: 15)
     addSubview(label)
     return label
@@ -99,57 +55,26 @@ final class ProfileBaseCell: UITableViewCell {
     titleStackView.alignment = .leading
     titleStackView.distribution = .equalCentering
     titleStackView.spacing = padding
-
     addSubview(titleStackView)
-
     return titleStackView
-  }()
-
-  private lazy var detailStackView: UIStackView = {
-    let detailStackView = UIStackView(arrangedSubviews: [beingOrder, beingOrderCount, seperateLabel, pointTextLabel, pointNum])
-    detailStackView.axis = .horizontal
-    detailStackView.alignment = .fill
-    detailStackView.distribution = .equalSpacing
-    detailStackView.spacing = padding
-
-    addSubview(detailStackView)
-
-    return detailStackView
   }()
 
   //각각 cell에 맞게 속성 변경
   func setLabelItems(title: TitleName, subTitle: String = "", orderCount: String = "", point: String = "") {
 
     switch title {
-    case .myShoping:
-      titleLabel.text = title.rawValue
-      subTitleLabel.isHidden = true
-      beingOrderCount.text = orderCount
-      pointNum.text = "\(point)P"
 
     case .picture:
       titleLabel.text = title.rawValue
 
-      beingOrder.isHidden = true
-      beingOrderCount.isHidden = true
-      pointTextLabel.isHidden = true
-      pointNum.isHidden = true
-      seperateLabel.isHidden = true
-
       rightSideCellButton.setTitle("올리기", for: .normal)
-      rightSideCellButton.backgroundColor = .white
+      rightSideCellButton.backgroundColor = .clear
       rightSideCellButton.setTitleColor( #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1), for: .normal)
       rightSideCellButton.contentHorizontalAlignment = .right
 
     case .houseWarming:
 
       titleLabel.text = title.rawValue
-
-      beingOrder.isHidden = true
-      beingOrderCount.isHidden = true
-      pointTextLabel.isHidden = true
-      pointNum.isHidden = true
-      seperateLabel.isHidden = true
 
       rightSideCellButton.isHidden = true
 
@@ -162,12 +87,6 @@ final class ProfileBaseCell: UITableViewCell {
       titleLabel.text = title.rawValue
       subTitleLabel.isHidden = true
 
-      beingOrder.isHidden = true
-      beingOrderCount.isHidden = true
-      pointTextLabel.isHidden = true
-      pointNum.isHidden = true
-      seperateLabel.isHidden = true
-
       rightSideCellButton.setTitle("리뷰쓰기", for: .normal)
 
     case .review:
@@ -177,12 +96,6 @@ final class ProfileBaseCell: UITableViewCell {
       subTitleLabel.text = subTitle
       subTitleLabel.backgroundColor = .white
       subTitleLabel.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-
-      beingOrder.isHidden = true
-      beingOrderCount.isHidden = true
-      pointTextLabel.isHidden = true
-      pointNum.isHidden = true
-      seperateLabel.isHidden = true
 
       rightSideCellButton.isHidden = true
 
@@ -196,6 +109,7 @@ final class ProfileBaseCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     selectionStyle = .none
     updateConstraints()
+
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -211,34 +125,22 @@ final class ProfileBaseCell: UITableViewCell {
     rightSideCellButton.layer.cornerRadius = rightSideCellButton.frame.height / 10
     rightSideCellButton.clipsToBounds = true
 
-    seperateLabel.snp.makeConstraints { make in
-      make.width.equalTo(2)
-      make.height.equalTo(beingOrderCount.snp.height)
-    }
-
   }
 
   override func updateConstraints() {
     super.updateConstraints()
 
     titleStackView.snp.makeConstraints { make in
-      //      make.centerY.equalTo(rightSideCellButton.snp.centerY).offset(-padding)
-      make.top.leading.equalToSuperview().inset(padding * 2)
+      make.leading.equalToSuperview().inset(15)
       make.trailing.lessThanOrEqualTo(rightSideCellButton.snp.leading).offset(-padding)
-    }
-
-    detailStackView.snp.makeConstraints { make in
-      //      make.top.equalTo(rightSideCellButton.snp.centerY).offset(padding)
-      make.top.equalTo(titleStackView.snp.bottom).offset(padding)
-      make.leading.equalToSuperview().inset(padding * 2)
-      make.trailing.lessThanOrEqualTo(rightSideCellButton.snp.leading).offset(-padding)
+      make.centerY.equalTo(rightSideCellButton.snp.centerY)
     }
 
     rightSideCellButton.snp.makeConstraints { make in
       make.centerY.equalToSuperview()
       make.width.equalToSuperview().multipliedBy(0.17)
       make.height.equalTo(30)
-      make.trailing.equalToSuperview().inset(padding * 2)
+      make.trailing.equalToSuperview().inset(15)
     }
 
   }
