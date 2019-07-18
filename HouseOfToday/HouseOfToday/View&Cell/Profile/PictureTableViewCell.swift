@@ -42,7 +42,7 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitleColor( #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1), for: .normal)
     button.contentHorizontalAlignment = .right
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.addTarget(action: #selector(viewAllPhoto))
+//    button.addTarget(action: #selector(viewAllPhoto))
     addSubview(button)
     return button
   }()
@@ -55,10 +55,16 @@ class PictureTableViewCell: UITableViewCell {
   // FIXME: - imagePicker
   private lazy var uploadPictureButton: UIButton = {
     let button = UIButton(type: .custom)
-//    button.setTitle("사진올리기", for: .normal)
-//    button.setTitleColor( #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
-//    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.setBackgroundImage(UIImage(named: "camera"), for: .normal)
+    button.setTitle("사진올리기~!~!~#", for: .normal)
+    button.setTitleColor( #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    button.setImage(UIImage(named: "camera"), for: .normal)
+    button.imageView?.contentMode = .scaleAspectFit
+
+    button.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+    button.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+    button.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+
     button.layer.borderColor = UIColor.darkGray.cgColor
     button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     addSubview(button)
