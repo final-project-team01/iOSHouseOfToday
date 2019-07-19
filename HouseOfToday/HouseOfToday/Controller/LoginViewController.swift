@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import AMPopTip
 
 class LoginViewController: UIViewController {
 

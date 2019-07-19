@@ -1,20 +1,24 @@
 PODS:
+  - AMPopTip (4.0.1)
   - SnapKit (5.0.0)
   - SwiftLint (0.33.0)
 
 DEPENDENCIES:
+  - AMPopTip
   - SnapKit (~> 5.0.0)
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AMPopTip
     - SnapKit
     - SwiftLint
 
 SPEC CHECKSUMS:
+  AMPopTip: 41742f15d743203496cfdcd576f41b596b0efae3
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: fed9c66336e41fc74dc48a73678380718f0c8b0e
 
-PODFILE CHECKSUM: 317fdcbc6bb3087518191e36d116b747ebcde596
+PODFILE CHECKSUM: 28e07c0cbb0365a4bf0f2d53a7aa149b432642b7
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.7.1
