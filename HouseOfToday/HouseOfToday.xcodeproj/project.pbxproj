@@ -145,9 +145,9 @@
 		42C4E5C322D81BFD00A88466 /* View&Cell */ = {
 			isa = PBXGroup;
 			children = (
+				AB7EEA8922DDD32200F33663 /* Profile */,
 				42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
 				42490F2B22DCA21800EE1A01 /* Store */,
-				AB7EEA8922DDD32200F33663 /* Profile */,
 				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
 				42C4E5C722DC567900A88466 /* UserAcitivityCell.swift */,
 			);
@@ -252,6 +252,8 @@
 		AB7EEA8922DDD32200F33663 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				AB7EEAA222E1AD9200F33663 /* Cell */,
+				AB7EEAA122E1AD8900F33663 /* View */,
 				AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */,
 				AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */,
 				AB7EEA9B22DF05BF00F33663 /* MyshoppingThumbCell.swift */,
@@ -264,6 +266,20 @@
 				AB7EEA9322DDD54500F33663 /* MyshoppingView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		AB7EEAA122E1AD8900F33663 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AB7EEAA222E1AD9200F33663 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		EFB7A024F5AE262807C76DFA /* Pods */ = {

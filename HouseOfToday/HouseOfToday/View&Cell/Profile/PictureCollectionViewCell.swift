@@ -22,6 +22,13 @@ class PictureCollectionViewCell: UICollectionViewCell {
   }()
 
   // FIXME: - imageView 추가
+  lazy var imageCell: UIImageView = {
+    let imageCell = UIImageView()
+    imageCell.layer.cornerRadius = 5
+    imageCell.clipsToBounds = true
+    addSubview(imageCell)
+    return imageCell
+  }()
 
   override init(frame: CGRect) {
     super.init(frame: frame)

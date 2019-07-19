@@ -17,6 +17,11 @@ class PictureTableViewCell: UITableViewCell {
     static let lineSpacing: CGFloat = 1.0
   }
 
+  // 이미지 피커 컨트롤러 생성
+  let picker = UIImagePickerController()
+//  let imageCell = PictureCollectionViewCell()
+  var delegate: UIViewController?
+
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "사진"
@@ -42,16 +47,12 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitleColor( #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1), for: .normal)
     button.contentHorizontalAlignment = .right
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-//    button.addTarget(action: #selector(viewAllPhoto))
+    button.addTarget(self, action: #selector(viewAllPhoto), for: .touchUpInside)
     addSubview(button)
     return button
   }()
 
-  @objc func viewAllPhoto() {
-
-  }
-
-  // FIXME: - 이미지 추가
+  // FIXME: - 이미지 정렬
   // FIXME: - imagePicker
   private lazy var uploadPictureButton: UIButton = {
     let button = UIButton(type: .custom)
@@ -60,13 +61,9 @@ class PictureTableViewCell: UITableViewCell {
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
     button.setImage(UIImage(named: "camera"), for: .normal)
     button.imageView?.contentMode = .scaleAspectFit
-
-    button.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-    button.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-    button.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-
     button.layer.borderColor = UIColor.darkGray.cgColor
     button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    button.addTarget(self, action: #selector(uploadButtonDidTap), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -101,6 +98,7 @@ class PictureTableViewCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupCollectionViewLayout()
     setupConstraints()
+    picker.delegate = self
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -109,19 +107,48 @@ class PictureTableViewCell: UITableViewCell {
 
   override func layoutSubviews() {
     super .layoutSubviews()
-    self.centerButtonImageAndTitle(button: uploadPictureButton)
+    self.alignButtonImageAndTitle(button: uploadPictureButton)
   }
 
-  private func centerButtonImageAndTitle (button: UIButton) {
+  @objc func viewAllPhoto() {
+
+  }
+
+  @objc func uploadButtonDidTap() {
+    print("upload picture button tapped")
+//    let alert = UIAlertController(title: "알림", message: "사진첩에 접근", preferredStyle: UIAlertController.Style.alert)
+//    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+//      self.openLibrary()
+//    }
+//    let cancleAction = UIAlertAction(title: "cancle", style: .cancel, handler: nil)
+//
+//    alert.addAction(cancleAction)
+//    alert.addAction(okAction)
+////    present(alert, animated: true, completion: nil)
+//    delegate?.present(alert, animated: true, completion: nil)
+
+  }
+
+  func openLibrary() {
+
+    picker.sourceType = .photoLibrary
+    picker.allowsEditing = true
+    picker.modalPresentationStyle = .overFullScreen
+//    present(picker, animated: true, completion: nil)
+    delegate?.present(picker, animated: true, completion: nil)
+
+  }
+
+  private func alignButtonImageAndTitle (button: UIButton) {
     let spacing: CGFloat = 6.0
     let imageSize = button.imageView!.frame.size
-    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageSize.width, bottom: -(imageSize.height + spacing), right: 0)
+    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageSize.width, bottom: 0, right: -(imageSize.height + spacing))
 
     let titleSize = button.titleLabel!.frame.size
-    button.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0, bottom: 0, right: -titleSize.width)
+    button.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: -titleSize.width, bottom: 0, right: 0)
   }
 
-  func setupCollectionViewLayout() {
+  private func setupCollectionViewLayout() {
     layout.minimumInteritemSpacing = UI.itemSpacing
     layout.minimumLineSpacing = UI.lineSpacing
 
@@ -175,4 +202,16 @@ extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDele
 
   }
 
+}
+
+extension PictureTableViewCell: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  // 6 이미지를 선택하거나 카메라로 찍고 UsePhoto 눌렀을때
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    let imageCell = PictureCollectionViewCell()
+    // 7 info 딕셔너리 안에서 이미지 꺼내 형변환 하기
+    imageCell.imageCell.image = info[.originalImage] as? UIImage
+    // 8 picker 내려주기
+    collectionView.reloadData() //맞낭?
+    picker.dismiss(animated: false, completion: nil)
+  }
 }
