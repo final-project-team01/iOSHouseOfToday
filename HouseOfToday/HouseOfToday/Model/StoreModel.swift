@@ -7,13 +7,13 @@
 //
 
 import UIKit
-
-struct CategoryList: Decodable {
+/*
+struct AllCategoryList: Decodable {
 
   let id: Int
   let name: String
   let imageURL: String
-  var image: UIImage?
+//  var image: UIImage?
 
   let products: [Products]
 
@@ -42,6 +42,8 @@ struct CategoryList: Decodable {
     let created: String
     let category: Int
 
+    let thumnailImages: [ProductImages]
+
     enum CodingKeys: String, CodingKey {
       case id
       case name
@@ -66,6 +68,13 @@ struct CategoryList: Decodable {
       case deliverFeeDiff = "deliver_fee_diff"
       case created
       case category
+      case thumnailImages = "thumnail_images"
+    }
+
+    struct ProductImages: Decodable {
+      let id: Int
+      let image: String
+      let product: Int
     }
   }
 
@@ -83,9 +92,19 @@ struct CategoryList: Decodable {
     imageURL = try values.decode(String.self, forKey: .imageURL)
     products = try values.decode([Products].self, forKey: .products)
 
-    if let url = URL(string: imageURL) {
-      let data = try Data(contentsOf: url)
-      image = UIImage(data: data)
-    }
+//    thumnailImages = try values.decode([ProductImages].self, forKey: .thumnailImages)
+
+//    if let url = URL(string: imageURL) {
+//      let data = try Data(contentsOf: url)
+//      image = UIImage(data: data)
+//    }
   }
-}
+}*/
+
+//extension CategoryList {
+//
+//}
+//
+//extension CategoryList.Products {
+//
+//}

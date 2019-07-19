@@ -28,16 +28,15 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
       guard let data = data else { return completion(.failure(.noData)) }
 
-//      if let jsonObject = try? JSONSerialization.jsonObject(with: data) {
-//        print("fetchProductCategoryList: \(jsonObject)")
-//      }
+      let dataObj = try? JSONSerialization.jsonObject(with: data, options: [])
+
+//      print(dataObj)
 
       if let categoryList = try? JSONDecoder().decode([CategoryList].self, from: data) {
         completion(.success(categoryList))
       } else {
         completion(.failure(.invalidFormat))
       }
-
     }.resume()
 
   }

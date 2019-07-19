@@ -13,11 +13,9 @@ final class CategoryListView: UIView {
   // MARK: - Property
   static var height = (UIScreen.main.bounds.width / 4) * 3
 
-  let service: HouseOfTodayServiceType = HouseOfTodayService()
-
   let buttonCount = 10
 
-  private var categoryList: [CategoryList] = [] {
+  var categoryList: [CategoryList] = [] {
     didSet {
       print("categoryList didSet")
 
@@ -25,7 +23,6 @@ final class CategoryListView: UIView {
         self.getCategoryInfo(category: self.categoryList)
         //      categoryButtonArray = self.makeCategoryButton(category: categoryList)
       }
-
     }
   }
 
@@ -50,7 +47,7 @@ final class CategoryListView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     print("init: CategoryListView")
-    fetchProductCategoryList()
+    //fetchProductCategoryList()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -61,12 +58,10 @@ final class CategoryListView: UIView {
     super.layoutSubviews()
 
     categoryListButtonsAutolayout()
-
   }
 
   override func updateConstraints() {
     super.updateConstraints()
-
   }
 
   // MARK: - configure
@@ -106,7 +101,21 @@ final class CategoryListView: UIView {
   private func getCategoryInfo(category list: [CategoryList]) {
 
     for index in 0..<categoryButtonArray.count {
-      categoryButtonArray[index].setImage(list[index].image, for: .normal)
+      DispatchQueue.global().async { [weak self] in
+        do {
+          if let url = URL(string: list[index].imageURL) {
+            let data = try Data(contentsOf: url)
+            DispatchQueue.main.async { [weak self] in
+              guard let `self` = self else { return logger()}
+              self.categoryButtonArray[index].setImage(UIImage(data: data), for: .normal)
+              print("makeCategoryButton")
+            }
+          }
+        } catch {
+          print("makeCategoryButton id: \(list[index].id), Error: \(error.localizedDescription)")
+        }
+      }
+//      categoryButtonArray[index].setImage(list[index].image, for: .normal)
       categoryButtonArray[index].setTitle(list[index].name, for: .normal)
 
       let width = UIScreen.main.bounds.width / 4.0
@@ -136,7 +145,7 @@ final class CategoryListView: UIView {
 //            print("makeCategoryButton id: \(categoryList.id), Error: \(error.localizedDescription)")
 //          }
 //        }
-        last.setImage(categoryList.image, for: .normal)
+//        last.setImage(categoryList.image, for: .normal)
         last.setTitle(categoryList.name, for: .normal)
 
 //        last.setTitleColor(.darkGray, for: .normal)
@@ -150,16 +159,16 @@ final class CategoryListView: UIView {
     return btnArray
   }
 
-  private func fetchProductCategoryList() {
-    print("fetchProductCategoryList Start")
-    service.fetchProductCategoryList { result in
-      switch result {
-      case .success(let list):
-        print("success!!! List Count: \(list.count)")
-        self.categoryList = list
-      case .failure(let error):
-        print("fetchProductCategoryList Error: \(error.localizedDescription)")
-      }
-    }
-  }
+//  private func fetchProductCategoryList() {
+//    print("fetchProductCategoryList Start")
+//    service.fetchProductCategoryList { result in
+//      switch result {
+//      case .success(let list):
+//        print("success!!! List Count: \(list.count)")
+//        self.categoryList = list
+//      case .failure(let error):
+//        print("fetchProductCategoryList Error: \(error.localizedDescription)")
+//      }
+//    }
+//  }
 }

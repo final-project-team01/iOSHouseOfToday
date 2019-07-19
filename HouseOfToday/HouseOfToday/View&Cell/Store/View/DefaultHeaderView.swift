@@ -9,6 +9,8 @@
 import UIKit
 
 final class DefaultHeaderView: UICollectionReusableView {
+
+  // MARK: - Property
   static var height = UIScreen.main.bounds.height / 10
 
   lazy var titleLabel: UILabel = {
@@ -28,6 +30,7 @@ final class DefaultHeaderView: UICollectionReusableView {
     return btn
   }()
 
+  // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     backgroundColor = .white
@@ -37,6 +40,7 @@ final class DefaultHeaderView: UICollectionReusableView {
     fatalError("init(coder:) has not been implemented")
   }
 
+  // MARK: - configure
   override func layoutSubviews() {
     super.layoutSubviews()
 
@@ -59,7 +63,8 @@ final class DefaultHeaderView: UICollectionReusableView {
     specialPriceButton.isHidden = hide
   }
 
-   @objc private func clickedSpecialPriceButton(_ sender: UIButton) {
-
+  // MARK: - button action
+  @objc private func clickedSpecialPriceButton(_ sender: UIButton) {
+    print("clickedSpecialPriceButton")
   }
 }

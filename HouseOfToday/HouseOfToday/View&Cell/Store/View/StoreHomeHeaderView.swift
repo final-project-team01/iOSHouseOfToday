@@ -10,6 +10,7 @@ import UIKit
 
 final class StoreHomeHeaderView: UICollectionReusableView {
 
+  // MARK: - Property
   static var height = CategoryListView.height + SwipeView.height//UIScreen.main.bounds.height/6
 
   private lazy var swipeView: SwipeView = {
@@ -22,9 +23,13 @@ final class StoreHomeHeaderView: UICollectionReusableView {
   private lazy var categoryListView: CategoryListView = {
     print("categoryListView: create")
     let view = CategoryListView()
+    if let list = DataManager.shard.getProduct() {
+      view.categoryList = list
+    }
     return view
   }()
 
+  // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     addSubview(swipeView)
@@ -36,6 +41,7 @@ final class StoreHomeHeaderView: UICollectionReusableView {
     fatalError("init(coder:) has not been implemented")
   }
 
+  // MARK: - configure
   override func layoutSubviews() {
     super.layoutSubviews()
     print("layoutSubviews")

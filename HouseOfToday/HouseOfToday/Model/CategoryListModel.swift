@@ -1,5 +1,5 @@
 //
-//  StoreSampleData.swift
+//  CategoryListModel.swift
 //  HouseOfToday
 //
 //  Created by CHANGGUEN YU on 18/07/2019.
@@ -8,9 +8,8 @@
 
 import Foundation
 
-struct StoreSampleData {
-  static let storeData: Data =
-"""
-
-""".data(using: .utf8)!
+struct CategoryList: Decodable {
+  let id: Int
+  let name: String
+  let imageURL: String
 }
