@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
   private lazy var mainImageView: UIImageView = {
     let iv = UIImageView(frame: .zero)
     iv.backgroundColor = .gray
-    iv.alpha = 1
+    iv.alpha = 0.5
     view.addSubview(iv)
     return iv
   }()
@@ -87,7 +87,7 @@ class LoginViewController: UIViewController {
                                              self.lookButton])
     sv.axis = .horizontal
     sv.alignment = .center
-    sv.spacing = 5
+    sv.spacing = 10
     sv.distribution = .equalSpacing
     self.bottomLayoutGuideView.addSubview(sv)
     return sv
@@ -98,6 +98,7 @@ class LoginViewController: UIViewController {
     bt.frame = .zero
     bt.setTitle("이메일로 로그인", for: .normal)
     bt.setTitleColor(#colorLiteral(red: 0.334025979, green: 0.3334415555, blue: 0.3345029652, alpha: 1), for: .normal)
+    bt.addTarget(self, action: #selector(emailButtonsDidTapped(_:)), for: .touchUpInside)
     return bt
   }()
 
@@ -106,6 +107,7 @@ class LoginViewController: UIViewController {
     bt.frame = .zero
     bt.setTitle("이메일로 가입", for: .normal)
     bt.setTitleColor(#colorLiteral(red: 0.334025979, green: 0.3334415555, blue: 0.3345029652, alpha: 1), for: .normal)
+    bt.addTarget(self, action: #selector(emailButtonsDidTapped(_:)), for: .touchUpInside)
     return bt
   }()
 
@@ -114,6 +116,7 @@ class LoginViewController: UIViewController {
     bt.frame = .zero
     bt.setTitle("둘러보기", for: .normal)
     bt.setTitleColor(.lightGray, for: .normal)
+    bt.addTarget(self, action: #selector(lookButtonDidTapped(_:)), for: .touchUpInside)
     return bt
   }()
 
@@ -138,7 +141,7 @@ class LoginViewController: UIViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     if !firstCallFlag {
-      popTip.show(text: "  ⚡️ 3초만에 빠른 회원가입  ", direction: .up, maxWidth: 400, in: view, from: loginButtonStackView.frame)
+      popTip.show(text: "  ⚡️ 3초만에 빠른 회원가입  ", direction: .up, maxWidth: 400, in: bottomLayoutGuideView, from: kakaoLoginButton.frame)
       popTip.frame.origin.y -= 15
 
       firstCallFlag = true
@@ -149,37 +152,6 @@ class LoginViewController: UIViewController {
     super.viewDidLoad()
 
     makeConstraints()
-  }
-
-//  private var setStackViewLayout: CGFloat = 0 {
-//    didSet {
-//      buttonStackView.snp.makeConstraints {
-//        $0.height.equalTo(self.setStackViewLayout * 0.75)
-//        $0.top.equalTo(mainImageView.snp.bottom)
-//        $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-//      }
-//
-//      emailStackView.snp.makeConstraints {
-//        $0.height.equalTo(self.setStackViewLayout * 0.25)
-//        $0.top.equalTo(buttonStackView.snp.bottom)
-//        $0.leading.trailing.bottom.equalToSuperview()
-//      }
-//
-//      buttonStackView.arrangedSubviews.forEach {
-//        $0.snp.makeConstraints {
-//          $0.width.equalToSuperview().multipliedBy(0.9)
-//          $0.height.equalToSuperview().multipliedBy(0.22)
-//        }
-//      }
-//
-//    }
-//  }
-  override func updateViewConstraints() {
-    super.updateViewConstraints()
-
-//    print(view.safeAreaInsets)
-//    setStackViewLayout = (self.view.frame.height - view.safeAreaInsets.bottom - mainImageView.frame.height)
-
   }
 
   private func makeConstraints() {
@@ -210,14 +182,10 @@ class LoginViewController: UIViewController {
 
     emailStackView.snp.makeConstraints {
       $0.height.equalToSuperview().multipliedBy(0.25)
-      $0.width.equalToSuperview().multipliedBy(0.7)
+      $0.width.equalToSuperview().multipliedBy(0.8)
       $0.top.equalTo(loginButtonStackView.snp.bottom)
       $0.centerX.equalToSuperview()
     }
-
-//    signUpWithEmailButton.snp.makeConstraints {
-//      $0.centerX.equalToSuperview()
-//    }
 
     // gradient View
 //    gradientView.snp.makeConstraints {
@@ -256,8 +224,8 @@ extension LoginViewController {
     }
   }
 
-//  @objc private func lookButtonDidTapped(_ sender: UIButton) {
-//    guard let
-//  }
+  @objc private func lookButtonDidTapped(_ sender: UIButton) {
+    logger("둘러보기")
+  }
 
 }

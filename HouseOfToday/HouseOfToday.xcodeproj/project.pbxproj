@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -36,6 +36,7 @@
 		8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */; };
 		8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */; };
 		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
+		8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */; };
 		AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */; };
 		AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */; };
 		AB7EEA9022DDD4FB00F33663 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */; };
@@ -81,6 +82,8 @@
 		8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableExtensions.swift; sourceTree = "<group>"; };
 		8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HouseOfToday-Bridging-Header.h"; sourceTree = "<group>"; };
 		AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */,
+				8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +227,7 @@
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
 				42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */,
 				8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */,
+				8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -272,6 +277,7 @@
 		F4F30DB5C721F798F5CCCB91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */,
 				38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */,
 			);
 			name = Frameworks;
@@ -312,6 +318,7 @@
 				TargetAttributes = {
 					42FF928322D5A48300639BAF = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -581,8 +588,13 @@
 			baseConfigurationReference = 8B1420F34D9A33A09D55FE4A /* Pods-HouseOfToday.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H7746RVFJ9;
+				DEVELOPMENT_TEAM = KH53J489YG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HouseOfToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -590,6 +602,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.HouseOfToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HouseOfToday/Controller/HouseOfToday-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -600,8 +614,13 @@
 			baseConfigurationReference = 595FD3D34B2CBF9BA9F127D2 /* Pods-HouseOfToday.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H7746RVFJ9;
+				DEVELOPMENT_TEAM = KH53J489YG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HouseOfToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -609,6 +628,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.HouseOfToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HouseOfToday/Controller/HouseOfToday-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
