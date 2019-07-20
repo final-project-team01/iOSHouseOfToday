@@ -8,6 +8,12 @@
 
 import UIKit
 
+extension StoreVC {
+  static var presentViewController: Notification.Name {
+    return Notification.Name("present")
+  }
+}
+
 final class StoreVC: UIViewController {
 
   let storeHomeView = StoreHomeView()
@@ -25,6 +31,10 @@ final class StoreVC: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     print("viewDidAppear")
+  }
+  
+  deinit {
+    
   }
 
 }

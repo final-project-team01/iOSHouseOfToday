@@ -41,7 +41,8 @@ final class SwipeView: UIButton {
     colV.backgroundColor = .white
     colV.dataSource = self
     colV.delegate = self
-    colV.isPagingEnabled = false
+    colV.isPagingEnabled = true
+    colV.showsHorizontalScrollIndicator = false
     addSubview(colV)
     return colV
   }()
@@ -143,4 +144,5 @@ extension SwipeView: UICollectionViewDelegateFlowLayout {
 
     return CGSize(width: UIScreen.main.bounds.width, height: SwipeView.height)
   }
+
 }

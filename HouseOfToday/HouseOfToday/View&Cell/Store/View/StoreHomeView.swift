@@ -7,23 +7,29 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class StoreHomeView: UIView {
 
   // MARK: - Property
+  enum TypeCell: Int {
+    case first
+    case second
+    case third
+    case fourth
+  }
+  
+  private let notiCenter = NotificationCenter.default
+
   var pageNumber: Int = 4
   private let colorList: [UIColor] = [.red, .blue, .black, .brown, .cyan, .darkGray, .green, .magenta, .orange, .yellow]
   private let popularityKeyword = ["homeKeyword", "aircondition", "rucyAir", "brandCupon"]
   private let sectionTitle = ["", "오늘의딜", "인기 키워드", "인기상품"]
 
+  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+
   private lazy var flowLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
-    layout.minimumLineSpacing = Metric.lineSpacing[0]
-//    layout.minimumInteritemSpacing = Metric.itemSpacing
-
-    let margin: CGFloat = self.safeAreaInsets.bottom
-//    layout.itemSize = CGSize(width: UIScreen.main.bounds.width/2 - 25, height: UIScreen.main.bounds.height / 2 - margin)
-//    layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     return layout
   }()
 
@@ -31,8 +37,10 @@ final class StoreHomeView: UIView {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     colV.register(StoreHomeHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "StoreHomeHeaderView")
     colV.register(DefaultHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DefaultHeaderView")
+    colV.register(TimeSaleFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "TimeSaleFooterView")
+
     colV.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Item")
-//    colV.register(DealOfTodayCell.self, forCellWithReuseIdentifier: "Deal")
+    colV.register(cell: PopularityProductCell.self)
     colV.register(cell: PopularityKewordCell.self)
     colV.register(cell: DealOfTodayCell.self)
     colV.backgroundColor = .yellow
@@ -42,9 +50,33 @@ final class StoreHomeView: UIView {
     return colV
   }()
 
+  private var productList: [ProductList] = [] {
+    didSet {
+      print("productList didSet")
+    }
+  }
+
+  private var productListTemp: [ProductListTemp] = [] {
+    didSet {
+       productList = productListTemp.map {
+        let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width)).get  }
+        let review = $0.review.map { $0.score }
+
+        return ProductList(id: $0.id,
+                    brandName: $0.brandName,
+                    productName: $0.productName,
+                    price: $0.price,
+                    thumnailUrl: imageUrl,
+                    review: review)
+      }
+
+    }
+  }
+
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
+    fetchProductList()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -54,7 +86,6 @@ final class StoreHomeView: UIView {
 
   override func updateConstraints() {
     super.updateConstraints()
-//    print("updateConstraints")
   }
 
   // MARK: - configure
@@ -72,6 +103,22 @@ final class StoreHomeView: UIView {
     }
   }
 
+  // MARK: - Fetch Product List
+
+  private func fetchProductList() {
+    print("fetchProductList Start")
+    service.fetchProductList { result in
+      switch result {
+      case .success(let list):
+        print("success!!! productList List Count: \(list.count)")
+
+        self.productListTemp = list
+      case .failure(let error):
+        print("fetchProductList Error: \(error.localizedDescription)")
+      }
+    }
+  }
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -81,48 +128,69 @@ extension StoreHomeView: UICollectionViewDataSource {
     return 4
   }
 
-  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
-    if indexPath.section == 0 {
-      if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoreHomeHeaderView", for: indexPath) as? StoreHomeHeaderView {
-
-        return header
-      }
-    } else {
-      if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "DefaultHeaderView", for: indexPath) as? DefaultHeaderView {
-        header.titleLabel.text = sectionTitle[indexPath.section]
-        if indexPath.section == 1 {
-          header.hideButton(false)
-        } else {
-          header.hideButton(true)
-        }
-
-        return header
-      }
-    }
-
-    fatalError("Unable to Dequeue Reusable Supplementary View")
-  }
-
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     switch section {
     case 0:
       return 0
+    case 3:
+      return productList.count
     default:
       break
     }
     return pageNumber
   }
 
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+    switch kind {
+    case UICollectionView.elementKindSectionHeader:
+      if indexPath.section == 0 {
+        if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoreHomeHeaderView", for: indexPath) as? StoreHomeHeaderView {
+
+          return header
+        }
+      } else {
+        if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "DefaultHeaderView", for: indexPath) as? DefaultHeaderView {
+          header.titleLabel.text = sectionTitle[indexPath.section]
+          if indexPath.section == 1 {
+            header.hideButton(false)
+          } else {
+            header.hideButton(true)
+          }
+          return header
+        }
+      }
+
+    case UICollectionView.elementKindSectionFooter:
+      if let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TimeSaleFooterView", for: indexPath) as? TimeSaleFooterView {
+
+        return footer
+      }
+    default:
+      break
+    }
+
+    fatalError("Unable to Dequeue Reusable Supplementary View")
+  }
+
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
     if indexPath.section == 1 {
-      let cell = collectionView.dequeue(DealOfTodayCell.self, indexPath)//collectionView.dequeueReusableCell(withReuseIdentifier: "Deal", for: indexPath)
 
+      let cell = collectionView.dequeue(DealOfTodayCell.self, indexPath)
+      cell.productInfo = productList[indexPath.item]
       return cell
+
     } else if indexPath.section == 2 {
+
       let cell = collectionView.dequeue(PopularityKewordCell.self, indexPath)
       cell.keywordImageView.image = UIImage(named: popularityKeyword[indexPath.item])
+      return cell
+
+    } else if indexPath.section == 3 {
+
+      let cell = collectionView.dequeue(PopularityProductCell.self, indexPath)
+      
       return cell
     }
 
@@ -137,6 +205,25 @@ extension StoreHomeView: UICollectionViewDelegate {
 
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
+    if let cell = cell as? PopularityProductCell {
+      cell.productInfo = productList[indexPath.item]
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    
+    if let cell = cell as? PopularityProductCell {
+      
+    }
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    if indexPath.section == 3 {
+      
+      
+//      notiCenter.post(name: AddUserActivityVC.presentAlert, object: sender, userInfo: ["alert": alert])
+    }
   }
 }
 
@@ -151,23 +238,23 @@ extension StoreHomeView: UICollectionViewDelegateFlowLayout {
     }
   }
 
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+
+    if section == 1 { return CGSize(width: UIScreen.main.bounds.width, height: 50) }
+
+    return CGSize(width: 0, height: 0)
+  }
+
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    if indexPath.section == 1 {
-      return Metric.dealOfTodayCellSize//CGSize(width: UIScreen.main.bounds.width - 25, height: UIScreen.main.bounds.height / 3.8)
-    } else if indexPath.section == 2 {
-      return Metric.popularityKeywordCellSize //CGSize(width: UIScreen.main.bounds.width/2 - 25, height: UIScreen.main.bounds.height / 10)
-    } else {
-      return Metric.popularityProductCellSize
-      //return CGSize(width: UIScreen.main.bounds.width/2 - 25, height: UIScreen.main.bounds.height / 2 - self.safeAreaInsets.bottom)
-    }
+
+    if indexPath.section == 1 { return Metric.dealOfTodayCellSize } else if indexPath.section == 2 { return Metric.popularityKeywordCellSize } else { return Metric.popularityProductCellSize }
+
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    if section == 0 {
-      return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    } else {
-      return Metric.dealOfTodayCellInset//UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-    }
+
+    if section == 0 { return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) } else { return Metric.dealOfTodayCellInset }
+
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -176,6 +263,7 @@ extension StoreHomeView: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+
     return Metric.itemSpacing[section]
   }
 }

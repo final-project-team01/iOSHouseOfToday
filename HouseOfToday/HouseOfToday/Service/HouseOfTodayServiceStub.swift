@@ -10,13 +10,17 @@ import Foundation
 
 final class HouseOfTodayServiceStub: HouseOfTodayServiceType {
 
-  func fetchProductCategoryList(completion: @escaping (Result<[CategoryList], ServiceError>) -> Void) {
+  func fetchCategoryList(completion: @escaping (Result<[CategoryList], ServiceError>) -> Void) {
 
     if let categoryList = try? JSONDecoder().decode([CategoryList].self, from: StoreSampleData.storeData) {
       completion(.success(categoryList))
     } else {
       completion(.failure(.invalidFormat))
     }
+  }
+
+  func fetchProductList(completion: @escaping (Result<[ProductListTemp], ServiceError>) -> Void) {
+
   }
 
 }

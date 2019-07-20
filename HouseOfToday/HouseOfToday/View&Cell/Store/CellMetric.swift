@@ -24,7 +24,7 @@ enum Metric {
   }
 
   static var popularityProductCellSize: CGSize {
-    return CGSize(width: UIScreen.main.bounds.width/2 - 30, height: UIScreen.main.bounds.height / 2.7)
+    return CGSize(width: UIScreen.main.bounds.width/2 - 30, height: UIScreen.main.bounds.height / 2.6)
   }
 
   static var dealOfTodayCellInset: UIEdgeInsets {

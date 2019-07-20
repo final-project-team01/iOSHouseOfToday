@@ -20,19 +20,32 @@ class DataManager {
   func loadProductData() {
 
     if product == nil {
-      fetchProductCategoryList()
+      fetchCategoryList()
     }
   }
 
-  private func fetchProductCategoryList() {
-    print("fetchProductCategoryList Start")
-    service.fetchProductCategoryList { result in
+  private func fetchCategoryList() {
+    print("fetchCategoryList Start")
+    service.fetchCategoryList { result in
       switch result {
       case .success(let list):
         print("success!!! List Count: \(list.count)")
         self.product = list
       case .failure(let error):
-        print("fetchProductCategoryList Error: \(error.localizedDescription)")
+        print("fetchCategoryList Error: \(error.localizedDescription)")
+      }
+    }
+  }
+
+  private func fetchProductList() {
+    print("fetchProductList Start")
+    service.fetchProductList { result in
+      switch result {
+      case .success(let list):
+        print("success!!! List Count: \(list.count)")
+//        self.product = list
+      case .failure(let error):
+        print("fetchProductList Error: \(error.localizedDescription)")
       }
     }
   }

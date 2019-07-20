@@ -7,7 +7,7 @@
 //
 
 import UIKit
-/*
+
 struct AllCategoryList: Decodable {
 
   let id: Int
@@ -99,7 +99,7 @@ struct AllCategoryList: Decodable {
 //      image = UIImage(data: data)
 //    }
   }
-}*/
+}
 
 //extension CategoryList {
 //

@@ -34,6 +34,10 @@
 		42F3E4B722E0C4BA002E1479 /* CellMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E4B622E0C4BA002E1479 /* CellMetric.swift */; };
 		42F3E4B922E14FED002E1479 /* PopularityKewordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E4B822E14FED002E1479 /* PopularityKewordCell.swift */; };
 		42F3E4BD22E16385002E1479 /* PopularityProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E4BC22E16385002E1479 /* PopularityProductCell.swift */; };
+		42F3E4BF22E18B61002E1479 /* TimeSaleFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E4BE22E18B61002E1479 /* TimeSaleFooterView.swift */; };
+		42F3E4C122E1C49B002E1479 /* ProductListTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E4C022E1C49B002E1479 /* ProductListTemp.swift */; };
+		42F3E4C322E21F6E002E1479 /* ModifyImageUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E4C222E21F6E002E1479 /* ModifyImageUrl.swift */; };
+		42F3E4EE22E31E76002E1479 /* ProductDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E4ED22E31E76002E1479 /* ProductDetailVC.swift */; };
 		42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928722D5A48300639BAF /* AppDelegate.swift */; };
 		42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF928922D5A48300639BAF /* HomeVC.swift */; };
 		42FF928F22D5A48400639BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42FF928E22D5A48400639BAF /* Assets.xcassets */; };
@@ -85,6 +89,10 @@
 		42F3E4B622E0C4BA002E1479 /* CellMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMetric.swift; sourceTree = "<group>"; };
 		42F3E4B822E14FED002E1479 /* PopularityKewordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityKewordCell.swift; sourceTree = "<group>"; };
 		42F3E4BC22E16385002E1479 /* PopularityProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityProductCell.swift; sourceTree = "<group>"; };
+		42F3E4BE22E18B61002E1479 /* TimeSaleFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSaleFooterView.swift; sourceTree = "<group>"; };
+		42F3E4C022E1C49B002E1479 /* ProductListTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListTemp.swift; sourceTree = "<group>"; };
+		42F3E4C222E21F6E002E1479 /* ModifyImageUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyImageUrl.swift; sourceTree = "<group>"; };
+		42F3E4ED22E31E76002E1479 /* ProductDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailVC.swift; sourceTree = "<group>"; };
 		42FF928422D5A48300639BAF /* HouseOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42FF928722D5A48300639BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42FF928922D5A48300639BAF /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -125,9 +133,11 @@
 		42490F2B22DCA21800EE1A01 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				42F3E4EC22E31E01002E1479 /* ViewController */,
 				42F3E4BB22E16255002E1479 /* View */,
 				42F3E4BA22E16244002E1479 /* Cell */,
 				42F3E4B622E0C4BA002E1479 /* CellMetric.swift */,
+				42F3E4C222E21F6E002E1479 /* ModifyImageUrl.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -186,6 +196,7 @@
 				42F3E4AC22E05112002E1479 /* DataManager.swift */,
 				42C4E5CB22DC890D00A88466 /* StoreModel.swift */,
 				42F3E4B422E0B637002E1479 /* CategoryList.swift */,
+				42F3E4C022E1C49B002E1479 /* ProductListTemp.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,11 +216,21 @@
 			children = (
 				42C4E5C922DC887800A88466 /* StoreHomeView.swift */,
 				42F3E4AA22E012D0002E1479 /* DefaultHeaderView.swift */,
-				42490F7722DF0E0300EE1A01 /* StoreHomeHeaderView.swift */,
 				42490F7522DEE51300EE1A01 /* CategoryListView.swift */,
 				42490F6F22DECC6400EE1A01 /* SwipeView.swift */,
+				42490F7722DF0E0300EE1A01 /* StoreHomeHeaderView.swift */,
+				42F3E4BE22E18B61002E1479 /* TimeSaleFooterView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		42F3E4EC22E31E01002E1479 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				42FF92A722D5B5EA00639BAF /* StoreVC.swift */,
+				42F3E4ED22E31E76002E1479 /* ProductDetailVC.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		42FF927B22D5A48300639BAF = {
@@ -272,7 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
-				42FF92A722D5B5EA00639BAF /* StoreVC.swift */,
 				42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */,
 				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
@@ -449,12 +469,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,6 +491,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42F3E4EE22E31E76002E1479 /* ProductDetailVC.swift in Sources */,
 				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
 				42490F7C22DFFA6E00EE1A01 /* StoreSampleData.swift in Sources */,
 				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
@@ -481,6 +504,7 @@
 				42C4E5CA22DC887800A88466 /* StoreHomeView.swift in Sources */,
 				42F3E4B322E0939C002E1479 /* DealOfTodayCell.swift in Sources */,
 				42F3E4BD22E16385002E1479 /* PopularityProductCell.swift in Sources */,
+				42F3E4C322E21F6E002E1479 /* ModifyImageUrl.swift in Sources */,
 				42490F6A22DDC15200EE1A01 /* IndicatorBarView.swift in Sources */,
 				AB7EEA9622DDD56600F33663 /* VoucherCell.swift in Sources */,
 				42490F6122DDC13800EE1A01 /* CategoryTabBarViewController.swift in Sources */,
@@ -490,6 +514,7 @@
 				42490F7022DECC6400EE1A01 /* SwipeView.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				AB7EEA9022DDD4FB00F33663 /* PictureCell.swift in Sources */,
+				42F3E4C122E1C49B002E1479 /* ProductListTemp.swift in Sources */,
 				42F3E4B922E14FED002E1479 /* PopularityKewordCell.swift in Sources */,
 				AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */,
 				42F3E4AF22E08BDE002E1479 /* HouseOfTodayServiceStub.swift in Sources */,
@@ -510,6 +535,7 @@
 				42F3E4AB22E012D0002E1479 /* DefaultHeaderView.swift in Sources */,
 				AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */,
 				8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */,
+				42F3E4BF22E18B61002E1479 /* TimeSaleFooterView.swift in Sources */,
 				42C4E5C622DB238900A88466 /* HouseOfTodayService.swift in Sources */,
 				42F3E4B722E0C4BA002E1479 /* CellMetric.swift in Sources */,
 			);

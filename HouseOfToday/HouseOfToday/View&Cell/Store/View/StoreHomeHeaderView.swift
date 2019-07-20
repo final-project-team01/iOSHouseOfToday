@@ -23,9 +23,9 @@ final class StoreHomeHeaderView: UICollectionReusableView {
   private lazy var categoryListView: CategoryListView = {
     print("categoryListView: create")
     let view = CategoryListView()
-    if let list = DataManager.shard.getProduct() {
-      view.categoryList = list
-    }
+//    if let list = DataManager.shard.getProduct() {
+//      view.categoryList = list
+//    }
     return view
   }()
 
@@ -44,7 +44,7 @@ final class StoreHomeHeaderView: UICollectionReusableView {
   // MARK: - configure
   override func layoutSubviews() {
     super.layoutSubviews()
-    print("layoutSubviews")
+//    print("layoutSubviews")
 
     swipeViewAutolayout()
 

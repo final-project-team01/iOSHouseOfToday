@@ -13,15 +13,16 @@ final class CategoryListView: UIView {
   // MARK: - Property
   static var height = (UIScreen.main.bounds.width / 4) * 3
 
+  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+
   let buttonCount = 10
 
-  var categoryList: [CategoryList] = [] {
+  private var categoryList: [CategoryList] = [] {
     didSet {
       print("categoryList didSet")
 
       DispatchQueue.main.async {
         self.getCategoryInfo(category: self.categoryList)
-        //      categoryButtonArray = self.makeCategoryButton(category: categoryList)
       }
     }
   }
@@ -47,7 +48,7 @@ final class CategoryListView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     print("init: CategoryListView")
-    //fetchProductCategoryList()
+    fetchCategoryList()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -56,7 +57,6 @@ final class CategoryListView: UIView {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-
     categoryListButtonsAutolayout()
   }
 
@@ -107,68 +107,40 @@ final class CategoryListView: UIView {
             let data = try Data(contentsOf: url)
             DispatchQueue.main.async { [weak self] in
               guard let `self` = self else { return logger()}
-              self.categoryButtonArray[index].setImage(UIImage(data: data), for: .normal)
-              print("makeCategoryButton")
+//              self.categoryButtonArray[index].setImage(UIImage(data: data), for: .normal)
+              self.categoryButtonArray[index].setBackgroundImage(UIImage(data: data), for: .normal)
+
+//              categoryButtonArray[index].imageEdgeInsets
             }
           }
         } catch {
           print("makeCategoryButton id: \(list[index].id), Error: \(error.localizedDescription)")
         }
       }
-//      categoryButtonArray[index].setImage(list[index].image, for: .normal)
+
       categoryButtonArray[index].setTitle(list[index].name, for: .normal)
+//      categoryButtonArray[index]
 
       let width = UIScreen.main.bounds.width / 4.0
       categoryButtonArray[index].imageEdgeInsets = UIEdgeInsets(top: width / 10, left: width / 5, bottom: width / 5 + width / 10, right: width / 5)
-      categoryButtonArray[index].imageView?.backgroundColor = .blue
+//      categoryButtonArray[index].imageView?.backgroundColor = .blue
       categoryButtonArray[index].titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -60, right: 0)
     }
   }
 
-  private func makeCategoryButton(category list: [CategoryList]) -> [UIButton] {
-    var btnArray = Array<UIButton>()
+  // MARK: - Fetch Category List
+  private func fetchCategoryList() {
+    print("fetchCategoryList Start")
+    service.fetchCategoryList { result in
+      switch result {
+      case .success(let list):
+        print("success!!! List Count: \(list.count)")
 
-    for categoryList in list {
-      btnArray.append(UIButton(type: .custom))
-      if let last = btnArray.last {
+        self.categoryList = list
+      case .failure(let error):
 
-//        DispatchQueue.global().async {
-//          do {
-//            if let url = URL(string: categoryList.imageURL) {
-//              let data = try Data(contentsOf: url)
-//              DispatchQueue.main.async {
-//                last.setImage(UIImage(data: data), for: .normal)
-//                print("makeCategoryButton")
-//              }
-//            }
-//          } catch {
-//            print("makeCategoryButton id: \(categoryList.id), Error: \(error.localizedDescription)")
-//          }
-//        }
-//        last.setImage(categoryList.image, for: .normal)
-        last.setTitle(categoryList.name, for: .normal)
-
-//        last.setTitleColor(.darkGray, for: .normal)
-//        last.layer.borderColor = UIColor.lightGray.cgColor
-//        last.layer.borderWidth = 0.5
-//        addSubview(last)
+        print("fetchCategoryList Error: \(error.localizedDescription)")
       }
     }
-
-    print("makeCategoryButton end, Button Count: \(btnArray.count)")
-    return btnArray
   }
-
-//  private func fetchProductCategoryList() {
-//    print("fetchProductCategoryList Start")
-//    service.fetchProductCategoryList { result in
-//      switch result {
-//      case .success(let list):
-//        print("success!!! List Count: \(list.count)")
-//        self.categoryList = list
-//      case .failure(let error):
-//        print("fetchProductCategoryList Error: \(error.localizedDescription)")
-//      }
-//    }
-//  }
 }

@@ -48,13 +48,9 @@ final class MainTabBarVC: UITabBarController {
   private func setupTabBarItems() {
 
     homeVC.tabBarItem.image = UIImage(named: "home")
-//    homeVC.tabBarItem.selectedImage = UIImage(named: "homeSeleted")
     storeVC.tabBarItem.image = UIImage(named: "store")
-//    storeVC.tabBarItem.selectedImage = UIImage(named: "shopSeleted")
     expertVC.tabBarItem.image = UIImage(named: "expert")
-//    expertVC.tabBarItem.selectedImage = UIImage(named: "expertSeleted")
     myPageVC.tabBarItem.image = UIImage(named: "myPage")
-//    myPageVC.tabBarItem.selectedImage = UIImage(named: "userSeleted")
     addUserActivityVC.tabBarItem.image = UIImage(named: "1addPostsSeleted")
 
     viewControllers = [homeVC, storeVC, expertVC, myPageVC, addUserActivityVC]
