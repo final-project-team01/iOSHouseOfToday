@@ -205,7 +205,7 @@ extension LoginViewController {
       logger("카카오")
       /// ----------------   로그인 -------------
       guard let session = KOSession.shared() else {
-        return
+        return logger()
       }
 
       if session.isOpen() {
@@ -224,7 +224,46 @@ extension LoginViewController {
             }
           }
         }
+
+        /// 사용자 정보 요청하기
+        KOSessionTask.userMeTask { [weak self] (error, me) in
+          if let error = error as NSError? {
+            UIAlertController.showMessage(error.description)
+
+          } else if let me = me as KOUserMe? {
+            // 결과 보여주기
+            var message: String = ""
+
+            message.append("아이디: ")
+            message.append(me.id ?? "없음 (signup 필요함)")
+
+            if let account = me.account {
+              message.append("\n\n== 카카오계정 정보 ==")
+
+              message.append("\n이메일: ")
+              if account.email != nil {
+                message.append(account.email!)
+              } else if account.emailNeedsAgreement == true {
+                message.append("있음 (사용자 동의가 필요함)")
+              } else {
+                message.append("없음")
+              }
+            }
+            // 닉네임 , 프로필 이미지 url 정보 등등
+            if let properties = me.properties {
+              message.append("\n\n== 사용자 속성 ==\n\(properties.description)")
+            }
+            print(message)
+          }
+        }
+
+        /// 토근 정보 얻어보자
+        KOSessionTask.accessTokenInfoTask(completionHandler: { (token, _) in
+          print("token 정보 : ", token)
+        })
+        /// 
       })
+
       /// ----------------------------
     case #colorLiteral(red: 0.1769869626, green: 0.7050512433, blue: 0.001866223989, alpha: 1):
       logger("네이버")

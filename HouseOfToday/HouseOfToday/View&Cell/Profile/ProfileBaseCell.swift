@@ -87,9 +87,23 @@ final class ProfileBaseCell: UITableViewCell {
     button.setTitle("바로가기", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
     button.backgroundColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
+    // 창식 테스트
+    button.addTarget(self, action: #selector(siccTest(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
+
+  @objc private func siccTest(_ sender: Any) {
+
+    KOSession.shared()?.logoutAndClose { [weak self] (success, error) -> Void in
+      if success {
+        print("Logout")
+      } else {
+        logger("Failed to Logout / reason : ", error)
+      }
+      //_ = self?.navigationController?.popViewController(animated: true)
+    }
+  }
 
   let padding: CGFloat = 10
 
