@@ -203,6 +203,29 @@ extension LoginViewController {
     switch sender.backgroundColor {
     case #colorLiteral(red: 0.977997005, green: 0.8791384101, blue: 0, alpha: 1):
       logger("카카오")
+      /// ----------------   로그인 -------------
+      guard let session = KOSession.shared() else {
+        return
+      }
+
+      if session.isOpen() {
+        session.close()
+      }
+
+      session.open(completionHandler: { (error) -> Void in
+
+        if !session.isOpen() {
+          if let error = error as NSError? {
+            switch error.code {
+            case Int(KOErrorCancelled.rawValue):
+              break
+            default:
+              UIAlertController.showMessage(error.description)
+            }
+          }
+        }
+      })
+      /// ----------------------------
     case #colorLiteral(red: 0.1769869626, green: 0.7050512433, blue: 0.001866223989, alpha: 1):
       logger("네이버")
     case #colorLiteral(red: 0.2593425214, green: 0.5222951174, blue: 0.9579148889, alpha: 1):
