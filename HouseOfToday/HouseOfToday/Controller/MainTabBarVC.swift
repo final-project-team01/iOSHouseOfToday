@@ -48,13 +48,9 @@ final class MainTabBarVC: UITabBarController {
   private func setupTabBarItems() {
 
     homeVC.tabBarItem.image = UIImage(named: "home")
-//    homeVC.tabBarItem.selectedImage = UIImage(named: "homeSeleted")
     storeVC.tabBarItem.image = UIImage(named: "store")
-//    storeVC.tabBarItem.selectedImage = UIImage(named: "shopSeleted")
     expertVC.tabBarItem.image = UIImage(named: "expert")
-//    expertVC.tabBarItem.selectedImage = UIImage(named: "expertSeleted")
     myPageVC.tabBarItem.image = UIImage(named: "myPage")
-//    myPageVC.tabBarItem.selectedImage = UIImage(named: "userSeleted")
     addUserActivityVC.tabBarItem.image = UIImage(named: "1addPostsSeleted")
 
     viewControllers = [homeVC, storeVC, expertVC, myPageVC, addUserActivityVC]
@@ -64,7 +60,7 @@ final class MainTabBarVC: UITabBarController {
         tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
       }
     }
-    self.tabBar.unselectedItemTintColor = .darkGray
+    self.tabBar.unselectedItemTintColor = UIColor.lightGray
   }
 
   // viewDidLayoutSubviews: Layout이 다 잡힌후에 호출되는 function
@@ -125,7 +121,6 @@ final class MainTabBarVC: UITabBarController {
   // getAnimationButtonStatus: adduserActivityButton 상태 반환
   // return: true -> button 이 선택되어 있는 상태
   private func getAnimationButtonStatus() -> Bool {
-    print(addUserActivityButton.transform == .identity)
     return addUserActivityButton.transform != .identity
   }
 }
