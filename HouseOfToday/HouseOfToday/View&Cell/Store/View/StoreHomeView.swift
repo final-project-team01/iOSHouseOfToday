@@ -18,7 +18,7 @@ final class StoreHomeView: UIView {
     case third
     case fourth
   }
-  
+
   private let notiCenter = NotificationCenter.default
 
   var pageNumber: Int = 4
@@ -43,7 +43,7 @@ final class StoreHomeView: UIView {
     colV.register(cell: PopularityProductCell.self)
     colV.register(cell: PopularityKewordCell.self)
     colV.register(cell: DealOfTodayCell.self)
-    colV.backgroundColor = .yellow
+    colV.backgroundColor = .white
     colV.dataSource = self
     colV.delegate = self
     addSubview(colV)
@@ -59,7 +59,7 @@ final class StoreHomeView: UIView {
   private var productListTemp: [ProductListTemp] = [] {
     didSet {
        productList = productListTemp.map {
-        let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width)).get  }
+        let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
         let review = $0.review.map { $0.score }
 
         return ProductList(id: $0.id,
@@ -106,7 +106,7 @@ final class StoreHomeView: UIView {
   // MARK: - Fetch Product List
 
   private func fetchProductList() {
-    print("fetchProductList Start")
+//    print("fetchProductList Start")
     service.fetchProductList { result in
       switch result {
       case .success(let list):
@@ -132,6 +132,7 @@ extension StoreHomeView: UICollectionViewDataSource {
     switch section {
     case 0:
       return 0
+    case 1: return productList.count > 0 ? 4 : 0
     case 3:
       return productList.count
     default:
@@ -190,7 +191,6 @@ extension StoreHomeView: UICollectionViewDataSource {
     } else if indexPath.section == 3 {
 
       let cell = collectionView.dequeue(PopularityProductCell.self, indexPath)
-      
       return cell
     }
 
@@ -211,18 +211,21 @@ extension StoreHomeView: UICollectionViewDelegate {
   }
 
   func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    
-    if let cell = cell as? PopularityProductCell {
-      
+
+    if let cell = cell as? DealOfTodayCell {
+      cell.stopDownloadImage()
+    } else if let cell = cell as? PopularityProductCell {
+      cell.stopDownloadImage()
     }
   }
-  
+
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
+
     if indexPath.section == 3 {
-      
-      
-//      notiCenter.post(name: AddUserActivityVC.presentAlert, object: sender, userInfo: ["alert": alert])
+
+      let productID = productList[indexPath.item].id
+
+      notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
     }
   }
 }
@@ -247,13 +250,23 @@ extension StoreHomeView: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-    if indexPath.section == 1 { return Metric.dealOfTodayCellSize } else if indexPath.section == 2 { return Metric.popularityKeywordCellSize } else { return Metric.popularityProductCellSize }
+    if indexPath.section == 1 {
+      return Metric.dealOfTodayCellSize
+    } else if indexPath.section == 2 {
+      return Metric.popularityKeywordCellSize
+    } else {
+      return Metric.popularityProductCellSize
+    }
 
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-    if section == 0 { return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) } else { return Metric.dealOfTodayCellInset }
+    if section == 0 {
+      return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    } else {
+      return Metric.dealOfTodayCellInset
+    }
 
   }
 

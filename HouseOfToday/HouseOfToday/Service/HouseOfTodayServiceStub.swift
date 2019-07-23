@@ -23,4 +23,12 @@ final class HouseOfTodayServiceStub: HouseOfTodayServiceType {
 
   }
 
+  func fetchCategoryIdList(id: Int, completion: @escaping (Result<CategoryIdList, ServiceError>) -> Void) {
+
+  }
+
+  func fetchProductDetail(id: Int, completion: @escaping (Result<ProductDetail, ServiceError>) -> Void) {
+
+  }
+
 }

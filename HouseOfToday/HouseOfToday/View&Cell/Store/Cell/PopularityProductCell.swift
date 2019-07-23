@@ -16,7 +16,7 @@ class PopularityProductCell: UICollectionViewCell {
     let imageView = UIImageView(frame: CGRect.zero)
     imageView.backgroundColor = .white
     imageView.layer.masksToBounds = true
-    imageView.layer.cornerRadius = 10
+    imageView.layer.cornerRadius = 5
     addSubview(imageView)
     return imageView
   }()
@@ -24,8 +24,8 @@ class PopularityProductCell: UICollectionViewCell {
   private lazy var brandLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "brand"
-    label.textColor = #colorLiteral(red: 0.9293405414, green: 0.929452002, blue: 0.9293025732, alpha: 1)
-    label.font = UIFont.systemFont(ofSize: 15)
+    label.textColor = UIColor.lightGray
+    label.font = UIFont.systemFont(ofSize: 10)
     addSubview(label)
     return label
   }()
@@ -35,6 +35,7 @@ class PopularityProductCell: UICollectionViewCell {
     label.text = "product Name Label 1asldkfjhaslkjdfhalksjdfalkjhdf"
     label.lineBreakMode = .byTruncatingTail
     label.numberOfLines = 2
+    label.font = UIFont.systemFont(ofSize: 15)
     addSubview(label)
     return label
   }()
@@ -43,7 +44,7 @@ class PopularityProductCell: UICollectionViewCell {
     let label = UILabel(frame: CGRect.zero)
     label.text = "80%"
     label.textColor = #colorLiteral(red: 0.08574206382, green: 0.7608343959, blue: 0.9359433651, alpha: 1)
-    label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+    label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     addSubview(label)
     return label
   }()
@@ -51,7 +52,7 @@ class PopularityProductCell: UICollectionViewCell {
   private lazy var priceLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "999,999"
-    label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+    label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     addSubview(label)
     return label
   }()
@@ -59,6 +60,7 @@ class PopularityProductCell: UICollectionViewCell {
   private lazy var ratingStarRankLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "★5.0"
+    label.font = UIFont.systemFont(ofSize: 10)
     addSubview(label)
     return label
   }()
@@ -66,6 +68,7 @@ class PopularityProductCell: UICollectionViewCell {
   private lazy var reviewCountLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "리뷰 1,004"
+    label.font = UIFont.systemFont(ofSize: 10)
     addSubview(label)
     return label
   }()
@@ -73,26 +76,30 @@ class PopularityProductCell: UICollectionViewCell {
   private lazy var clippingAndHitsCountLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "스크랩 999 조회 500"
+    label.font = UIFont.systemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
 
   private lazy var deliveryFreeLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "무료배송"
+    label.text = " 무료배송 "
+    label.font = UIFont.systemFont(ofSize: 10)
     label.backgroundColor = #colorLiteral(red: 0.9293405414, green: 0.929452002, blue: 0.9293025732, alpha: 1)
     label.layer.masksToBounds = true
-    label.layer.cornerRadius = 5
+    label.layer.cornerRadius = 3
     addSubview(label)
     return label
   }()
 
   private lazy var lowestPriceLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "최저가"
+    label.text = " 최저가 "
+    label.textColor = .white
     label.backgroundColor = #colorLiteral(red: 1, green: 0.4855915308, blue: 0.4643723965, alpha: 1)
     label.layer.masksToBounds = true
-    label.layer.cornerRadius = 5
+    label.layer.cornerRadius = 3
+    label.font = UIFont.systemFont(ofSize: 10)
     addSubview(label)
     return label
   }()
@@ -103,7 +110,7 @@ class PopularityProductCell: UICollectionViewCell {
 
       brandLabel.text = info.brandName
       productNameLabel.text = info.productName
-      priceLabel.text = "\(info.price)"
+      priceLabel.text = formetter(price: info.price)//"\(info.price)"
 
       if info.review.count > 0 {
         let average = info.review.reduce(0) { $0 + $1 } / info.review.count
@@ -112,18 +119,8 @@ class PopularityProductCell: UICollectionViewCell {
         ratingStarRankLabel.text = "★\(0.0)"
       }
 
-      DispatchQueue.global().async { [weak self] in
-        do {
-          if let url = URL(string: info.thumnailUrl[0]) {
-            let data = try Data(contentsOf: url)
-            DispatchQueue.main.async { [weak self] in
-              guard let `self` = self else { return logger()}
-              self.thumnailImageView.image = UIImage(data: data)
-            }
-          }
-        } catch {
-          print("makeCategoryButton id: \(info.id), Error: \(error.localizedDescription)")
-        }
+      if let url = URL(string: info.thumnailUrl[0]) {
+        setImage(thumnailUrl: url)
       }
 
     }
@@ -132,7 +129,7 @@ class PopularityProductCell: UICollectionViewCell {
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = UIColor(red: 50/255, green: 100/255, blue: 200/255, alpha: 1)
+//    backgroundColor = UIColor(red: 50/255, green: 100/255, blue: 200/255, alpha: 1)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -198,6 +195,7 @@ class PopularityProductCell: UICollectionViewCell {
       deliveryFreeLabel.snp.makeConstraints {
         $0.leading.equalToSuperview()
         $0.top.equalTo(clippingAndHitsCountLabel.snp.bottom).offset(margin)
+        $0.height.equalTo(brandLabel.snp.height).multipliedBy(1.5)
       }
     }
 
@@ -205,12 +203,35 @@ class PopularityProductCell: UICollectionViewCell {
       lowestPriceLabel.snp.makeConstraints {
         $0.leading.equalTo(deliveryFreeLabel.snp.trailing).offset(margin)
         $0.top.equalTo(deliveryFreeLabel.snp.top)
+        $0.height.equalTo(brandLabel.snp.height).multipliedBy(1.5)
       }
     }
   }
 
   public func showRatingStar(_ hide: Bool) {
     clippingAndHitsCountLabel.isHighlighted = hide
+  }
+
+  // MARK: - Image Download & setImage
+  private func setImage(thumnailUrl: URL) {
+
+    thumnailImageView.kf.setImage(with: thumnailUrl,
+                                  placeholder: nil,
+                                  options: [.transition(.fade(1)), .loadDiskFileSynchronously],
+                                  progressBlock: nil) { (_) in
+//                                    print("result: ", result)
+    }
+  }
+
+  public func stopDownloadImage() {
+    thumnailImageView.kf.cancelDownloadTask()
+  }
+
+  private func formetter(price: Int) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+
+    return formatter.string(from: price as NSNumber) ?? ""
   }
 
 }

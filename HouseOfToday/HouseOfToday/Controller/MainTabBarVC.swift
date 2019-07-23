@@ -60,7 +60,7 @@ final class MainTabBarVC: UITabBarController {
         tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
       }
     }
-    self.tabBar.unselectedItemTintColor = .darkGray
+    self.tabBar.unselectedItemTintColor = UIColor.lightGray
   }
 
   // viewDidLayoutSubviews: Layout이 다 잡힌후에 호출되는 function

@@ -61,4 +61,53 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
   }
 
+  func fetchCategoryIdList(id: Int, completion: @escaping (Result<CategoryIdList, ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/category/\(id)/"
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let productList = try? JSONDecoder().decode(CategoryIdList.self, from: data) {
+        completion(.success(productList))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+      }.resume()
+  }
+
+  func fetchProductDetail(id: Int, completion: @escaping (Result<ProductDetail, ServiceError>) -> Void) {
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/product/\(id)/"
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let productList = try? JSONDecoder().decode(ProductDetail.self, from: data) {
+        completion(.success(productList))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+      }.resume()
+  }
+
 }

@@ -24,11 +24,11 @@ enum Metric {
   }
 
   static var popularityProductCellSize: CGSize {
-    return CGSize(width: UIScreen.main.bounds.width/2 - 30, height: UIScreen.main.bounds.height / 2.6)
+    return CGSize(width: UIScreen.main.bounds.width/2 - 25, height: UIScreen.main.bounds.height / 2.6)
   }
 
   static var dealOfTodayCellInset: UIEdgeInsets {
-    return .init(top: 20, left: 20, bottom: 20, right: 20)
+    return .init(top: 20, left: 15, bottom: 20, right: 15)
   }
 
   static let inset: UIEdgeInsets = .init(top: 20, left: 20, bottom: 20, right: 20)

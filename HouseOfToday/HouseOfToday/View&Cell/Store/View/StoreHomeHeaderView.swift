@@ -20,12 +20,17 @@ final class StoreHomeHeaderView: UICollectionReusableView {
     return view
   }()
 
-  private lazy var categoryListView: CategoryListView = {
+  private lazy var categoryListView1: CategoryListView = {
     print("categoryListView: create")
     let view = CategoryListView()
 //    if let list = DataManager.shard.getProduct() {
 //      view.categoryList = list
 //    }
+    return view
+  }()
+
+  private lazy var categoryListView: CategoryListView = {
+    let view = CategoryListView()
     return view
   }()
 
