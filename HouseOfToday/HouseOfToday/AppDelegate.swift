@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-  private var loginVC: UIViewController?
+  private var loginVC: UINavigationController?
 
   private var naviVC: UINavigationController?
 
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
 
-    self.loginVC = LoginViewController()
+    self.loginVC = UINavigationController(rootViewController: LoginViewController())
     let mainVC = MainTabBarVC()
     self.naviVC = UINavigationController(rootViewController: mainVC)
 

@@ -13,6 +13,10 @@ import AMPopTip
 class LoginViewController: UIViewController {
 
   // MARK: - Properties
+
+  let loginWithEmailVC = LoginWithEmailViewController()
+  let signUpWithEmailVC = SignUpWithEmailViewController()
+
   private lazy var mainImageView: UIImageView = {
     let iv = UIImageView(frame: .zero)
     iv.backgroundColor = .gray
@@ -154,6 +158,11 @@ class LoginViewController: UIViewController {
     makeConstraints()
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
+  }
+
   private func makeConstraints() {
 
     // mainImageView
@@ -202,7 +211,7 @@ extension LoginViewController {
 
     switch sender.backgroundColor {
     case #colorLiteral(red: 0.977997005, green: 0.8791384101, blue: 0, alpha: 1):
-      logger("카카오")
+      print("카카오 버튼 클릭")
       /// ----------------   로그인 -------------
       guard let session = KOSession.shared() else {
         return logger()
@@ -261,14 +270,14 @@ extension LoginViewController {
         KOSessionTask.accessTokenInfoTask(completionHandler: { (token, _) in
           print("token 정보 : ", token)
         })
-        /// 
+        ///
       })
 
       /// ----------------------------
     case #colorLiteral(red: 0.1769869626, green: 0.7050512433, blue: 0.001866223989, alpha: 1):
-      logger("네이버")
+      print("네이버 버튼 클릭")
     case #colorLiteral(red: 0.2593425214, green: 0.5222951174, blue: 0.9579148889, alpha: 1):
-      logger("구글")
+      print("구글 버튼 클릭")
     default:
       break
     }
@@ -278,9 +287,11 @@ extension LoginViewController {
     guard let buttonTitle = sender.titleLabel?.text else { return logger("button can't be unwrapped")}
     switch buttonTitle {
     case "이메일로 로그인":
-      logger("이메일로 로그인")
+      print("이메일로 로그인 버튼 클릭")
+      self.navigationController?.pushViewController(loginWithEmailVC, animated: true)
     case "이메일로 가입":
-      logger("이메일로 가입")
+      print("이메일로 가입 버튼 클릭")
+      self.navigationController?.pushViewController(signUpWithEmailVC, animated: true)
     default:
       break
     }
