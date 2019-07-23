@@ -23,28 +23,27 @@ class Footer: UICollectionReusableView {
     addSubview(button)
     return button
   }()
-  
+
   override init(frame: CGRect) {
     super .init(frame: frame)
     self.backgroundColor = .white
     configureLabel()
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   @objc func moreButtondidTap() {
-    
+
   }
-  
+
   private func configureLabel() {
-    
+
     moreButton.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
-    
-    
+
   }
-  
+
 }
