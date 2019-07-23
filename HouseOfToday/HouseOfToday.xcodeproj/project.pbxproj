@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4246670722E6DD1D001CE665 /* SwipeImageview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4246670622E6DD1D001CE665 /* SwipeImageview.swift */; };
+		4246670922E6F736001CE665 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4246670822E6F736001CE665 /* CALayerExtensions.swift */; };
 		42490F2A22DC8E1400EE1A01 /* HouseOfTodayServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F2922DC8E1400EE1A01 /* HouseOfTodayServiceType.swift */; };
 		42490F6122DDC13800EE1A01 /* CategoryTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */; };
 		42490F6422DDC14600EE1A01 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42490F6222DDC14600EE1A01 /* CategoryCell.swift */; };
@@ -68,6 +70,8 @@
 
 /* Begin PBXFileReference section */
 		38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HouseOfToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4246670622E6DD1D001CE665 /* SwipeImageview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeImageview.swift; sourceTree = "<group>"; };
+		4246670822E6F736001CE665 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
 		42490F2922DC8E1400EE1A01 /* HouseOfTodayServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseOfTodayServiceType.swift; sourceTree = "<group>"; };
 		42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTabBarViewController.swift; sourceTree = "<group>"; };
 		42490F6222DDC14600EE1A01 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 			children = (
 				42C4E5C922DC887800A88466 /* StoreHomeView.swift */,
 				42490F6F22DECC6400EE1A01 /* SwipeView.swift */,
+				4246670622E6DD1D001CE665 /* SwipeImageview.swift */,
 				42F3E4AA22E012D0002E1479 /* DefaultHeaderView.swift */,
 				42490F7722DF0E0300EE1A01 /* StoreHomeHeaderView.swift */,
 				42F3E4BE22E18B61002E1479 /* TimeSaleFooterView.swift */,
@@ -245,8 +250,8 @@
 			isa = PBXGroup;
 			children = (
 				42FF92A722D5B5EA00639BAF /* StoreVC.swift */,
-				42F3E4ED22E31E76002E1479 /* ProductDetailVC.swift */,
 				42F3E4F522E5B5E8002E1479 /* CategoryProductListView.swift */,
+				42F3E4ED22E31E76002E1479 /* ProductDetailVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 				8E5B59E822D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift */,
 				8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */,
 				8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */,
+				4246670822E6F736001CE665 /* CALayerExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -516,6 +522,7 @@
 				42490F7822DF0E0300EE1A01 /* StoreHomeHeaderView.swift in Sources */,
 				42C4E5C222D70BBE00A88466 /* AddUserActivityView.swift in Sources */,
 				42F3E4B522E0B637002E1479 /* CategoryList.swift in Sources */,
+				4246670922E6F736001CE665 /* CALayerExtensions.swift in Sources */,
 				42490F2A22DC8E1400EE1A01 /* HouseOfTodayServiceType.swift in Sources */,
 				42F3E4F622E5B5E8002E1479 /* CategoryProductListView.swift in Sources */,
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
@@ -538,6 +545,7 @@
 				AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */,
 				42F3E4AF22E08BDE002E1479 /* HouseOfTodayServiceStub.swift in Sources */,
 				42C4E5C822DC567900A88466 /* UserAcitivityCell.swift in Sources */,
+				4246670722E6DD1D001CE665 /* SwipeImageview.swift in Sources */,
 				42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */,
 				42FF92A622D5B44D00639BAF /* MainTabBarVC.swift in Sources */,
 				42C4E5CC22DC890D00A88466 /* StoreModel.swift in Sources */,

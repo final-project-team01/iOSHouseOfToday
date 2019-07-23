@@ -29,6 +29,7 @@ class ProductDetailVC: UIViewController {
 
   lazy var collectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
+    colV.register(cell: ProductMainCell.self)
     colV.dataSource = self
     view.addSubview(colV)
     return colV
@@ -46,6 +47,7 @@ class ProductDetailVC: UIViewController {
   // MARK: - View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .white
 
     autolayoutViews()
   }
@@ -72,6 +74,7 @@ class ProductDetailVC: UIViewController {
       }
     }
   }
+//  preferredLayoutAttributesFitting
 
 }
 
@@ -79,12 +82,16 @@ class ProductDetailVC: UIViewController {
 extension ProductDetailVC: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 0
+    return 1
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+    let cell = collectionView.dequeue(ProductMainCell.self, indexPath)
 
     return cell
   }
+}
+
+extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
+
 }

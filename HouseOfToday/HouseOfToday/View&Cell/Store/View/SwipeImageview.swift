@@ -1,31 +1,30 @@
 //
-//  SwipeView.swift
+//  SwipeImageview.swift
 //  HouseOfToday
 //
-//  Created by CHANGGUEN YU on 17/07/2019.
+//  Created by CHANGGUEN YU on 23/07/2019.
 //  Copyright © 2019 CHANGGUEN YU. All rights reserved.
 //
 
 import UIKit
 
-final class SwipeView: UIView {
-
+final class SwipeImageview: UIView {
   // MARK: - Property
-  static var height = UIScreen.main.bounds.height / 5
+  static var height = UIScreen.main.bounds.width
 
   var pageNumber: Int = 10
 
-  private lazy var pageControl: UIPageControl = {
-    let page = UIPageControl()
-    page.currentPage = 0
-    page.numberOfPages = pageNumber
-    page.hidesForSinglePage = true
-    page.currentPageIndicatorTintColor = .white
-    page.pageIndicatorTintColor = .darkGray
-    addSubview(page)
-    page.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-    return page
-  }()
+//  private lazy var pageControl: UIPageControl = {
+//    let page = UIPageControl()
+//    page.currentPage = 0
+//    page.numberOfPages = pageNumber
+//    page.hidesForSinglePage = true
+//    page.currentPageIndicatorTintColor = .white
+//    page.pageIndicatorTintColor = .darkGray
+//    addSubview(page)
+//    page.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+//    return page
+//  }()
 
   private lazy var flowLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
@@ -33,7 +32,6 @@ final class SwipeView: UIView {
     layout.minimumLineSpacing = 0
     layout.minimumInteritemSpacing = 0
     layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: StoreHomeHeaderView.height)
     return layout
   }()
 
@@ -56,26 +54,21 @@ final class SwipeView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     pageNumber = 0
-    self.setupTimer()
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  deinit {
-    timerFire()//timer.fire()  // scheduledTimer 해제
-  }
-
   // MARK: - configure
   override func updateConstraints() {
     super.updateConstraints()
-//    print("updateConstraints")
+    //    print("updateConstraints")
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
-//    print("layoutSubviews")
+    //    print("layoutSubviews")
 
     scrollViewAutoLayout()
   }
@@ -87,10 +80,10 @@ final class SwipeView: UIView {
         $0.edges.equalToSuperview()
       }
 
-      pageControl.snp.makeConstraints {
-        $0.bottom.equalTo(collectionView.snp.bottom)
-        $0.leading.equalToSuperview().offset(5)
-      }
+//      pageControl.snp.makeConstraints {
+//        $0.bottom.equalTo(collectionView.snp.bottom)
+//        $0.leading.equalToSuperview().offset(5)
+//      }
     }
   }
 
@@ -105,17 +98,14 @@ final class SwipeView: UIView {
 
   // 5초에 한번 호출
   private func nextImageShowing() {
-    let itemAt = pageControl.currentPage + 1 < 10 ? pageControl.currentPage + 1 : 0
-    collectionView.selectItem(at: IndexPath(item: itemAt, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+//    let itemAt = pageControl.currentPage + 1 < 10 ? pageControl.currentPage + 1 : 0
+//    collectionView.selectItem(at: IndexPath(item: itemAt, section: 0), animated: true, scrollPosition: .centeredHorizontally)
   }
 
-  public func timerFire() {
-    timer.fire()  // scheduledTimer 해제
-  }
 }
 
 // MARK: - UICollectionViewDataSource
-extension SwipeView: UICollectionViewDataSource {
+extension SwipeImageview: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return pageNumber
   }
@@ -128,26 +118,26 @@ extension SwipeView: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate
-extension SwipeView: UICollectionViewDelegate {
+extension SwipeImageview: UICollectionViewDelegate {
   func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
     let itemAt = Int(targetContentOffset.pointee.x / frame.width + 0.5)
 
-    pageControl.currentPage = itemAt
+//    pageControl.currentPage = itemAt
     collectionView.selectItem(at: IndexPath(item: itemAt, section: 0), animated: true, scrollPosition: .centeredHorizontally)
   }
 
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
-//    pageControl.currentPage = indexPath.item
+    //    pageControl.currentPage = indexPath.item
   }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension SwipeView: UICollectionViewDelegateFlowLayout {
+extension SwipeImageview: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-    return CGSize(width: UIScreen.main.bounds.width, height: SwipeView.height)
+    return CGSize(width: UIScreen.main.bounds.width, height: SwipeImageview.height)
   }
 
 }

@@ -73,7 +73,7 @@ final class StoreHomeHeaderView: UICollectionReusableView {
       categoryListView.snp.makeConstraints {
         $0.top.equalTo(swipeView.snp.bottom)
         $0.leading.trailing.equalToSuperview()
-        $0.height.equalTo(categoryListView.snp.width)
+        $0.height.equalTo(CategoryListView.height)
       }
     }
   }

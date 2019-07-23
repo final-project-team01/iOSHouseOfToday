@@ -33,11 +33,11 @@ struct ProductDetail: Decodable {
   let created: String
   let category: Int
 
-//  let thumnailImages: [ProductImages]
-//  let detailImages: [ProductImages]
-//  let productOption: [Option]
-//  let review: [Review]
-//  let qna: [QnAList]
+  let thumnailImages: [ProductImages]
+  let detailImages: [ProductImages]
+  let productOption: [Option]
+  let review: [Review]
+  let qna: [QnAList]
 
   enum CodingKeys: String, CodingKey {
     case id
@@ -64,12 +64,13 @@ struct ProductDetail: Decodable {
     case created
     case category
 
-//    case thumnailImages = "thumnail_images"
-//    case detailImages = "detail_images"
-//    case productOption = "product_option"
-//    case review
+    case thumnailImages = "thumnail_images"
+    case detailImages = "detail_images"
+    case productOption = "product_option"
+    case review
+    case qna = "pdqna"
   }
-/*
+
   struct ProductImages: Decodable {
     let id: Int
     let image: String
@@ -109,7 +110,7 @@ struct ProductDetail: Decodable {
     let id: Int
     let type: String
     let comment: String
-    let completed: Int
+    let completed: Bool
     let created: String
     let aAuthor: String
     let aComment: String
@@ -129,6 +130,6 @@ struct ProductDetail: Decodable {
       case user
       case product
     }
-  }*/
+  }
 
 }
