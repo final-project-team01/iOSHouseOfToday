@@ -24,6 +24,7 @@ class MyPageVC: CategoryTabBarViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
     notiCenter.addObserver(self, selector: #selector(presentPicCollectionView(_:)), name: .presentPhotoView, object: nil)
   }
 

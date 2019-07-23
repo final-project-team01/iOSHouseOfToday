@@ -56,16 +56,15 @@ class PictureTableViewCell: UITableViewCell {
     return button
   }()
 
-  // FIXME: - 이미지 정렬
   private lazy var uploadPictureButton: UIButton = {
     let button = UIButton(type: .custom)
-    button.setTitle("사진올리기~!~!~#", for: .normal)
+    button.setTitle("사진올리기", for: .normal)
     button.setTitleColor( #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
     button.setImage(UIImage(named: "camera"), for: .normal)
     button.imageView?.contentMode = .scaleAspectFit
-    button.layer.borderColor = UIColor.darkGray.cgColor
-    button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    button.layer.borderColor = UIColor.lightGray.cgColor
+    button.layer.borderWidth = 1
     button.addTarget(self, action: #selector(uploadButtonDidTap(_:)), for: .touchUpInside)
     addSubview(button)
     return button
@@ -88,6 +87,7 @@ class PictureTableViewCell: UITableViewCell {
     //view
     let collectionView = UICollectionView(frame: frame,
                                           collectionViewLayout: layout)
+
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.register(cell: PictureCollectionViewCell.self)
@@ -110,6 +110,8 @@ class PictureTableViewCell: UITableViewCell {
   override func layoutSubviews() {
     super .layoutSubviews()
     self.alignButtonImageAndTitle(button: uploadPictureButton)
+    uploadPictureButton.layer.cornerRadius = 5
+    uploadPictureButton.clipsToBounds = true
   }
 
   @objc func viewAllPhoto() {
@@ -123,12 +125,12 @@ class PictureTableViewCell: UITableViewCell {
   }
 
   private func alignButtonImageAndTitle (button: UIButton) {
-    let spacing: CGFloat = 6.0
+
     let imageSize = button.imageView!.frame.size
-    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageSize.width, bottom: 0, right: -(imageSize.height + spacing))
+    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
     let titleSize = button.titleLabel!.frame.size
-    button.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: -titleSize.width, bottom: 0, right: 0)
+    button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
   }
 
   private func setupCollectionViewLayout() {

@@ -20,9 +20,7 @@ class UploadPicCollectionView: UICollectionViewController, UICollectionViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Register cell classes
       self.collectionView.register(cell: PicCollectionViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-
       collectionView.backgroundColor = .white
 
       fetchPhotos()
@@ -52,7 +50,6 @@ class UploadPicCollectionView: UICollectionViewController, UICollectionViewDeleg
 
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PicCollectionViewCell else {fatalError("cell type not")}
 
-//      cell.photoImageView.image = images[indexPath.row]
       switch indexPath.row {
       case 0:
         cell.photoImageView.image = UIImage(named: "takeApic")
@@ -70,7 +67,7 @@ class UploadPicCollectionView: UICollectionViewController, UICollectionViewDeleg
     let options = PHFetchOptions()
 
     //사진을 몇개나 가져올지
-    options.fetchLimit = .max
+    options.fetchLimit = 1000
 
     //정렬방식
     let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
@@ -114,6 +111,7 @@ class UploadPicCollectionView: UICollectionViewController, UICollectionViewDeleg
 
             DispatchQueue.main.async {
               self.collectionView.reloadData()
+              print("collectionView.reloadData")
             }
 
           }

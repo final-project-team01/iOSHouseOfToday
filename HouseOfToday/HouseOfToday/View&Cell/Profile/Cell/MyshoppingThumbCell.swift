@@ -69,6 +69,7 @@ final class MyshoppingThumbCell: UITableViewCell {
     button.setTitleColor(.white, for: .normal)
     button.setTitle("바로가기", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    button.addTarget(self, action: #selector(gotoMyShopping), for: .touchUpInside)
     button.backgroundColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
     addSubview(button)
     return button
@@ -87,6 +88,10 @@ final class MyshoppingThumbCell: UITableViewCell {
 
     return detailStackView
   }()
+
+  @objc func gotoMyShopping() {
+
+  }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
