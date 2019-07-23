@@ -10,8 +10,6 @@ import UIKit
 
 final class ProfileView: UIView {
 
-  // FIXME: - 사진 cell에 컬렉션뷰 추가
-
   private lazy var refreshControl: UIRefreshControl = {
     let refreshControl = UIRefreshControl()
     refreshControl.tintColor = .lightGray

@@ -8,7 +8,16 @@
 
 import UIKit
 
+extension Notification.Name {
+  static let presentPhotoView = Notification.Name("presentPhotoView")
+}
+
 class PictureTableViewCell: UITableViewCell {
+
+  //notification
+  private let notiCenter = NotificationCenter.default
+
+  let uploadPicCollectionView = UploadPicCollectionView(collectionViewLayout: UICollectionViewFlowLayout())
 
   private enum UI {
     static let edge: CGFloat = 15
@@ -16,11 +25,6 @@ class PictureTableViewCell: UITableViewCell {
     static let itemSpacing: CGFloat = 1.0
     static let lineSpacing: CGFloat = 1.0
   }
-
-  // 이미지 피커 컨트롤러 생성
-  let picker = UIImagePickerController()
-//  let imageCell = PictureCollectionViewCell()
-  var delegate: UIViewController?
 
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
@@ -53,7 +57,6 @@ class PictureTableViewCell: UITableViewCell {
   }()
 
   // FIXME: - 이미지 정렬
-  // FIXME: - imagePicker
   private lazy var uploadPictureButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("사진올리기~!~!~#", for: .normal)
@@ -63,7 +66,7 @@ class PictureTableViewCell: UITableViewCell {
     button.imageView?.contentMode = .scaleAspectFit
     button.layer.borderColor = UIColor.darkGray.cgColor
     button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-    button.addTarget(self, action: #selector(uploadButtonDidTap), for: .touchUpInside)
+    button.addTarget(self, action: #selector(uploadButtonDidTap(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -98,7 +101,6 @@ class PictureTableViewCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupCollectionViewLayout()
     setupConstraints()
-    picker.delegate = self
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -114,28 +116,9 @@ class PictureTableViewCell: UITableViewCell {
 
   }
 
-  @objc func uploadButtonDidTap() {
-    print("upload picture button tapped")
-//    let alert = UIAlertController(title: "알림", message: "사진첩에 접근", preferredStyle: UIAlertController.Style.alert)
-//    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-//      self.openLibrary()
-//    }
-//    let cancleAction = UIAlertAction(title: "cancle", style: .cancel, handler: nil)
-//
-//    alert.addAction(cancleAction)
-//    alert.addAction(okAction)
-////    present(alert, animated: true, completion: nil)
-//    delegate?.present(alert, animated: true, completion: nil)
+  @objc func uploadButtonDidTap(_ sender: UIButton) {
 
-  }
-
-  func openLibrary() {
-
-    picker.sourceType = .photoLibrary
-    picker.allowsEditing = true
-    picker.modalPresentationStyle = .overFullScreen
-//    present(picker, animated: true, completion: nil)
-    delegate?.present(picker, animated: true, completion: nil)
+    notiCenter.post(name: .presentPhotoView, object: sender, userInfo: ["uploadPicCollectionView": uploadPicCollectionView])
 
   }
 
@@ -202,16 +185,4 @@ extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDele
 
   }
 
-}
-
-extension PictureTableViewCell: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  // 6 이미지를 선택하거나 카메라로 찍고 UsePhoto 눌렀을때
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-    let imageCell = PictureCollectionViewCell()
-    // 7 info 딕셔너리 안에서 이미지 꺼내 형변환 하기
-    imageCell.imageCell.image = info[.originalImage] as? UIImage
-    // 8 picker 내려주기
-    collectionView.reloadData() //맞낭?
-    picker.dismiss(animated: false, completion: nil)
-  }
 }
