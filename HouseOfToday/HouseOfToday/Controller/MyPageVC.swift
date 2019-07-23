@@ -8,11 +8,18 @@
 
 import UIKit
 
-class MyPageVC: UIViewController {
+class MyPageVC: CategoryTabBarViewController {
 
-  override func loadView() {
-    view = ProfileView()
+  init() {
+    super.init(withTitles: ["프로필", "나의 쇼핑"],
+             withViews: [ProfileView(), MyshoppingView() ],
+             withScrollOption: false)
   }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
   }

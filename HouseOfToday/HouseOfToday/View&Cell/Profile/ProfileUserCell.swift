@@ -31,8 +31,8 @@ final class ProfileUserCell: UITableViewCell {
   private lazy var followerButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("팔로워 0", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
-    button.setTitleColor(.black, for: .normal)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+    button.setTitleColor(.darkGray, for: .normal)
     addSubview(button)
     return button
   }()
@@ -40,8 +40,8 @@ final class ProfileUserCell: UITableViewCell {
   private lazy var followingButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("팔로잉 1", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
-    button.setTitleColor(.black, for: .normal)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+    button.setTitleColor(.darkGray, for: .normal)
     addSubview(button)
     return button
   }()
@@ -50,7 +50,7 @@ final class ProfileUserCell: UITableViewCell {
     let button = UIButton(type: .custom)
     button.setTitle("친구초대 +5,000P", for: .normal)
     button.setTitleColor(.black, for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
     button.backgroundColor = .lightGray
     button.alpha = 0.7
     addSubview(button)
@@ -204,7 +204,7 @@ final class ProfileUserCell: UITableViewCell {
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+    selectionStyle = .none //셀에서도 선택되었을 때 표시 막아줘야한다.
     updateConstraints()
   }
 
@@ -236,12 +236,13 @@ final class ProfileUserCell: UITableViewCell {
     }
 
     topStackView.snp.makeConstraints { make in
-      make.top.leading.trailing.equalToSuperview().inset(30)
+      make.leading.trailing.equalToSuperview().inset(15)
+      make.top.equalToSuperview().inset(30)
     }
 
     snsButtonStackView.snp.makeConstraints { make in
-      make.top.equalTo(topStackView.snp.bottom).offset(15)
-      make.leading.trailing.bottom.equalToSuperview().inset(10).labeled("snsButtonStackView")
+      make.top.equalTo(topStackView.snp.bottom).offset(30)
+      make.leading.trailing.bottom.equalToSuperview().inset(15).labeled("snsButtonStackView")
     }
 
   }

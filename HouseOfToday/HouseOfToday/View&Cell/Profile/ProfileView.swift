@@ -28,9 +28,10 @@ final class ProfileView: UIView {
     let tableView = UITableView()
     tableView.dataSource = self.self
     tableView.delegate = self.self
+    tableView.register(cell: MyshoppingThumbCell.self)
     tableView.register(cell: ProfileUserCell.self)
     tableView.register(cell: ProfileBaseCell.self)
-    tableView.register(cell: VoucherCell.self) // FIXME: - 확인하기 위해 추가 나중에 삭제
+    tableView.register(cell: PictureTableViewCell.self)
     tableView.allowsSelection = false
     tableView.refreshControl = refreshControl
 
@@ -77,21 +78,20 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
 
     //나의 쇼핑
     case 1:
-      //      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
-      //      cell.setLabelItems(title: .myShoping, orderCount: "0", point: "0")
-      //      cell.separatorInset = UIEdgeInsets.zero
-      //
-      //      return cell
-
-      let cell = tableView.dequeueReusableCell(withIdentifier: VoucherCell.identifier, for: indexPath) as! VoucherCell
-      return cell
-
+            let cell = tableView.dequeueReusableCell(withIdentifier: MyshoppingThumbCell.identifier, for: indexPath) as! MyshoppingThumbCell
+            cell.separatorInset = UIEdgeInsets.zero
+            return cell
     //사진
     case 2:
-      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
-      cell.setLabelItems(title: .picture)
+//      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
+//      cell.setLabelItems(title: .picture)
+//      cell.separatorInset = UIEdgeInsets.zero
+//      return cell
+
+      let cell = tableView.dequeueReusableCell(withIdentifier: PictureTableViewCell.identifier, for: indexPath) as! PictureTableViewCell
       cell.separatorInset = UIEdgeInsets.zero
       return cell
+
     //집들이
     case 3:
       let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
@@ -112,6 +112,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
       cell.setLabelItems(title: .review, subTitle: "0", orderCount: "0", point: "0")
       cell.separatorInset = UIEdgeInsets.zero
       return cell
+
     }
 
   }
@@ -119,11 +120,17 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     switch indexPath.row {
     case 0:
-      return 200
+      return 230
     case 1:
-      return 90
+      return 100
+    case 2:
+//      let baseHeight:CGFloat = 30
+//      let itemCount = items.count % 3
+//      let itemHieght:CGFloat = 70
+//      let sum = baseHeight + ((itemCount + 1) * itemHieght)
+      return 520
     default:
-      return 60
+      return 80
 
     }
 
