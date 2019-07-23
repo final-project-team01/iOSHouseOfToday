@@ -9,8 +9,6 @@
 import UIKit
 
 class RankingTableCell: UITableViewCell {
-  
-  
 
   let layout = UICollectionViewFlowLayout()
   private lazy var collectionView: UICollectionView = {
@@ -24,28 +22,27 @@ class RankingTableCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    
+
   }
 
 }
 
 extension RankingTableCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    <#code#>
+    return 0
   }
-  
+
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    <#code#>
+    let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
+
+    return cell
   }
-  
-  
-  
-  
+
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 class CategoryBestCell: UICollectionViewCell {
-  
+
   var countLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont.systemFont(ofSize: 10)
@@ -19,24 +19,22 @@ class CategoryBestCell: UICollectionViewCell {
 //    label.clipsToBounds = true
     return label
   }()
-  
+
   override init(frame: CGRect) {
     super .init(frame: frame)
     configureItems()
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func layoutSubviews() {
     super.layoutSubviews()
   }
-  
+
  private func configureItems() {
-  
-  
+
   }
-  
-  
+
 }

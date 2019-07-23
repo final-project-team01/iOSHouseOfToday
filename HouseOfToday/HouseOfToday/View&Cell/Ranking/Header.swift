@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 class Header: UICollectionReusableView {
-  
+
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "오늘의집 AWARDS"
@@ -18,7 +18,7 @@ class Header: UICollectionReusableView {
     addSubview(label)
     return label
   }()
-  
+
   private lazy var subtitleLabel: UILabel = {
     let label = UILabel()
     label.text = "카테고리별 BEST 100"
@@ -27,29 +27,28 @@ class Header: UICollectionReusableView {
     addSubview(label)
     return label
   }()
-  
+
   override init(frame: CGRect) {
     super .init(frame: frame)
     self.backgroundColor = .white
     configureLabel()
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   private func configureLabel() {
-    
+
     titleLabel.snp.makeConstraints { make in
     make.top.leading.trailing.equalToSuperview()
     }
-    
+
     subtitleLabel.snp.makeConstraints { make in
       make.top.equalTo(titleLabel.snp.bottom)
       make.leading.bottom.trailing.equalToSuperview()
     }
-    
-    
+
   }
-  
+
 }
