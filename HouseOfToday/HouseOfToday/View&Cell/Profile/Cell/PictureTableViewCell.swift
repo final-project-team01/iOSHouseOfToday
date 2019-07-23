@@ -8,7 +8,16 @@
 
 import UIKit
 
+extension Notification.Name {
+  static let presentPhotoView = Notification.Name("presentPhotoView")
+}
+
 class PictureTableViewCell: UITableViewCell {
+
+  //notification
+  private let notiCenter = NotificationCenter.default
+
+  let uploadPicCollectionView = UploadPicCollectionView(collectionViewLayout: UICollectionViewFlowLayout())
 
   private enum UI {
     static let edge: CGFloat = 15
@@ -42,31 +51,21 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitleColor( #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1), for: .normal)
     button.contentHorizontalAlignment = .right
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-//    button.addTarget(action: #selector(viewAllPhoto))
+    button.addTarget(self, action: #selector(viewAllPhoto), for: .touchUpInside)
     addSubview(button)
     return button
   }()
 
-  @objc func viewAllPhoto() {
-
-  }
-
-  // FIXME: - 이미지 추가
-  // FIXME: - imagePicker
   private lazy var uploadPictureButton: UIButton = {
     let button = UIButton(type: .custom)
-    button.setTitle("사진올리기~!~!~#", for: .normal)
+    button.setTitle("사진올리기", for: .normal)
     button.setTitleColor( #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
     button.setImage(UIImage(named: "camera"), for: .normal)
     button.imageView?.contentMode = .scaleAspectFit
-
-    button.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-    button.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-    button.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-
-    button.layer.borderColor = UIColor.darkGray.cgColor
-    button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    button.layer.borderColor = UIColor.lightGray.cgColor
+    button.layer.borderWidth = 1
+    button.addTarget(self, action: #selector(uploadButtonDidTap(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -88,6 +87,7 @@ class PictureTableViewCell: UITableViewCell {
     //view
     let collectionView = UICollectionView(frame: frame,
                                           collectionViewLayout: layout)
+
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.register(cell: PictureCollectionViewCell.self)
@@ -109,19 +109,31 @@ class PictureTableViewCell: UITableViewCell {
 
   override func layoutSubviews() {
     super .layoutSubviews()
-    self.centerButtonImageAndTitle(button: uploadPictureButton)
+    self.alignButtonImageAndTitle(button: uploadPictureButton)
+    uploadPictureButton.layer.cornerRadius = 5
+    uploadPictureButton.clipsToBounds = true
   }
 
-  private func centerButtonImageAndTitle (button: UIButton) {
-    let spacing: CGFloat = 6.0
+  @objc func viewAllPhoto() {
+
+  }
+
+  @objc func uploadButtonDidTap(_ sender: UIButton) {
+
+    notiCenter.post(name: .presentPhotoView, object: sender, userInfo: ["uploadPicCollectionView": uploadPicCollectionView])
+
+  }
+
+  private func alignButtonImageAndTitle (button: UIButton) {
+
     let imageSize = button.imageView!.frame.size
-    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageSize.width, bottom: -(imageSize.height + spacing), right: 0)
+    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
     let titleSize = button.titleLabel!.frame.size
-    button.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0, bottom: 0, right: -titleSize.width)
+    button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
   }
 
-  func setupCollectionViewLayout() {
+  private func setupCollectionViewLayout() {
     layout.minimumInteritemSpacing = UI.itemSpacing
     layout.minimumLineSpacing = UI.lineSpacing
 

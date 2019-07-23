@@ -10,8 +10,6 @@ import UIKit
 
 final class ProfileView: UIView {
 
-  // FIXME: - 사진 cell에 컬렉션뷰 추가
-
   private lazy var refreshControl: UIRefreshControl = {
     let refreshControl = UIRefreshControl()
     refreshControl.tintColor = .lightGray
@@ -20,7 +18,7 @@ final class ProfileView: UIView {
   }()
 
   @objc func reloadData() {
-    tableView.refreshControl?.endRefreshing()  //계속계속 뺑뺑이 안돌아가게
+    tableView.refreshControl?.endRefreshing()  //계속 안돌아가게 설정
     tableView.reloadData()
   }
 
@@ -124,6 +122,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     case 1:
       return 100
     case 2:
+      // FIXME: - 셀 높이 조절
 //      let baseHeight:CGFloat = 30
 //      let itemCount = items.count % 3
 //      let itemHieght:CGFloat = 70

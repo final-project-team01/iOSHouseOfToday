@@ -29,13 +29,8 @@ final class VoucherCell: UITableViewCell {
     button.setImage(UIImage(named: "coupon"), for: .normal)
     button.layer.borderColor = UIColor.lightGray.cgColor
     addSubview(button)
-    button.addTarget(self, action: #selector(buttonTest), for: .touchUpInside)
     return button
   }()
-// FIXME: - 
-    @objc func buttonTest() {
-      print("button Tapped")
-    }
 
   private lazy var couponLabel: UILabel = {
     let label = UILabel()

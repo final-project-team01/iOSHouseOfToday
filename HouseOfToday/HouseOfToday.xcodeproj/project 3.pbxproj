@@ -234,14 +234,19 @@
 		42C4E5C322D81BFD00A88466 /* View&Cell */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				ABBA8FB022E6EBB8001D43D7 /* Ranking */,
 				AB7EEA8922DDD32200F33663 /* Profile */,
-                42490F6C22DDDA8300EE1A01 /* Axtivity */,
-                42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
-                42490F2B22DCA21800EE1A01 /* Store */,
-                AB7EEA8922DDD32200F33663 /* Profile */,
+				42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
+				42490F2B22DCA21800EE1A01 /* Store */,
 				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
 				42C4E5C722DC567900A88466 /* UserAcitivityCell.swift */,
+=======
+				42490F6C22DDDA8300EE1A01 /* Axtivity */,
+				42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
+				42490F2B22DCA21800EE1A01 /* Store */,
+				AB7EEA8922DDD32200F33663 /* Profile */,
+>>>>>>> cf40c4786f166b775f8f2d2e398d618d8f9c5452
 			);
 			path = "View&Cell";
 			sourceTree = "<group>";
@@ -612,11 +617,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				ABBA8FB722E6EF39001D43D7 /* RankingCollectionCell.swift in Sources */,
 				ABBA8FBF22E6FD62001D43D7 /* CategoryBestCell.swift in Sources */,
 				ABBA8FBB22E6F618001D43D7 /* Header.swift in Sources */,
 				ABBA8FA822E6D1D0001D43D7 /* MyReViewVC.swift in Sources */,
+=======
 				42F3E4EE22E31E76002E1479 /* ProductDetailVC.swift in Sources */,
+>>>>>>> cf40c4786f166b775f8f2d2e398d618d8f9c5452
 				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
 				42490F7C22DFFA6E00EE1A01 /* StoreSampleData.swift in Sources */,
 				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
@@ -677,12 +685,15 @@
 				42490F6922DDC15200EE1A01 /* CategoryView.swift in Sources */,
 				8E5B59E522D5AC7100BB01E8 /* Logger.swift in Sources */,
 				42490F6522DDC14600EE1A01 /* CategoryTabBarCell.swift in Sources */,
+<<<<<<< HEAD
 				ABBA8FAD22E6D618001D43D7 /* ProfileVC.swift in Sources */,
 				ABE66FBE22E5846100125F98 /* PicCollectionViewCell.swift in Sources */,
 				ABBA8FAB22E6D21D001D43D7 /* WriteReviewVC.swift in Sources */,
 				ABBA8FBD22E6F62B001D43D7 /* Footer.swift in Sources */,
+=======
 				42F3E4AB22E012D0002E1479 /* DefaultHeaderView.swift in Sources */,
 				42F3E4FA22E5D502002E1479 /* ProductDetail.swift in Sources */,
+>>>>>>> cf40c4786f166b775f8f2d2e398d618d8f9c5452
 				AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */,
 				8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */,
 				42F3E4BF22E18B61002E1479 /* TimeSaleFooterView.swift in Sources */,
