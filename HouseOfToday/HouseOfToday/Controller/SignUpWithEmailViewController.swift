@@ -184,39 +184,6 @@ extension SignUpWithEmailViewController {
       self.userTest["username"] = userName
 
       print("데이터 잘 들어가나 : ", self.userTest)
-
-      guard let encodedUser = try? JSONSerialization.data(withJSONObject: self.userTest) else {
-        return logger("JSON Can't encode Data")
-      }
-
-      //self.user = User(email: email, password: password)
-
-      let baseURL = "http://52.78.112.247"
-      var urlComp = URLComponents(string: baseURL)
-      urlComp?.path = "/accounts/create/"
-
-      guard let url = urlComp?.url else { return print("guard get url fail")}
-
-      var urlRequest = URLRequest(url: url)
-      urlRequest.httpMethod = "POST"
-      urlRequest.httpBody = encodedUser
-
-      let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-        guard error == nil else { return logger(error?.localizedDescription) }
-        guard let data = data else { return logger("Network Error : did not receive data") }
-        guard let response = response as? HTTPURLResponse
-          else { return logger("Server error ") }
-        print("response : \(response)")
-
-        guard let receivedData = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-          return logger("Parsing Error")
-        }
-
-        print("receivedData : \(receivedData)")
-      }
-
-      task.resume()
-
     default:
       break
     }
