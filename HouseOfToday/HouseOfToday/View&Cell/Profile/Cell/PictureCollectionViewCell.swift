@@ -32,7 +32,7 @@ class PictureCollectionViewCell: UICollectionViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    if translatesAutoresizingMaskIntoConstraints == true {
+    if translatesAutoresizingMaskIntoConstraints {
       imageCell.snp.makeConstraints { make in
         make.edges.equalToSuperview()
       }

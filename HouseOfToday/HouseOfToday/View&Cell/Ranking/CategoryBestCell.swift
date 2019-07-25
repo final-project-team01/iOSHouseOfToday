@@ -10,16 +10,6 @@ import UIKit
 
 class CategoryBestCell: UICollectionViewCell {
 
-  var countLabel: UILabel = {
-    let label = UILabel()
-    label.font = UIFont.systemFont(ofSize: 10)
-    label.text = "1"
-    label.backgroundColor = .white
-// FIXME: - label.layer.cornerRadius = 5
-//    label.clipsToBounds = true
-    return label
-  }()
-
   override init(frame: CGRect) {
     super .init(frame: frame)
     configureItems()

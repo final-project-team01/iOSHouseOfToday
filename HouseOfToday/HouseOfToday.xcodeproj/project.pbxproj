@@ -78,9 +78,12 @@
 		ABBA8FAF22E6E6F5001D43D7 /* RankingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FAE22E6E6F5001D43D7 /* RankingVC.swift */; };
 		ABBA8FB522E6EC37001D43D7 /* RankingTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FB422E6EC37001D43D7 /* RankingTableCell.swift */; };
 		ABBA8FB722E6EF39001D43D7 /* RankingCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FB622E6EF39001D43D7 /* RankingCollectionCell.swift */; };
-		ABBA8FBB22E6F618001D43D7 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FBA22E6F618001D43D7 /* Header.swift */; };
-		ABBA8FBD22E6F62B001D43D7 /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FBC22E6F62B001D43D7 /* Footer.swift */; };
 		ABBA8FBF22E6FD62001D43D7 /* CategoryBestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FBE22E6FD62001D43D7 /* CategoryBestCell.swift */; };
+		ABBA8FC122E727EF001D43D7 /* TempRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FC022E727EF001D43D7 /* TempRankingView.swift */; };
+		ABBA8FC422E975CD001D43D7 /* MetricCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FC322E975CD001D43D7 /* MetricCell.swift */; };
+		ABBA8FC622E9A65F001D43D7 /* RankingHorizontalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FC522E9A65F001D43D7 /* RankingHorizontalCell.swift */; };
+		ABBA8FC822E9D68E001D43D7 /* HeaderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FC722E9D68E001D43D7 /* HeaderTableCell.swift */; };
+		ABBA8FCA22E9D720001D43D7 /* FooterTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA8FC922E9D720001D43D7 /* FooterTableCell.swift */; };
 		ABE66FBC22E5834300125F98 /* UploadPicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */; };
 		ABE66FBE22E5846100125F98 /* PicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE66FBD22E5846100125F98 /* PicCollectionViewCell.swift */; };
 		C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */; };
@@ -163,9 +166,12 @@
 		ABBA8FAE22E6E6F5001D43D7 /* RankingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingVC.swift; sourceTree = "<group>"; };
 		ABBA8FB422E6EC37001D43D7 /* RankingTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableCell.swift; sourceTree = "<group>"; };
 		ABBA8FB622E6EF39001D43D7 /* RankingCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCollectionCell.swift; sourceTree = "<group>"; };
-		ABBA8FBA22E6F618001D43D7 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		ABBA8FBC22E6F62B001D43D7 /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
 		ABBA8FBE22E6FD62001D43D7 /* CategoryBestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBestCell.swift; sourceTree = "<group>"; };
+		ABBA8FC022E727EF001D43D7 /* TempRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempRankingView.swift; sourceTree = "<group>"; };
+		ABBA8FC322E975CD001D43D7 /* MetricCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCell.swift; sourceTree = "<group>"; };
+		ABBA8FC522E9A65F001D43D7 /* RankingHorizontalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHorizontalCell.swift; sourceTree = "<group>"; };
+		ABBA8FC722E9D68E001D43D7 /* HeaderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableCell.swift; sourceTree = "<group>"; };
+		ABBA8FC922E9D720001D43D7 /* FooterTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterTableCell.swift; sourceTree = "<group>"; };
 		ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UploadPicCollectionView.swift; path = View/UploadPicCollectionView.swift; sourceTree = "<group>"; };
 		ABE66FBD22E5846100125F98 /* PicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -444,10 +450,13 @@
 			isa = PBXGroup;
 			children = (
 				ABBA8FB422E6EC37001D43D7 /* RankingTableCell.swift */,
+				ABBA8FC522E9A65F001D43D7 /* RankingHorizontalCell.swift */,
 				ABBA8FB622E6EF39001D43D7 /* RankingCollectionCell.swift */,
 				ABBA8FBE22E6FD62001D43D7 /* CategoryBestCell.swift */,
-				ABBA8FBA22E6F618001D43D7 /* Header.swift */,
-				ABBA8FBC22E6F62B001D43D7 /* Footer.swift */,
+				ABBA8FC722E9D68E001D43D7 /* HeaderTableCell.swift */,
+				ABBA8FC922E9D720001D43D7 /* FooterTableCell.swift */,
+				ABBA8FC022E727EF001D43D7 /* TempRankingView.swift */,
+				ABBA8FC322E975CD001D43D7 /* MetricCell.swift */,
 			);
 			path = Ranking;
 			sourceTree = "<group>";
@@ -611,7 +620,7 @@
 			files = (
 				ABBA8FB722E6EF39001D43D7 /* RankingCollectionCell.swift in Sources */,
 				ABBA8FBF22E6FD62001D43D7 /* CategoryBestCell.swift in Sources */,
-				ABBA8FBB22E6F618001D43D7 /* Header.swift in Sources */,
+				ABBA8FC122E727EF001D43D7 /* TempRankingView.swift in Sources */,
 				ABBA8FA822E6D1D0001D43D7 /* MyReViewVC.swift in Sources */,
 				42F3E4EE22E31E76002E1479 /* ProductDetailVC.swift in Sources */,
 				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
@@ -647,12 +656,14 @@
 				42F3E4B922E14FED002E1479 /* PopularityKewordCell.swift in Sources */,
 				AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */,
 				42F3E4AF22E08BDE002E1479 /* HouseOfTodayServiceStub.swift in Sources */,
+				ABBA8FCA22E9D720001D43D7 /* FooterTableCell.swift in Sources */,
 				AB7EEA9A22DEEE2700F33663 /* MyshoppingBaseCell.swift in Sources */,
 				ABE66FBC22E5834300125F98 /* UploadPicCollectionView.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				ABBA8FAF22E6E6F5001D43D7 /* RankingVC.swift in Sources */,
 				AB7EEA9C22DF05BF00F33663 /* MyshoppingThumbCell.swift in Sources */,
 				AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */,
+				ABBA8FC822E9D68E001D43D7 /* HeaderTableCell.swift in Sources */,
 				AB7EEA9822DDDD7300F33663 /* BeingOrderCell.swift in Sources */,
 				4246670722E6DD1D001CE665 /* SwipeImageview.swift in Sources */,
 				42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */,
@@ -676,10 +687,11 @@
 				ABBA8FAD22E6D618001D43D7 /* ProfileVC.swift in Sources */,
 				ABE66FBE22E5846100125F98 /* PicCollectionViewCell.swift in Sources */,
 				ABBA8FAB22E6D21D001D43D7 /* WriteReviewVC.swift in Sources */,
-				ABBA8FBD22E6F62B001D43D7 /* Footer.swift in Sources */,
 				42F3E4AB22E012D0002E1479 /* DefaultHeaderView.swift in Sources */,
 				42F3E4FA22E5D502002E1479 /* ProductDetail.swift in Sources */,
 				AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */,
+				ABBA8FC622E9A65F001D43D7 /* RankingHorizontalCell.swift in Sources */,
+				ABBA8FC422E975CD001D43D7 /* MetricCell.swift in Sources */,
 				8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */,
 				42F3E4BF22E18B61002E1479 /* TimeSaleFooterView.swift in Sources */,
 				42C4E5C622DB238900A88466 /* HouseOfTodayService.swift in Sources */,

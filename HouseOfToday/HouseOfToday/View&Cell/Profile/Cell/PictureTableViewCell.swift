@@ -19,13 +19,6 @@ class PictureTableViewCell: UITableViewCell {
 
   let uploadPicCollectionView = UploadPicCollectionView(collectionViewLayout: UICollectionViewFlowLayout())
 
-  private enum UI {
-    static let edge: CGFloat = 15
-    static let itemsInLine: CGFloat = 3
-    static let itemSpacing: CGFloat = 1.0
-    static let lineSpacing: CGFloat = 1.0
-  }
-
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "사진"
@@ -122,6 +115,14 @@ class PictureTableViewCell: UITableViewCell {
 
     notiCenter.post(name: .presentPhotoView, object: sender, userInfo: ["uploadPicCollectionView": uploadPicCollectionView])
 
+  }
+
+  // FIXME: - JMetric으로 변경하기
+  private enum UI {
+    static let edge: CGFloat = 15
+    static let itemsInLine: CGFloat = 3
+    static let itemSpacing: CGFloat = 1.0
+    static let lineSpacing: CGFloat = 1.0
   }
 
   private func alignButtonImageAndTitle (button: UIButton) {

@@ -1,22 +1,41 @@
 //
-//  RankingTableCell.swift
+//  RankingHorizontalCell.swift
 //  HouseOfToday
 //
-//  Created by Daisy on 23/07/2019.
-//  Copyright © 2019 Daisy. All rights reserved.
+//  Created by Daisy on 25/07/2019.
+//  Copyright © 2019 CHANGGUEN YU. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class RankingTableCell: UITableViewCell {
+class RankingHorizontalCell: UITableViewCell {
+//  
+//  private enum Metric {
+//    static let lineSpacing: CGFloat = 3
+//    static let itemSpacing: CGFloat = 3
+//    static let nextOffSet: CGFloat = 6
+//    
+//    static let numberOfLine: CGFloat = 2
+//    static let numberOfItem: CGFloat = 2
+//    
+//    static let inset: UIEdgeInsets = .init(top: 3, left: 6, bottom: 3, right: 6)
+//    
+//    static var horizontalPadding: CGFloat {
+//      return Metric.inset.left + Metric.inset.right
+//    }
+//    
+//    static var verticalPadding: CGFloat {
+//      return Metric.inset.top + Metric.inset.bottom
+//    }
+//  }
 
   private lazy var layout: UICollectionViewFlowLayout = {
-  let layout = UICollectionViewFlowLayout()
-  layout.scrollDirection = .vertical
-  layout.sectionHeadersPinToVisibleBounds = false
-  layout.sectionFootersPinToVisibleBounds = false
-  return layout
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    layout.sectionHeadersPinToVisibleBounds = false
+    layout.sectionFootersPinToVisibleBounds = false
+    return layout
   }()
 
   private lazy var collectionView: UICollectionView = {
@@ -29,10 +48,18 @@ class RankingTableCell: UITableViewCell {
     return collectionView
   }()
 
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    cellAutolayout()
+//  var offset: CGFloat {
+//    get {
+//      return collectionView.contentOffset.x
+//    }
+//    set {
+//      collectionView.contentOffset.x = newValue
+//    }
+//  }
 
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super .init(style: style, reuseIdentifier: reuseIdentifier)
+    cellAutolayout()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -48,24 +75,23 @@ class RankingTableCell: UITableViewCell {
   }
 }
 
-extension RankingTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension RankingHorizontalCell: UICollectionViewDataSource, UICollectionViewDelegate {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-    return 9
+    return 11
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
     let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
-//    cell.countLabel.text = "\(indexPath.item)" // FIXME: - 이거 하면 없어지넹
     return cell
-
   }
 
 }
 
-extension RankingTableCell: UICollectionViewDelegateFlowLayout {
+extension RankingHorizontalCell: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
@@ -81,7 +107,7 @@ extension RankingTableCell: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    return JMetric.inset
+    return JMetric.rankingHorizontalInset
   }
 
 }
