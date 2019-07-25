@@ -121,12 +121,15 @@ class DealOfTodayCell: UICollectionViewCell {
       productNameLabel.text = info.productName
       priceLabel.text = formetter(price: info.price)//"\(info.price)"
 
-      if info.review.count > 0 {
-        let average = info.review.reduce(0) { $0 + $1 } / info.review.count
-        ratingStarRankLabel.text = "\(average)"
-      } else {
-        ratingStarRankLabel.text = "\(0.0)"
-      }
+      ratingStarRankLabel.text = "\(info.starAvg)"
+      discountLabel.attributedText = getAttributeString(rate: info.discountRate)//"\(info.discountRate)%"
+      reviewCountLabel.text = "리뷰 \(info.reviewCount)"
+//      if info.review.count > 0 {
+//        let average = info.review.reduce(0) { $0 + $1 } / info.review.count
+//        ratingStarRankLabel.text = "\(average)"
+//      } else {
+//        ratingStarRankLabel.text = "\(0.0)"
+//      }
 
       if let url = URL(string: info.thumnailUrl[0]) {
         setImage(thumnailUrl: url)
@@ -238,6 +241,27 @@ class DealOfTodayCell: UICollectionViewCell {
 //        $0.bottom.greaterThanOrEqualTo(self.snp.bottom)
       }
     }
+  }
+
+  private func getAttributeString(rate: String) -> NSMutableAttributedString {
+    let mutableAttributedString = NSMutableAttributedString()
+
+    let attributes: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 40, weight: .bold),
+      .foregroundColor: #colorLiteral(red: 1, green: 0.4855915308, blue: 0.4643723965, alpha: 1)
+    ]
+    let attributeString = NSMutableAttributedString(string: rate,
+                                                    attributes: attributes)
+    let attributes1: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 20, weight: .bold),
+      .foregroundColor: #colorLiteral(red: 1, green: 0.4855915308, blue: 0.4643723965, alpha: 1)
+    ]
+    let attributeString1 = NSMutableAttributedString(string: "%",
+                                                     attributes: attributes1)
+    mutableAttributedString.append(attributeString)
+    mutableAttributedString.append(attributeString1)
+
+    return mutableAttributedString
   }
 
   // MARK: - Image Download & setImage

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+/*
 final class HouseOfTodayServiceStub: HouseOfTodayServiceType {
 
   func fetchCategoryList(completion: @escaping (Result<[CategoryList], ServiceError>) -> Void) {
@@ -32,3 +32,4 @@ final class HouseOfTodayServiceStub: HouseOfTodayServiceType {
   }
 
 }
+*/

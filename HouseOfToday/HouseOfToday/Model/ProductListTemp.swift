@@ -63,35 +63,62 @@ struct ProductListTemp {
 //    }
 //}
 //
-struct ProductListTemp: Decodable {
+
+struct ProductListTemp11: Decodable {
 
   let id: Int
   let brandName: String
   let productName: String
+  let discountRate: String?
   let price: Int
+  let reviewCount: Int
+  let starAvg: String
 
   let thumnailImages: [ThumnailImages]
-  let review: [Score]
 
   enum CodingKeys: String, CodingKey {
     case id
     case brandName = "brand_name"
     case productName = "name"
+    case discountRate = "discount_rate"
     case price
+    case reviewCount = "review_count"
+    case starAvg = "star_avg"
+
     case thumnailImages = "thumnail_images"
-    case review
   }
 
   struct ThumnailImages: Decodable {
     let image: String
   }
+}
 
-  struct Score: Decodable {
-    let score: Int
+struct ProductListTemp: Decodable {
 
-    enum CodingKeys: String, CodingKey {
-      case score = "star_score"
-    }
+  let id: Int
+  let brandName: String
+  let productName: String
+  let discountRate: String?
+  let price: Int
+  let reviewCount: Int
+  let starAvg: String
+
+  let thumnailImages: [ThumnailImages]
+
+  enum CodingKeys: String, CodingKey {
+    case id
+    case brandName = "brand_name"
+    case productName = "name"
+    case discountRate = "discount_rate"
+    case price
+    case reviewCount = "review_count"
+    case starAvg = "star_avg"
+
+    case thumnailImages = "thumnail_images"
+  }
+
+  struct ThumnailImages: Decodable {
+    let image: String
   }
 }
 
@@ -99,8 +126,37 @@ struct ProductList {
   let id: Int
   let brandName: String
   let productName: String
+  let discountRate: String
   let price: Int
+  let reviewCount: Int
+  let starAvg: String
 
   let thumnailUrl: [String]
-  let review: [Int]
+}
+
+// MARK: - Welcome
+struct Welcome: Codable {
+  let id: Int
+  let brandName, name, discountRate: String
+  let price, reviewCount: Int
+  let starAvg: String
+  let thumnailImages: [ThumnailImage]
+
+  enum CodingKeys: String, CodingKey {
+    case id
+    case brandName = "brand_name"
+    case name
+    case discountRate = "discount_rate"
+    case price
+    case reviewCount = "review_count"
+    case starAvg = "star_avg"
+    case thumnailImages = "thumnail_images"
+  }
+}
+
+// MARK: - ThumnailImage
+struct ThumnailImage: Codable {
+  let id: Int
+  let image: String
+  let product: Int
 }
