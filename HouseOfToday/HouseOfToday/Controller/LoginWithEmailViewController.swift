@@ -11,8 +11,10 @@ import SnapKit
 
 class LoginWithEmailViewController: UIViewController {
 
-  // MARK: - Properties
+  // MARK: - My Properties
+  var user: User?
 
+  // MARK: - UI Properties
   private lazy var emailTextField: UITextField = {
     let tf = UITextField(frame: .zero)
     tf.delegate = self.self
@@ -20,7 +22,7 @@ class LoginWithEmailViewController: UIViewController {
     //tf.borderStyle = UITextField.BorderStyle.line
     tf.layer.borderColor = UIColor.lightGray.cgColor
     tf.layer.borderWidth = 0.3
-    
+
     tf.autocapitalizationType = .none
     tf.autocorrectionType = .no
     tf.spellCheckingType = .no
@@ -137,6 +139,12 @@ extension LoginWithEmailViewController {
     switch sender.titleLabel?.text {
     case "로그인하기":
       print("로그인하기 버튼 클릭됨")
+      guard let email = self.emailTextField.text,
+        let password = self.passwordTextField.text
+      else { return logger("Text of TextFields is nil")}
+      self.user = User(email: email, password: password)
+      // 여기에서 getToken 통신 필요하다.
+
     case "비밀번호 재설정":
       print("비밀번호 재설정 버튼 클릭됨")
     default:
