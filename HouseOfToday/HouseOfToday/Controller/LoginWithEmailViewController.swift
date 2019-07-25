@@ -142,7 +142,7 @@ extension LoginWithEmailViewController {
       guard let email = self.emailTextField.text,
         let password = self.passwordTextField.text
       else { return logger("Text of TextFields is nil")}
-      self.user = User(email: email, password: password)
+      //self.user = User(email: email, password: password)
       // 여기에서 getToken 통신 필요하다.
 
     case "비밀번호 재설정":

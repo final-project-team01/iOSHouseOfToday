@@ -10,4 +10,6 @@ import Foundation
 
 protocol HouseOfTodayServiceType {
   func fetchProductCategoryList(completion: @escaping (Result<[CategoryList], ServiceError>) -> Void)
+
+  func postLoginUserInfo(withBody: Data?, completion: @escaping (Result<User, ServiceError>) -> Void)
 }
