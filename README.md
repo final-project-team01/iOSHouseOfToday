@@ -1,7 +1,7 @@
+# iOSHouseOfToday
+Team House Of Today iOS App project
+
 # App Clone Project (오늘의 집)
-
-
-
 
 ## 주요 페이지
 * ### 홈
