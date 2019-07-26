@@ -73,13 +73,13 @@ class PopularityProductCell: UICollectionViewCell {
     return label
   }()
 
-  private lazy var clippingAndHitsCountLabel: UILabel = {
-    let label = UILabel(frame: CGRect.zero)
-    label.text = "스크랩 999 조회 500"
-    label.font = UIFont.systemFont(ofSize: 13)
-    addSubview(label)
-    return label
-  }()
+//  private lazy var clippingAndHitsCountLabel: UILabel = {
+//    let label = UILabel(frame: CGRect.zero)
+//    label.text = "스크랩 999 조회 500"
+//    label.font = UIFont.systemFont(ofSize: 13)
+//    addSubview(label)
+//    return label
+//  }()
 
   private lazy var deliveryFreeLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
@@ -111,13 +111,16 @@ class PopularityProductCell: UICollectionViewCell {
       brandLabel.text = info.brandName
       productNameLabel.text = info.productName
       priceLabel.text = formetter(price: info.price)//"\(info.price)"
+      ratingStarRankLabel.attributedText = getAttributeString(rate: "\(info.starAvg)")//.text = "★\(info.starAvg)"
+      discountLabel.text = "\(info.discountRate)%"
+      reviewCountLabel.text = "리뷰 \(info.reviewCount)"
 
-      if info.review.count > 0 {
-        let average = info.review.reduce(0) { $0 + $1 } / info.review.count
-        ratingStarRankLabel.text = "★\(average)"
-      } else {
-        ratingStarRankLabel.text = "★\(0.0)"
-      }
+//      if info.review.count > 0 {
+//        let average = info.review.reduce(0) { $0 + $1 } / info.review.count
+//        ratingStarRankLabel.text = "★\(average)"
+//      } else {
+//        ratingStarRankLabel.text = "★\(0.0)"
+//      }
 
       if let url = URL(string: info.thumnailUrl[0]) {
         setImage(thumnailUrl: url)
@@ -182,10 +185,24 @@ class PopularityProductCell: UICollectionViewCell {
       }
     }
 //
-    if clippingAndHitsCountLabel.translatesAutoresizingMaskIntoConstraints {
-      clippingAndHitsCountLabel.snp.makeConstraints {
+//    if clippingAndHitsCountLabel.translatesAutoresizingMaskIntoConstraints {
+//      clippingAndHitsCountLabel.snp.makeConstraints {
+//        $0.leading.equalToSuperview()
+//        $0.top.equalTo(discountLabel.snp.bottom).offset(margin*2)
+//      }
+//    }
+
+    if ratingStarRankLabel.translatesAutoresizingMaskIntoConstraints {
+      ratingStarRankLabel.snp.makeConstraints {
         $0.leading.equalToSuperview()
         $0.top.equalTo(discountLabel.snp.bottom).offset(margin*2)
+      }
+    }
+
+    if reviewCountLabel.translatesAutoresizingMaskIntoConstraints {
+      reviewCountLabel.snp.makeConstraints {
+        $0.top.equalTo(ratingStarRankLabel.snp.top)
+        $0.leading.equalTo(ratingStarRankLabel.snp.trailing).offset(5)
       }
     }
 
@@ -194,7 +211,7 @@ class PopularityProductCell: UICollectionViewCell {
     if deliveryFreeLabel.translatesAutoresizingMaskIntoConstraints {
       deliveryFreeLabel.snp.makeConstraints {
         $0.leading.equalToSuperview()
-        $0.top.equalTo(clippingAndHitsCountLabel.snp.bottom).offset(margin)
+        $0.top.equalTo(ratingStarRankLabel.snp.bottom).offset(margin)
         $0.height.equalTo(brandLabel.snp.height).multipliedBy(1.5)
       }
     }
@@ -208,8 +225,29 @@ class PopularityProductCell: UICollectionViewCell {
     }
   }
 
+  private func getAttributeString(rate: String) -> NSMutableAttributedString {
+    let mutableAttributedString = NSMutableAttributedString()
+
+    let attributes: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 10),
+      .foregroundColor: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+    ]
+    let attributeString = NSMutableAttributedString(string: "★",
+                                                    attributes: attributes)
+    let attributes1: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 10, weight: .bold),
+      .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    ]
+    let attributeString1 = NSMutableAttributedString(string: rate,
+                                                     attributes: attributes1)
+    mutableAttributedString.append(attributeString)
+    mutableAttributedString.append(attributeString1)
+
+    return mutableAttributedString
+  }
+
   public func showRatingStar(_ hide: Bool) {
-    clippingAndHitsCountLabel.isHighlighted = hide
+//    clippingAndHitsCountLabel.isHighlighted = hide
   }
 
   // MARK: - Image Download & setImage

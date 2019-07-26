@@ -53,7 +53,12 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
       guard let data = data else { return completion(.failure(.noData)) }
 
+//      guard let str = try? JSONSerialization.jsonObject(with: data, options: []) else { return print("JSONSerialization")}
+
+//      print(str)
+
       if let productList = try? JSONDecoder().decode([ProductListTemp].self, from: data) {
+        print("success")
         completion(.success(productList))
       } else {
         completion(.failure(.invalidFormat))
@@ -77,6 +82,10 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         else { return completion(.failure(.invalidStatusCode)) }
 
       guard let data = data else { return completion(.failure(.noData)) }
+
+//      guard let str = try? JSONSerialization.jsonObject(with: data, options: []) else { return print("JSONSerialization")}
+
+//            print(str)
 
       if let productList = try? JSONDecoder().decode(CategoryIdList.self, from: data) {
         completion(.success(productList))
