@@ -95,6 +95,8 @@ final class ProfileBaseCell: UITableViewCell {
 
   @objc private func siccTest(_ sender: Any) {
 
+    UserDefaults.standard.removeObject(forKey: "token")
+    NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"), object: nil)
     KOSession.shared()?.logoutAndClose { [weak self] (success, error) -> Void in
       if success {
         print("Logout")
@@ -103,6 +105,7 @@ final class ProfileBaseCell: UITableViewCell {
       }
       //_ = self?.navigationController?.popViewController(animated: true)
     }
+
   }
 
   let padding: CGFloat = 10

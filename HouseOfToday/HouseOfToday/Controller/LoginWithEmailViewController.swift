@@ -143,6 +143,8 @@ class LoginWithEmailViewController: UIViewController {
       case .success(let value):
         print("로그인 완료 / Token : \(value)")
         UIAlertController.showMessage("로그인 성공")
+        NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"), object: nil)
+        UserDefaults.standard.set(value, forKey: "token")
       case .failure(let error):
         print(error)
         // 더 세세한 오류들을 알려줘야 한다. 이미 가입된 회원입니다. 라든지.
