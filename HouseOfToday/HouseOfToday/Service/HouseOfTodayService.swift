@@ -39,28 +39,20 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
   }
 
-  func postLoginUserInfo(withBody body: Data?, completion: @escaping (Result<User, ServiceError>) -> Void) {
+  func postSignUpUserData(withBody body: Data?, completion: @escaping (Result<User, ServiceError>) -> Void) {
 
-//    var urlComp = URLComponents(string: baseURL)
-//    urlComp?.path = "/accounts/create/"
-//
-//    guard let url = urlComp?.url else { return print("guard get url fail")}
-
-    guard let url = URL(string: "http://52.78.112.247/accounts/create/") else {
-      return logger("guard get url fail")}
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/accounts/create/"
+    guard let url = urlComp?.url else { return logger("guard get url fail")}
 
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = "POST"
 
     urlRequest.httpBody = body
-    //urlRequest.addValue("Content-Type", forHTTPHeaderField: "application/x-www-form-urlencoded")
     urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//    urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
     URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
 
-      print("response :", response)
-      print("data :", String(data: data!, encoding: .utf8))
       guard error == nil else { return completion(.failure(.clientError)) }
 
       guard let header = response as? HTTPURLResponse,
@@ -71,6 +63,37 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
       if let user = try? JSONDecoder().decode(User.self, from: data) {
         completion(.success(user))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+
+      }.resume()
+  }
+
+  func postLoginDataForGetToKen(withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void) {
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/get_token/"
+    guard let url = urlComp?.url else { return logger("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "POST"
+
+    urlRequest.httpBody = body
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: String],
+        let token = jsonObject["token"] {
+        completion(.success(token))
       } else {
         completion(.failure(.invalidFormat))
       }

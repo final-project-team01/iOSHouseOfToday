@@ -12,7 +12,6 @@ class SignUpWithEmailViewController: UIViewController {
 
   // MARK: - My Peoperties
   var user: User?
-  var userTest: [String: Any] = ["email": "", "password": "", "username": ""]
 
   let houseOfTodayService: HouseOfTodayServiceType = HouseOfTodayService()
 
@@ -95,46 +94,7 @@ class SignUpWithEmailViewController: UIViewController {
 
     title = "이메일로 초간단 가입"
     self.view.backgroundColor = .white
-    postLoginUserInfoTest()
     makeContraints()
-  }
-
-  private func postLoginUserInfoTest() {
-//    let test = User(email: "signuptest10@gmail.com", password: "ckdtlr12", userName: "signuptest10")
-//
-//    guard let encodedTest = try? JSONEncoder().encode(test) else {
-//      return logger("JSON Can't encode Data")
-//    }
-
-    let test = ["email": "signuptest1011@gmail.com", "password": "ckdtlr12", "username": "signuptest1011"]
-
-//    guard let encodedTest = try? JSONSerialization.data(withJSONObject: test, options: .prettyPrinted) else {
-//       return logger("JSON Can't encode Data")
-//    }
-
-    guard let encodedTest = test.percentEscaped().data(using: .utf8) else {
-      return logger("JSON Can't encode Data")
-    }
-
-//    let encodedTest = """
-//{
-//  "email" : "signuptest50@gmail.com",
-//  "password" : "ckdtlr12",
-//  "username" : "signuptest50"
-//}
-//""".data(using: .utf8)
-
-//    let encodedTest = "email=signuptest56@gmail.com&password=ckdtlr12&username=Sicc".data(using: .utf8)
-
-    houseOfTodayService.postLoginUserInfo(withBody: encodedTest) {
-      result in
-      switch result {
-      case .success(let value):
-        print(value)
-      case .failure(let error):
-        print(error)
-      }
-    }
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -142,6 +102,7 @@ class SignUpWithEmailViewController: UIViewController {
     self.navigationController?.setNavigationBarHidden(false, animated: false)
   }
 
+  // MARK: - Autolayout
   private func makeContraints() {
 
     let guide = view.safeAreaLayoutGuide
@@ -173,6 +134,33 @@ class SignUpWithEmailViewController: UIViewController {
       }
     }
   }
+
+  var loginWithEmailVC: LoginWithEmailViewController?
+
+  // MARK: - Network
+  private func postSignUpUserData(withUserData user: User?) {
+
+    guard let user = user else { return logger("user is nil") }
+    guard let encodedTest = user.percentEscaped().data(using: .utf8) else {
+      return logger("JSON Can't encode Data")
+    }
+
+    houseOfTodayService.postSignUpUserData(withBody: encodedTest) {
+      result in
+      switch result {
+      case .success(let value):
+        print("회원가입 완료", value)
+        let action = UIAlertAction(title: "확인", style: .default, handler: { (_) in
+          self.navigationController?.pushViewController(self.loginWithEmailVC!, animated: true)
+        })
+        UIAlertController.showAlert(title: nil, message: "회원가입이 완료되었습니다.", actions: [action])
+      case .failure(let error):
+        print(error)
+        // 더 세세한 오류들을 알려줘야 한다. 이미 가입된 회원입니다. 라든지.
+        UIAlertController.showMessage("회원가입 실패")
+      }
+    }
+  }
 }
 
 // MARK: - Action Methods
@@ -188,14 +176,15 @@ extension SignUpWithEmailViewController {
       print("가입하기 버튼 클릭됨")
       guard let email = self.emailTextField.text,
         let password = self.checkPasswordTextField.text,
-        let userName = self.userNameTextField.text
+        let username = self.userNameTextField.text
         else { return logger("Text of TextFields is nil")}
 
-      self.userTest["email"] = email
-      self.userTest["password"] = password
-      self.userTest["username"] = userName
+      self.user = User(email: email,
+                       password: password,
+                       username: username)
 
-      print("데이터 잘 들어가나 : ", self.userTest)
+      postSignUpUserData(withUserData: self.user)
+
     default:
       break
     }
@@ -205,4 +194,3 @@ extension SignUpWithEmailViewController {
 extension SignUpWithEmailViewController: UITextFieldDelegate {
 
 }
-

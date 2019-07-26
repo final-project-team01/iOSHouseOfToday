@@ -291,6 +291,7 @@ extension LoginViewController {
       self.navigationController?.pushViewController(loginWithEmailVC, animated: true)
     case "이메일로 가입":
       print("이메일로 가입 버튼 클릭")
+      signUpWithEmailVC.loginWithEmailVC = loginWithEmailVC
       self.navigationController?.pushViewController(signUpWithEmailVC, animated: true)
     default:
       break

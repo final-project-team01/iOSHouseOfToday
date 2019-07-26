@@ -11,5 +11,23 @@ import Foundation
 struct User: Codable {
   let email: String
   let password: String
-  let userName: String
+  let username: String?
+
+  func percentEscaped() -> String {
+
+    let mirror = Mirror(reflecting: self)
+
+    var query: [String] = []
+    for i in mirror.children {
+      guard let varName = i.label else { logger("Can't get varName"); return "" }
+      if let varValue = i.value as? String {
+        let key = varName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let value = varValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+
+        query.append(key + "=" + value)
+      }
+    }
+
+    return query.joined(separator: "&")
+  }
 }

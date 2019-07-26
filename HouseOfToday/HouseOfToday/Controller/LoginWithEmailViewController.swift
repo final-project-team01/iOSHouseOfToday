@@ -14,6 +14,8 @@ class LoginWithEmailViewController: UIViewController {
   // MARK: - My Properties
   var user: User?
 
+  let houseOfTodayService: HouseOfTodayServiceType = HouseOfTodayService()
+
   // MARK: - UI Properties
   private lazy var emailTextField: UITextField = {
     let tf = UITextField(frame: .zero)
@@ -126,6 +128,29 @@ class LoginWithEmailViewController: UIViewController {
 
   }
 
+  // MARK: - Network
+
+  private func postLoginData(withUserData user: User?) {
+
+    guard let user = user else { return logger("user is nil") }
+    guard let encodedTest = user.percentEscaped().data(using: .utf8) else {
+      return logger("JSON Can't encode Data")
+    }
+
+    houseOfTodayService.postLoginDataForGetToKen(withBody: encodedTest) {
+      result in
+      switch result {
+      case .success(let value):
+        print("로그인 완료 / Token : \(value)")
+        UIAlertController.showMessage("로그인 성공")
+      case .failure(let error):
+        print(error)
+        // 더 세세한 오류들을 알려줘야 한다. 이미 가입된 회원입니다. 라든지.
+        UIAlertController.showMessage("로그인 에러")
+      }
+    }
+  }
+
 }
 
 // MARK: - Action Methods
@@ -142,8 +167,9 @@ extension LoginWithEmailViewController {
       guard let email = self.emailTextField.text,
         let password = self.passwordTextField.text
       else { return logger("Text of TextFields is nil")}
-      //self.user = User(email: email, password: password)
+      self.user = User(email: email, password: password, username: nil)
       // 여기에서 getToken 통신 필요하다.
+      postLoginData(withUserData: self.user)
 
     case "비밀번호 재설정":
       print("비밀번호 재설정 버튼 클릭됨")
