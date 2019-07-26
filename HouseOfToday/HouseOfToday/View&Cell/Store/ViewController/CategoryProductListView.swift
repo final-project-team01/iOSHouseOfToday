@@ -43,14 +43,16 @@ class CategoryProductListView: UIViewController {
       guard let products = productListTemp?.products else { return print("productListTemp?.products fail")}
       productList = products.map {
         let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
-        let review = $0.review.map { $0.score }
+//        let review = $0.review.map { $0.score }
 
         return ProductList(id: $0.id,
                            brandName: $0.brandName,
                            productName: $0.productName,
+                           discountRate: $0.discountRate,
                            price: $0.price,
-                           thumnailUrl: imageUrl,
-                           review: review)
+                           reviewCount: $0.reviewCount,
+                           starAvg: $0.starAvg,
+                           thumnailUrl: imageUrl)
       }
 
     }

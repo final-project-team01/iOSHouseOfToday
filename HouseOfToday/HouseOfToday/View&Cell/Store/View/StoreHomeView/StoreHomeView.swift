@@ -60,14 +60,15 @@ final class StoreHomeView: UIView {
     didSet {
        productList = productListTemp.map {
         let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
-        let review = $0.review.map { $0.score }
-
+//        print($0.discountRate ?? "Err")
         return ProductList(id: $0.id,
-                    brandName: $0.brandName,
-                    productName: $0.productName,
-                    price: $0.price,
-                    thumnailUrl: imageUrl,
-                    review: review)
+                           brandName: $0.brandName,
+                           productName: $0.productName,
+                           discountRate: $0.discountRate ?? "0",
+                           price: $0.price,
+                           reviewCount: $0.reviewCount,
+                           starAvg: $0.starAvg,
+                           thumnailUrl: imageUrl)
       }
 
     }

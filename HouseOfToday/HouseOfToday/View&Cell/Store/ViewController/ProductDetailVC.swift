@@ -23,14 +23,17 @@ class ProductDetailVC: UIViewController {
 
   lazy var flowLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
-
+//    layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//    layout.sectionInsetReference = .fromLayoutMargins
     return layout
   }()
 
   lazy var collectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     colV.register(cell: ProductMainCell.self)
+    colV.backgroundColor = .white
     colV.dataSource = self
+    colV.delegate = self
     view.addSubview(colV)
     return colV
   }()
@@ -92,6 +95,23 @@ extension ProductDetailVC: UICollectionViewDataSource {
   }
 }
 
+extension ProductDetailVC: UICollectionViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    print(scrollView.contentOffset.y)
+  }
+}
+
 extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
 
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//    let sectionInset = (collectionViewLayout as! UICollectionViewFlowLayout).sectionInset
+//    let referenceHeight: CGFloat = 100 // Approximate height of your cell
+//    let referenceWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
+//      - sectionInset.left
+//      - sectionInset.right
+//      - collectionView.contentInset.left
+//      - collectionView.contentInset.right
+    print("collectionViewLayout!!")
+    return CGSize(width: UIScreen.main.bounds.width, height: ProductMainCell.height)
+  }
 }
