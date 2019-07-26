@@ -12,11 +12,13 @@ import AMPopTip
 
 class LoginViewController: UIViewController {
 
-  // MARK: - Properties
+  // MARK: - My Properties
+  var kakaoUserInfo: [String: String] = ["type": ""]
 
   let loginWithEmailVC = LoginWithEmailViewController()
   let signUpWithEmailVC = SignUpWithEmailViewController()
 
+  // MARK: - UI Properties
   private lazy var mainImageView: UIImageView = {
     let iv = UIImageView(frame: .zero)
     iv.backgroundColor = .gray
@@ -206,74 +208,14 @@ class LoginViewController: UIViewController {
   }
 }
 
+// MARK: - Action Methods
 extension LoginViewController {
   @objc private func otherServiceLoginButtonsDidTapped(_ sender: UIButton) {
 
     switch sender.backgroundColor {
     case #colorLiteral(red: 0.977997005, green: 0.8791384101, blue: 0, alpha: 1):
       print("카카오 버튼 클릭")
-      /// ----------------   로그인 -------------
-      guard let session = KOSession.shared() else {
-        return logger()
-      }
-
-      if session.isOpen() {
-        session.close()
-      }
-
-      session.open(completionHandler: { (error) -> Void in
-
-        if !session.isOpen() {
-          if let error = error as NSError? {
-            switch error.code {
-            case Int(KOErrorCancelled.rawValue):
-              break
-            default:
-              UIAlertController.showMessage(error.description)
-            }
-          }
-        }
-
-        /// 사용자 정보 요청하기
-        KOSessionTask.userMeTask { [weak self] (error, me) in
-          if let error = error as NSError? {
-            UIAlertController.showMessage(error.description)
-
-          } else if let me = me as KOUserMe? {
-            // 결과 보여주기
-            var message: String = ""
-
-            message.append("아이디: ")
-            message.append(me.id ?? "없음 (signup 필요함)")
-
-            if let account = me.account {
-              message.append("\n\n== 카카오계정 정보 ==")
-
-              message.append("\n이메일: ")
-              if account.email != nil {
-                message.append(account.email!)
-              } else if account.emailNeedsAgreement == true {
-                message.append("있음 (사용자 동의가 필요함)")
-              } else {
-                message.append("없음")
-              }
-            }
-            // 닉네임 , 프로필 이미지 url 정보 등등
-            if let properties = me.properties {
-              message.append("\n\n== 사용자 속성 ==\n\(properties.description)")
-            }
-            print(message)
-          }
-        }
-
-        /// 토근 정보 얻어보자
-        KOSessionTask.accessTokenInfoTask(completionHandler: { (token, _) in
-          print("token 정보 : ", token)
-        })
-        ///
-      })
-
-      /// ----------------------------
+      configureKakaoLogin()
     case #colorLiteral(red: 0.1769869626, green: 0.7050512433, blue: 0.001866223989, alpha: 1):
       print("네이버 버튼 클릭")
     case #colorLiteral(red: 0.2593425214, green: 0.5222951174, blue: 0.9579148889, alpha: 1):
@@ -281,6 +223,81 @@ extension LoginViewController {
     default:
       break
     }
+  }
+
+  private func configureKakaoLogin() {
+
+    guard let session = KOSession.shared() else {
+      return logger("KOSession.shared() is nil")
+    }
+
+    if session.isOpen() {
+      session.close()
+    }
+
+    session.open(completionHandler: { (error) -> Void in
+
+      // 에러처리
+      if !session.isOpen() {
+        if let error = error as NSError? {
+          switch error.code {
+          case Int(KOErrorCancelled.rawValue):
+            break
+          default:
+            logger(error.description)
+            UIAlertController.showMessage("kakao Login Error")
+          }
+        }
+      }
+
+      /// 사용자 정보 요청하기
+      KOSessionTask.userMeTask { [weak self] (error, me) in
+        guard let self = self else { return logger("weak reference error")}
+
+        if let error = error as NSError? {
+          UIAlertController.showMessage(error.description)
+
+        } else if let me = me as KOUserMe? {
+
+          self.kakaoUserInfo["type"] = "카카오"
+
+          guard let id = me.id else { return logger("id가 없습ㄴ디ㅏ. SignUp 필요!")}
+          print("id : \(id)")
+          self.kakaoUserInfo["unique_user_id"] = id
+
+          print("== 카카오계정 정보 ==")
+          if let account = me.account {
+            if let email = account.email {
+              print("email : \(email)")
+              self.kakaoUserInfo["email"] = email
+            } else if account.emailNeedsAgreement == true {
+              print("email : 사용자 동의가 필요함")
+            } else {
+              print("email : 없음")
+            }
+          }
+          print("== 사용자 속성 정보 ==")
+          if let properties = me.properties {
+            for key in properties.keys {
+              print(key + " : " + (properties[key] ?? ""))
+            }
+            self.kakaoUserInfo["username"] = properties["nickname"]
+            self.kakaoUserInfo["social_profile"] = properties["thumbnail_image"]
+          }
+        }
+      }
+
+      /// 카카오 토근 정보 얻어오기
+      KOSessionTask.accessTokenInfoTask(completionHandler: { (token, _) in
+        guard let tokenInfo = token,
+          let token = tokenInfo.id,
+          let expires = tokenInfo.expiresInMillis
+          else { return logger("token is nil") }
+        print("== token 정보 ==")
+        print("tokenID : \(token)")
+        print("유효기간 : \(expires)")
+      })
+    })
   }
 
   @objc private func emailButtonsDidTapped(_ sender: UIButton) {
