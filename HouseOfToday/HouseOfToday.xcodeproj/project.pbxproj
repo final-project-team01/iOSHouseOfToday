@@ -41,6 +41,7 @@
 		8ED0608322E6E737003D610D /* LoginWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */; };
 		8ED0608522E6E759003D610D /* SignUpWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */; };
 		8ED0608722E9C5E8003D610D /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608622E9C5E8003D610D /* MyPageModel.swift */; };
+		8ED0608922EABB2A003D610D /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608822EABB2A003D610D /* NetworkExtensions.swift */; };
 		AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */; };
 		AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */; };
 		AB7EEA9022DDD4FB00F33663 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */; };
@@ -92,6 +93,7 @@
 		8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithEmailViewController.swift; sourceTree = "<group>"; };
 		8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailViewController.swift; sourceTree = "<group>"; };
 		8ED0608622E9C5E8003D610D /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
+		8ED0608822EABB2A003D610D /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
 		AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */,
 				8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */,
 				8ED0608022E589F2003D610D /* AlertExtension.swift */,
+				8ED0608822EABB2A003D610D /* NetworkExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */,
 				8ED0608522E6E759003D610D /* SignUpWithEmailViewController.swift in Sources */,
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
+				8ED0608922EABB2A003D610D /* NetworkExtensions.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,
 				42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */,
 				AB7EEA9422DDD54500F33663 /* MyshoppingView.swift in Sources */,
