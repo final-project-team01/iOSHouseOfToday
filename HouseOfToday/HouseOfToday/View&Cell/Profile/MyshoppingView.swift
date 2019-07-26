@@ -18,6 +18,7 @@ final class MyshoppingView: UIView {
     tableView.register(cell: VoucherCell.self)
     tableView.register(cell: BeingOrderCell.self)
     tableView.register(cell: MyshoppingBaseCell.self)
+    tableView.showsVerticalScrollIndicator = false
     tableView.allowsSelection = false
 
     addSubview(tableView)

@@ -11,7 +11,7 @@ import SnapKit
 
 class FooterTableCell: UITableViewHeaderFooterView {
 
-  static var height = UIScreen.main.bounds.height/13
+  static var height = UIScreen.main.bounds.height/15
 
   var moreCount = "6,376"
 
@@ -46,7 +46,7 @@ class FooterTableCell: UITableViewHeaderFooterView {
 
     moreButton.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(JMetric.inset.left)
-      make.top.bottom.equalToSuperview().inset(3)
+      make.top.bottom.equalToSuperview()
     }
 
   }

@@ -13,7 +13,7 @@ class TempRankingView: UIView {
 
   // FIXME: - 셀 크기 가져와서 높이 조절
   private lazy var tableView: UITableView = {
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
     tableView.dataSource = self.self
     tableView.delegate = self.self
     tableView.register(cell: RankingTableCell.self)
@@ -21,7 +21,11 @@ class TempRankingView: UIView {
     tableView.register(HeaderTableCell.self, forHeaderFooterViewReuseIdentifier: "HeaderTableCell")
     tableView.register(FooterTableCell.self, forHeaderFooterViewReuseIdentifier: "FooterTableCell")
     tableView.allowsSelection = false
-//    tableView.separatorStyle = .none
+    tableView.backgroundColor = .white
+    tableView.showsVerticalScrollIndicator = false
+    tableView.rowHeight = UITableView.automaticDimension
+
+    tableView.separatorStyle = .none
     addSubview(tableView)
     return tableView
   }()
@@ -54,25 +58,40 @@ extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
     return view
   }
 
-  // FIXME: - footer 추가하기
-  
-  
+  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FooterTableCell") as? FooterTableCell else {
+      return nil
+    }
+    return view
+  }
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return HeaderTableCell.height
+  }
+
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return FooterTableCell.height
+  }
+
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 10
+  }
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return 1
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    switch indexPath.row {
+    switch indexPath.section {
     case 0:
       let cell = tableView.dequeueReusableCell(withIdentifier: RankingTableCell.identifier, for: indexPath) as! RankingTableCell
-//       let totalHeight = (JMetric.rankkingCellSize.height * 3) + (JMetric.verticalPadding * 2) + (Header.height + Footer.height) // FIXME: - 유동적으로 변경
-      tableView.rowHeight = 680
+       let totalHeight = (JMetric.rankkingCellSize.height * 3) + (JMetric.verticalPadding * 2)
+            tableView.rowHeight = totalHeight
       return cell
     default:
-      let cell = tableView.dequeueReusableCell(withIdentifier: RankingHorizontalCell.identifier, for: indexPath) as! RankingHorizontalCell
-      let totalHeight = JMetric.rankkingCellSize.height + JMetric.verticalPadding
-
-      tableView.rowHeight = totalHeight
+       let cell = tableView.dequeueReusableCell(withIdentifier: RankingHorizontalCell.identifier, for: indexPath) as! RankingHorizontalCell
+       let totalHeight = JMetric.rankkingCellSize.height + (JMetric.verticalPadding)
+             tableView.rowHeight = totalHeight
       return cell
     }
 

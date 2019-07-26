@@ -11,7 +11,7 @@ import SnapKit
 
 class HeaderTableCell: UITableViewHeaderFooterView {
 
-  static var height = UIScreen.main.bounds.height/9
+  static var height = UIScreen.main.bounds.height/8
 
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
@@ -33,7 +33,6 @@ class HeaderTableCell: UITableViewHeaderFooterView {
   override init(reuseIdentifier: String?) {
     super .init(reuseIdentifier: reuseIdentifier)
     configureLabel()
-
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -49,7 +48,7 @@ class HeaderTableCell: UITableViewHeaderFooterView {
 
     subtitleLabel.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(JMetric.inset.left)
-      make.top.equalTo(titleLabel.snp.bottom).offset(5)
+      make.top.equalTo(titleLabel.snp.bottom).offset(10)
     }
 
   }

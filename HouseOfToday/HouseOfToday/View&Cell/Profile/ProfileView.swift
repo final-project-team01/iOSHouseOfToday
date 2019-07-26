@@ -30,6 +30,7 @@ final class ProfileView: UIView {
     tableView.register(cell: ProfileUserCell.self)
     tableView.register(cell: ProfileBaseCell.self)
     tableView.register(cell: PictureTableViewCell.self)
+    tableView.showsVerticalScrollIndicator = false
     tableView.allowsSelection = false
     tableView.refreshControl = refreshControl
 

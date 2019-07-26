@@ -9,9 +9,9 @@
 import UIKit
 
 enum JMetric {
-  static let lineSpacing: CGFloat = 12
-  static let itemSpacing: CGFloat = 12
-  static let nextOffSet: CGFloat = 10
+  static let lineSpacing: CGFloat = 10
+  static let itemSpacing: CGFloat = 10
+  static let nextOffSet: CGFloat = 7
   static let numberOfLine: CGFloat = 3
   static let numberOfItem: CGFloat = 3
 
@@ -43,7 +43,7 @@ enum JMetric {
   }
 
   static var rankingHorizontalInset: UIEdgeInsets {
-    return .init(top: 3, left: 3, bottom: 3, right: 3)
+    return .init(top: 3, left: 15, bottom: 3, right: 3)
   }
 
   static let inset: UIEdgeInsets = .init(top: 10, left: 15, bottom: 10, right: 15)

@@ -32,7 +32,7 @@ class RankingTableCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     cellAutolayout()
-
+    backgroundColor = .white
   }
 
   required init?(coder aDecoder: NSCoder) {

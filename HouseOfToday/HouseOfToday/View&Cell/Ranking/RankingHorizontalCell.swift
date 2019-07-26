@@ -44,6 +44,7 @@ class RankingHorizontalCell: UITableViewCell {
     collectionView.delegate = self
     collectionView.backgroundColor = .white
     collectionView.register(cell: RankingCollectionCell.self)
+    collectionView.showsHorizontalScrollIndicator = false
     addSubview(collectionView)
     return collectionView
   }()
