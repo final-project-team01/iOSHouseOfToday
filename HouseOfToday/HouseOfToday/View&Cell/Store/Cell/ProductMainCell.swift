@@ -11,8 +11,9 @@ import UIKit
 class ProductMainCell: UICollectionViewCell {
 
   // MARK: - Property
+  static var identifier: String = "ProductMainCell"
 
-  static let height = (SwipeImageview.height + DetailProductFirstView.height) * 2 //UsersStylingShotView.h\//UIScreen.main.bounds.width * 2
+  static let height = SwipeImageview.height + DetailProductFirstView.height + UsersStylingShotView.height
 
   private let swipeImageView = SwipeImageview()
 
@@ -49,14 +50,18 @@ class ProductMainCell: UICollectionViewCell {
 
     if swipeImageView.translatesAutoresizingMaskIntoConstraints {
       swipeImageView.snp.makeConstraints {
-        $0.top.leading.trailing.equalToSuperview()
+        $0.leading.trailing.equalToSuperview()
         $0.height.equalTo(SwipeImageview.height)
+        $0.top.equalToSuperview()
+
+        $0.bottom.equalTo(firstView.snp.top).offset(0)
       }
     }
 
     if firstView.translatesAutoresizingMaskIntoConstraints {
       firstView.snp.makeConstraints {
-        $0.top.equalTo(swipeImageView.snp.bottom)//.offset(marginY)
+        $0.top.equalToSuperview().offset(SwipeImageview.height)
+//        $0.top.equalTo(swipeImageView.snp.bottom)//offset(marginY)
         $0.leading.trailing.equalToSuperview()
         $0.height.equalTo(DetailProductFirstView.height)
       }
@@ -67,10 +72,29 @@ class ProductMainCell: UICollectionViewCell {
         $0.top.equalTo(firstView.snp.bottom).offset(Metric.marginY)
         $0.leading.trailing.equalToSuperview()
 
-        $0.height.equalTo(UIScreen.main.bounds.height)
+        $0.height.equalTo(UsersStylingShotView.height)//.priority(500)
       }
     }
 
+  }
+
+  public func updateSwipeImageViewPosition(positionY: CGFloat) {
+
+//    guard positionY > 0 else { return print("positionY: \(positionY)")}
+
+    if 0..<swipeImageView.frame.height ~= positionY {
+      print("positionY: \(positionY)")
+      swipeImageView.snp.updateConstraints {
+        $0.top.equalToSuperview().offset(positionY)
+        $0.bottom.equalTo(firstView.snp.top).offset(positionY)
+      }
+
+    } else {
+      swipeImageView.snp.updateConstraints {
+        $0.top.equalToSuperview().offset(0)
+        $0.bottom.equalTo(firstView.snp.top).offset(0)
+      }
+    }
   }
 
 }

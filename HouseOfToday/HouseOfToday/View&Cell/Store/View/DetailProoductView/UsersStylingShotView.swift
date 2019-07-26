@@ -12,7 +12,7 @@ class UsersStylingShotView: UIView {
 
   // MARK: - Property
 
-  static var height = UIScreen.main.bounds.height / 0.7
+  static var height = UIScreen.main.bounds.height * 0.7
 
   var pageNumber: Int = 10
 
@@ -90,7 +90,7 @@ class UsersStylingShotView: UIView {
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: CGRect.zero)
-    backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
   }
 
   required init?(coder aDecoder: NSCoder) {

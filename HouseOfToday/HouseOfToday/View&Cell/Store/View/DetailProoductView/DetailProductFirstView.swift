@@ -173,7 +173,7 @@ class DetailProductFirstView: UIView {
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+    backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
 
     firstLineView.layer.addBorder([.top, .left], color: .black, width: 0.5)
     secondLineView.layer.addBorder([.top], color: .black, width: 0.5)

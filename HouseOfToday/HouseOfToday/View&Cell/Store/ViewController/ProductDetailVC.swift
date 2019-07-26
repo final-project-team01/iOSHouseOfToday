@@ -97,7 +97,16 @@ extension ProductDetailVC: UICollectionViewDataSource {
 
 extension ProductDetailVC: UICollectionViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    print(scrollView.contentOffset.y)
+//    print("contentOffset.y", scrollView.contentOffset.y)
+//    print("origin: ", scrollView.bounds.origin)
+//    print("top: ", view.safeAreaInsets.top)
+
+    guard let cell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 0)),
+      let mainCell = cell as? ProductMainCell else { return }
+
+    if SwipeImageview.height > scrollView.bounds.origin.y + view.safeAreaInsets.top {
+      mainCell.updateSwipeImageViewPosition(positionY: scrollView.bounds.origin.y + view.safeAreaInsets.top)
+    }
   }
 }
 
