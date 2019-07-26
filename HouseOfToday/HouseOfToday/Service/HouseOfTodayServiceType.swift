@@ -13,4 +13,6 @@ protocol HouseOfTodayServiceType {
   func fetchProductList(completion: @escaping (Result<[ProductListTemp], ServiceError>) -> Void)
   func fetchCategoryIdList(id: Int, completion: @escaping (Result<CategoryIdList, ServiceError>) -> Void)
   func fetchProductDetail(id: Int, completion: @escaping (Result<ProductDetail, ServiceError>) -> Void)
+
+  func fetchRankingList(completion: @escaping (Result<[RankingList], ServiceError>) -> Void) // FIXME: - 정아 추가
 }

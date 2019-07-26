@@ -58,7 +58,8 @@ extension RankingTableCell: UICollectionViewDataSource, UICollectionViewDelegate
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
     let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
-//    cell.countLabel.text = "\(indexPath.item)" // FIXME: - 이거 하면 없어지넹
+    cell.countLabel.text = "\(indexPath.item + 1)"
+
     return cell
 
   }

@@ -72,6 +72,7 @@ class RankingCollectionCell: UICollectionViewCell {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
+    cellAutolayout()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -80,7 +81,6 @@ class RankingCollectionCell: UICollectionViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    cellAutolayout()
   }
 
   @objc func didTapScrapButton(_ sender: UIButton) {

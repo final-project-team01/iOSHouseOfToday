@@ -11,9 +11,9 @@ import SnapKit
 
 class HeaderTableCell: UITableViewHeaderFooterView {
 
-  static var height = UIScreen.main.bounds.height/8
+    static var height = UIScreen.main.bounds.height/8
 
-  private lazy var titleLabel: UILabel = {
+  lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "오늘의집 AWARDS"
     label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -21,7 +21,7 @@ class HeaderTableCell: UITableViewHeaderFooterView {
     return label
   }()
 
-  private lazy var subtitleLabel: UILabel = {
+  lazy var subtitleLabel: UILabel = {
     let label = UILabel()
     label.text = "카테고리별 BEST 100"
     label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -43,14 +43,22 @@ class HeaderTableCell: UITableViewHeaderFooterView {
 
     titleLabel.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(JMetric.inset.left)
-      make.centerY.equalToSuperview()
+      make.bottom.equalTo(subtitleLabel.snp.top).inset(-10)
     }
 
-    subtitleLabel.snp.makeConstraints { make in
+    if subtitleLabel.text == "" {
+      subtitleLabel.snp.makeConstraints { make in
+        make.leading.equalToSuperview().inset(JMetric.inset.left)
+        make.top.equalToSuperview().inset(-10)
+      }
+
+    } else {
+      self.subtitleLabel.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(JMetric.inset.left)
-      make.top.equalTo(titleLabel.snp.bottom).offset(10)
-    }
+      make.bottom.equalToSuperview()
 
+      }
+    }
   }
 
 }

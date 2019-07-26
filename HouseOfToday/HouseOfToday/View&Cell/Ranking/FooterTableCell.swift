@@ -13,13 +13,11 @@ class FooterTableCell: UITableViewHeaderFooterView {
 
   static var height = UIScreen.main.bounds.height/15
 
-  var moreCount = "6,376"
-
-  private lazy var moreButton: UIButton = {
+  lazy var moreButton: UIButton = {
     let button = UIButton(type: .custom)
-    button.setTitle("더보기 (\(moreCount))", for: .normal)
+    button.titleLabel?.textAlignment = .center
+    button.setTitle("Loading...", for: .normal)
     button.backgroundColor = #colorLiteral(red: 0.9043933749, green: 0.9526636004, blue: 0.9818997979, alpha: 1)
-    button.backgroundColor?.withAlphaComponent(0.5)
     button.setTitleColor( #colorLiteral(red: 0.2017701268, green: 0.7704548836, blue: 0.9419474006, alpha: 1), for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
     button.layer.cornerRadius =  5
@@ -40,6 +38,7 @@ class FooterTableCell: UITableViewHeaderFooterView {
 
   @objc func moreButtondidTap() {
 
+    print("buttonTapped")
   }
 
   private func configureLabel() {

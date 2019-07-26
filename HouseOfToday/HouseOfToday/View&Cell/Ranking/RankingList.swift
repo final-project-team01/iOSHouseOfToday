@@ -8,14 +8,29 @@
 
 import Foundation
 
+// FIXME: - Ranking Model 쪽으로 폴더 이동하기
+
 struct RankingList: Decodable {
 
   let id: Int
   let name: String
-  let statAvrg: String
+  let starAvrg: String
   let reviewCount: Int
-  
-  
+
+  let thumbnailImages: [ThumbnailImages]
+
+  enum CodingKeys: String, CodingKey {
+    case id
+    case name
+    case starAvrg = "star_avg"
+    case reviewCount = "review_count"
+
+    case thumbnailImages = "thumnail_images"
+  }
+}
+
+struct ThumbnailImages: Decodable {
+  let image: String
 }
 
 /*
