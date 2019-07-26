@@ -137,18 +137,21 @@ class LoginWithEmailViewController: UIViewController {
       return logger("JSON Can't encode Data")
     }
 
-    houseOfTodayService.postLoginDataForGetToKen(withBody: encodedTest) {
+    houseOfTodayService.postLoginDataForGetToKen(toPath: "/get_token/", withBody: encodedTest) {
       result in
       switch result {
       case .success(let value):
-        print("로그인 완료 / Token : \(value)")
-        UIAlertController.showMessage("로그인 성공")
-        NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"), object: nil)
-        UserDefaults.standard.set(value, forKey: "token")
+        print("이메일 로그인 완료 / Token : \(value)")
+        UIAlertController.showMessage("이메일 로그인 성공")
+        let tokenInfo: [String: String] = ["token": value, "type": "email"]
+        UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
+        NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
+                                        object: nil,
+                                        userInfo: ["type": tokenInfo["type"]])
       case .failure(let error):
         print(error)
         // 더 세세한 오류들을 알려줘야 한다. 이미 가입된 회원입니다. 라든지.
-        UIAlertController.showMessage("로그인 에러")
+        UIAlertController.showMessage("이메일 로그인 에러")
       }
     }
   }

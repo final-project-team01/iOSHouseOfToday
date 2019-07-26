@@ -18,6 +18,8 @@ class LoginViewController: UIViewController {
   let loginWithEmailVC = LoginWithEmailViewController()
   let signUpWithEmailVC = SignUpWithEmailViewController()
 
+  let houseOfTodayService: HouseOfTodayServiceType = HouseOfTodayService()
+
   // MARK: - UI Properties
   private lazy var mainImageView: UIImageView = {
     let iv = UIImageView(frame: .zero)
@@ -285,18 +287,35 @@ extension LoginViewController {
             self.kakaoUserInfo["social_profile"] = properties["thumbnail_image"]
           }
         }
-      }
 
-      /// 카카오 토근 정보 얻어오기
-      KOSessionTask.accessTokenInfoTask(completionHandler: { (token, _) in
-        guard let tokenInfo = token,
-          let token = tokenInfo.id,
-          let expires = tokenInfo.expiresInMillis
-          else { return logger("token is nil") }
-        print("== token 정보 ==")
-        print("tokenID : \(token)")
-        print("유효기간 : \(expires)")
-      })
+        let encodedData = self.kakaoUserInfo.percentEscaped().data(using: .utf8)
+        self.houseOfTodayService.postLoginDataForGetToKen(toPath: "/get_token/social/",
+                                                          withBody: encodedData) {
+          result in
+          switch result {
+          case .success(let value):
+            print("카카오 로그인 네트워크 작업 완료 / Token : \(value)")
+            UIAlertController.showMessage("카카오 로그인 성공")
+            let tokenInfo: [String: String] = ["token": value, "type": "kakao"]
+            UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
+            NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": tokenInfo["type"]])
+          case .failure(let error):
+            print(error)
+            UIAlertController.showMessage("카카오 로그인 에러")
+          }
+        }
+
+        /// 카카오 토근 정보 얻어오기
+        KOSessionTask.accessTokenInfoTask(completionHandler: { (token, _) in
+          guard let tokenInfo = token,
+            let token = tokenInfo.id,
+            let expires = tokenInfo.expiresInMillis
+            else { return logger("token is nil") }
+          print("== token 정보 ==")
+          print("tokenID : \(token)")
+          print("유효기간 : \(expires)")
+        })
+      }
     })
   }
 

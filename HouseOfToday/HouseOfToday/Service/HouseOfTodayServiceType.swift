@@ -13,5 +13,6 @@ protocol HouseOfTodayServiceType {
 
   func postSignUpUserData(withBody body: Data?, completion: @escaping (Result<User, ServiceError>) -> Void)
 
-  func postLoginDataForGetToKen(withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void)
+  func postLoginDataForGetToKen(toPath path: String, withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void)
+
 }

@@ -70,9 +70,9 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
   }
 
-  func postLoginDataForGetToKen(withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void) {
+  func postLoginDataForGetToKen(toPath path: String, withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void) {
     var urlComp = URLComponents(string: baseURL)
-    urlComp?.path = "/get_token/"
+    urlComp?.path = path
     guard let url = urlComp?.url else { return logger("guard get url fail")}
 
     var urlRequest = URLRequest(url: url)
