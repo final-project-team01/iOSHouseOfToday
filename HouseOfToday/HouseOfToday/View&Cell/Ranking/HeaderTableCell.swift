@@ -1,20 +1,22 @@
 //
-//  CollectionHeader.swift
+//  HeaderTableCell.swift
 //  HouseOfToday
 //
-//  Created by Daisy on 23/07/2019.
+//  Created by Daisy on 25/07/2019.
 //  Copyright © 2019 CHANGGUEN YU. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class Header: UICollectionReusableView {
+class HeaderTableCell: UITableViewHeaderFooterView {
+
+  static var height = UIScreen.main.bounds.height/8
 
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "오늘의집 AWARDS"
-    label.font = UIFont.preferredFont(forTextStyle: .headline)
+    label.font = UIFont.boldSystemFont(ofSize: 20)
     addSubview(label)
     return label
   }()
@@ -22,15 +24,14 @@ class Header: UICollectionReusableView {
   private lazy var subtitleLabel: UILabel = {
     let label = UILabel()
     label.text = "카테고리별 BEST 100"
-    label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-    label.textColor = .lightGray
+    label.font = UIFont.boldSystemFont(ofSize: 15)
+    label.textColor = .darkGray
     addSubview(label)
     return label
   }()
 
-  override init(frame: CGRect) {
-    super .init(frame: frame)
-    self.backgroundColor = .white
+  override init(reuseIdentifier: String?) {
+    super .init(reuseIdentifier: reuseIdentifier)
     configureLabel()
   }
 
@@ -41,12 +42,13 @@ class Header: UICollectionReusableView {
   private func configureLabel() {
 
     titleLabel.snp.makeConstraints { make in
-    make.top.leading.trailing.equalToSuperview()
+      make.leading.equalToSuperview().inset(JMetric.inset.left)
+      make.centerY.equalToSuperview()
     }
 
     subtitleLabel.snp.makeConstraints { make in
-      make.top.equalTo(titleLabel.snp.bottom)
-      make.leading.bottom.trailing.equalToSuperview()
+      make.leading.equalToSuperview().inset(JMetric.inset.left)
+      make.top.equalTo(titleLabel.snp.bottom).offset(10)
     }
 
   }
