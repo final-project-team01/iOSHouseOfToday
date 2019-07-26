@@ -41,17 +41,26 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
   func postLoginUserInfo(withBody body: Data?, completion: @escaping (Result<User, ServiceError>) -> Void) {
 
-    var urlComp = URLComponents(string: baseURL)
-    urlComp?.path = "/accounts/create/"
+//    var urlComp = URLComponents(string: baseURL)
+//    urlComp?.path = "/accounts/create/"
+//
+//    guard let url = urlComp?.url else { return print("guard get url fail")}
 
-    guard let url = urlComp?.url else { return print("guard get url fail")}
+    guard let url = URL(string: "http://52.78.112.247/accounts/create/") else {
+      return logger("guard get url fail")}
 
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = "POST"
+
     urlRequest.httpBody = body
+    //urlRequest.addValue("Content-Type", forHTTPHeaderField: "application/x-www-form-urlencoded")
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//    urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
     URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
 
+      print("response :", response)
+      print("data :", String(data: data!, encoding: .utf8))
       guard error == nil else { return completion(.failure(.clientError)) }
 
       guard let header = response as? HTTPURLResponse,

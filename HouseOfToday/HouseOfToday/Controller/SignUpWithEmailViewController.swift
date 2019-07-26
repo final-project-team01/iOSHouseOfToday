@@ -100,9 +100,19 @@ class SignUpWithEmailViewController: UIViewController {
   }
 
   private func postLoginUserInfoTest() {
-    let test = User(email: "signuptest10@gmail.com", password: "ckdtlr12", userName: "signuptest10")
+//    let test = User(email: "signuptest10@gmail.com", password: "ckdtlr12", userName: "signuptest10")
+//
+//    guard let encodedTest = try? JSONEncoder().encode(test) else {
+//      return logger("JSON Can't encode Data")
+//    }
 
-    guard let encodedTest = try? JSONEncoder().encode(test) else {
+    let test = ["email": "signuptest1011@gmail.com", "password": "ckdtlr12", "username": "signuptest1011"]
+
+//    guard let encodedTest = try? JSONSerialization.data(withJSONObject: test, options: .prettyPrinted) else {
+//       return logger("JSON Can't encode Data")
+//    }
+
+    guard let encodedTest = test.percentEscaped().data(using: .utf8) else {
       return logger("JSON Can't encode Data")
     }
 
@@ -114,8 +124,10 @@ class SignUpWithEmailViewController: UIViewController {
 //}
 //""".data(using: .utf8)
 
+//    let encodedTest = "email=signuptest56@gmail.com&password=ckdtlr12&username=Sicc".data(using: .utf8)
+
     houseOfTodayService.postLoginUserInfo(withBody: encodedTest) {
-      [weak self] result in
+      result in
       switch result {
       case .success(let value):
         print(value)
@@ -192,4 +204,15 @@ extension SignUpWithEmailViewController {
 
 extension SignUpWithEmailViewController: UITextFieldDelegate {
 
+}
+
+extension Dictionary {
+  func percentEscaped() -> String {
+    return map { (key, value) in
+      let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+      let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+      return escapedKey + "=" + escapedValue
+      }
+      .joined(separator: "&")
+  }
 }
