@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import AMPopTip
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
 
@@ -159,6 +160,9 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    GIDSignIn.sharedInstance()?.delegate = self
+    GIDSignIn.sharedInstance()?.uiDelegate = self
+
     makeConstraints()
   }
 
@@ -222,11 +226,37 @@ extension LoginViewController {
       print("네이버 버튼 클릭")
     case #colorLiteral(red: 0.2593425214, green: 0.5222951174, blue: 0.9579148889, alpha: 1):
       print("구글 버튼 클릭")
+      GIDSignIn.sharedInstance()?.signIn()
     default:
       break
     }
   }
 
+  @objc private func emailButtonsDidTapped(_ sender: UIButton) {
+    guard let buttonTitle = sender.titleLabel?.text else { return logger("button can't be unwrapped")}
+    switch buttonTitle {
+    case "이메일로 로그인":
+      print("이메일로 로그인 버튼 클릭")
+      self.navigationController?.pushViewController(loginWithEmailVC, animated: true)
+    case "이메일로 가입":
+      print("이메일로 가입 버튼 클릭")
+      signUpWithEmailVC.loginWithEmailVC = loginWithEmailVC
+      self.navigationController?.pushViewController(signUpWithEmailVC, animated: true)
+    default:
+      break
+    }
+  }
+
+  @objc private func lookButtonDidTapped(_ sender: UIButton) {
+    logger("둘러보기")
+  }
+
+}
+
+// MARK: - Social Login Configurations
+extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
+
+  // kakao Login
   private func configureKakaoLogin() {
 
     guard let session = KOSession.shared() else {
@@ -289,8 +319,7 @@ extension LoginViewController {
         }
 
         let encodedData = self.kakaoUserInfo.percentEscaped().data(using: .utf8)
-        self.houseOfTodayService.postLoginDataForGetToKen(toPath: "/get_token/social/",
-                                                          withBody: encodedData) {
+        self.houseOfTodayService.postLoginDataForGetToKen(toPath: "/get_token/social/", withBody: encodedData) {
           result in
           switch result {
           case .success(let value):
@@ -319,23 +348,25 @@ extension LoginViewController {
     })
   }
 
-  @objc private func emailButtonsDidTapped(_ sender: UIButton) {
-    guard let buttonTitle = sender.titleLabel?.text else { return logger("button can't be unwrapped")}
-    switch buttonTitle {
-    case "이메일로 로그인":
-      print("이메일로 로그인 버튼 클릭")
-      self.navigationController?.pushViewController(loginWithEmailVC, animated: true)
-    case "이메일로 가입":
-      print("이메일로 가입 버튼 클릭")
-      signUpWithEmailVC.loginWithEmailVC = loginWithEmailVC
-      self.navigationController?.pushViewController(signUpWithEmailVC, animated: true)
-    default:
-      break
-    }
-  }
+  // google Login
+  func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
 
-  @objc private func lookButtonDidTapped(_ sender: UIButton) {
-    logger("둘러보기")
+    if let error = error {
+      print("구글 로그인 에러 : \(error.localizedDescription)")
+    } else {
+      // Perform any operations on signed in user here.
+      let userId = user.userID                  // For client-side use only!
+      let idToken = user.authentication.idToken // Safe to send to the server
+      let fullName = user.profile.name
+      let givenName = user.profile.givenName
+      let familyName = user.profile.familyName
+      let email = user.profile.email
+
+      print("userID : \(userId)")
+      print("idToken : \(user.authentication.idToken)")
+      print("email : \(user.profile.email)")
+      print("GivenName : \(user.profile.givenName)")
+    }
   }
 
 }

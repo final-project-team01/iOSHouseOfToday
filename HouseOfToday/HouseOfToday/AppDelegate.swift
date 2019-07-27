@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,9 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                                           name: NSNotification.Name.KOSessionDidChange,
 //                                           object: nil)
 
-    // 클라이언트 시크릿 설정
+    // 카카오 클라이언트 시크릿 설정
     KOSession.shared()?.clientSecret = "l9kIT68sZIDpRsw6vCp68q0ZWHPIqlcn"
-    
+
+    // 구글 클라이언트 ID 설정
+    GIDSignIn.sharedInstance().clientID = "652460223461-c85bdoq6ik9c62vef734ubjcmmijvmou.apps.googleusercontent.com"
+
+    // 구글 로그인 delegate 설정
+    //GIDSignIn.sharedInstance()?.delegate = self
 
     self.window?.makeKeyAndVisible()
     if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
@@ -108,6 +114,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   // MARK: - kakao
   /// 미리 정의한 Redirection URI을 통해, 인증 과정이 올바로 진행되도록 AppDelegate에 아래와 같은 코드를 추가합니다. 해당 코드를 추가함으로서 Kakao SDK는 사용자 토큰을 취득하게 됩니다.
   func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+
+    print("test1", url.scheme)
     if KOSession.handleOpen(url) {
       return true
     }
@@ -115,6 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+    print("test2", url.scheme)
     if KOSession.handleOpen(url) {
       return true
     }
@@ -129,4 +138,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     KOSession.handleDidBecomeActive()
   }
 
+  // MARK: - Google
+
 }
+
+//extension AppDelegate: GIDSignInDelegate {
+//  func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//    print("")
+//  }
+//
+//}

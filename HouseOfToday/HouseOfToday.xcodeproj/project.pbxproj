@@ -311,6 +311,7 @@
 				42FF928222D5A48300639BAF /* Resources */,
 				42FF929922D5A52400639BAF /* ShellScript */,
 				C3A21411CE12439EFFF680F9 /* [CP] Embed Pods Frameworks */,
+				A1111980D3FDD132AF5A319C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -407,6 +408,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint autocorrect\n";
+		};
+		A1111980D3FDD132AF5A319C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		C3A21411CE12439EFFF680F9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
