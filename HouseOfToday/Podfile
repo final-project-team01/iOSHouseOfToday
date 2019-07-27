@@ -10,4 +10,5 @@ target 'HouseOfToday' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'AMPopTip'
   pod 'GoogleSignIn'
+  pod 'naveridlogin-sdk-ios'
 end
