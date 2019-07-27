@@ -9,4 +9,5 @@ target 'HouseOfToday' do
   pod 'SwiftLint'
   pod 'SnapKit', '~> 5.0.0'
   pod 'AMPopTip'
+  pod 'GoogleSignIn'
 end

@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // 클라이언트 시크릿 설정
     KOSession.shared()?.clientSecret = "l9kIT68sZIDpRsw6vCp68q0ZWHPIqlcn"
+    
 
     self.window?.makeKeyAndVisible()
     if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
@@ -96,7 +97,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = self.mainVC
       } else {
         print("\(type) LogOut 완료")
+        UIAlertController.showMessage(type + " Logout 완료!")
         self.loginVC?.popToRootViewController(animated: false)
+        self.mainVC?.popToRootViewController(animated: false)
         self.window?.rootViewController = self.loginVC
       }
     }
