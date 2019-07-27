@@ -9,9 +9,8 @@
 import UIKit
 import SnapKit
 
-// FIXME: - cell 재사용시 collectionView의 위치 조정기능 왜 안되냐잉
-// FIXME: - 더보기 버튼 눌렀을 때 넘어가기 (BEST100만)
 // FIXME: - 파싱하기
+// FIXME: - 더보기 버튼 눌렀을 때 넘어가기 (BEST100만)
 
 class TempRankingView: UIView {
 
