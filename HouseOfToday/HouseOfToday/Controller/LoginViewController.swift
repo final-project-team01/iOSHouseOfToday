@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import AMPopTip
 import GoogleSignIn
+import NaverThirdPartyLogin
 
 class LoginViewController: UIViewController {
 
@@ -161,6 +162,8 @@ class LoginViewController: UIViewController {
     GIDSignIn.sharedInstance()?.delegate = self
     GIDSignIn.sharedInstance()?.uiDelegate = self
 
+    NaverThirdPartyLoginConnection.getSharedInstance()?.delegate = self
+
     makeConstraints()
   }
 
@@ -222,6 +225,7 @@ extension LoginViewController {
       configureKakaoLogin()
     case #colorLiteral(red: 0.1769869626, green: 0.7050512433, blue: 0.001866223989, alpha: 1):
       print("네이버 버튼 클릭")
+      NaverThirdPartyLoginConnection.getSharedInstance()?.requestThirdPartyLogin()
     case #colorLiteral(red: 0.2593425214, green: 0.5222951174, blue: 0.9579148889, alpha: 1):
       print("구글 버튼 클릭")
       GIDSignIn.sharedInstance()?.signIn()
@@ -252,7 +256,7 @@ extension LoginViewController {
 }
 
 // MARK: - Social Login Configurations
-extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
+extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThirdPartyLoginConnectionDelegate {
 
   // kakao Login
   private func configureKakaoLogin() {
@@ -383,6 +387,76 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
           UIAlertController.showMessage("구글 로그인 에러")
         }
       }
+    }
+  }
+
+  // naver Login
+  func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+    // 로그인 성공 (로그인된 상태에서 requestThirdPartyLogin()를 호출하면 이 메서드는 불리지 않는다.)
+    self.naverDataFetch()
+  }
+  func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+    // 로그인된 상태(로그아웃이나 연동해제 하지않은 상태)에서 로그인 재시도
+    self.naverDataFetch()
+  }
+
+  func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
+    //  접근 토큰, 갱신 토큰, 연동 해제등이 실패
+
+  }
+
+  func oauth20ConnectionDidFinishDeleteToken() {
+    // 연동해제 콜백
+
+  }
+
+  func oauth20ConnectionDidOpenInAppBrowser(forOAuth request: URLRequest!) {
+    self.present(NLoginThirdPartyOAuth20InAppBrowserViewController(request: request), animated: true, completion: nil)
+  }
+
+  func naverDataFetch() {
+    var naverUserInfo: [String: String] = ["type": "네이버"]
+    guard let naverConnection = NaverThirdPartyLoginConnection.getSharedInstance() else { return }
+    guard let accessToken = naverConnection.accessToken else { return }
+    let authorization = "Bearer \(accessToken)"
+
+    if let url = URL(string: "https://openapi.naver.com/v1/nid/me") {
+      var request = URLRequest(url: url)
+      request.httpMethod = "GET"
+      request.setValue(authorization, forHTTPHeaderField: "Authorization")
+
+      URLSession.shared.dataTask(with: request) { (data, response, _) in
+        guard let data = data else { return logger("Network Error when fetch UserInfo of Naver") }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else { return logger("Error at Decoding Data to JSON") }
+        guard let response = json["response"] as? [String: AnyObject],
+          let id = response["id"] as? String,
+          let email = response["email"] as? String,
+          let nickname = response["nickname"] as? String
+        else { return logger("Parsing Error - Naver UserInfo")}
+        let profileImage = response["profile_image"] as? String ?? ""
+
+        naverUserInfo["unique_user_id"] = id
+        naverUserInfo["email"] = email
+        naverUserInfo["username"] = nickname
+        naverUserInfo["social_profile"] = profileImage
+
+        /// Networking
+        let encodedData = naverUserInfo.percentEscaped().data(using: .utf8)
+        self.houseOfTodayService.postLoginDataForGetToKen(toPath: "/get_token/social/", withBody: encodedData) { (result) in
+          switch result {
+          case .success(let value):
+            logger("네이버 로그인 네트워크 작업 완료 / Token : \(value)")
+            UIAlertController.showMessage("네이버 로그인 성공")
+            let tokenInfo: [String: String] = ["token": value, "type": "naver"]
+            UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
+            NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": (tokenInfo["type"], "login")])
+          case .failure(let error):
+            logger(error)
+            UIAlertController.showMessage("네이버 로그인 에러")
+          }
+        }
+      }.resume()
+
     }
   }
 

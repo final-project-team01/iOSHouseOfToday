@@ -13,12 +13,14 @@ PODS:
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
   - GTMSessionFetcher/Core (1.2.2)
+  - naveridlogin-sdk-ios (4.0.12)
   - SnapKit (5.0.0)
   - SwiftLint (0.33.0)
 
 DEPENDENCIES:
   - AMPopTip
   - GoogleSignIn
+  - naveridlogin-sdk-ios
   - SnapKit (~> 5.0.0)
   - SwiftLint
 
@@ -28,6 +30,7 @@ SPEC REPOS:
     - GoogleSignIn
     - GoogleToolboxForMac
     - GTMSessionFetcher
+    - naveridlogin-sdk-ios
     - SnapKit
     - SwiftLint
 
@@ -36,9 +39,10 @@ SPEC CHECKSUMS:
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
   GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  naveridlogin-sdk-ios: f894849d1f3454f8a68a57383ba29bd9f0d0257f
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: fed9c66336e41fc74dc48a73678380718f0c8b0e
 
-PODFILE CHECKSUM: 008c989ab6da2f082d6d75bbe820be0aee783e0b
+PODFILE CHECKSUM: d1818b90b5fdf1af5810b5f1e43053851216fc06
 
 COCOAPODS: 1.7.1

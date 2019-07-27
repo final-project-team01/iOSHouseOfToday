@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleSignIn
+import NaverThirdPartyLogin
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,6 +38,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // 구글 클라이언트 ID 설정
     GIDSignIn.sharedInstance().clientID = "652460223461-c85bdoq6ik9c62vef734ubjcmmijvmou.apps.googleusercontent.com"
+
+    // 네이버 로그인 설정들
+    let naverThirdPartyLoginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
+    // 네이버 앱으로 인증하는 방식을 활성화
+    naverThirdPartyLoginInstance?.isNaverAppOauthEnable = true
+    // SafariViewContoller에서 인증하는 방식을 활성화
+    naverThirdPartyLoginInstance?.isInAppOauthEnable = true
+    // 인증 화면을 iPhone의 세로 모드에서만 사용하려면
+    naverThirdPartyLoginInstance?.setOnlyPortraitSupportInIphone(true)
+    // 애플리케이션 이름
+    naverThirdPartyLoginInstance?.appName = (Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String) ?? ""
+    // 콜백을 받을 URL Scheme
+    naverThirdPartyLoginInstance?.serviceUrlScheme = "naver"
+    // 애플리케이션에서 사용하는 클라이언트 아이디
+    naverThirdPartyLoginInstance?.consumerKey = "HVldOr1UoUy7AeDKeDFj"
+    // 애플리케이션에서 사용하는 클라이언트 시크릿
+    naverThirdPartyLoginInstance?.consumerSecret = "V3jp9QwMBT"
 
     self.window?.makeKeyAndVisible()
     if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
@@ -73,9 +91,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           fatalError("Logout Error")
         }
       }
-//      reloadRootView(withType: type)
-    case ("naver", ""):
+      checkTokenIsRemoved()
+
+    case ("naver", "login"):
       reloadRootView(withType: type)
+    case ("naver", "logout"):
+      logger("google logout 준비 완료")
+      NaverThirdPartyLoginConnection.getSharedInstance()?.resetToken()
+      reloadRootView(withType: type)
+      checkTokenIsRemoved()
+
     case ("google", "login"):
       logger("google login 준비 완료")
       reloadRootView(withType: type)
@@ -83,18 +108,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       logger("google logout 준비 완료")
       GIDSignIn.sharedInstance()?.signOut()
       reloadRootView(withType: type)
-    case ("email", ""):
-      reloadRootView(withType: type)
+      checkTokenIsRemoved()
 
+    case ("email", "login"):
+      reloadRootView(withType: type)
+    case ("email", "logout"):
+      reloadRootView(withType: type)
+      checkTokenIsRemoved()
     default:
       break
-    }
-
-    /// 토근 잘 제거됬는지 확인해보자
-    if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
-      logger(" tokenInfo 제거 안됨!!  심각한 에러!!")
-    } else {
-      logger(" tokenInfo 정상 제거")
     }
   }
 
@@ -110,6 +132,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.mainVC?.popToRootViewController(animated: false)
         self.window?.rootViewController = self.loginVC
       }
+    }
+  }
+
+  /// 토근 잘 제거됬는지 확인해보자
+  private func checkTokenIsRemoved() {
+    if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
+      logger(" tokenInfo 제거 안됨!!  심각한 에러!!")
+    } else {
+      logger(" tokenInfo 정상 제거")
     }
   }
 
@@ -133,16 +164,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// iOS 9이상부터는 이 메소드 필요하다.
     ///The method should call the handleURL method of the GIDSignIn instance, which will properly handle the URL that your application receives at the end of the authentication process.
     guard let scheme = url.scheme else { logger("scheme is nil"); return false }
-    if #available(iOS 9.0, *) {
-      if scheme.contains("com.googleusercontent.apps") {
+
+    if scheme.contains("com.googleusercontent.apps") {
+      if #available(iOS 9.0, *) {
         return GIDSignIn.sharedInstance().handle(url,
-                                                  sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                  annotation: options[UIApplication.OpenURLOptionsKey.annotation])
+                                                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                                                 annotation: options[UIApplication.OpenURLOptionsKey.annotation])
       }
-    }
-    if KOSession.handleOpen(url) {
+    } else if scheme.contains("naver") {
+      let result = NaverThirdPartyLoginConnection.getSharedInstance().receiveAccessToken(url)
+      if result == CANCELBYUSER {
+        print("result: \(result)")
+      }
+      return true
+    } else if KOSession.handleOpen(url) {
       return true
     }
+
     return false
   }
 
