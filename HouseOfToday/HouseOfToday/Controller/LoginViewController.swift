@@ -14,8 +14,6 @@ import GoogleSignIn
 class LoginViewController: UIViewController {
 
   // MARK: - My Properties
-  var kakaoUserInfo: [String: String] = ["type": ""]
-
   let loginWithEmailVC = LoginWithEmailViewController()
   let signUpWithEmailVC = SignUpWithEmailViewController()
 
@@ -286,22 +284,24 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
       KOSessionTask.userMeTask { [weak self] (error, me) in
         guard let self = self else { return logger("weak reference error")}
 
+        var kakaoUserInfo: [String: String] = ["type": ""]
+
         if let error = error as NSError? {
           UIAlertController.showMessage(error.description)
 
         } else if let me = me as KOUserMe? {
 
-          self.kakaoUserInfo["type"] = "카카오"
+          kakaoUserInfo["type"] = "카카오"
 
-          guard let id = me.id else { return logger("id가 없습ㄴ디ㅏ. SignUp 필요!")}
+          guard let id = me.id else { return logger("id가 없습니다. SignUp 필요!")}
           print("id : \(id)")
-          self.kakaoUserInfo["unique_user_id"] = id
+          kakaoUserInfo["unique_user_id"] = id
 
           print("== 카카오계정 정보 ==")
           if let account = me.account {
             if let email = account.email {
               print("email : \(email)")
-              self.kakaoUserInfo["email"] = email
+              kakaoUserInfo["email"] = email
             } else if account.emailNeedsAgreement == true {
               print("email : 사용자 동의가 필요함")
             } else {
@@ -313,21 +313,21 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
             for key in properties.keys {
               print(key + " : " + (properties[key] ?? ""))
             }
-            self.kakaoUserInfo["username"] = properties["nickname"]
-            self.kakaoUserInfo["social_profile"] = properties["thumbnail_image"]
+            kakaoUserInfo["username"] = properties["nickname"]
+            kakaoUserInfo["social_profile"] = properties["thumbnail_image"]
           }
         }
 
-        let encodedData = self.kakaoUserInfo.percentEscaped().data(using: .utf8)
+        let encodedData = kakaoUserInfo.percentEscaped().data(using: .utf8)
         self.houseOfTodayService.postLoginDataForGetToKen(toPath: "/get_token/social/", withBody: encodedData) {
-          result in
+          (result) in
           switch result {
           case .success(let value):
             print("카카오 로그인 네트워크 작업 완료 / Token : \(value)")
             UIAlertController.showMessage("카카오 로그인 성공")
             let tokenInfo: [String: String] = ["token": value, "type": "kakao"]
             UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
-            NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": tokenInfo["type"]])
+            NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": (tokenInfo["type"], "login")])
           case .failure(let error):
             print(error)
             UIAlertController.showMessage("카카오 로그인 에러")
@@ -355,17 +355,34 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
       print("구글 로그인 에러 : \(error.localizedDescription)")
     } else {
       // Perform any operations on signed in user here.
-      let userId = user.userID                  // For client-side use only!
-      let idToken = user.authentication.idToken // Safe to send to the server
-      let fullName = user.profile.name
-      let givenName = user.profile.givenName
-      let familyName = user.profile.familyName
-      let email = user.profile.email
+      var googleUserInfo: [String: String] = ["type": "구글"]
 
-      print("userID : \(userId)")
-      print("idToken : \(user.authentication.idToken)")
-      print("email : \(user.profile.email)")
-      print("GivenName : \(user.profile.givenName)")
+      guard let user = user,
+        let userID = user.userID,
+        let email = user.profile.email,
+        let username = user.profile.givenName
+        else { return logger("Google UserInfo Errror")}
+      googleUserInfo["unique_user_id"] = userID
+      googleUserInfo["email"] = email
+      googleUserInfo["username"] = username
+      // 프로필 이미지가 없으면 nil 이 아니라 빈 문자열
+      googleUserInfo["social_profile"] = user.profile.imageURL(withDimension: 110)?.description ?? ""
+
+      /// Networking
+      let encodedData = googleUserInfo.percentEscaped().data(using: .utf8)
+      self.houseOfTodayService.postLoginDataForGetToKen(toPath: "/get_token/social/", withBody: encodedData) { (result) in
+        switch result {
+        case .success(let value):
+          logger("구글 로그인 네트워크 작업 완료 / Token : \(value)")
+          UIAlertController.showMessage("구글 로그인 성공")
+          let tokenInfo: [String: String] = ["token": value, "type": "google"]
+          UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
+          NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": (tokenInfo["type"], "login")])
+        case .failure(let error):
+          logger(error)
+          UIAlertController.showMessage("구글 로그인 에러")
+        }
+      }
     }
   }
 

@@ -101,7 +101,7 @@ final class ProfileBaseCell: UITableViewCell {
     UserDefaults.standard.removeObject(forKey: "tokenInfo")
     NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
                                     object: nil,
-                                    userInfo: ["type": type])
+                                    userInfo: ["type": (type, "logout")])
   }
 
   let padding: CGFloat = 10

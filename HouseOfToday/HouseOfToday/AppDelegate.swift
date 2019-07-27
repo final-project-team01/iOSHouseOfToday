@@ -31,11 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                            selector: #selector(loginDidChangeWithNotification),
                                            name: NSNotification.Name(rawValue: "LoginDidChange"),
                                            object: nil)
-//    // 카카오 로그인 로그아웃 노티
-//    NotificationCenter.default.addObserver(self,
-//                                           selector: #selector(loginDidChangeWithNotification),
-//                                           name: NSNotification.Name.KOSessionDidChange,
-//                                           object: nil)
 
     // 카카오 클라이언트 시크릿 설정
     KOSession.shared()?.clientSecret = "l9kIT68sZIDpRsw6vCp68q0ZWHPIqlcn"
@@ -43,8 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // 구글 클라이언트 ID 설정
     GIDSignIn.sharedInstance().clientID = "652460223461-c85bdoq6ik9c62vef734ubjcmmijvmou.apps.googleusercontent.com"
 
-    // 구글 로그인 delegate 설정
-    //GIDSignIn.sharedInstance()?.delegate = self
 
     self.window?.makeKeyAndVisible()
     if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
@@ -57,33 +50,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
 
-//    guard let isOpened = KOSession.shared()?.isOpen() else {
-//      return logger()
-//    }
-//
-//    if !isOpened { /// 로그인 되어있지 않다면 naviVC 에서 첫 화면을 rootView 로 이동시켜 놓자.
-//      mainVC?.popToRootViewController(animated: true)
-//    }
-//
-//    DispatchQueue.main.async {
-//      self.window?.rootViewController = isOpened ? self.mainVC : self.loginVC
-//      self.window?.makeKeyAndVisible()
-//    }
-
   @objc func loginDidChangeWithNotification(_ sender: Notification) {
 
-    guard let userInfo = sender.userInfo as? [String: String],
+    guard let userInfo = sender.userInfo as? [String: (String, String)],
       let type = userInfo["type"] else { return logger("Notification sender Error") }
 
+    defer {
+      reloadRootView(withType: type)
+    }
     switch type {
-    case "kakao":
+    case ("kakao", "login"):
+      logger("kakao login 성공")
+//      reloadRootView(withType: type)
+    case ("kakao", "logout"):
+      logger("kakao logout 성공")
+//      reloadRootView(withType: type)
+    case ("naver", ""):
       reloadRootView(withType: type)
-    case "naver":
+    case ("google", "login"):
+      logger("google login 성공")
+//      reloadRootView(withType: type)
+    case ("google", "logout"):
+      logger("google logout 성공")
+//      reloadRootView(withType: type)
+    case ("email", ""):
       reloadRootView(withType: type)
-    case "google":
-      reloadRootView(withType: type)
-    case "email":
-      reloadRootView(withType: type)
+
     default:
       break
     }
@@ -96,14 +88,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
   }
 
-  private func reloadRootView(withType type: String) {
+  private func reloadRootView(withType type: (String, String)) {
     DispatchQueue.main.async {
       if let _ = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
-        print("\(type) LogIn 완료")
+        print("\(type.0) LogIn 완료")
         self.window?.rootViewController = self.mainVC
       } else {
-        print("\(type) LogOut 완료")
-        UIAlertController.showMessage(type + " Logout 완료!")
+        print("\(type.0) LogOut 완료")
+        UIAlertController.showMessage(type.0 + " Logout 완료!")
         self.loginVC?.popToRootViewController(animated: false)
         self.mainVC?.popToRootViewController(animated: false)
         self.window?.rootViewController = self.loginVC
