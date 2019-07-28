@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
   private var loginNaviVC: UINavigationController?
-  private var mainNaviVC: UINavigationController?
   let loginVC = LoginViewController()
   let mainVC = MainTabBarVC()
 
@@ -24,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
     self.loginNaviVC = UINavigationController()
-    //self.mainNaviVC = UINavigationController(rootViewController: mainVC)
 
     socialLoginSetting()
     self.window?.makeKeyAndVisible()
@@ -96,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      // 둘러보기
     case ("lookAround", "login"):
       loginNaviVC?.pushViewController(mainVC, animated: true)
-      // 둘러보기로 와서 로그인 하고 싶을 때 구현 안했다.
+      // 둘러보기로 와서 로그인 하고 싶을 때 구현 아직 안했다.
     default:
       break
     }
@@ -112,7 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
           logger("오늘의 집 \(type.0)로 LogOut 완료")
           UIAlertController.showMessage("\(type.0) Logout 완료!")
-          self.mainNaviVC?.popToRootViewController(animated: false)
           self.loginNaviVC?.popToViewController(self.loginVC, animated: true)
         }
       }
@@ -121,13 +118,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         loginNaviVC?.pushViewController(mainVC, animated: true)
       } else {
         self.loginNaviVC?.popToRootViewController(animated: false)
-        //      self.window?.rootViewController = self.loginNaviVC
         loginNaviVC?.pushViewController(loginVC, animated: true)
       }
     }
   }
 
-  /// 토근 잘 제거됬는지 확인해보자
+  /// 토근 잘 제거됬는지 체크
   private func checkTokenIsRemoved() {
     if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
       logger(" tokenInfo 제거 안됨!!  심각한 에러!!")
@@ -153,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
 
-    /// iOS 9이상부터는 이 메소드 필요하다.
+    /// 구글은 iOS 9이상부터는 이 메소드 필요하다.
     ///The method should call the handleURL method of the GIDSignIn instance, which will properly handle the URL that your application receives at the end of the authentication process.
     guard let scheme = url.scheme else { logger("scheme is nil"); return false }
 
