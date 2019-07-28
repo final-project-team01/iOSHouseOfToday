@@ -14,7 +14,7 @@ final class MyshoppingThumbCell: UITableViewCell {
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.text = "나의 쇼핑"
-    label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+    label.textColor = #colorLiteral(red: 0.1772814812, green: 0.1772814812, blue: 0.1772814812, alpha: 1)
     label.font = UIFont.boldSystemFont(ofSize: 18)
     addSubview(label)
     return label

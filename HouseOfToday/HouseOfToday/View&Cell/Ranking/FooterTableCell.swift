@@ -9,7 +9,16 @@
 import UIKit
 import SnapKit
 
+extension Notification.Name {
+  static let presentRankingDetailView = Notification.Name("presentRankingDetailView")
+}
+
 class FooterTableCell: UITableViewHeaderFooterView {
+
+  //notification
+  private let notiCenter = NotificationCenter.default
+
+  let detailRankingView = DetailRankingVC()
 
   static var height = UIScreen.main.bounds.height/15
 
@@ -21,7 +30,7 @@ class FooterTableCell: UITableViewHeaderFooterView {
     button.setTitleColor( #colorLiteral(red: 0.2017701268, green: 0.7704548836, blue: 0.9419474006, alpha: 1), for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
     button.layer.cornerRadius =  5
-    button.addTarget(self, action: #selector(moreButtondidTap), for: .touchUpInside)
+    button.addTarget(self, action: #selector(moreButtondidTap(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -36,9 +45,9 @@ class FooterTableCell: UITableViewHeaderFooterView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  @objc func moreButtondidTap() {
+  @objc func moreButtondidTap(_ sender: UIButton) {
 
-    print("buttonTapped")
+    notiCenter.post(name: .presentRankingDetailView, object: sender, userInfo: ["presentRankingDetailView": detailRankingView])
   }
 
   private func configureLabel() {

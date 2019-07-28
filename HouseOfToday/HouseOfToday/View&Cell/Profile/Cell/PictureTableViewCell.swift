@@ -55,7 +55,6 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitleColor( #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
     button.setImage(UIImage(named: "camera"), for: .normal)
-    button.imageView?.contentMode = .scaleAspectFit
     button.layer.borderColor = UIColor.lightGray.cgColor
     button.layer.borderWidth = 1
     button.addTarget(self, action: #selector(uploadButtonDidTap(_:)), for: .touchUpInside)

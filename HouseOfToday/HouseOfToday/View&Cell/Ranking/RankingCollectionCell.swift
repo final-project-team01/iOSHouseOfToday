@@ -8,8 +8,6 @@
 
 import UIKit
 
-// FIXME: - Kingfiser 사용하기
-
 class RankingCollectionCell: UICollectionViewCell {
 
     lazy var countLabel: UILabel = {
@@ -135,7 +133,7 @@ class RankingCollectionCell: UICollectionViewCell {
     if reviewCountLabel.translatesAutoresizingMaskIntoConstraints {
       reviewCountLabel.snp.makeConstraints { make in
         make.top.equalTo(productNameLabel.snp.bottom).offset(margin)
-        make.leading.equalTo(ratingStarRankLabel.snp.trailing).offset(margin/2)
+        make.leading.equalTo(ratingStarRankLabel.snp.trailing).offset(margin * 2)
       }
     }
   }
