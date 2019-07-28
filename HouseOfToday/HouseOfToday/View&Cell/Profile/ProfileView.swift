@@ -81,7 +81,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             cell.separatorInset = UIEdgeInsets.zero
             return cell
     //사진
-    case 2:
+    case 2: // FIXME: - 높이 유동적으로 상태에 따라 설정
 //      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
 //      cell.setLabelItems(title: .picture)
 //      cell.separatorInset = UIEdgeInsets.zero

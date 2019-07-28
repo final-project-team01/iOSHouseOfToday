@@ -119,4 +119,30 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
   }
 
+  func fetchRankingList(completion: @escaping (Result<RankingList, ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/ranking/"
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
+
+      guard error == nil else {return completion(.failure(.clientError))}
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode else {return completion(.failure(.noData))}
+
+      guard let data = data else {return completion(.failure(.noData))}
+
+      if let rankingList = try? JSONDecoder().decode(RankingList.self, from: data) {
+        completion(.success(rankingList))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+
+    }.resume()
+
+  }
+
 }

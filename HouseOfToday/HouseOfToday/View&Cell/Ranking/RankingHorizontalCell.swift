@@ -10,25 +10,6 @@ import UIKit
 import SnapKit
 
 class RankingHorizontalCell: UITableViewCell {
-//  
-//  private enum Metric {
-//    static let lineSpacing: CGFloat = 3
-//    static let itemSpacing: CGFloat = 3
-//    static let nextOffSet: CGFloat = 6
-//    
-//    static let numberOfLine: CGFloat = 2
-//    static let numberOfItem: CGFloat = 2
-//    
-//    static let inset: UIEdgeInsets = .init(top: 3, left: 6, bottom: 3, right: 6)
-//    
-//    static var horizontalPadding: CGFloat {
-//      return Metric.inset.left + Metric.inset.right
-//    }
-//    
-//    static var verticalPadding: CGFloat {
-//      return Metric.inset.top + Metric.inset.bottom
-//    }
-//  }
 
   private lazy var layout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
@@ -44,19 +25,28 @@ class RankingHorizontalCell: UITableViewCell {
     collectionView.delegate = self
     collectionView.backgroundColor = .white
     collectionView.register(cell: RankingCollectionCell.self)
+    collectionView.register(cell: MoreCollectionCell.self)
     collectionView.showsHorizontalScrollIndicator = false
     addSubview(collectionView)
     return collectionView
   }()
 
-//  var offset: CGFloat {
-//    get {
-//      return collectionView.contentOffset.x
-//    }
-//    set {
-//      collectionView.contentOffset.x = newValue
-//    }
-//  }
+  var offset: CGFloat {
+    get {
+      return collectionView.contentOffset.x
+    }
+    set {
+      collectionView.contentOffset.x = newValue
+    }
+  }
+
+  var productList: [RankingList.Body] = [] {
+    didSet {
+      DispatchQueue.main.async {
+        self.collectionView.reloadData()
+      }
+    }
+  }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super .init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,6 +64,28 @@ class RankingHorizontalCell: UITableViewCell {
       }
     }
   }
+
+  private func getAttributeString(rate: String) -> NSMutableAttributedString {
+    let mutableAttributedString = NSMutableAttributedString()
+
+    let attributes: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 10),
+      .foregroundColor: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+    ]
+    let attributeString = NSMutableAttributedString(string: "★",
+                                                    attributes: attributes)
+    let attributes1: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 10, weight: .bold),
+      .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    ]
+    let attributeString1 = NSMutableAttributedString(string: rate,
+                                                     attributes: attributes1)
+    mutableAttributedString.append(attributeString)
+    mutableAttributedString.append(attributeString1)
+
+    return mutableAttributedString
+  }
+
 }
 
 extension RankingHorizontalCell: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -86,8 +98,24 @@ extension RankingHorizontalCell: UICollectionViewDataSource, UICollectionViewDel
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
-    return cell
+
+    switch indexPath.item {
+    case 10:
+      let cell = collectionView.dequeue(MoreCollectionCell.self, indexPath)
+      return cell
+    default:
+      let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
+      cell.countLabel.text = "\(indexPath.item + 1)"
+      cell.productNameLabel.text = "\(productList[indexPath.item].productName)"
+      cell.ratingStarRankLabel.attributedText =  getAttributeString(rate: "\(productList[indexPath.item].starAvg)")
+      cell.reviewCountLabel.text = "리뷰 \(productList[indexPath.item].reviewCount)"
+
+      if let url = URL(string: productList[indexPath.item].thumnailImages[0].image) {
+        cell.setImage(thumnailUrl: url)
+      }
+
+      return cell
+    }
   }
 
 }

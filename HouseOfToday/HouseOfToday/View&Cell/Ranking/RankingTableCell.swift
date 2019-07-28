@@ -11,6 +11,8 @@ import SnapKit
 
 class RankingTableCell: UITableViewCell {
 
+  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+
   private lazy var layout: UICollectionViewFlowLayout = {
   let layout = UICollectionViewFlowLayout()
   layout.scrollDirection = .vertical
@@ -29,6 +31,15 @@ class RankingTableCell: UITableViewCell {
     return collectionView
   }()
 
+  var best100: [RankingList.Body] = [] {
+
+    didSet {
+      DispatchQueue.main.async {
+        self.collectionView.reloadData()
+      }
+    }
+  }
+
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     cellAutolayout()
@@ -46,23 +57,52 @@ class RankingTableCell: UITableViewCell {
       }
     }
   }
+
+  private func getAttributeString(rate: String) -> NSMutableAttributedString {
+    let mutableAttributedString = NSMutableAttributedString()
+
+    let attributes: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 10),
+      .foregroundColor: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+    ]
+    let attributeString = NSMutableAttributedString(string: "★",
+                                                    attributes: attributes)
+    let attributes1: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 10, weight: .bold),
+      .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    ]
+    let attributeString1 = NSMutableAttributedString(string: rate,
+                                                     attributes: attributes1)
+    mutableAttributedString.append(attributeString)
+    mutableAttributedString.append(attributeString1)
+
+    return mutableAttributedString
+  }
+
 }
 
 extension RankingTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-    return 9
+    let count = best100.count > 9 ? 9 : best100.count
+    return count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
     let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
-//    cell.countLabel.text = "\(indexPath.item)" // FIXME: - 이거 하면 없어지넹
+    cell.countLabel.text = "\(indexPath.item + 1)"
+    cell.productNameLabel.text = "\(best100[indexPath.item].productName)"
+    cell.ratingStarRankLabel.attributedText = getAttributeString(rate: "\(best100[indexPath.item].starAvg)")
+    cell.reviewCountLabel.text = "리뷰 \(best100[indexPath.item].reviewCount)"
+
+    if let url = URL(string: best100[indexPath.item].thumnailImages[0].image) {
+      cell.setImage(thumnailUrl: url)
+    }
+
     return cell
-
   }
-
 }
 
 extension RankingTableCell: UICollectionViewDelegateFlowLayout {

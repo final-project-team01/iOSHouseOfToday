@@ -8,31 +8,57 @@
 
 import Foundation
 
+// FIXME: - Ranking Model 쪽으로 폴더 이동하기
+
 struct RankingList: Decodable {
 
-  let id: Int
-  let name: String
-  let statAvrg: String
-  let reviewCount: Int
-  
-  
-}
+  let best100: [Body]
+  let lightHomedeco: [Body]
+  let dailySupplies: [Body]
+  let fabric: [Body]
+  let kitchenware: [Body]
+  let homeAppliances: [Body]
+  let companionAnimal: [Body]
+  let furniture: [Body]
 
-/*
-{
-  id: 135,
-  brand_name: "마켓비",
-  name: "MUPAN 원목 조립마루(30x30/10개입)",
-  discount_rate: "47",
-  price: 26900,
-  review_count: 15,
-  star_avg: "4.87",
-  thumnail_images: [
-  {
-  id: 722,
-  image: "https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-productions-1545192774187_phFLySKv8.jpg/1700/1700",
-  product: 135
+  enum CodingKeys: String, CodingKey {
+    case best100
+    case lightHomedeco = "light_homedeco"
+    case dailySupplies = "daily_supplies"
+    case fabric
+    case kitchenware
+    case homeAppliances = "home_appliances"
+    case companionAnimal = "companion_animal"
+    case furniture
   }
-  ]
-},
-*/
+
+  struct Body: Decodable {
+    let id: Int
+    let brandName: String
+    let productName: String
+    let discountRate: String?
+    let price: Int
+    let reviewCount: Int
+    let starAvg: String
+
+    let thumnailImages: [ThumnailImages]
+
+    enum CodingKeys: String, CodingKey {
+      case id
+      case brandName = "brand_name"
+      case productName = "name"
+      case discountRate = "discount_rate"
+      case price
+      case reviewCount = "review_count"
+      case starAvg = "star_avg"
+
+      case thumnailImages = "thumnail_images"
+    }
+
+    struct ThumnailImages: Decodable {
+      let id: Int
+      let image: String
+      let product: Int
+    }
+  }
+}

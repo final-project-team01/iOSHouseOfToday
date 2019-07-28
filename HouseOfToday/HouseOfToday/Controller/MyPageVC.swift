@@ -32,15 +32,15 @@ class MyPageVC: CategoryTabBarViewController {
     notiCenter.removeObserver(self, name: .presentPhotoView, object: nil)
   }
 
-  @objc func uploadPictureAlertPresent(_ sender: Notification) {
-    guard let userInfo = sender.userInfo as? [String: UIAlertController],
-      let alert = userInfo["alert"]
-      else {
-        return print("fail downCasting")
-    }
-    present(alert, animated: true)
-
-  }
+//  @objc func uploadPictureAlertPresent(_ sender: Notification) {
+//    guard let userInfo = sender.userInfo as? [String: UIAlertController],
+//      let alert = userInfo["alert"]
+//      else {
+//        return print("fail downCasting")
+//    }
+//    present(alert, animated: true)
+//
+//  }
 
   @objc func presentPicCollectionView(_ sender: Notification) {
     guard let userInfo = sender.userInfo as? [String: UICollectionViewController],

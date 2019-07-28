@@ -14,6 +14,7 @@ class RankingVC: UIViewController {
   private lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.dataSource = self.self
+    tableView.delegate = self.self
     tableView.register(cell: RankingTableCell.self)
     tableView.allowsSelection = false
     view.addSubview(tableView)
@@ -35,7 +36,7 @@ class RankingVC: UIViewController {
 
 }
 
-extension RankingVC: UITableViewDataSource {
+extension RankingVC: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 1
   }

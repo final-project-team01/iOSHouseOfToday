@@ -32,7 +32,7 @@ class RankingCollectionCell: UICollectionViewCell {
     return imageView
   }()
 
-  private lazy var productNameLabel: UILabel = {
+    lazy var productNameLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "product Name Label 1asldkfjhaslkjdfhalksjdfalkjhdf"
     label.lineBreakMode = .byTruncatingTail
@@ -43,7 +43,7 @@ class RankingCollectionCell: UICollectionViewCell {
     return label
   }()
 
-  private lazy var ratingStarRankLabel: UILabel = {
+    lazy var ratingStarRankLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "★5.0"
     label.font = UIFont.systemFont(ofSize: 10)
@@ -52,11 +52,11 @@ class RankingCollectionCell: UICollectionViewCell {
     return label
   }()
 
-  private lazy var reviewCountLabel: UILabel = {
+    lazy var reviewCountLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "리뷰 1,004"
-    label.font = UIFont.boldSystemFont(ofSize: 10)
-    label.textColor = .lightGray
+    label.font = UIFont.systemFont(ofSize: 10)
+    label.textColor = .darkGray
     addSubview(label)
     return label
   }()
@@ -72,6 +72,7 @@ class RankingCollectionCell: UICollectionViewCell {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
+    cellAutolayout()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -80,7 +81,6 @@ class RankingCollectionCell: UICollectionViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    cellAutolayout()
   }
 
   @objc func didTapScrapButton(_ sender: UIButton) {
@@ -133,8 +133,23 @@ class RankingCollectionCell: UICollectionViewCell {
     if reviewCountLabel.translatesAutoresizingMaskIntoConstraints {
       reviewCountLabel.snp.makeConstraints { make in
         make.top.equalTo(productNameLabel.snp.bottom).offset(margin)
-        make.leading.equalTo(ratingStarRankLabel.snp.trailing).offset(margin/2)
+        make.leading.equalTo(ratingStarRankLabel.snp.trailing).offset(margin * 2)
       }
     }
   }
+
+  // MARK: - Image Download & setImage
+  func setImage(thumnailUrl: URL) {
+
+    thumnailImageView.kf.setImage(with: thumnailUrl,
+                                  placeholder: nil,
+                                  options: [.transition(.fade(0)), .loadDiskFileSynchronously],
+                                  progressBlock: nil) { (_) in
+    }
+  }
+
+  public func stopDownloadImage() {
+    thumnailImageView.kf.cancelDownloadTask()
+  }
+
 }
