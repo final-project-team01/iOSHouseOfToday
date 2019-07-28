@@ -119,7 +119,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
   }
 
-  func fetchRankingList(completion: @escaping (Result<[RankingList], ServiceError>) -> Void) {
+  func fetchRankingList(completion: @escaping (Result<RankingList, ServiceError>) -> Void) {
 
     var urlComp = URLComponents(string: baseURL)
     urlComp?.path = "/products/ranking/"
@@ -135,7 +135,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
       guard let data = data else {return completion(.failure(.noData))}
 
-      if let rankingList = try? JSONDecoder().decode([RankingList].self, from: data) {
+      if let rankingList = try? JSONDecoder().decode(RankingList.self, from: data) {
         completion(.success(rankingList))
       } else {
         completion(.failure(.invalidFormat))

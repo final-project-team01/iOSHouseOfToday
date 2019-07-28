@@ -40,6 +40,14 @@ class RankingHorizontalCell: UITableViewCell {
     }
   }
 
+  var productList: [RankingList.Body] = [] {
+    didSet {
+      DispatchQueue.main.async {
+        self.collectionView.reloadData()
+      }
+    }
+  }
+
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super .init(style: style, reuseIdentifier: reuseIdentifier)
     cellAutolayout()
@@ -56,6 +64,28 @@ class RankingHorizontalCell: UITableViewCell {
       }
     }
   }
+
+  private func getAttributeString(rate: String) -> NSMutableAttributedString {
+    let mutableAttributedString = NSMutableAttributedString()
+
+    let attributes: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 10),
+      .foregroundColor: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+    ]
+    let attributeString = NSMutableAttributedString(string: "★",
+                                                    attributes: attributes)
+    let attributes1: [NSAttributedString.Key: Any] = [
+      .font: UIFont.systemFont(ofSize: 10, weight: .bold),
+      .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    ]
+    let attributeString1 = NSMutableAttributedString(string: rate,
+                                                     attributes: attributes1)
+    mutableAttributedString.append(attributeString)
+    mutableAttributedString.append(attributeString1)
+
+    return mutableAttributedString
+  }
+
 }
 
 extension RankingHorizontalCell: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -76,6 +106,14 @@ extension RankingHorizontalCell: UICollectionViewDataSource, UICollectionViewDel
     default:
       let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
       cell.countLabel.text = "\(indexPath.item + 1)"
+      cell.productNameLabel.text = "\(productList[indexPath.item].productName)"
+      cell.ratingStarRankLabel.attributedText =  getAttributeString(rate: "\(productList[indexPath.item].starAvg)")
+      cell.reviewCountLabel.text = "리뷰 \(productList[indexPath.item].reviewCount)"
+
+      if let url = URL(string: productList[indexPath.item].thumnailImages[0].image) {
+        cell.setImage(thumnailUrl: url)
+      }
+
       return cell
     }
   }

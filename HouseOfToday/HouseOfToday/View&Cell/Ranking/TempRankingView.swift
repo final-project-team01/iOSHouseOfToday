@@ -9,16 +9,15 @@
 import UIKit
 import SnapKit
 
-// FIXME: - 파싱하기
 // FIXME: - 더보기 버튼 눌렀을 때 넘어가기 (BEST100만)
 
 class TempRankingView: UIView {
 
-  private let sectionTitle = ["오늘의집 AWARDS", "사진 속 그 상품", "인기", "생활용품 BEST", "패브릭 BEST", "주방용품 BEST", "가전제품 BEST", "반려동물 BEST", "가구 BEST", "디자인문구 BEST"]
-  private let sectionSubTitle = ["카테고리별 BEST 100", "집들이 속 인기 상품", "조명&홈데코 BEST", "", "", "", "", "", "", ""]
-  private let moreButtonCount = ["100", "113", "14,836", "6,248", "8,101", "7,766", "3,161", "1,793", "15,003", "2,373"]
+  private let sectionTitle = ["오늘의집 AWARDS", "인기", "생활용품 BEST", "패브릭 BEST", "주방용품 BEST", "가전제품 BEST", "반려동물 BEST", "가구 BEST"]
+  private let sectionSubTitle = ["카테고리별 BEST 100", "조명&홈데코 BEST", "", "", "", "", "", ""]
+  private let moreButtonCount = ["100", "14,836", "6,248", "8,101", "7,766", "3,161", "1,793", "15,003"]
 
-  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+  private let service: HouseOfTodayServiceType = HouseOfTodayService() //TDD를 위한 code
 
   private var cachedOffset: [Int: CGFloat] = [:]
 
@@ -46,18 +45,49 @@ class TempRankingView: UIView {
     tableView.backgroundColor = .white
     tableView.showsVerticalScrollIndicator = false
     tableView.rowHeight = UITableView.automaticDimension
-
     tableView.separatorStyle = .none
     tableView.refreshControl = refreshControl
     addSubview(tableView)
     return tableView
   }()
 
+  var best100: [RankingList.Body] = []
+  var lightHomedeco: [RankingList.Body] = []
+  var dailySupplies: [RankingList.Body] = []
+  var fabric: [RankingList.Body] = []
+  var kitchenware: [RankingList.Body] = []
+  var homeAppliances: [RankingList.Body] = []
+  var companionAnimal: [RankingList.Body] = []
+  var furniture: [RankingList.Body] = []
+
+  var rankingDatas: [[RankingList.Body]] = []
+
+  private var rankingList: RankingList? {
+    didSet {
+      guard let info = rankingList else {return logger()}
+
+      self.rankingDatas.append(info.best100)
+      self.rankingDatas.append(info.lightHomedeco)
+      self.rankingDatas.append(info.dailySupplies)
+      self.rankingDatas.append(info.fabric)
+      self.rankingDatas.append(info.kitchenware)
+      self.rankingDatas.append(info.homeAppliances)
+      self.rankingDatas.append(info.companionAnimal)
+      self.rankingDatas.append(info.furniture)
+
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+
+    }
+  }
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     tableViewAutoLayout()
     tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
+    fetchRankingList()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -68,6 +98,20 @@ class TempRankingView: UIView {
     if translatesAutoresizingMaskIntoConstraints {
       tableView.snp.makeConstraints { make in
         make.edges.equalToSuperview()
+      }
+    }
+  }
+
+  public func fetchRankingList() {
+    service.fetchRankingList { result in
+      switch result {
+      case .success(let product):
+        print("success!!! fetchRankingList")
+
+        self.rankingList = product
+      case .failure(let error):
+
+        print("fetchRankingList Error: \(error.localizedDescription)")
       }
     }
   }
@@ -104,11 +148,11 @@ extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
   }
 
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 10
+    return 8
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    return rankingList != nil ? 1 : 0
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,12 +161,14 @@ extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
       let cell = tableView.dequeueReusableCell(withIdentifier: RankingTableCell.identifier, for: indexPath) as! RankingTableCell
       let totalHeight = (JMetric.rankkingCellSize.height * 3) + (JMetric.verticalPadding * 2)
       tableView.rowHeight = totalHeight
+      cell.best100 = rankingDatas[indexPath.section]
       return cell
 
     default:
       let cell = tableView.dequeueReusableCell(withIdentifier: RankingHorizontalCell.identifier, for: indexPath) as! RankingHorizontalCell
       let totalHeight = JMetric.rankkingCellSize.height + (JMetric.verticalPadding)
       tableView.rowHeight = totalHeight
+      cell.productList = rankingDatas[indexPath.section]
       return cell
     }
   }

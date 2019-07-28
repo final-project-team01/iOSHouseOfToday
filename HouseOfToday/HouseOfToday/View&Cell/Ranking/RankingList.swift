@@ -56,7 +56,9 @@ struct RankingList: Decodable {
     }
 
     struct ThumnailImages: Decodable {
+      let id: Int
       let image: String
+      let product: Int
     }
   }
 }
