@@ -92,6 +92,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     case ("email", "logout"):
       reloadRootView(true, withType: type)
       checkTokenIsRemoved()
+
+     // 둘러보기
+    case ("lookAround", "login"):
+      loginNaviVC?.pushViewController(mainVC, animated: true)
+      // 둘러보기로 와서 로그인 하고 싶을 때 구현 안했다.
     default:
       break
     }

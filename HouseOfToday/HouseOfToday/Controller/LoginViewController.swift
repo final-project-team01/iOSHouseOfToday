@@ -23,19 +23,25 @@ class LoginViewController: UIViewController {
   // MARK: - UI Properties
   private lazy var mainImageView: UIImageView = {
     let iv = UIImageView(frame: .zero)
-    iv.backgroundColor = .gray
-    iv.alpha = 0.5
+    iv.image = UIImage(named: "homeTest2")
+    iv.contentMode = UIImageView.ContentMode.scaleAspectFill
     view.addSubview(iv)
     return iv
   }()
 
-//  private lazy var gradientView: UIView = {
-//    let v = UIView(frame: .zero)
-//    v.alpha = 0
-//    v.backgroundColor = .red
-//    view.addSubview(v)
-//    return v
-//  }()
+  private lazy var logoImageView: UIImageView = {
+    let iv = UIImageView(frame: .zero)
+    iv.image = UIImage(named: "logo")
+    mainImageView.addSubview(iv)
+    return iv
+  }()
+
+  private lazy var gradientImageView: UIImageView = {
+    let iv = UIImageView(frame: .zero)
+    iv.image = UIImage(named: "gradient")
+    view.addSubview(iv)
+    return iv
+  }()
 
   private lazy var bottomLayoutGuideView: UIView = {
     let v = UIView(frame: .zero)
@@ -59,10 +65,13 @@ class LoginViewController: UIViewController {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
     bt.setTitle("카카오톡으로 시작하기", for: .normal)
+    bt.setImage(UIImage(named: "kakao"), for: .normal)
+    bt.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+    bt.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     bt.backgroundColor = #colorLiteral(red: 0.977997005, green: 0.8791384101, blue: 0, alpha: 1)
     bt.setTitleColor(.black, for: .normal)
-    bt.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
-    bt.layer.cornerRadius = 10
+    bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+    bt.layer.cornerRadius = 5
     bt.addTarget(self, action: #selector(otherServiceLoginButtonsDidTapped(_:)), for: .touchUpInside)
     return bt
   }()
@@ -71,9 +80,12 @@ class LoginViewController: UIViewController {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
     bt.setTitle("네이버로 시작하기", for: .normal)
+    bt.setImage(UIImage(named: "naver"), for: .normal)
+    bt.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+    bt.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     bt.backgroundColor = #colorLiteral(red: 0.1769869626, green: 0.7050512433, blue: 0.001866223989, alpha: 1)
-    bt.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
-    bt.layer.cornerRadius = 10
+    bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+    bt.layer.cornerRadius = 5
     bt.addTarget(self, action: #selector(otherServiceLoginButtonsDidTapped(_:)), for: .touchUpInside)
     return bt
   }()
@@ -82,9 +94,12 @@ class LoginViewController: UIViewController {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
     bt.setTitle("구글로 시작하기", for: .normal)
+    bt.setImage(UIImage(named: "google"), for: .normal)
+    bt.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+    bt.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     bt.backgroundColor = #colorLiteral(red: 0.2593425214, green: 0.5222951174, blue: 0.9579148889, alpha: 1)
-    bt.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
-    bt.layer.cornerRadius = 10
+    bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+    bt.layer.cornerRadius = 5
     bt.addTarget(self, action: #selector(otherServiceLoginButtonsDidTapped(_:)), for: .touchUpInside)
     return bt
   }()
@@ -105,6 +120,7 @@ class LoginViewController: UIViewController {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
     bt.setTitle("이메일로 로그인", for: .normal)
+    bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     bt.setTitleColor(#colorLiteral(red: 0.334025979, green: 0.3334415555, blue: 0.3345029652, alpha: 1), for: .normal)
     bt.addTarget(self, action: #selector(emailButtonsDidTapped(_:)), for: .touchUpInside)
     return bt
@@ -114,6 +130,7 @@ class LoginViewController: UIViewController {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
     bt.setTitle("이메일로 가입", for: .normal)
+    bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     bt.setTitleColor(#colorLiteral(red: 0.334025979, green: 0.3334415555, blue: 0.3345029652, alpha: 1), for: .normal)
     bt.addTarget(self, action: #selector(emailButtonsDidTapped(_:)), for: .touchUpInside)
     return bt
@@ -123,6 +140,7 @@ class LoginViewController: UIViewController {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
     bt.setTitle("둘러보기", for: .normal)
+    bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     bt.setTitleColor(.lightGray, for: .normal)
     bt.addTarget(self, action: #selector(lookButtonDidTapped(_:)), for: .touchUpInside)
     return bt
@@ -145,12 +163,13 @@ class LoginViewController: UIViewController {
     return pt
   }()
 
+  // viewDidLayoutSubviews 한번만 실행시키기
   private var firstCallFlag = false
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     if !firstCallFlag {
-      popTip.show(text: "  ⚡️ 3초만에 빠른 회원가입  ", direction: .up, maxWidth: 400, in: bottomLayoutGuideView, from: kakaoLoginButton.frame)
-      popTip.frame.origin.y -= 15
+//      popTip.show(text: "  ⚡️ 3초만에 빠른 회원가입  ", direction: .up, maxWidth: 400, in: bottomLayoutGuideView, from: kakaoLoginButton.frame)
+//      popTip.frame.origin.y -= 15
 
       firstCallFlag = true
     }
@@ -177,7 +196,7 @@ class LoginViewController: UIViewController {
     // mainImageView
     mainImageView.snp.makeConstraints {
       $0.top.leading.trailing.equalTo(view)
-      $0.height.equalTo(view.snp.height).multipliedBy(0.66)
+      $0.height.equalTo(view.snp.height).multipliedBy(0.70)
     }
 
     bottomLayoutGuideView.snp.makeConstraints {
@@ -205,12 +224,17 @@ class LoginViewController: UIViewController {
       $0.centerX.equalToSuperview()
     }
 
-    // gradient View
-//    gradientView.snp.makeConstraints {
-//      $0.bottom.equalTo(mainImageView.snp.bottom)
-//      $0.leading.trailing.equalToSuperview()
-//      $0.height.equalTo(mainImageView.snp.height).multipliedBy(0.2)
-//    }
+     //gradient IamgeView
+    gradientImageView.snp.makeConstraints {
+      $0.bottom.equalTo(mainImageView.snp.bottom)
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(mainImageView.snp.height).multipliedBy(0.2)
+    }
+
+    logoImageView.snp.makeConstraints {
+      $0.top.equalToSuperview().offset(50)
+      $0.leading.equalToSuperview().offset(15)
+    }
 
   }
 }
@@ -250,7 +274,8 @@ extension LoginViewController {
   }
 
   @objc private func lookButtonDidTapped(_ sender: UIButton) {
-    logger("둘러보기")
+    print("둘러보기 버튼 클릭")
+    NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": ("lookAround", "login")])
   }
 
 }
