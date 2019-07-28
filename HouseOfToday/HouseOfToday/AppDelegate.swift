@@ -16,53 +16,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   private var loginNaviVC: UINavigationController?
   private var mainNaviVC: UINavigationController?
+  let loginVC = LoginViewController()
+  let mainVC = MainTabBarVC()
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
+    self.loginNaviVC = UINavigationController()
+    //self.mainNaviVC = UINavigationController(rootViewController: mainVC)
 
-    let loginVC = LoginViewController()
-    let mainVC = MainTabBarVC()
-    self.loginNaviVC = UINavigationController(rootViewController: loginVC)
-    self.mainNaviVC = UINavigationController(rootViewController: mainVC)
+    socialLoginSetting()
+    self.window?.makeKeyAndVisible()
+    self.window?.rootViewController = loginNaviVC
+
+    reloadRootView(false, withType: ("", ""))
 
     // 로그인,로그아웃 상태 변경 이벤트 관리
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(loginDidChangeWithNotification),
                                            name: NSNotification.Name(rawValue: "LoginDidChange"),
                                            object: nil)
-
-    // 카카오 클라이언트 시크릿 설정
-    KOSession.shared()?.clientSecret = "l9kIT68sZIDpRsw6vCp68q0ZWHPIqlcn"
-
-    // 구글 클라이언트 ID 설정
-    GIDSignIn.sharedInstance().clientID = "652460223461-c85bdoq6ik9c62vef734ubjcmmijvmou.apps.googleusercontent.com"
-
-    // 네이버 로그인 설정들
-    let naverThirdPartyLoginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
-    // 네이버 앱으로 인증하는 방식을 활성화
-    naverThirdPartyLoginInstance?.isNaverAppOauthEnable = true
-    // SafariViewContoller에서 인증하는 방식을 활성화
-    naverThirdPartyLoginInstance?.isInAppOauthEnable = true
-    // 인증 화면을 iPhone의 세로 모드에서만 사용하려면
-    naverThirdPartyLoginInstance?.setOnlyPortraitSupportInIphone(true)
-    // 애플리케이션 이름
-    naverThirdPartyLoginInstance?.appName = (Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String) ?? ""
-    // 콜백을 받을 URL Scheme
-    naverThirdPartyLoginInstance?.serviceUrlScheme = "naver"
-    // 애플리케이션에서 사용하는 클라이언트 아이디
-    naverThirdPartyLoginInstance?.consumerKey = "HVldOr1UoUy7AeDKeDFj"
-    // 애플리케이션에서 사용하는 클라이언트 시크릿
-    naverThirdPartyLoginInstance?.consumerSecret = "V3jp9QwMBT"
-
-    self.window?.makeKeyAndVisible()
-    if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
-      self.window?.rootViewController = self.mainNaviVC
-    } else {
-      self.loginNaviVC?.popToRootViewController(animated: false)
-      self.window?.rootViewController = self.loginNaviVC
-    }
 
     return true
   }
@@ -72,20 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     guard let userInfo = sender.userInfo as? [String: (String, String)],
       let type = userInfo["type"] else { return logger("Notification sender Error") }
 
-//    defer {
-//      reloadRootView(withType: type)
-//    }
     switch type {
+      // Kakao
     case ("kakao", "login"):
       logger("kakao login 준비 완료")
-      reloadRootView(withType: type)
+      reloadRootView(true, withType: type)
     case ("kakao", "logout"):
       logger("kakao logout 준비 완료")
       KOSession.shared()?.logoutAndClose { [weak self] (success, error) -> Void in
         guard let self = self else { return logger("weak reference error")}
         if success {
           logger("kakao Session logout 완료")
-          self.reloadRootView(withType: type)
+          self.reloadRootView(true, withType: type)
         } else {
           logger("Failed to Logout / reason : ", error)
           fatalError("Logout Error")
@@ -93,46 +65,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       checkTokenIsRemoved()
 
+      // Naver
     case ("naver", "login"):
       logger("google login 준비 완료")
-      reloadRootView(withType: type)
+      reloadRootView(true, withType: type)
     case ("naver", "logout"):
       logger("google logout 준비 완료")
       NaverThirdPartyLoginConnection.getSharedInstance()?.resetToken()
       NaverThirdPartyLoginConnection.getSharedInstance()?.requestDeleteToken()
-      reloadRootView(withType: type)
+      reloadRootView(true, withType: type)
       checkTokenIsRemoved()
 
+      // Google
     case ("google", "login"):
       logger("google login 준비 완료")
-      reloadRootView(withType: type)
+      reloadRootView(true, withType: type)
     case ("google", "logout"):
       logger("google logout 준비 완료")
       GIDSignIn.sharedInstance()?.signOut()
-      reloadRootView(withType: type)
+      reloadRootView(true, withType: type)
       checkTokenIsRemoved()
 
+      // Email
     case ("email", "login"):
-      reloadRootView(withType: type)
+      reloadRootView(true, withType: type)
     case ("email", "logout"):
-      reloadRootView(withType: type)
+      reloadRootView(true, withType: type)
       checkTokenIsRemoved()
     default:
       break
     }
   }
 
-  private func reloadRootView(withType type: (String, String)) {
-    DispatchQueue.main.async {
-      if let _ = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
-        logger("오늘의 집 \(type.0)로 LogIn 완료")
-        UIAlertController.showMessage("\(type.0) Login 완료!")
-        self.window?.rootViewController = self.mainNaviVC
+  private func reloadRootView(_ isSocial: Bool, withType type: (String, String)) {
+    if isSocial {
+      DispatchQueue.main.async {
+        if let _ = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
+          logger("오늘의 집 \(type.0)로 LogIn 완료")
+          UIAlertController.showMessage("\(type.0) Login 완료!")
+          self.loginNaviVC?.pushViewController(self.mainVC, animated: true)
+        } else {
+          logger("오늘의 집 \(type.0)로 LogOut 완료")
+          UIAlertController.showMessage("\(type.0) Logout 완료!")
+          self.mainNaviVC?.popToRootViewController(animated: false)
+          self.loginNaviVC?.popToViewController(self.loginVC, animated: true)
+        }
+      }
+    } else {
+      if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
+        loginNaviVC?.pushViewController(mainVC, animated: true)
       } else {
-        logger("오늘의 집 \(type.0)로 LogOut 완료")
-        UIAlertController.showMessage("\(type.0) Logout 완료!")
-        self.mainNaviVC?.popToRootViewController(animated: false)
-        self.window?.rootViewController = self.loginNaviVC
+        self.loginNaviVC?.popToRootViewController(animated: false)
+        //      self.window?.rootViewController = self.loginNaviVC
+        loginNaviVC?.pushViewController(loginVC, animated: true)
       }
     }
   }
@@ -194,6 +179,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     KOSession.handleDidBecomeActive()
   }
 
-  // MARK: - Google
+  // MARK: - Social Login Setting
+  private func socialLoginSetting() {
+    // 카카오 클라이언트 시크릿 설정
+    KOSession.shared()?.clientSecret = "l9kIT68sZIDpRsw6vCp68q0ZWHPIqlcn"
 
+    // 구글 클라이언트 ID 설정
+    GIDSignIn.sharedInstance().clientID = "652460223461-c85bdoq6ik9c62vef734ubjcmmijvmou.apps.googleusercontent.com"
+
+    // 네이버 로그인 설정들
+    let naverThirdPartyLoginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
+    // 네이버 앱으로 인증하는 방식을 활성화
+    naverThirdPartyLoginInstance?.isNaverAppOauthEnable = true
+    // SafariViewContoller에서 인증하는 방식을 활성화
+    naverThirdPartyLoginInstance?.isInAppOauthEnable = true
+    // 인증 화면을 iPhone의 세로 모드에서만 사용하려면
+    naverThirdPartyLoginInstance?.setOnlyPortraitSupportInIphone(true)
+    // 애플리케이션 이름
+    naverThirdPartyLoginInstance?.appName = (Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String) ?? ""
+    // 콜백을 받을 URL Scheme
+    naverThirdPartyLoginInstance?.serviceUrlScheme = "naver"
+    // 애플리케이션에서 사용하는 클라이언트 아이디
+    naverThirdPartyLoginInstance?.consumerKey = "HVldOr1UoUy7AeDKeDFj"
+    // 애플리케이션에서 사용하는 클라이언트 시크릿
+    naverThirdPartyLoginInstance?.consumerSecret = "V3jp9QwMBT"
+  }
 }
