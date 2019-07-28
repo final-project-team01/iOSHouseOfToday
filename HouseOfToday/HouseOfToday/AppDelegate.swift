@@ -14,18 +14,18 @@ import NaverThirdPartyLogin
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-  private var loginVC: UINavigationController?
-
-  private var mainVC: UINavigationController?
+  private var loginNaviVC: UINavigationController?
+  private var mainNaviVC: UINavigationController?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
 
-    self.loginVC = UINavigationController(rootViewController: LoginViewController())
+    let loginVC = LoginViewController()
     let mainVC = MainTabBarVC()
-    self.mainVC = UINavigationController(rootViewController: mainVC)
+    self.loginNaviVC = UINavigationController(rootViewController: loginVC)
+    self.mainNaviVC = UINavigationController(rootViewController: mainVC)
 
     // 로그인,로그아웃 상태 변경 이벤트 관리
     NotificationCenter.default.addObserver(self,
@@ -58,10 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     self.window?.makeKeyAndVisible()
     if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
-      self.window?.rootViewController = self.mainVC
+      self.window?.rootViewController = self.mainNaviVC
     } else {
-      self.loginVC?.popToRootViewController(animated: false)
-      self.window?.rootViewController = self.loginVC
+      self.loginNaviVC?.popToRootViewController(animated: false)
+      self.window?.rootViewController = self.loginNaviVC
     }
 
     return true
@@ -94,10 +94,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       checkTokenIsRemoved()
 
     case ("naver", "login"):
+      logger("google login 준비 완료")
       reloadRootView(withType: type)
     case ("naver", "logout"):
       logger("google logout 준비 완료")
       NaverThirdPartyLoginConnection.getSharedInstance()?.resetToken()
+      NaverThirdPartyLoginConnection.getSharedInstance()?.requestDeleteToken()
       reloadRootView(withType: type)
       checkTokenIsRemoved()
 
@@ -123,14 +125,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   private func reloadRootView(withType type: (String, String)) {
     DispatchQueue.main.async {
       if let _ = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
-        print("오늘의 집 \(type.0)로 LogIn 완료")
-        self.window?.rootViewController = self.mainVC
+        logger("오늘의 집 \(type.0)로 LogIn 완료")
+        UIAlertController.showMessage("\(type.0) Login 완료!")
+        self.window?.rootViewController = self.mainNaviVC
       } else {
-        print("오늘의 집 \(type.0)로 LogOut 완료")
-        UIAlertController.showMessage(type.0 + " Logout 완료!")
-        self.loginVC?.popToRootViewController(animated: false)
-        self.mainVC?.popToRootViewController(animated: false)
-        self.window?.rootViewController = self.loginVC
+        logger("오늘의 집 \(type.0)로 LogOut 완료")
+        UIAlertController.showMessage("\(type.0) Logout 완료!")
+        self.mainNaviVC?.popToRootViewController(animated: false)
+        self.window?.rootViewController = self.loginNaviVC
       }
     }
   }

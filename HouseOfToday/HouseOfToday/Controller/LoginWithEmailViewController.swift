@@ -147,7 +147,7 @@ class LoginWithEmailViewController: UIViewController {
         UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
         NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
                                         object: nil,
-                                        userInfo: ["type": tokenInfo["type"]])
+                                        userInfo: ["type": (tokenInfo["type"], "login")])
       case .failure(let error):
         print(error)
         // 더 세세한 오류들을 알려줘야 한다. 이미 가입된 회원입니다. 라든지.

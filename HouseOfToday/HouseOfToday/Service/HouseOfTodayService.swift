@@ -53,6 +53,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
     URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
 
+      print("postSignUpUserData response Status Code : ", (response as! HTTPURLResponse).statusCode)
       guard error == nil else { return completion(.failure(.clientError)) }
 
       guard let header = response as? HTTPURLResponse,
@@ -82,6 +83,8 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
     urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
     URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+
+      print("postLoginDataForGetToKen response Status Code : ", (response as! HTTPURLResponse).statusCode)
 
       guard error == nil else { return completion(.failure(.clientError)) }
 

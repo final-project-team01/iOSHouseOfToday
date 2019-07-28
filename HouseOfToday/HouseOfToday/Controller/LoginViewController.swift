@@ -304,7 +304,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
           print("== 카카오계정 정보 ==")
           if let account = me.account {
             if let email = account.email {
-              print("email : \(email)")
               kakaoUserInfo["email"] = email
             } else if account.emailNeedsAgreement == true {
               print("email : 사용자 동의가 필요함")
@@ -314,9 +313,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
           }
           print("== 사용자 속성 정보 ==")
           if let properties = me.properties {
-            for key in properties.keys {
-              print(key + " : " + (properties[key] ?? ""))
-            }
             kakaoUserInfo["username"] = properties["nickname"]
             kakaoUserInfo["social_profile"] = properties["thumbnail_image"]
           }
@@ -378,7 +374,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
         switch result {
         case .success(let value):
           logger("구글 로그인 네트워크 작업 완료 / Token : \(value)")
-          UIAlertController.showMessage("구글 로그인 성공")
           let tokenInfo: [String: String] = ["token": value, "type": "google"]
           UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
           NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": (tokenInfo["type"], "login")])
@@ -424,7 +419,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
       var request = URLRequest(url: url)
       request.httpMethod = "GET"
       request.setValue(authorization, forHTTPHeaderField: "Authorization")
-
       URLSession.shared.dataTask(with: request) { (data, response, _) in
         guard let data = data else { return logger("Network Error when fetch UserInfo of Naver") }
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else { return logger("Error at Decoding Data to JSON") }
@@ -446,7 +440,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
           switch result {
           case .success(let value):
             logger("네이버 로그인 네트워크 작업 완료 / Token : \(value)")
-            UIAlertController.showMessage("네이버 로그인 성공")
             let tokenInfo: [String: String] = ["token": value, "type": "naver"]
             UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
             NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": (tokenInfo["type"], "login")])
