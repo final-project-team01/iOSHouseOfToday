@@ -12,7 +12,7 @@ class UsersStylingShotView: UIView {
 
   // MARK: - Property
 
-  static var height = UIScreen.main.bounds.height * 0.7
+  static var height = Metric.StylingShotBigCellSize.height + Metric.StylingShotSmallCellSize.height + 100
 
   var pageNumber: Int = 10
 

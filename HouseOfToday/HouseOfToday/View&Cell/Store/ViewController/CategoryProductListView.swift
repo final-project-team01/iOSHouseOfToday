@@ -16,6 +16,8 @@ class CategoryProductListView: UIViewController {
   lazy var flowLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
     layout.sectionInset = Metric.dealOfTodayCellInset
+//    layout.estimatedItemSize = CGSize(width: Metric.popularityProductCellSize.width, height: 50)
+//    layout.itemSize = UICollectionViewFlowLayout.automaticSize
     return layout
   }()
 
@@ -120,6 +122,7 @@ extension CategoryProductListView: UICollectionViewDelegate {
       cell.stopDownloadImage()
     }
   }
+
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
