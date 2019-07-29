@@ -31,6 +31,9 @@ struct ProductDetail: Decodable {
   let deliverNoGo: String
   let deliverFeeDiff: String
   let created: String
+  let discountRate: String
+  let starAvg: String
+  let reviewCount: Int
   let category: Int
 
   let thumnailImages: [ProductImages]
@@ -44,6 +47,7 @@ struct ProductDetail: Decodable {
     case name
     case price
     case brandName = "brand_name"
+
     case detailName = "detail_name"
     case detailColor = "detail_color"
     case detailSize = "detail_size"
@@ -62,6 +66,9 @@ struct ProductDetail: Decodable {
     case deliverNoGo = "deliver_no_go"
     case deliverFeeDiff = "deliver_fee_diff"
     case created
+    case discountRate = "discount_rate"//: "40",
+    case starAvg = "star_avg"//: "3.84",
+    case reviewCount = "review_count"//://: 38,
     case category
 
     case thumnailImages = "thumnail_images"
