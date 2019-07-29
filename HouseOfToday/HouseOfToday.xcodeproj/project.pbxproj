@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,6 +35,13 @@
 		8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59E822D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift */; };
 		8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */; };
 		8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */; };
+		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
+		8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */; };
+		8ED0608122E589F2003D610D /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608022E589F2003D610D /* AlertExtension.swift */; };
+		8ED0608322E6E737003D610D /* LoginWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */; };
+		8ED0608522E6E759003D610D /* SignUpWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */; };
+		8ED0608722E9C5E8003D610D /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608622E9C5E8003D610D /* MyPageModel.swift */; };
+		8ED0608922EABB2A003D610D /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608822EABB2A003D610D /* NetworkExtensions.swift */; };
 		AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */; };
 		AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */; };
 		AB7EEA9022DDD4FB00F33663 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */; };
@@ -79,6 +86,14 @@
 		8E5B59E822D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCollectionViewExtensions.swift; sourceTree = "<group>"; };
 		8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableExtensions.swift; sourceTree = "<group>"; };
+		8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HouseOfToday-Bridging-Header.h"; sourceTree = "<group>"; };
+		8ED0608022E589F2003D610D /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
+		8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithEmailViewController.swift; sourceTree = "<group>"; };
+		8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailViewController.swift; sourceTree = "<group>"; };
+		8ED0608622E9C5E8003D610D /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
+		8ED0608822EABB2A003D610D /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
 		AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA8F22DDD4FB00F33663 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
@@ -94,6 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7485FF05D3FE11B3BAE4E02 /* Pods_HouseOfToday.framework in Frameworks */,
+				8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				42C4E5CB22DC890D00A88466 /* StoreModel.swift */,
+				8ED0608622E9C5E8003D610D /* MyPageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,6 +237,10 @@
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
 				42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */,
+				8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */,
+				8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */,
+				8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */,
+				8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -239,6 +260,8 @@
 				8E5B59E822D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift */,
 				8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */,
 				8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */,
+				8ED0608022E589F2003D610D /* AlertExtension.swift */,
+				8ED0608822EABB2A003D610D /* NetworkExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -269,6 +292,7 @@
 		F4F30DB5C721F798F5CCCB91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */,
 				38E7324F6AD4346305B0756E /* Pods_HouseOfToday.framework */,
 			);
 			name = Frameworks;
@@ -287,6 +311,7 @@
 				42FF928222D5A48300639BAF /* Resources */,
 				42FF929922D5A52400639BAF /* ShellScript */,
 				C3A21411CE12439EFFF680F9 /* [CP] Embed Pods Frameworks */,
+				A1111980D3FDD132AF5A319C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -309,6 +334,7 @@
 				TargetAttributes = {
 					42FF928322D5A48300639BAF = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -383,22 +409,34 @@
 			shellPath = /bin/sh;
 			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint autocorrect\n";
 		};
+		A1111980D3FDD132AF5A319C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C3A21411CE12439EFFF680F9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-HouseOfToday/Pods-HouseOfToday-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -420,6 +458,7 @@
 				42490F6B22DDC15200EE1A01 /* CategoryTabBarView.swift in Sources */,
 				42C4E5CA22DC887800A88466 /* StoreHomeView.swift in Sources */,
 				42490F6A22DDC15200EE1A01 /* IndicatorBarView.swift in Sources */,
+				8ED0608122E589F2003D610D /* AlertExtension.swift in Sources */,
 				AB7EEA9622DDD56600F33663 /* VoucherCell.swift in Sources */,
 				42490F6122DDC13800EE1A01 /* CategoryTabBarViewController.swift in Sources */,
 				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
@@ -427,13 +466,17 @@
 				AB7EEA9222DDD52400F33663 /* ProfileView.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				AB7EEA9022DDD4FB00F33663 /* PictureCell.swift in Sources */,
+				8ED0608722E9C5E8003D610D /* MyPageModel.swift in Sources */,
 				AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */,
 				AB7EEA9822DDDD7300F33663 /* BeingOrderCell.swift in Sources */,
 				42C4E5C822DC567900A88466 /* UserAcitivityCell.swift in Sources */,
 				42FF92A822D5B5EA00639BAF /* StoreVC.swift in Sources */,
 				42FF92A622D5B44D00639BAF /* MainTabBarVC.swift in Sources */,
 				42C4E5CC22DC890D00A88466 /* StoreModel.swift in Sources */,
+				8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */,
+				8ED0608522E6E759003D610D /* SignUpWithEmailViewController.swift in Sources */,
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
+				8ED0608922EABB2A003D610D /* NetworkExtensions.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,
 				42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */,
 				AB7EEA9422DDD54500F33663 /* MyshoppingView.swift in Sources */,
@@ -442,6 +485,7 @@
 				8E5B59E522D5AC7100BB01E8 /* Logger.swift in Sources */,
 				42490F6522DDC14600EE1A01 /* CategoryTabBarCell.swift in Sources */,
 				AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */,
+				8ED0608322E6E737003D610D /* LoginWithEmailViewController.swift in Sources */,
 				8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */,
 				42C4E5C622DB238900A88466 /* HouseOfTodayService.swift in Sources */,
 			);
@@ -582,15 +626,30 @@
 			baseConfigurationReference = 8B1420F34D9A33A09D55FE4A /* Pods-HouseOfToday.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H7746RVFJ9;
+				DEVELOPMENT_TEAM = KH53J489YG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HouseOfToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AMPopTip\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.HouseOfToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HouseOfToday/Controller/HouseOfToday-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -601,15 +660,29 @@
 			baseConfigurationReference = 595FD3D34B2CBF9BA9F127D2 /* Pods-HouseOfToday.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H7746RVFJ9;
+				DEVELOPMENT_TEAM = KH53J489YG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HouseOfToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AMPopTip\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.HouseOfToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HouseOfToday/Controller/HouseOfToday-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

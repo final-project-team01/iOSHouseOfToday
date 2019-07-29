@@ -87,9 +87,22 @@ final class ProfileBaseCell: UITableViewCell {
     button.setTitle("바로가기", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
     button.backgroundColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
+    // 창식 테스트
+    button.addTarget(self, action: #selector(siccTest(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
+
+  @objc private func siccTest(_ sender: Any) {
+    guard let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String],
+    let type = tokenInfo["type"] else {
+      return logger("로그아웃 하기 전인데 토큰 정보가 없습니다. 심각한 에러")
+    }
+    UserDefaults.standard.removeObject(forKey: "tokenInfo")
+    NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
+                                    object: nil,
+                                    userInfo: ["type": (type, "logout")])
+  }
 
   let padding: CGFloat = 10
 
