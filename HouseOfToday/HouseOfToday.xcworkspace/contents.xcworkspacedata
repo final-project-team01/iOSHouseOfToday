@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:HouseOfToday/View&amp;Cell/Ranking/DetailRankingVC/PickerViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:HouseOfToday.xcodeproj">
    </FileRef>
    <FileRef

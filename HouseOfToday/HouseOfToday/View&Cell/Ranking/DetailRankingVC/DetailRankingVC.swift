@@ -7,21 +7,22 @@
 //
 
 import UIKit
-// FIXME: - present 아니고 navi로 해야할듯
 
 class DetailRankingVC: UIViewController {
 
    private let service: HouseOfTodayServiceType = HouseOfTodayService()
 
   private lazy var tableView: UITableView = {
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
     tableView.dataSource = self.self
     tableView.delegate = self.self
     tableView.register(cell: DetailRankingTableCell.self)
+    tableView.register(RankingHeader.self, forHeaderFooterViewReuseIdentifier: "RankingHeader")
     tableView.showsVerticalScrollIndicator = false
     tableView.allowsSelection = false
     tableView.separatorStyle = .none
     tableView.rowHeight = 120 // FIXME: - 임시
+    tableView.backgroundColor = .white
     view.addSubview(tableView)
     return tableView
   }()
@@ -58,7 +59,7 @@ class DetailRankingVC: UIViewController {
     service.fetchRankingList { result in
       switch result {
       case .success(let list):
-        print("success!!!ss")
+        print("success!!!")
 
         self.rankingList = list
       case .failure(let error):
@@ -77,6 +78,20 @@ class DetailRankingVC: UIViewController {
 }
 
 extension DetailRankingVC: UITableViewDataSource, UITableViewDelegate {
+
+  // HeaderView Setting
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "RankingHeader") as? RankingHeader else {
+      return nil
+    }
+
+    return view
+  }
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return RankingHeader.height
+  }
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return best100.count
   }
@@ -87,7 +102,8 @@ extension DetailRankingVC: UITableViewDataSource, UITableViewDelegate {
     cell.productNameLabel.text = "\(best100[indexPath.row].productName)"
     cell.ratingStarRankLabel.text = "\(best100[indexPath.row].starAvg)"
     cell.reviewCountLabel.text = "리뷰 \(best100[indexPath.row].reviewCount)"
-    cell.priceLabel.text = "\(best100[indexPath.row].price)원"
+    let price = "\(formetter(price: best100[indexPath.row].price))"
+    cell.priceLabel.text = "\(price)원"
     if let discount = best100[indexPath.row].discountRate {
       cell.discountLabel.text = "\(discount)%"
     }
