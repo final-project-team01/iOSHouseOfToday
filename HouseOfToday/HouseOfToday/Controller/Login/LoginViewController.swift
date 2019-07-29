@@ -24,6 +24,7 @@ class LoginViewController: UIViewController {
     let iv = UIImageView(frame: .zero)
     iv.image = UIImage(named: "homeTest2")
     iv.contentMode = UIImageView.ContentMode.scaleAspectFill
+    iv.clipsToBounds = true
     view.addSubview(iv)
     return iv
   }()
@@ -48,10 +49,11 @@ class LoginViewController: UIViewController {
     return v
   }()
 
-  private lazy var loginButtonStackView: UIStackView = {
+  private lazy var socialLoginButtonStackView: UIStackView = {
     let sv = UIStackView(arrangedSubviews: [ self.kakaoLoginButton,
                                              self.naverLoginButton,
                                              self.googleLoginButton ])
+    sv.backgroundColor = .white
     sv.axis = .vertical
     sv.alignment = .center
     sv.distribution = .fillEqually
@@ -103,10 +105,11 @@ class LoginViewController: UIViewController {
     return bt
   }()
 
-  private lazy var emailStackView: UIStackView = {
+  private lazy var emailLoginButtonStackView: UIStackView = {
     let sv = UIStackView(arrangedSubviews: [ self.loginWithEamilButton,
                                              self.signUpWithEmailButton,
                                              self.lookButton])
+    sv.backgroundColor = .white
     sv.axis = .horizontal
     sv.alignment = .center
     sv.spacing = 10
@@ -170,48 +173,26 @@ class LoginViewController: UIViewController {
 
     NaverThirdPartyLoginConnection.getSharedInstance()?.delegate = self
 
+    view.bringSubviewToFront(bottomLayoutGuideView)
+
     makeConstraints()
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    // 로그인 화면만 내비게이션 바 안보이게 하기 위함.
     self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
 
+  // MARK: - AutoLayout
   private func makeConstraints() {
-
     // mainImageView
     mainImageView.snp.makeConstraints {
       $0.top.leading.trailing.equalTo(view)
       $0.height.equalTo(view.snp.height).multipliedBy(0.70)
     }
 
-    bottomLayoutGuideView.snp.makeConstraints {
-      $0.top.equalTo(mainImageView.snp.bottom)
-      $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-    }
-    // buttonStackView
-    loginButtonStackView.snp.makeConstraints {
-      $0.height.equalToSuperview().multipliedBy(0.75)
-      $0.top.equalTo(mainImageView.snp.bottom)
-      $0.leading.trailing.equalToSuperview()
-    }
-
-    loginButtonStackView.arrangedSubviews.forEach {
-      $0.snp.makeConstraints {
-        $0.width.equalToSuperview().multipliedBy(0.9)
-        //$0.height.equalToSuperview().multipliedBy(0.22)
-      }
-    }
-
-    emailStackView.snp.makeConstraints {
-      $0.height.equalToSuperview().multipliedBy(0.25)
-      $0.width.equalToSuperview().multipliedBy(0.8)
-      $0.top.equalTo(loginButtonStackView.snp.bottom)
-      $0.centerX.equalToSuperview()
-    }
-
-     //gradient IamgeView
+    //gradient IamgeView
     gradientImageView.snp.makeConstraints {
       $0.bottom.equalTo(mainImageView.snp.bottom)
       $0.leading.trailing.equalToSuperview()
@@ -221,6 +202,31 @@ class LoginViewController: UIViewController {
     logoImageView.snp.makeConstraints {
       $0.top.equalToSuperview().offset(50)
       $0.leading.equalToSuperview().offset(15)
+    }
+
+    bottomLayoutGuideView.snp.makeConstraints {
+      $0.top.equalTo(mainImageView.snp.bottom)
+      $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+    }
+    // social login buttonStackView
+    socialLoginButtonStackView.snp.makeConstraints {
+      $0.height.equalToSuperview().multipliedBy(0.75)
+      $0.top.equalTo(mainImageView.snp.bottom)
+      $0.leading.trailing.equalToSuperview()
+    }
+
+    socialLoginButtonStackView.arrangedSubviews.forEach {
+      $0.snp.makeConstraints {
+        $0.width.equalToSuperview().multipliedBy(0.9)
+        //$0.height.equalToSuperview().multipliedBy(0.22)
+      }
+    }
+    // email login buttonStackView
+    emailLoginButtonStackView.snp.makeConstraints {
+      $0.height.equalToSuperview().multipliedBy(0.25)
+      $0.width.equalToSuperview().multipliedBy(0.8)
+      $0.top.equalTo(socialLoginButtonStackView.snp.bottom)
+      $0.centerX.equalToSuperview()
     }
 
   }
