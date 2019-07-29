@@ -172,17 +172,17 @@ class ProductReviewView: UIView {
     addSubview(colV)
     return colV
   }()
-  
+
   private var reviewList: [ProductDetail.Review] = []
 
-  public var productDetailData: ProductDetail?{
+  public var productDetailData: ProductDetail? {
     didSet {
       guard let info = productDetailData else {return print("productDetailData is nil")}
-      
+
       let reviewCount = "\(formetter(price: info.reviewCount))"
-      
+
       starPointLabel.text = "\(info.starAvg)"
-      
+
       reviewList = info.review
       reviewCountLabel.text = reviewCount
       purchaseSatisfactionLabel.text = "\(reviewCount)의 구매만족도"
@@ -314,11 +314,11 @@ class ProductReviewView: UIView {
       }
     }
   }
-  
+
   private func formetter(price: Int) -> String {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
-    
+
     return formatter.string(from: price as NSNumber) ?? ""
   }
 

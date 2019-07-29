@@ -89,14 +89,14 @@ class ReviewCell: UICollectionViewCell {
     addSubview(label)
     return label
   }()
-  
+
   private var reviewList: ProductDetail.Review? {
     didSet {
       guard let list = reviewList else { return print("reviewList is nil")}
-      
-      starLabel.text = addStarText(count: list.starScore)
+
+//      starLabel.text = addStarText(count: list.starScore)
       commentLabel.text = list.comment
-      
+
       reviewerInfo.text = "\(list.user) | \(list.created) | 오늘의집 리뷰"
     }
   }
@@ -182,14 +182,13 @@ class ReviewCell: UICollectionViewCell {
       }
     }
   }
-  
-  
-  private func addStarText(count: Int) -> String {
-    var starText: String
-    
-    for _ in 0..<count {
-      starText += "★"
-    }
-    return starText
-  }
+
+//  private func addStarText(count: Int) -> String {
+//    var starText: String
+//
+//    for _ in 0..<count {
+//      starText += "★"
+//    }
+//    return starText
+//  }
 }
