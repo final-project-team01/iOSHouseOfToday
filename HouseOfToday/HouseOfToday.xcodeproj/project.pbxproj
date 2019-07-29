@@ -452,6 +452,7 @@
 		42FF92A022D5A90400639BAF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8ED060AB22EEC65E003D610D /* Login */,
 				ABBA8FA922E6D1ED001D43D7 /* Profile */,
 				ABBA8FA022E6CF51001D43D7 /* MyShopping */,
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
@@ -461,10 +462,6 @@
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
 				42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */,
 				ABBA8FAE22E6E6F5001D43D7 /* RankingVC.swift */,
-				8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */,
-				8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */,
-				8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */,
-				8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -489,6 +486,17 @@
 				8ED0608822EABB2A003D610D /* NetworkExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8ED060AB22EEC65E003D610D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */,
+				8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */,
+				8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */,
+				8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		AB1AF93E22ED8B3100299226 /* DetailRankingVC */ = {
@@ -1004,7 +1012,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.HouseOfToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "HouseOfToday/Controller/HouseOfToday-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HouseOfToday/Controller/Login/HouseOfToday-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1036,7 +1044,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.HouseOfToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "HouseOfToday/Controller/HouseOfToday-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HouseOfToday/Controller/Login/HouseOfToday-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
