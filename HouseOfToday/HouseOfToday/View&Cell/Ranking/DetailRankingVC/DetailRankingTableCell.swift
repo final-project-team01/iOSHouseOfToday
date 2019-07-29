@@ -17,7 +17,7 @@ class DetailRankingTableCell: UITableViewCell {
     label.text = "1"
     label.textAlignment = .center
     label.font = UIFont.boldSystemFont(ofSize: 15)
-    label.textColor = .lightGray
+    label.textColor = .darkGray
     addSubview(label)
     return label
   }()
@@ -65,7 +65,7 @@ class DetailRankingTableCell: UITableViewCell {
 
   lazy var priceLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "15,900원"
+    label.text = formetter(price: 123 )
     label.font = FontFoundation.priceFont
     label.textColor = FontFoundation.priceColor
     addSubview(label)
@@ -76,7 +76,7 @@ class DetailRankingTableCell: UITableViewCell {
     let label = UILabel(frame: CGRect.zero)
     label.text = "80%"
     label.textColor = #colorLiteral(red: 0.08574206382, green: 0.7608343959, blue: 0.9359433651, alpha: 1)
-    label.font = FontFoundation.starReviewFont
+    label.font = UIFont.boldSystemFont(ofSize: 15)
     addSubview(label)
     return label
   }()
@@ -142,7 +142,7 @@ class DetailRankingTableCell: UITableViewCell {
     productNameLabel.snp.makeConstraints { make in
       make.top.equalToSuperview()
       make.leading.equalTo(thumnailImageView.snp.trailing).offset(margin/2)
-      make.trailing.lessThanOrEqualTo(scrapButton.snp.leading).offset(margin)
+      make.trailing.lessThanOrEqualTo(scrapButton.snp.leading)
     }
     starReviewStackView.snp.makeConstraints { make in
       make.top.equalTo(productNameLabel.snp.bottom).offset(margin/2)
@@ -155,7 +155,30 @@ class DetailRankingTableCell: UITableViewCell {
     scrapButton.snp.makeConstraints { make in
       make.top.trailing.bottom.equalToSuperview().inset(margin)
       make.centerY.equalToSuperview()
+      make.width.equalToSuperview().multipliedBy(0.1)
     }
 
+  }
+
+  // MARK: - Image Download & setImage
+  func setImage(thumnailUrl: URL) {
+
+    thumnailImageView.kf.setImage(with: thumnailUrl,
+                                  placeholder: nil,
+                                  options: [.transition(.fade(0)), .loadDiskFileSynchronously],
+                                  progressBlock: nil) { (_) in
+    }
+  }
+
+  public func stopDownloadImage() {
+    thumnailImageView.kf.cancelDownloadTask()
+  }
+
+  // 가격 세자리 수 formetter
+  private func formetter(price: Int) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+
+    return formatter.string(from: price as NSNumber) ?? ""
   }
 }
