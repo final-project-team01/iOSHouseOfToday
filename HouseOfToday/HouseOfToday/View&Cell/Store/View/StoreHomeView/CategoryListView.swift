@@ -114,7 +114,6 @@ extension CategoryListView: UICollectionViewDelegate {
                                          placeholder: nil,
                                          options: [.transition(.fade(1)), .loadDiskFileSynchronously],
                                          progressBlock: nil) { (_) in
-//                                          print("result: ", result)
       }
     }
   }

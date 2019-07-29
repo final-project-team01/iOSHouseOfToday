@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SwipeImageview: UIView {
   // MARK: - Property
@@ -19,7 +20,6 @@ final class SwipeImageview: UIView {
     layout.scrollDirection = .horizontal
     layout.minimumLineSpacing = 0
     layout.minimumInteritemSpacing = 0
-//    layout.flipsHorizontallyInOppositeLayoutDirection
     layout.scrollDirection = .horizontal
 
     layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -28,7 +28,7 @@ final class SwipeImageview: UIView {
 
   private lazy var collectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
-    colV.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Item")
+    colV.register(cell: SwipeImageCell.self)
     colV.backgroundColor = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
     colV.dataSource = self
     colV.delegate = self
@@ -37,6 +37,41 @@ final class SwipeImageview: UIView {
 
     return colV
   }()
+
+  private var thumnailImages: [UIImage] = [] {
+    didSet {
+      guard thumnailImages.count + failImageCount == imageUrls.count else { return print("imageUrls not same")}
+
+      collectionView.reloadData()
+    }
+  }
+
+  private var failImageCount = 0
+
+  public var imageUrls: [String] = [] {
+    willSet {
+
+      guard !newValue.isEmpty else { return }
+
+      let downloader = ImageDownloader.default
+
+      newValue.forEach {
+        if let url = URL(string: $0) {
+
+          downloader.downloadImage(with: url) { result in
+            switch result {
+            case .success(let value):
+              self.thumnailImages.append(value.image)
+            case .failure(let error):
+              print(error)
+              self.failImageCount += 1
+            }
+          }
+        } else { self.failImageCount += 1}
+
+      }
+    }
+  }
 
   private var timer = Timer()
   private let colorList: [UIColor] = [.red, .blue, .black, .brown, .cyan, .darkGray, .green, .magenta, .orange, .yellow]
@@ -101,28 +136,33 @@ final class SwipeImageview: UIView {
 // MARK: - UICollectionViewDataSource
 extension SwipeImageview: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    print("pageNumber: \(colorList.count)")
-    return colorList.count
+//    print("pageNumber: \(imageUrls.count)")
+    return thumnailImages.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Item", for: indexPath)
-    cell.backgroundColor = colorList[indexPath.item]
-    print("collectionView:", indexPath.item)
+    let cell = collectionView.dequeue(SwipeImageCell.self, indexPath)
+    cell.imageView.image = thumnailImages[indexPath.item]
     return cell
   }
 }
 
 // MARK: - UICollectionViewDelegate
 extension SwipeImageview: UICollectionViewDelegate {
+
+  func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    if let cell = cell as? DealOfTodayCell {
+      cell.stopDownloadImage()
+    } else if let cell = cell as? PopularityProductCell {
+      cell.stopDownloadImage()
+    }
+  }
+
   func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 //    let itemAt = Int(targetContentOffset.pointee.x / frame.width + 0.5)
 
 //    collectionView.selectItem(at: IndexPath(item: itemAt, section: 0), animated: true, scrollPosition: .centeredHorizontally)
-  }
-
-  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
   }
 }
 

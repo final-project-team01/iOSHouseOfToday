@@ -44,6 +44,15 @@ final class MainTabBarVC: UITabBarController {
 
   }
 
+  deinit {
+    print("MainTabBarVC is Deinit")
+  }
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    print("MainTabBarVC will disappear")
+    self.selectedIndex = 0
+  }
+
   // setupTabBarItems: tabbarItem Image 연결
   private func setupTabBarItems() {
 
