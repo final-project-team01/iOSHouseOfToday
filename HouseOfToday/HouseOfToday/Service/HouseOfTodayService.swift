@@ -11,7 +11,7 @@ import Foundation
 final class HouseOfTodayService: HouseOfTodayServiceType {
 
   let baseURL = "http://52.78.112.247"
-  
+
   func fetchCategoryList(completion: @escaping (Result<[CategoryList], ServiceError>) -> Void) {
 
     var urlComp = URLComponents(string: baseURL)

@@ -8,7 +8,6 @@
 
 import UIKit
 import SnapKit
-import AMPopTip
 import GoogleSignIn
 import NaverThirdPartyLogin
 
@@ -146,34 +145,22 @@ class LoginViewController: UIViewController {
     return bt
   }()
 
-  private lazy var popTip: PopTip = {
-    let pt = PopTip()
-    pt.shadowOpacity = 0.5
-    pt.shadowColor = .lightGray
-    pt.shadowRadius = .pi / 2
-    pt.shadowOffset = CGSize(width: 1, height: 1)
-    pt.borderWidth = 0.1
-    pt.borderColor = .lightGray
-    pt.edgeMargin = 5
-    pt.cornerRadius = 15
-    pt.actionAnimation = .bounce(4)
-    pt.bubbleColor = .white
-    pt.textColor = .black
-    pt.font = UIFont.preferredFont(forTextStyle: .body)
-    return pt
-  }()
-
-  // viewDidLayoutSubviews 한번만 실행시키기
-  private var firstCallFlag = false
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    if !firstCallFlag {
-//      popTip.show(text: "  ⚡️ 3초만에 빠른 회원가입  ", direction: .up, maxWidth: 400, in: bottomLayoutGuideView, from: kakaoLoginButton.frame)
-//      popTip.frame.origin.y -= 15
-
-      firstCallFlag = true
-    }
-  }
+//  private lazy var popTip: PopTip = {
+//    let pt = PopTip()
+//    pt.shadowOpacity = 0.5
+//    pt.shadowColor = .lightGray
+//    pt.shadowRadius = .pi / 2
+//    pt.shadowOffset = CGSize(width: 1, height: 1)
+//    pt.borderWidth = 0.1
+//    pt.borderColor = .lightGray
+//    pt.edgeMargin = 5
+//    pt.cornerRadius = 15
+//    pt.actionAnimation = .bounce(4)
+//    pt.bubbleColor = .white
+//    pt.textColor = .black
+//    pt.font = UIFont.preferredFont(forTextStyle: .body)
+//    return pt
+//  }()
 
   override func viewDidLoad() {
     super.viewDidLoad()

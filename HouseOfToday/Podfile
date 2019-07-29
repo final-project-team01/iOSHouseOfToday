@@ -9,4 +9,6 @@ target 'HouseOfToday' do
   pod 'SwiftLint'
   pod 'SnapKit', '~> 5.0.0'
   pod 'Kingfisher', '~> 5.0'
+  pod 'GoogleSignIn'
+  pod 'naveridlogin-sdk-ios'
 end

@@ -27,11 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.backgroundColor = .white
     window?.makeKeyAndVisible()
 
-
     self.loginNaviVC = UINavigationController()
+    window?.rootViewController = loginNaviVC
 
     socialLoginSetting()
-
     reloadRootView(false, withType: ("", ""))
 
     // 로그인,로그아웃 상태 변경 이벤트 관리
