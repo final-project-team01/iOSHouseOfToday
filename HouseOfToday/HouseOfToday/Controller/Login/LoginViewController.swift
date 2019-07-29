@@ -4,7 +4,6 @@
 //
 //  Created by chang sic jung on 17/07/2019.
 //  Copyright © 2019 CHANGGUEN YU. All rights reserved.
-//
 
 import UIKit
 import SnapKit
@@ -276,7 +275,7 @@ extension LoginViewController {
 // MARK: - Social Login Configurations
 extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThirdPartyLoginConnectionDelegate {
 
-  // kakao Login
+  // MARK: - Kakao Login
   private func configureKakaoLogin() {
 
     guard let session = KOSession.shared() else {
@@ -319,7 +318,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
           print("id : \(id)")
           kakaoUserInfo["unique_user_id"] = id
 
-          print("== 카카오계정 정보 ==")
           if let account = me.account {
             if let email = account.email {
               kakaoUserInfo["email"] = email
@@ -329,7 +327,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
               print("email : 없음")
             }
           }
-          print("== 사용자 속성 정보 ==")
           if let properties = me.properties {
             kakaoUserInfo["username"] = properties["nickname"]
             kakaoUserInfo["social_profile"] = properties["thumbnail_image"]
@@ -342,7 +339,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
           switch result {
           case .success(let value):
             print("카카오 로그인 네트워크 작업 완료 / Token : \(value)")
-            UIAlertController.showMessage("카카오 로그인 성공")
             let tokenInfo: [String: String] = ["token": value, "type": "kakao"]
             UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
             NotificationCenter.default.post(name: Notification.Name("LoginDidChange"), object: nil, userInfo: ["type": (tokenInfo["type"], "login")])
@@ -351,7 +347,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
             UIAlertController.showMessage("카카오 로그인 에러")
           }
         }
-
         /// 카카오 토근 정보 얻어오기
         KOSessionTask.accessTokenInfoTask(completionHandler: { (token, _) in
           guard let tokenInfo = token,
@@ -366,7 +361,7 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
     })
   }
 
-  // google Login
+  // MARK: - Google Login
   func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
 
     if let error = error {
@@ -385,6 +380,7 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
       googleUserInfo["username"] = username
       // 프로필 이미지가 없으면 nil 이 아니라 빈 문자열
       googleUserInfo["social_profile"] = user.profile.imageURL(withDimension: 110)?.description ?? ""
+      logger("haha", user.profile.imageURL(withDimension: 110))
 
       /// Networking
       let encodedData = googleUserInfo.percentEscaped().data(using: .utf8)
@@ -403,7 +399,7 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
     }
   }
 
-  // naver Login
+  // MARK: - Naver Login
   func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
     // 로그인 성공 (로그인된 상태에서 requestThirdPartyLogin()를 호출하면 이 메서드는 불리지 않는다.)
     self.naverDataFetch()

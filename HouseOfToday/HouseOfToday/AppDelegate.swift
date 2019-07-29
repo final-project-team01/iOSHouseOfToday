@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       break
     }
   }
-
+  
   private func reloadRootView(_ isSocial: Bool, withType type: (String, String)) {
     if isSocial {
       DispatchQueue.main.async {
