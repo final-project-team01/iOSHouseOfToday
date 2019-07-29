@@ -50,9 +50,12 @@ final class StoreHomeView: UIView {
     return colV
   }()
 
+  var count: Int = 0
   private var productList: [ProductList] = [] {
     didSet {
-      print("productList didSet")
+
+      count += 1
+      print("productList didSet: \(count)")
     }
   }
 

@@ -11,7 +11,7 @@ import UIKit
 enum Metric {
 
   static let marginX: CGFloat = 15
-  static let marginY = 15
+  static let marginY: CGFloat = 15
 
   static let lineSpacing: [CGFloat] = [20, 20, 10, 15]
   static let itemSpacing: [CGFloat] = [20, 5, 5, 15]
@@ -21,17 +21,17 @@ enum Metric {
 
   static var dealOfTodayCellSize: CGSize {
     return CGSize(width: UIScreen.main.bounds.width - 25,
-                  height: UIScreen.main.bounds.height / 4)
+                  height: UIScreen.main.bounds.width/2)//UIScreen.main.bounds.height / 4)
   }
 
   static var popularityKeywordCellSize: CGSize {
     return CGSize(width: UIScreen.main.bounds.width/2 - 25,
-                  height: UIScreen.main.bounds.height / 9)
+                  height: UIScreen.main.bounds.width / 4)
   }
 
   static var popularityProductCellSize: CGSize {
     return CGSize(width: UIScreen.main.bounds.width/2 - 25,
-                  height: UIScreen.main.bounds.height / 2.6)
+                  height: UIScreen.main.bounds.width * 0.8)
   }
 
   static var dealOfTodayCellInset: UIEdgeInsets {
@@ -46,6 +46,11 @@ enum Metric {
   static var StylingShotSmallCellSize: CGSize {
     return CGSize(width: UIScreen.main.bounds.width / 5,
                   height: UIScreen.main.bounds.width / 5)
+  }
+
+  static var ReviewCellSize: CGSize {
+    return CGSize(width: UIScreen.main.bounds.width - Metric.marginX * 2,
+                  height: 400)
   }
 
   static let inset: UIEdgeInsets = .init(top: 20, left: 20, bottom: 20, right: 20)

@@ -20,11 +20,21 @@ extension StoreVC {
 //  }
 }
 
-final class StoreVC: UIViewController {
+final class StoreVC: CategoryTabBarViewController {
+
+  init() {
+    super.init(withTitles: ["홈"],
+               withViews: [StoreHomeView() ],
+               withScrollOption: false)
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   let notiCenter = NotificationCenter.default
 
-  let storeHomeView = StoreHomeView()
+//  let storeHomeView = StoreHomeView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -47,12 +57,12 @@ final class StoreVC: UIViewController {
                               name: StoreVC.presentProductDetail,
                               object: nil)
   }
-
-  override func loadView() {
-    view = storeHomeView
-    print("StoreVC: loadView")
-
-  }
+//
+//  override func loadView() {
+//    view = storeHomeView
+//    print("StoreVC: loadView")
+//
+//  }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)

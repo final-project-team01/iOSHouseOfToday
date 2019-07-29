@@ -10,7 +10,33 @@ import UIKit
 
 class DetailProductFirstView: UIView {
 
-  static let height = UIScreen.main.bounds.height * 0.4
+  static var height: CGFloat {
+
+    if UIDevice().userInterfaceIdiom == .phone {
+      switch UIScreen.main.nativeBounds.height {
+      case 1136:
+        print("iPhone 5 or 5S or 5C")
+        return UIScreen.main.bounds.width
+      case 1334:
+        print("iPhone 6/6S/7/8")
+        return UIScreen.main.bounds.width * 0.95
+      case 2208:
+        print("iPhone 6+/6S+/7+/8+")
+        return UIScreen.main.bounds.width * 0.88
+      case 2436:
+        print("iPhone X")
+        return UIScreen.main.bounds.width * 0.88
+      case 1792:
+        print("iPhone Xr")
+        return UIScreen.main.bounds.width * 0.88
+      default:
+        print("unknown: \(UIScreen.main.nativeBounds.height)")
+        return UIScreen.main.bounds.width
+      }
+    }
+    print("userInterfaceIdiom")
+    return UIScreen.main.bounds.width * 0.85
+  }
 
   // MARK: - Property
   private lazy var brandLabel: UILabel = {
@@ -170,10 +196,27 @@ class DetailProductFirstView: UIView {
     return view
   }()
 
+  public var productDetail: ProductDetail? {
+    didSet {
+      guard let info = productDetail else { return print("nil") }
+      brandLabel.text = info.brandName
+      productNameLabel.text = info.name
+
+      ratingStarScoreLabel.text = "\(info.starAvg)"
+
+      discountLabel.text = "\(info.discountRate)"
+      priceLabel.text = "\(info.price / (Int(info.discountRate) ?? 1))"
+      costPriceLabel.text = "\(info.price)"
+
+      pointLabel.text = "\(Int(info.price / 1000))"
+
+    }
+  }
+
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+    backgroundColor = .white
 
     firstLineView.layer.addBorder([.top, .left], color: .black, width: 0.5)
     secondLineView.layer.addBorder([.top], color: .black, width: 0.5)
@@ -255,7 +298,7 @@ class DetailProductFirstView: UIView {
 
     if priceLabel.translatesAutoresizingMaskIntoConstraints {
       priceLabel.snp.makeConstraints {
-        $0.top.equalTo(discountLabel).offset(marginY/2)
+        $0.top.equalTo(discountLabel.snp.bottom).offset(marginY/2)
         $0.leading.equalToSuperview().offset(marginX)
       }
     }
