@@ -68,7 +68,6 @@ final class SwipeImageview: UIView {
             }
           }
         } else { self.failImageCount += 1}
-
       }
     }
   }
@@ -95,7 +94,6 @@ final class SwipeImageview: UIView {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    //    print("layoutSubviews")
 
     scrollViewAutoLayout()
   }
@@ -106,13 +104,6 @@ final class SwipeImageview: UIView {
       collectionView.snp.makeConstraints {
         $0.edges.equalToSuperview()
       }
-
-//      print(frame)
-
-//      pageControl.snp.makeConstraints {
-//        $0.bottom.equalTo(collectionView.snp.bottom)
-//        $0.leading.equalToSuperview().offset(5)
-//      }
     }
   }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ReviewCell: UICollectionViewCell {
 
@@ -17,7 +18,7 @@ class ReviewCell: UICollectionViewCell {
     let label = UILabel(frame: CGRect.zero)
     label.text = "[브랜드] product Name"
     label.textAlignment = .left
-    label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
     addSubview(label)
     return label
   }()
@@ -27,6 +28,7 @@ class ReviewCell: UICollectionViewCell {
     label.text = "01. 무아스 Mini LED 벽시계"
     label.textAlignment = .left
     label.font = UIFont.systemFont(ofSize: 15)
+    label.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
     addSubview(label)
     return label
   }()
@@ -34,6 +36,7 @@ class ReviewCell: UICollectionViewCell {
   private lazy var starLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "★★★★★"
+    label.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     label.textAlignment = .left
     label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
     addSubview(label)
@@ -51,7 +54,7 @@ class ReviewCell: UICollectionViewCell {
 
   private lazy var reviewImageView: UIImageView = {
     let iv = UIImageView(frame: CGRect.zero)
-    iv.backgroundColor = .black
+    iv.backgroundColor = .clear
 //    iv.contentMode = .
     addSubview(iv)
     return iv
@@ -61,6 +64,7 @@ class ReviewCell: UICollectionViewCell {
     let label = UILabel(frame: CGRect.zero)
     label.text = ">"
     label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    addSubview(label)
     return label
   }()
 
@@ -77,6 +81,7 @@ class ReviewCell: UICollectionViewCell {
     let label = UILabel(frame: CGRect.zero)
     label.text = "name | 2019.01.28 | 오늘의 집 리뷰"
     label.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    label.font = UIFont.systemFont(ofSize: 15)
     addSubview(label)
     return label
   }()
@@ -90,28 +95,32 @@ class ReviewCell: UICollectionViewCell {
     return label
   }()
 
-  private var reviewList: ProductDetail.Review? {
+  public var reviewList: ProductDetail.Review? {
     didSet {
       guard let list = reviewList else { return print("reviewList is nil")}
 
-//      starLabel.text = addStarText(count: list.starScore)
-      commentLabel.text = list.comment
+      if let urlString = list.image, let url = URL(string: urlString) {
 
+        reviewImageView.kf.setImage(with: url,
+                                    placeholder: nil,
+                                    options: [.transition(.fade(0)), .loadDiskFileSynchronously],
+                                    progressBlock: nil)
+      } else {
+        updateImageViewAutolayout()
+      }
+
+      starLabel.text = addStarText(count: list.starScore)
+      commentLabel.text = list.comment
       reviewerInfo.text = "\(list.user) | \(list.created) | 오늘의집 리뷰"
     }
   }
 
   // MARK: - View life cycle
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
   override func layoutSubviews() {
     super.layoutSubviews()
+    backgroundColor = .white
+
+    autolayoutViews()
   }
 
   // MARK: - configure
@@ -119,19 +128,22 @@ class ReviewCell: UICollectionViewCell {
 
     if reviewTitle.translatesAutoresizingMaskIntoConstraints {
       reviewTitle.snp.makeConstraints {
-        $0.top.leading.trailing.equalToSuperview().offset(Metric.marginX)
+        $0.top.equalToSuperview().offset(Metric.marginX)
+        $0.leading.equalToSuperview()
+        $0.trailing.equalTo(reviewImageView.snp.centerX)
       }
     }
 
     if optionLabel.translatesAutoresizingMaskIntoConstraints {
       optionLabel.snp.makeConstraints {
         $0.top.equalTo(reviewTitle.snp.bottom).offset(Metric.marginY/2)
-        $0.leading.trailing.equalToSuperview()
+        $0.leading.equalToSuperview()
+        $0.trailing.equalTo(reviewImageView.snp.centerX)
       }
     }
 
     if starLabel.translatesAutoresizingMaskIntoConstraints {
-      reviewTitle.snp.makeConstraints {
+      starLabel.snp.makeConstraints {
         $0.top.equalTo(optionLabel.snp.bottom).offset(Metric.marginY)
         $0.leading.equalToSuperview()
       }
@@ -141,14 +153,16 @@ class ReviewCell: UICollectionViewCell {
       commentLabel.snp.makeConstraints {
         $0.top.equalTo(starLabel.snp.bottom).offset(Metric.marginY)
         $0.leading.equalToSuperview()
-        $0.trailing.equalTo(reviewImageView.snp.leading).offset(Metric.marginY)
+//        $0.trailing.equalTo(reviewImageView.snp.leading).offset(-Metric.marginY)
+//        $0.trailing.greaterThanOrEqualTo(reviewImageView.snp.leading).offset(-Metric.marginY)
+        $0.trailing.lessThanOrEqualTo(reviewImageView.snp.leading).offset(-Metric.marginY)
       }
     }
 
     if arrowToRight.translatesAutoresizingMaskIntoConstraints {
       arrowToRight.snp.makeConstraints {
-        $0.top.equalTo(commentLabel.snp.top)
-        $0.trailing.equalToSuperview()
+        $0.centerY.equalTo(reviewImageView.snp.centerY)
+        $0.trailing.equalToSuperview().offset(-5)
       }
     }
 
@@ -183,12 +197,20 @@ class ReviewCell: UICollectionViewCell {
     }
   }
 
-//  private func addStarText(count: Int) -> String {
-//    var starText: String
-//
-//    for _ in 0..<count {
-//      starText += "★"
+  private func updateImageViewAutolayout() {
+//    reviewImageView.snp.updateConstraints {
+////      $0.width.equalTo(10)
+////      $0.height.equalTo(UIScreen.main.bounds.width/5)
 //    }
-//    return starText
-//  }
+  }
+
+  private func addStarText(count: Int) -> String {
+    var starText: String = "★"
+
+    for _ in 1...count {
+      starText += "★"
+    }
+
+    return starText
+  }
 }

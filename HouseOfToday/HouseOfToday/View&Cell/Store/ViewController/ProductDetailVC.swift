@@ -13,6 +13,9 @@ extension ProductDetailVC {
   static var cellSpread: Notification.Name {
     return Notification.Name("cellSpread")
   }
+  static var presentReview: Notification.Name {
+    return Notification.Name("presentReview")
+  }
 }
 
 class ProductDetailVC: UIViewController {
@@ -38,6 +41,7 @@ class ProductDetailVC: UIViewController {
     colV.register(cell: ProductMainCell.self)
     colV.register(cell: ProductStylingCell.self)
     colV.register(cell: ProductInfomationCell.self)
+    colV.register(cell: PopularityProductCell.self)
     colV.backgroundColor = .white
     colV.dataSource = self
     colV.delegate = self
@@ -45,11 +49,48 @@ class ProductDetailVC: UIViewController {
     return colV
   }()
 
+  private var productList: [ProductList] = [] {
+    didSet {
+      guard !productList.isEmpty else { return print("productList is empty")}
+
+      print("productList called")
+      DispatchQueue.main.async { [weak self] in
+        let indexSet = IndexSet(integer: 1)
+        self?.collectionView.reloadSections(indexSet)
+      }
+    }
+  }
+
+  private var productListTemp: CategoryIdList? {
+    didSet {
+      guard let products = productListTemp?.products else { return print("productListTemp?.products fail")}
+      productList = products.map {
+        let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
+        //        let review = $0.review.map { $0.score }
+
+        return ProductList(id: $0.id,
+                           brandName: $0.brandName,
+                           productName: $0.productName,
+                           discountRate: $0.discountRate,
+                           price: $0.price,
+                           reviewCount: $0.reviewCount,
+                           starAvg: $0.starAvg,
+                           thumnailUrl: imageUrl)
+      }
+
+    }
+  }
+
   private var productDetail: ProductDetail? = nil {
     didSet {
+      guard let info = productDetail else { return print("productDetail is nil")}
+
+      print("ProductDetail called")
+      self.fetchCategoryID(id: info.category)
 
       DispatchQueue.main.async { [weak self] in
-        self?.collectionView.reloadData()
+        let indexSet = IndexSet(integer: 0)
+        self?.collectionView.reloadSections(indexSet)
       }
     }
   }
@@ -64,11 +105,15 @@ class ProductDetailVC: UIViewController {
     view.backgroundColor = .white
 
     autolayoutViews()
+    setupNotificationCenter()
   }
 
   deinit {
     notiCenter.removeObserver(self,
                               name: ProductDetailVC.cellSpread,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: ProductDetailVC.presentReview,
                               object: nil)
   }
 
@@ -86,12 +131,27 @@ class ProductDetailVC: UIViewController {
                            selector: #selector(reloadCollectionView(_:)),
                            name: ProductDetailVC.cellSpread,
                            object: nil)
+
+    notiCenter.addObserver(self,
+                           selector: #selector(presentReview(_:)),
+                           name: ProductDetailVC.presentReview,
+                           object: nil)
   }
 
   // MARK: - setReload collectionView
   @objc private func reloadCollectionView(_ sender: Notification) {
 //    collectionView.reloadSections()
     print("reloadCollectionView Click")
+  }
+
+  // MARK: - presentReview NotificationCenter
+  @objc private func presentReview(_ sender: Notification) {
+    print("presentReview Click")
+    let reviewVC = ReviewVC()
+    reviewVC.productDetailData = productDetail
+
+    navigationController?.pushViewController(reviewVC, animated: true)
+//    present(reviewVC, animated: true)
   }
 
   // MARK: - ImageDownload
@@ -154,33 +214,60 @@ class ProductDetailVC: UIViewController {
       }
     }
   }
-//  preferredLayoutAttributesFitting
+
+  public func fetchCategoryID(id: Int) {
+
+    service.fetchCategoryIdList(id: id) { result in
+      switch result {
+      case .success(let list):
+        print("success!!! List Count: \(list.products.count)")
+
+        self.productListTemp = list
+      case .failure(let error):
+
+        print("fetchCategoryList Error: \(error.localizedDescription)")
+      }
+    }
+  }
 
 }
 
 // MARK: - UICollectionViewDataSource
 extension ProductDetailVC: UICollectionViewDataSource {
 
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 2
+  }
+
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 1
+    if section == 0 {
+      return 1
+    } else {
+      return productList.count
+    }
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-    if indexPath.item == 0 {
-      let cell = collectionView.dequeue(ProductMainCell.self, indexPath)
-      cell.productDetail = self.productDetail
-      return cell
-    } else if indexPath.item == 1 {
-      let cell = collectionView.dequeue(ProductStylingCell.self, indexPath)
+    if indexPath.section == 0 {
+      if indexPath.item == 0 {
+        let cell = collectionView.dequeue(ProductMainCell.self, indexPath)
+        cell.productDetail = self.productDetail
+        return cell
+      } else if indexPath.item == 1 {
+        let cell = collectionView.dequeue(ProductStylingCell.self, indexPath)
 
-      return cell
-    } else {//if indexPath.item == 1 {
-      let cell = collectionView.dequeue(ProductInfomationCell.self, indexPath)
-      cell.productDetail = self.productDetail
+        return cell
+      } else {//if indexPath.item == 1 {
+        let cell = collectionView.dequeue(ProductInfomationCell.self, indexPath)
+        cell.productDetail = self.productDetail
+        return cell
+      }
+    } else {
+      let cell = collectionView.dequeue(PopularityProductCell.self, indexPath)
+
       return cell
     }
-
   }
 }
 
@@ -194,17 +281,45 @@ extension ProductDetailVC: UICollectionViewDelegate {
       mainCell.updateSwipeImageViewPosition(positionY: (scrollView.bounds.origin.y + view.safeAreaInsets.top) / 2)
     }
   }
+
+  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    if let cell = cell as? PopularityProductCell {
+      cell.productInfo = productList[indexPath.item]
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    if let cell = cell as? PopularityProductCell {
+      cell.stopDownloadImage()
+    }
+  }
+
 }
 
 extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    if indexPath.item == 0 {
-      return CGSize(width: UIScreen.main.bounds.width, height: ProductMainCell.height)
-    } else if indexPath.item == 1 {
-      return CGSize(width: UIScreen.main.bounds.width, height: ProductStylingCell.height)
+
+    if indexPath.section == 0 {
+      if indexPath.item == 0 {
+        return CGSize(width: UIScreen.main.bounds.width, height: ProductMainCell.height)
+      } else if indexPath.item == 1 {
+        return CGSize(width: UIScreen.main.bounds.width, height: ProductStylingCell.height)
+      } else {
+        return CGSize(width: UIScreen.main.bounds.width, height: 400)
+      }
     } else {
-      return CGSize(width: UIScreen.main.bounds.width, height: 400)
+      return Metric.popularityProductCellSize
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    if section == 3 {
+      return Metric.dealOfTodayCellInset
+    } else {
+      return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
   }
 }

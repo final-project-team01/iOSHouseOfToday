@@ -1,25 +1,20 @@
 //
-//  ProductReviewView.swift
+//  ReviewVC.swift
 //  HouseOfToday
 //
-//  Created by CHANGGUEN YU on 28/07/2019.
+//  Created by CHANGGUEN YU on 29/07/2019.
 //  Copyright © 2019 CHANGGUEN YU. All rights reserved.
 //
 
 import UIKit
 
-class ProductReviewView: UIView {
-
-  // MARK: - Property
-  static var height = Metric.ReviewCellSize.height * 4.8
-
-  let notiCenter = NotificationCenter.default
+class ReviewVC: UIViewController {
 
   private lazy var titleLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "리뷰"
-    label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-    addSubview(label)
+    label.font = UIFont.systemFont(ofSize: 20)
+    view.addSubview(label)
     return label
   }()
 
@@ -28,7 +23,7 @@ class ProductReviewView: UIView {
     label.text = "55,555"
     label.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 20)
-    addSubview(label)
+    view.addSubview(label)
     return label
   }()
 
@@ -37,7 +32,7 @@ class ProductReviewView: UIView {
     label.text = "★★★★★"
     label.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 25)
-    addSubview(label)
+    view.addSubview(label)
     return label
   }()
 
@@ -45,7 +40,7 @@ class ProductReviewView: UIView {
     let label = UILabel(frame: CGRect.zero)
     label.text = "5.0"
     label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-    addSubview(label)
+    view.addSubview(label)
     return label
   }()
 
@@ -53,7 +48,7 @@ class ProductReviewView: UIView {
     let label = UILabel(frame: CGRect.zero)
     label.text = "/5"
     label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-    addSubview(label)
+    view.addSubview(label)
     return label
   }()
 
@@ -62,7 +57,7 @@ class ProductReviewView: UIView {
     label.text = "55,555명의 구매만족도"
     label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 10)
-    addSubview(label)
+    view.addSubview(label)
     return label
   }()
 
@@ -71,7 +66,7 @@ class ProductReviewView: UIView {
     label.layer.borderColor = UIColor.darkGray.cgColor
     label.layer.borderWidth = 0.5
     label.layer.addBorder([.top, .left], color: .black, width: 0.5)
-    addSubview(label)
+    view.addSubview(label)
     return label
   }()
 
@@ -83,7 +78,7 @@ class ProductReviewView: UIView {
     btn.layer.masksToBounds = true
     btn.layer.cornerRadius = 5
     btn.addTarget(self, action: #selector(sortReviewList(_:)), for: .touchUpInside)
-    addSubview(btn)
+    view.addSubview(btn)
     return btn
   }()
   private lazy var newestSortButton: UIButton = {
@@ -94,7 +89,7 @@ class ProductReviewView: UIView {
     btn.layer.masksToBounds = true
     btn.layer.cornerRadius = 5
     btn.addTarget(self, action: #selector(sortReviewList(_:)), for: .touchUpInside)
-    addSubview(btn)
+    view.addSubview(btn)
     return btn
   }()
   private lazy var lowestSortButton: UIButton = {
@@ -105,7 +100,7 @@ class ProductReviewView: UIView {
     btn.layer.masksToBounds = true
     btn.layer.cornerRadius = 5
     btn.addTarget(self, action: #selector(sortReviewList(_:)), for: .touchUpInside)
-    addSubview(btn)
+    view.addSubview(btn)
     return btn
   }()
 
@@ -116,7 +111,7 @@ class ProductReviewView: UIView {
     btn.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     btn.layer.masksToBounds = true
     btn.layer.cornerRadius = 10
-    addSubview(btn)
+    view.addSubview(btn)
     return btn
   }()
 
@@ -126,7 +121,7 @@ class ProductReviewView: UIView {
     label.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 15)
     label.textAlignment = .center
-    addSubview(label)
+    view.addSubview(label)
     return label
   }()
 
@@ -139,16 +134,16 @@ class ProductReviewView: UIView {
       .font: UIFont.systemFont(ofSize: 20),
       .foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     ]
-    let attributeStringReview = NSMutableAttributedString(string: "리뷰쓰기",
+    let attributeString = NSMutableAttributedString(string: "리뷰쓰기",
                                                     attributes: attributes)
     let attributes1: [NSAttributedString.Key: Any] = [
       .font: UIFont.systemFont(ofSize: 15),
       .foregroundColor: #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     ]
-    let attributeStringPhoto = NSMutableAttributedString(string: " 포토 250P",
+    let attributeString1 = NSMutableAttributedString(string: " 포토 250P",
                                                      attributes: attributes1)
-    mutableAttributedString.append(attributeStringReview)
-    mutableAttributedString.append(attributeStringPhoto)
+    mutableAttributedString.append(attributeString)
+    mutableAttributedString.append(attributeString1)
     btn.setAttributedTitle(mutableAttributedString, for: .normal)
 
     btn.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -156,7 +151,8 @@ class ProductReviewView: UIView {
     btn.layer.borderWidth = 1.0
     btn.layer.cornerRadius = 5
     btn.layer.masksToBounds = true
-    addSubview(btn)
+
+    view.addSubview(btn)
     return btn
   }()
 
@@ -174,7 +170,7 @@ class ProductReviewView: UIView {
     colV.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     colV.dataSource = self
     colV.delegate = self
-    addSubview(colV)
+    view.addSubview(colV)
     return colV
   }()
 
@@ -191,21 +187,18 @@ class ProductReviewView: UIView {
       starPointLabel.text = "\(info.starAvg)"
 
       reviewList = info.review
-      sortedReviewList = reviewList.sorted(by: { $0.starScore > $1.starScore })
-
       reviewCountLabel.text = reviewCount
       purchaseSatisfactionLabel.text = "\(reviewCount)의 구매만족도"
       showTotalReviewButton.setTitle("\(reviewCount)개 리뷰 전체보기 ", for: .normal)
+
+      sortedReviewList = reviewList.sorted(by: { $0.starScore > $1.starScore })
 
       collectionView.reloadData()
     }
   }
 
-  // MARK: - View life cycle
-
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+  override func viewDidLoad() {
+    super.viewDidLoad()
     autolayoutViews()
   }
 
@@ -213,7 +206,7 @@ class ProductReviewView: UIView {
   private func autolayoutViews() {
     if titleLabel.translatesAutoresizingMaskIntoConstraints {
       titleLabel.snp.makeConstraints {
-        $0.top.equalToSuperview().offset(Metric.marginY)
+        $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(Metric.marginY)
         $0.leading.equalToSuperview().offset(Metric.marginX)
       }
     }
@@ -293,33 +286,15 @@ class ProductReviewView: UIView {
       collectionView.snp.makeConstraints {
         $0.top.equalTo(bestSortButton.snp.bottom)
         $0.leading.trailing.equalToSuperview()
-        $0.height.equalTo(Metric.ReviewCellSize.height * 3)
-      }
-    }
+        $0.bottom.equalTo(reviewWriteButton.snp.top)
 
-    if showTotalReviewButton.translatesAutoresizingMaskIntoConstraints {
-      showTotalReviewButton.snp.makeConstraints {
-        $0.top.equalTo(collectionView.snp.bottom).offset(Metric.marginY)
-        $0.leading.equalToSuperview().offset(Metric.marginX)
-        $0.trailing.equalToSuperview().offset(-Metric.marginX)
-        $0.height.equalTo(Metric.marginY*4)
-      }
-    }
-
-    if sharePleaseLabel.translatesAutoresizingMaskIntoConstraints {
-      sharePleaseLabel.snp.makeConstraints {
-        $0.top.equalTo(showTotalReviewButton.snp.bottom).offset(Metric.marginY*4)
-        $0.leading.equalToSuperview().offset(Metric.marginX)
-        $0.trailing.equalToSuperview().offset(-Metric.marginX)
       }
     }
 
     if reviewWriteButton.translatesAutoresizingMaskIntoConstraints {
       reviewWriteButton.snp.makeConstraints {
-        $0.top.equalTo(sharePleaseLabel.snp.bottom).offset(Metric.marginY/2)
-        $0.leading.equalToSuperview().offset(Metric.marginX)
-        $0.trailing.equalToSuperview().offset(-Metric.marginX)
-        $0.height.equalTo(Metric.marginY*3)
+        $0.bottom.leading.trailing.equalToSuperview()
+        $0.height.equalTo(MainTabBarVC.tabBarHeight)
       }
     }
   }
@@ -351,12 +326,11 @@ class ProductReviewView: UIView {
 
     collectionView.reloadData()
   }
-
 }
 
-extension ProductReviewView: UICollectionViewDataSource {
+extension ReviewVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return sortedReviewList.count > 3 ? 3 : sortedReviewList.count
+    return sortedReviewList.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -369,10 +343,10 @@ extension ProductReviewView: UICollectionViewDataSource {
   }
 }
 
-extension ProductReviewView: UICollectionViewDelegate {
+extension ReviewVC: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    // FIXME: - present Review
-    notiCenter.post(name: ProductDetailVC.presentReview, object: nil)
+    // FIXME: - cell change
+
   }
 }

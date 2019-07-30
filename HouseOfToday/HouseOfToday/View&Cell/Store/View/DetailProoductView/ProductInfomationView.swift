@@ -56,7 +56,9 @@ class ProductInfomationView: UIView {
       guard let info = productDetail else { return print("productDetail is nil")}
 
       let urls = info.detailImages.map ({ URL(string: $0.image) }).compactMap ({ $0 })
-
+      
+      
+      
       setImageViews(urls)
     }
   }
@@ -146,14 +148,6 @@ class ProductInfomationView: UIView {
   private func setImageViews(_ urls: [URL]) {
     failImageCount = 0
 
-    //    if let firstImageView = imageViews.first, let firstUrl = urls.first {
-    //      firstImageView.kf.setImage(with: firstUrl,
-    //                                 placeholder: nil,
-    //                                 options: [.transition(.fade(1)), .loadDiskFileSynchronously],
-    //                                 progressBlock: nil) {(_) in
-    //
-    //      }
-    //    }
     if let firstImageView = imageViews.first, let firstUrl = urls.first {
       firstImageView.kf.setImage(with: firstUrl,
                                  placeholder: nil,

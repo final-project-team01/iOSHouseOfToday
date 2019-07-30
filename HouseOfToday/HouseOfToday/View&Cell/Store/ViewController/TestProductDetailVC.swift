@@ -31,7 +31,6 @@ class TestProductDetailVC: UIViewController {
       $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
       $0.leading.trailing.bottom.equalToSuperview()
     }
-
   }
 
 }

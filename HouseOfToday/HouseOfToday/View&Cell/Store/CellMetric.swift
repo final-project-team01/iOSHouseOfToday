@@ -50,7 +50,11 @@ enum Metric {
 
   static var ReviewCellSize: CGSize {
     return CGSize(width: UIScreen.main.bounds.width - Metric.marginX * 2,
-                  height: 400)
+                  height: 230)
+  }
+
+  static var ExhibitionCellSize: CGSize {
+    return CGSize(width: 230, height: 200)
   }
 
   static let inset: UIEdgeInsets = .init(top: 20, left: 20, bottom: 20, right: 20)

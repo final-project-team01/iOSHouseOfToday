@@ -13,6 +13,8 @@ import UIKit
 */
 final class MainTabBarVC: UITabBarController {
 
+  static var tabBarHeight: CGFloat = 0
+
   private var isShowUserActivityView = false
   private var didSelectedTabBarItemIndex = 0
 
@@ -42,6 +44,13 @@ final class MainTabBarVC: UITabBarController {
     tabBar.backgroundColor = .white
     setupTabBarItems()
 
+    // get safetabbar height
+    MainTabBarVC.tabBarHeight = view.safeAreaInsets.bottom
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
   }
 
   deinit {
