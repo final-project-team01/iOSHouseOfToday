@@ -15,7 +15,6 @@ extension Notification.Name {
 
 class FooterTableCell: UITableViewHeaderFooterView {
 
-  //notification
   private let notiCenter = NotificationCenter.default
 
   let detailRankingView = DetailRankingVC()
@@ -48,6 +47,7 @@ class FooterTableCell: UITableViewHeaderFooterView {
   @objc func moreButtondidTap(_ sender: UIButton) {
 
     notiCenter.post(name: .presentRankingDetailView, object: sender, userInfo: ["presentRankingDetailView": detailRankingView])
+
   }
 
   private func configureLabel() {

@@ -87,6 +87,8 @@
 		AB1AF93D22ED8B2C00299226 /* DetailRankingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF93C22ED8B2C00299226 /* DetailRankingVC.swift */; };
 		AB1AF94022ED8B6B00299226 /* DetailRankingTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF93F22ED8B6B00299226 /* DetailRankingTableCell.swift */; };
 		AB1AF94322EDBF2F00299226 /* FontFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF94222EDBF2F00299226 /* FontFoundation.swift */; };
+		AB1AF94522EEC74200299226 /* RankingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF94422EEC74200299226 /* RankingHeader.swift */; };
+		AB2353D822EFDA8B008E63AB /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2353D722EFDA8B008E63AB /* PickerVC.swift */; };
 		AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */; };
 		AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */; };
 		AB7EEA9222DDD52400F33663 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9122DDD52400F33663 /* ProfileView.swift */; };
@@ -202,6 +204,9 @@
 		AB1AF93C22ED8B2C00299226 /* DetailRankingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRankingVC.swift; sourceTree = "<group>"; };
 		AB1AF93F22ED8B6B00299226 /* DetailRankingTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRankingTableCell.swift; sourceTree = "<group>"; };
 		AB1AF94222EDBF2F00299226 /* FontFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontFoundation.swift; sourceTree = "<group>"; };
+		AB1AF94422EEC74200299226 /* RankingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeader.swift; sourceTree = "<group>"; };
+		AB2353D722EFDA8B008E63AB /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
+		AB447D5E22F02B5E0089CE4F /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA9122DDD52400F33663 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -505,8 +510,10 @@
 		AB1AF93E22ED8B3100299226 /* DetailRankingVC */ = {
 			isa = PBXGroup;
 			children = (
+				AB2353D722EFDA8B008E63AB /* PickerVC.swift */,
 				AB1AF93C22ED8B2C00299226 /* DetailRankingVC.swift */,
 				AB1AF93F22ED8B6B00299226 /* DetailRankingTableCell.swift */,
+				AB1AF94422EEC74200299226 /* RankingHeader.swift */,
 			);
 			path = DetailRankingVC;
 			sourceTree = "<group>";
@@ -836,6 +843,8 @@
 				AB7EEA9422DDD54500F33663 /* MyshoppingView.swift in Sources */,
 				42490F6422DDC14600EE1A01 /* CategoryCell.swift in Sources */,
 				42C5472F22E6A12D00FE64A0 /* ProductMainCell.swift in Sources */,
+				AB2353D822EFDA8B008E63AB /* PickerVC.swift in Sources */,
+				AB1AF94522EEC74200299226 /* RankingHeader.swift in Sources */,
 				42F3E4F822E5CE54002E1479 /* CategoryIdList.swift in Sources */,
 				42F3E4F222E582D6002E1479 /* CategoryListView.swift in Sources */,
 				AB1AF93D22ED8B2C00299226 /* DetailRankingVC.swift in Sources */,
@@ -998,7 +1007,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KH53J489YG;
+				DEVELOPMENT_TEAM = H7746RVFJ9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1030,7 +1039,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KH53J489YG;
+				DEVELOPMENT_TEAM = H7746RVFJ9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

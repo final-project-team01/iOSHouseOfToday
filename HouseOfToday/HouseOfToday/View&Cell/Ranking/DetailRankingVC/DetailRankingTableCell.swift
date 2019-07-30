@@ -10,7 +10,8 @@ import UIKit
 
 class DetailRankingTableCell: UITableViewCell {
 
-  // FIXME: - 숫자 단위 구분하기 `formetter`
+  // FIXME: - ProductDetailVC에서 하는 FetchProductDetail 참고해서 id정보 넘길 수 있게 만들기
+  // HomeVC에서도 id받기
 
   lazy var countLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
@@ -140,7 +141,7 @@ class DetailRankingTableCell: UITableViewCell {
       make.height.equalTo(thumnailImageView.snp.width)
     }
     productNameLabel.snp.makeConstraints { make in
-      make.top.equalToSuperview()
+      make.top.equalTo(thumnailImageView.snp.top)
       make.leading.equalTo(thumnailImageView.snp.trailing).offset(margin/2)
       make.trailing.lessThanOrEqualTo(scrapButton.snp.leading)
     }

@@ -35,10 +35,12 @@ final class HomeVC: CategoryTabBarViewController {
 
 @objc func presentRankingDetailView(_ sender: Notification) {
   guard let userInfo = sender.userInfo as? [String: UIViewController],
-    let DetailRankingVC = userInfo["presentRankingDetailView"]
+    let detailRankingVC = userInfo["presentRankingDetailView"] // FIXME: - 여기서 id 가져오는 코드 쓰기 ※ StoreVC 참고
     else {
       return print("fail downCasting")
   }
-  present(DetailRankingVC, animated: true)
-}
+
+  navigationController?.pushViewController(detailRankingVC, animated: true)
+
+  }
 }
