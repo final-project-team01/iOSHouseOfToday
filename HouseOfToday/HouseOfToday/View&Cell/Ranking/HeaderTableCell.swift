@@ -60,5 +60,4 @@ class HeaderTableCell: UITableViewHeaderFooterView {
       }
     }
   }
-
 }

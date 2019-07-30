@@ -87,7 +87,7 @@ class UploadPicCollectionView: UICollectionViewController, UICollectionViewDeleg
         let imageManager = PHImageManager.default()
 
         //사진사이즈
-        let targetSize = CGSize(width: 200, height: 200) // FIXME: - 흐음? 사이즈?
+        let targetSize = CGSize(width: 200, height: 200)
 
         //이미지 요청 할 때 옵션
         let options = PHImageRequestOptions()

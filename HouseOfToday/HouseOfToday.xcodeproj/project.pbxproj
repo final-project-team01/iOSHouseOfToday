@@ -81,12 +81,14 @@
 		8ED0608722E9C5E8003D610D /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608622E9C5E8003D610D /* MyPageModel.swift */; };
 		8ED0608922EABB2A003D610D /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608822EABB2A003D610D /* NetworkExtensions.swift */; };
 		8ED060A922EE9C71003D610D /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED060A822EE9C71003D610D /* SnapKit.framework */; };
-		8ED060AD22EED278003D610D /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED060AC22EED278003D610D /* LoginTextField.swift */; };
 		AB1AF93922EAA18100299226 /* RankingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF93822EAA18100299226 /* RankingList.swift */; };
 		AB1AF93B22EB112200299226 /* MoreCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF93A22EB112200299226 /* MoreCollectionCell.swift */; };
 		AB1AF93D22ED8B2C00299226 /* DetailRankingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF93C22ED8B2C00299226 /* DetailRankingVC.swift */; };
 		AB1AF94022ED8B6B00299226 /* DetailRankingTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF93F22ED8B6B00299226 /* DetailRankingTableCell.swift */; };
 		AB1AF94322EDBF2F00299226 /* FontFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF94222EDBF2F00299226 /* FontFoundation.swift */; };
+		AB1AF94522EEC74200299226 /* RankingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF94422EEC74200299226 /* RankingHeader.swift */; };
+		AB2353D822EFDA8B008E63AB /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2353D722EFDA8B008E63AB /* PickerVC.swift */; };
+		AB447D5F22F02B5E0089CE4F /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB447D5E22F02B5E0089CE4F /* LoginTextField.swift */; };
 		AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */; };
 		AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */; };
 		AB7EEA9222DDD52400F33663 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9122DDD52400F33663 /* ProfileView.swift */; };
@@ -196,12 +198,14 @@
 		8ED0608622E9C5E8003D610D /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
 		8ED0608822EABB2A003D610D /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
 		8ED060A822EE9C71003D610D /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8ED060AC22EED278003D610D /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginTextField.swift; path = ../../../../../LoginTextField.swift; sourceTree = "<group>"; };
 		AB1AF93822EAA18100299226 /* RankingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingList.swift; sourceTree = "<group>"; };
 		AB1AF93A22EB112200299226 /* MoreCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCollectionCell.swift; sourceTree = "<group>"; };
 		AB1AF93C22ED8B2C00299226 /* DetailRankingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRankingVC.swift; sourceTree = "<group>"; };
 		AB1AF93F22ED8B6B00299226 /* DetailRankingTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRankingTableCell.swift; sourceTree = "<group>"; };
 		AB1AF94222EDBF2F00299226 /* FontFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontFoundation.swift; sourceTree = "<group>"; };
+		AB1AF94422EEC74200299226 /* RankingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeader.swift; sourceTree = "<group>"; };
+		AB2353D722EFDA8B008E63AB /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
+		AB447D5E22F02B5E0089CE4F /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA9122DDD52400F33663 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -494,7 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */,
-				8ED060AC22EED278003D610D /* LoginTextField.swift */,
+				AB447D5E22F02B5E0089CE4F /* LoginTextField.swift */,
 				8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */,
 				8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */,
 				8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */,
@@ -505,8 +509,10 @@
 		AB1AF93E22ED8B3100299226 /* DetailRankingVC */ = {
 			isa = PBXGroup;
 			children = (
+				AB2353D722EFDA8B008E63AB /* PickerVC.swift */,
 				AB1AF93C22ED8B2C00299226 /* DetailRankingVC.swift */,
 				AB1AF93F22ED8B6B00299226 /* DetailRankingTableCell.swift */,
+				AB1AF94422EEC74200299226 /* RankingHeader.swift */,
 			);
 			path = DetailRankingVC;
 			sourceTree = "<group>";
@@ -806,7 +812,6 @@
 				4246671522E84BC2001CE665 /* UserStylingDetailCell.swift in Sources */,
 				4230868422ED894B00203475 /* ProductReviewView.swift in Sources */,
 				ABE66FBC22E5834300125F98 /* UploadPicCollectionView.swift in Sources */,
-				8ED060AD22EED278003D610D /* LoginTextField.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				ABBA8FAF22E6E6F5001D43D7 /* RankingVC.swift in Sources */,
 				4246671122E834D3001CE665 /* DetailProductFirstView.swift in Sources */,
@@ -825,6 +830,7 @@
 				8ED0608522E6E759003D610D /* SignUpWithEmailViewController.swift in Sources */,
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
 				8ED0608922EABB2A003D610D /* NetworkExtensions.swift in Sources */,
+				AB447D5F22F02B5E0089CE4F /* LoginTextField.swift in Sources */,
 				42286F8022EA037F00127772 /* ProductInfomationCell.swift in Sources */,
 				42286F8422EAF32100127772 /* SwipeImageCell.swift in Sources */,
 				42286F8222EAB9B100127772 /* TestCell.swift in Sources */,
@@ -836,6 +842,8 @@
 				AB7EEA9422DDD54500F33663 /* MyshoppingView.swift in Sources */,
 				42490F6422DDC14600EE1A01 /* CategoryCell.swift in Sources */,
 				42C5472F22E6A12D00FE64A0 /* ProductMainCell.swift in Sources */,
+				AB2353D822EFDA8B008E63AB /* PickerVC.swift in Sources */,
+				AB1AF94522EEC74200299226 /* RankingHeader.swift in Sources */,
 				42F3E4F822E5CE54002E1479 /* CategoryIdList.swift in Sources */,
 				42F3E4F222E582D6002E1479 /* CategoryListView.swift in Sources */,
 				AB1AF93D22ED8B2C00299226 /* DetailRankingVC.swift in Sources */,
