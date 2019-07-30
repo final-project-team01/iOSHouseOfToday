@@ -23,8 +23,8 @@ extension StoreVC {
 final class StoreVC: CategoryTabBarViewController {
 
   init() {
-    super.init(withTitles: ["홈"],
-               withViews: [StoreHomeView() ],
+    super.init(withTitles: ["홈", "랭킹"],
+               withViews: [StoreHomeView(), TempRankingView()],
                withScrollOption: false)
   }
 
