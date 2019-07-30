@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-// FIXME: - 더보기 버튼 눌렀을 때 넘어가기 (BEST100만)
+// FIXME: - 더보기 버튼 BEST100만 눌렀을 때만 넘어가기
 
 class TempRankingView: UIView {
 

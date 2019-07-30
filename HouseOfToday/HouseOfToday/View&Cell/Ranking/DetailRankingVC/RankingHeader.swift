@@ -9,14 +9,14 @@
 import UIKit
 
 extension Notification.Name {
-  static let presentRankingPickerVC = Notification.Name("presentRankingPickerVC")
+  static let presentRankingPickerVC = Notification.Name("presentPickerVC")
 }
+
+// FIXME: - 스크롤 어느정도 올리면 Header 없어지게 하는거 추가하기
 
 class RankingHeader: UITableViewHeaderFooterView {
 
-  // FIXME: - 스크롤 어느정도 올리면 Header 없어지게 하는거 추가하기
-
-  // FIXME: - AddUserActivityView 참고해서 Sort 변경하기
+  let pickerVC = PickerViewController()
 
   private let notiCenter = NotificationCenter.default
 
@@ -87,8 +87,8 @@ class RankingHeader: UITableViewHeaderFooterView {
 
   @objc private func didTapSortButton(_ sender: UIButton) {
     print("Tapped SortButton")
-    // FIXME: - 여기서 pickerViewController 띄워주기
-//    let pickerViewController = PickerViewController()
+
+    notiCenter.post(name: .presentRankingPickerVC, object: sender, userInfo: ["presentRankingPickerVC": pickerVC])
 
   }
 
