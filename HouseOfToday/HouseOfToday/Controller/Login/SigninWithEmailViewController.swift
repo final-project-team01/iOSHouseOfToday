@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class LoginWithEmailViewController: UIViewController {
+class SigninWithEmailViewController: UIViewController {
 
   // MARK: - My Properties
   var user: User?
@@ -147,8 +147,7 @@ class LoginWithEmailViewController: UIViewController {
       result in
       switch result {
       case .success(let value):
-        print("이메일 로그인 완료 / Token : \(value)")
-        UIAlertController.showMessage("이메일 로그인 성공")
+        logger("이메일 로그인 토근 받기 완료 / Token : \(value)")
         let tokenInfo: [String: String] = ["token": value, "type": "email"]
         UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
         NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
@@ -165,7 +164,7 @@ class LoginWithEmailViewController: UIViewController {
 }
 
 // MARK: - Action Methods
-extension LoginWithEmailViewController {
+extension SigninWithEmailViewController {
 
   @objc private func leftBarButtonIsTapped(_ sender: Any) {
     self.navigationController?.popToRootViewController(animated: true)
@@ -191,7 +190,7 @@ extension LoginWithEmailViewController {
 }
 
 // MARK: - UITextFieldDelegate
-extension LoginWithEmailViewController: UITextFieldDelegate {
+extension SigninWithEmailViewController: UITextFieldDelegate {
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     guard let emailText = emailTextField.text,
       let passwordText = passwordTextField.text

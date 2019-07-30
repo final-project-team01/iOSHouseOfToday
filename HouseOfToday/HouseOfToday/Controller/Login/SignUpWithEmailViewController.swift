@@ -136,7 +136,7 @@ class SignUpWithEmailViewController: UIViewController {
     }
   }
 
-  var loginWithEmailVC: LoginWithEmailViewController?
+  var loginWithEmailVC: SigninWithEmailViewController?
 
   // MARK: - Network
   private func postSignUpUserData(withUserData user: User?) {

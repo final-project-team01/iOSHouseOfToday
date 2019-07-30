@@ -76,7 +76,7 @@
 		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
 		8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */; };
 		8ED0608122E589F2003D610D /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608022E589F2003D610D /* AlertExtension.swift */; };
-		8ED0608322E6E737003D610D /* LoginWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */; };
+		8ED0608322E6E737003D610D /* SigninWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */; };
 		8ED0608522E6E759003D610D /* SignUpWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */; };
 		8ED0608722E9C5E8003D610D /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608622E9C5E8003D610D /* MyPageModel.swift */; };
 		8ED0608922EABB2A003D610D /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608822EABB2A003D610D /* NetworkExtensions.swift */; };
@@ -191,7 +191,7 @@
 		8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HouseOfToday-Bridging-Header.h"; sourceTree = "<group>"; };
 		8ED0608022E589F2003D610D /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
-		8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithEmailViewController.swift; sourceTree = "<group>"; };
+		8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninWithEmailViewController.swift; sourceTree = "<group>"; };
 		8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailViewController.swift; sourceTree = "<group>"; };
 		8ED0608622E9C5E8003D610D /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
 		8ED0608822EABB2A003D610D /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
@@ -495,7 +495,7 @@
 			children = (
 				8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */,
 				8ED060AC22EED278003D610D /* LoginTextField.swift */,
-				8ED0608222E6E737003D610D /* LoginWithEmailViewController.swift */,
+				8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */,
 				8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */,
 				8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */,
 			);
@@ -852,7 +852,7 @@
 				AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */,
 				ABBA8FC622E9A65F001D43D7 /* RankingHorizontalCell.swift in Sources */,
 				ABBA8FC422E975CD001D43D7 /* MetricCell.swift in Sources */,
-				8ED0608322E6E737003D610D /* LoginWithEmailViewController.swift in Sources */,
+				8ED0608322E6E737003D610D /* SigninWithEmailViewController.swift in Sources */,
 				8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */,
 				42F3E4BF22E18B61002E1479 /* TimeSaleFooterView.swift in Sources */,
 				AB1AF94022ED8B6B00299226 /* DetailRankingTableCell.swift in Sources */,
