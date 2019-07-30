@@ -50,14 +50,18 @@ final class ProfileBaseCell: UITableViewCell {
   }()
 
   @objc private func siccTest(_ sender: Any) {
-    guard let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String],
-    let type = tokenInfo["type"] else {
-      return logger("로그아웃 하기 전인데 토큰 정보가 없습니다. 심각한 에러")
+    if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String],
+    let type = tokenInfo["type"] {
+      UserDefaults.standard.removeObject(forKey: "tokenInfo")
+      NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
+                                      object: nil,
+                                      userInfo: ["type": (type, "logout")])
+    } else {
+      logger("로그아웃 하기 전인데 토큰 정보가 없습니다. 둘러보기로 왔으니 보내드립니다.")
+      NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
+                                      object: nil,
+                                      userInfo: ["type": ("lookAround", "logout")])
     }
-    UserDefaults.standard.removeObject(forKey: "tokenInfo")
-    NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
-                                    object: nil,
-                                    userInfo: ["type": (type, "logout")])
   }
 
   let padding: CGFloat = 10
