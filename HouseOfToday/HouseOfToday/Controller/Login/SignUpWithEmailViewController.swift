@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class SignUpWithEmailViewController: UIViewController {
 
@@ -16,11 +17,10 @@ class SignUpWithEmailViewController: UIViewController {
   let houseOfTodayService: HouseOfTodayServiceType = HouseOfTodayService()
 
   // MARK: - UI Properties
-  private lazy var emailTextField: UITextField = {
-    let tf = UITextField(frame: .zero)
+  private lazy var emailTextField: LoginTextField = {
+    let tf = LoginTextField(frame: .zero)
     tf.delegate = self.self
-    tf.placeholder = "  이메일"
-    //tf.borderStyle = UITextField.BorderStyle.line
+    tf.placeholder = "이메일"
     tf.layer.borderColor = UIColor.lightGray.cgColor
     tf.layer.borderWidth = 0.3
 
@@ -32,11 +32,40 @@ class SignUpWithEmailViewController: UIViewController {
     return tf
   }()
 
-  private lazy var passwordTextField: UITextField = {
-    let tf = UITextField(frame: .zero)
+  private lazy var passwordTextField: LoginTextField = {
+    let tf = LoginTextField(frame: .zero)
     tf.delegate = self.self
-    tf.placeholder = "  비밀번호"
-    //tf.borderStyle = UITextField.BorderStyle.line
+    tf.placeholder = "비밀번호"
+    tf.layer.borderColor = UIColor.lightGray.cgColor
+    tf.layer.borderWidth = 0.3
+    tf.isSecureTextEntry = true
+    tf.autocapitalizationType = .none
+    tf.autocorrectionType = .no
+    tf.spellCheckingType = .no
+    tf.returnKeyType = .done
+    view.addSubview(tf)
+    return tf
+  }()
+
+  private lazy var checkPasswordTextField: LoginTextField = {
+    let tf = LoginTextField(frame: .zero)
+    tf.delegate = self.self
+    tf.placeholder = "비밀번호 확인"
+    tf.layer.borderColor = UIColor.lightGray.cgColor
+    tf.layer.borderWidth = 0.3
+    tf.isSecureTextEntry = true
+    tf.autocapitalizationType = .none
+    tf.autocorrectionType = .no
+    tf.spellCheckingType = .no
+    tf.returnKeyType = .done
+    view.addSubview(tf)
+    return tf
+  }()
+
+  private lazy var nickNameTextField: LoginTextField = {
+    let tf = LoginTextField(frame: .zero)
+    tf.delegate = self.self
+    tf.placeholder = "별명"
     tf.layer.borderColor = UIColor.lightGray.cgColor
     tf.layer.borderWidth = 0.3
     tf.autocapitalizationType = .none
@@ -47,37 +76,7 @@ class SignUpWithEmailViewController: UIViewController {
     return tf
   }()
 
-  private lazy var checkPasswordTextField: UITextField = {
-    let tf = UITextField(frame: .zero)
-    tf.delegate = self.self
-    tf.placeholder = "  비밀번호 확인"
-    //tf.borderStyle = UITextField.BorderStyle.line
-    tf.layer.borderColor = UIColor.lightGray.cgColor
-    tf.layer.borderWidth = 0.3
-    tf.autocapitalizationType = .none
-    tf.autocorrectionType = .no
-    tf.spellCheckingType = .no
-    tf.returnKeyType = .done
-    view.addSubview(tf)
-    return tf
-  }()
-
-  private lazy var userNameTextField: UITextField = {
-    let tf = UITextField(frame: .zero)
-    tf.delegate = self.self
-    tf.placeholder = "  별명"
-    //tf.borderStyle = UITextField.BorderStyle.line
-    tf.layer.borderColor = UIColor.lightGray.cgColor
-    tf.layer.borderWidth = 0.3
-    tf.autocapitalizationType = .none
-    tf.autocorrectionType = .no
-    tf.spellCheckingType = .no
-    tf.returnKeyType = .done
-    view.addSubview(tf)
-    return tf
-  }()
-
-  private lazy var loginButton: UIButton = {
+  private lazy var signupButton: UIButton = {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
     bt.setTitle("가입하기", for: .normal)
@@ -103,6 +102,8 @@ class SignUpWithEmailViewController: UIViewController {
   }
 
   // MARK: - Autolayout
+  var checkPasswordTextFieldHeight: Constraint?
+
   private func makeContraints() {
 
     let guide = view.safeAreaLayoutGuide
@@ -118,15 +119,15 @@ class SignUpWithEmailViewController: UIViewController {
       $0.top.equalTo(passwordTextField.snp.bottom).offset(15)
     }
 
-    self.userNameTextField.snp.makeConstraints {
+    self.nickNameTextField.snp.makeConstraints {
       $0.top.equalTo(checkPasswordTextField.snp.bottom).offset(15)
     }
 
-    self.loginButton.snp.makeConstraints {
-      $0.top.equalTo(userNameTextField.snp.bottom).offset(30)
+    self.signupButton.snp.makeConstraints {
+      $0.top.equalTo(nickNameTextField.snp.bottom).offset(30)
     }
 
-    [emailTextField, passwordTextField, checkPasswordTextField, userNameTextField, loginButton].forEach {
+    [emailTextField, passwordTextField, checkPasswordTextField, nickNameTextField, signupButton].forEach {
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.width.equalToSuperview().multipliedBy(0.9)
@@ -135,7 +136,7 @@ class SignUpWithEmailViewController: UIViewController {
     }
   }
 
-  var loginWithEmailVC: LoginWithEmailViewController?
+  var loginWithEmailVC: SigninWithEmailViewController?
 
   // MARK: - Network
   private func postSignUpUserData(withUserData user: User?) {
@@ -176,7 +177,7 @@ extension SignUpWithEmailViewController {
       print("가입하기 버튼 클릭됨")
       guard let email = self.emailTextField.text,
         let password = self.checkPasswordTextField.text,
-        let username = self.userNameTextField.text
+        let username = self.nickNameTextField.text
         else { return logger("Text of TextFields is nil")}
 
       self.user = User(email: email,
@@ -192,5 +193,32 @@ extension SignUpWithEmailViewController {
 }
 
 extension SignUpWithEmailViewController: UITextFieldDelegate {
-
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    guard let emailText = emailTextField.text,
+      let passwordText = passwordTextField.text,
+      let checkPasswordText = checkPasswordTextField.text,
+      let nickNameText = nickNameTextField.text
+      else { logger("text of textFiled is nil "); return false }
+    if !emailText.isEmpty && !passwordText.isEmpty && !checkPasswordText.isEmpty && !nickNameText.isEmpty {
+      signupButton.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    } else {
+      signupButton.backgroundColor = .lightGray
+    }
+    return true
+  }
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    guard let emailText = emailTextField.text,
+      let passwordText = passwordTextField.text,
+      let checkPasswordText = checkPasswordTextField.text,
+      let nickNameText = nickNameTextField.text
+      else { return logger("text of textFiled is nil ") }
+    if textField.placeholder == "비밀번호 확인" {
+      if passwordText != checkPasswordText {
+        checkPasswordTextField.layer.borderColor = UIColor.red.cgColor
+        // 텍스트 필드 레이아웃 다시 잡기 . UpdateConstraint 안먹네.
+      } else {
+        checkPasswordTextField.layer.borderColor = UIColor.lightGray.cgColor
+      }
+    }
+  }
 }

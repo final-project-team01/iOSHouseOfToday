@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class LoginWithEmailViewController: UIViewController {
+class SigninWithEmailViewController: UIViewController {
 
   // MARK: - My Properties
   var user: User?
@@ -17,10 +17,10 @@ class LoginWithEmailViewController: UIViewController {
   let houseOfTodayService: HouseOfTodayServiceType = HouseOfTodayService()
 
   // MARK: - UI Properties
-  private lazy var emailTextField: UITextField = {
-    let tf = UITextField(frame: .zero)
+  private lazy var emailTextField: LoginTextField = {
+    let tf = LoginTextField(frame: .zero)
     tf.delegate = self.self
-    tf.placeholder = "  이메일"
+    tf.placeholder = "이메일"
     //tf.borderStyle = UITextField.BorderStyle.line
     tf.layer.borderColor = UIColor.lightGray.cgColor
     tf.layer.borderWidth = 0.3
@@ -33,13 +33,14 @@ class LoginWithEmailViewController: UIViewController {
     return tf
   }()
 
-  private lazy var passwordTextField: UITextField = {
-    let tf = UITextField(frame: .zero)
+  private lazy var passwordTextField: LoginTextField = {
+    let tf = LoginTextField(frame: .zero)
     tf.delegate = self.self
-    tf.placeholder = "  비밀번호"
+    tf.placeholder = "비밀번호"
     //tf.borderStyle = UITextField.BorderStyle.line
     tf.layer.borderColor = UIColor.lightGray.cgColor
     tf.layer.borderWidth = 0.3
+    tf.isSecureTextEntry = true
     tf.autocapitalizationType = .none
     tf.autocorrectionType = .no
     tf.spellCheckingType = .no
@@ -48,7 +49,7 @@ class LoginWithEmailViewController: UIViewController {
     return tf
   }()
 
-  private lazy var loginButton: UIButton = {
+  private lazy var signinButton: UIButton = {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
     bt.setTitle("로그인하기", for: .normal)
@@ -82,6 +83,11 @@ class LoginWithEmailViewController: UIViewController {
       makeContraints()
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    print(self.emailTextField.bounds)
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -112,7 +118,7 @@ class LoginWithEmailViewController: UIViewController {
       $0.height.equalToSuperview().multipliedBy(0.06)
     }
 
-    self.loginButton.snp.makeConstraints {
+    self.signinButton.snp.makeConstraints {
       $0.top.equalTo(passwordTextField.snp.bottom).offset(30)
       $0.centerX.equalToSuperview()
       $0.width.equalToSuperview().multipliedBy(0.9)
@@ -120,7 +126,7 @@ class LoginWithEmailViewController: UIViewController {
     }
 
     self.resetPasswordButton.snp.makeConstraints {
-      $0.top.equalTo(loginButton.snp.bottom).offset(10)
+      $0.top.equalTo(signinButton.snp.bottom).offset(10)
       $0.centerX.equalToSuperview()
       $0.width.equalToSuperview().multipliedBy(0.9)
       $0.height.equalToSuperview().multipliedBy(0.06)
@@ -141,8 +147,7 @@ class LoginWithEmailViewController: UIViewController {
       result in
       switch result {
       case .success(let value):
-        print("이메일 로그인 완료 / Token : \(value)")
-        UIAlertController.showMessage("이메일 로그인 성공")
+        logger("이메일 로그인 토근 받기 완료 / Token : \(value)")
         let tokenInfo: [String: String] = ["token": value, "type": "email"]
         UserDefaults.standard.set(tokenInfo, forKey: "tokenInfo")
         NotificationCenter.default.post(name: NSNotification.Name("LoginDidChange"),
@@ -159,7 +164,7 @@ class LoginWithEmailViewController: UIViewController {
 }
 
 // MARK: - Action Methods
-extension LoginWithEmailViewController {
+extension SigninWithEmailViewController {
 
   @objc private func leftBarButtonIsTapped(_ sender: Any) {
     self.navigationController?.popToRootViewController(animated: true)
@@ -185,6 +190,16 @@ extension LoginWithEmailViewController {
 }
 
 // MARK: - UITextFieldDelegate
-extension LoginWithEmailViewController: UITextFieldDelegate {
-
+extension SigninWithEmailViewController: UITextFieldDelegate {
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    guard let emailText = emailTextField.text,
+      let passwordText = passwordTextField.text
+      else { logger("text of textFiled is nil "); return false }
+    if !emailText.isEmpty && !passwordText.isEmpty {
+      signinButton.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    } else {
+      signinButton.backgroundColor = .lightGray
+    }
+    return true
+  }
 }
