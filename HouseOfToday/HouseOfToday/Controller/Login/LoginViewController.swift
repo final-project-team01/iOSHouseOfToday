@@ -13,7 +13,7 @@ import NaverThirdPartyLogin
 class LoginViewController: UIViewController {
 
   // MARK: - My Properties
-  let loginWithEmailVC = LoginWithEmailViewController()
+  let loginWithEmailVC = SigninWithEmailViewController()
   let signUpWithEmailVC = SignUpWithEmailViewController()
 
   let houseOfTodayService: HouseOfTodayServiceType = HouseOfTodayService()

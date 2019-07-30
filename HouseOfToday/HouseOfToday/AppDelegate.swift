@@ -14,7 +14,7 @@ import NaverThirdPartyLogin
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-  private var loginNaviVC: UINavigationController?
+  lazy var mainNaviVC = UINavigationController(rootViewController: mainVC)
   let loginVC = LoginViewController()
   let mainVC = MainTabBarVC()
 
@@ -27,8 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.backgroundColor = .white
     window?.makeKeyAndVisible()
 
-    self.loginNaviVC = UINavigationController()
-    window?.rootViewController = loginNaviVC
+    window?.rootViewController = mainNaviVC
 
     socialLoginSetting()
     reloadRootView(false, withType: ("", ""))
@@ -96,34 +95,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
      // 둘러보기
     case ("lookAround", "login"):
-      loginNaviVC?.pushViewController(mainVC, animated: true)
+      //loginNaviVC?.pushViewController(mainVC, animated: true)
       // 둘러보기로 와서 로그인 하고 싶을 때 구현 아직 안했다.
+      print("둘러보기")
     default:
       break
     }
   }
 
   private func reloadRootView(_ isSocial: Bool, withType type: (String, String)) {
+
     if isSocial {
       DispatchQueue.main.async {
         if let _ = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
           logger("오늘의 집 \(type.0)로 LogIn 완료")
           UIAlertController.showMessage("\(type.0) Login 완료!")
-          self.loginNaviVC?.pushViewController(self.mainVC, animated: true)
+          self.loginVC.dismiss(animated: true, completion: nil)
         } else {
           logger("오늘의 집 \(type.0)로 LogOut 완료")
           UIAlertController.showMessage("\(type.0) Logout 완료!")
-          self.loginNaviVC?.popToViewController(self.loginVC, animated: true)
+          self.mainNaviVC.present(self.loginVC, animated: true, completion: nil)
         }
       }
     } else {
-      if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
-        loginNaviVC?.pushViewController(mainVC, animated: true)
+      if let _ = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
+        logger("오늘의 집 email로 LogIn 완료")
+        UIAlertController.showMessage("email Login 완료!")
+        self.loginVC.dismiss(animated: true, completion: nil)
       } else {
-        self.loginNaviVC?.popToRootViewController(animated: false)
-        loginNaviVC?.pushViewController(loginVC, animated: true)
+        logger("오늘의 집 email로 LogOut 완료")
+        UIAlertController.showMessage("email Logout 완료!")
+        self.mainNaviVC.present(self.loginVC, animated: true, completion: nil)
       }
     }
+//    if isSocial {
+//      DispatchQueue.main.async {
+//        if let _ = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
+//          logger("오늘의 집 \(type.0)로 LogIn 완료")
+//          UIAlertController.showMessage("\(type.0) Login 완료!")
+//          self.loginNaviVC?.pushViewController(self.mainVC, animated: true)
+//        } else {
+//          logger("오늘의 집 \(type.0)로 LogOut 완료")
+//          UIAlertController.showMessage("\(type.0) Logout 완료!")
+//          self.loginNaviVC?.popToViewController(self.loginVC, animated: true)
+//        }
+//      }
+//    } else {
+//      if let _ = UserDefaults.standard.object(forKey: "token") as? [String: String] {
+//        loginNaviVC?.pushViewController(mainVC, animated: true)
+//      } else {
+//        self.loginNaviVC?.popToRootViewController(animated: false)
+//        loginNaviVC?.pushViewController(loginVC, animated: true)
+//      }
+//    }
   }
 
   /// 토근 잘 제거됬는지 체크
