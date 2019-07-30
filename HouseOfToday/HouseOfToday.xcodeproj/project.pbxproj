@@ -206,7 +206,6 @@
 		AB1AF94222EDBF2F00299226 /* FontFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontFoundation.swift; sourceTree = "<group>"; };
 		AB1AF94422EEC74200299226 /* RankingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeader.swift; sourceTree = "<group>"; };
 		AB2353D722EFDA8B008E63AB /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
-		AB447D5E22F02B5E0089CE4F /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA9122DDD52400F33663 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -356,10 +355,10 @@
 			isa = PBXGroup;
 			children = (
 				42F3E4AC22E05112002E1479 /* DataManager.swift */,
-				42C4E5CB22DC890D00A88466 /* StoreModel.swift */,
 				42F3E4B422E0B637002E1479 /* CategoryList.swift */,
-				42F3E4C022E1C49B002E1479 /* ProductListTemp.swift */,
 				42F3E4F722E5CE54002E1479 /* CategoryIdList.swift */,
+				42C4E5CB22DC890D00A88466 /* StoreModel.swift */,
+				42F3E4C022E1C49B002E1479 /* ProductListTemp.swift */,
 				42F3E4F922E5D502002E1479 /* ProductDetail.swift */,
 				8ED0608622E9C5E8003D610D /* MyPageModel.swift */,
 			);

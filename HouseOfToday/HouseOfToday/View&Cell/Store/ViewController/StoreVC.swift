@@ -84,10 +84,17 @@ final class StoreVC: CategoryTabBarViewController {
 //    let item = UINavigationItem(title: "gg")
 //    self.navigationItem.searchController = searchController
 
-    let button = UIButton(type: .system)
-    button.setTitle("test", for: .normal)
-    let barButtonItem = UIBarButtonItem(customView: button)
-    navigationItem.rightBarButtonItem = barButtonItem
+//    let button = UIButton(type: .system)
+//    button.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+//    button.setTitle("test", for: .normal)
+//    button.backgroundColor = .yellow
+//    navigationItem.titleView = button
+    print("navi item : ", self.navigationItem)
+    print("navi controller : ", self.navigationController)
+
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    view.backgroundColor = .red
+    navigationItem.titleView = view
   }
 
   // MARK: - present VC

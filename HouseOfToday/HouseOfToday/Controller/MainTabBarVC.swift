@@ -16,10 +16,10 @@ final class MainTabBarVC: UITabBarController {
   private var isShowUserActivityView = false
   private var didSelectedTabBarItemIndex = 0
 
-  private let homeVC = HomeVC()
-  private let storeVC = StoreVC()
-  private let expertVC = ExpertVC()
-  private let myPageVC = MyPageVC()
+  private let homeVC = UINavigationController(rootViewController: HomeVC())
+  private let storeVC = UINavigationController(rootViewController: StoreVC())
+  private let expertVC = UINavigationController(rootViewController: ExpertVC())
+  private let myPageVC = UINavigationController(rootViewController: MyPageVC())
   private let addUserActivityVC = AddUserActivityVC()
 
   private lazy var addUserActivityButton: UIButton = {

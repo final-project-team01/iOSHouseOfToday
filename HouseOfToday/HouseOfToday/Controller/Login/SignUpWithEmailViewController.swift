@@ -94,6 +94,7 @@ class SignUpWithEmailViewController: UIViewController {
     title = "이메일로 초간단 가입"
     self.view.backgroundColor = .white
     makeContraints()
+
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -145,20 +146,26 @@ class SignUpWithEmailViewController: UIViewController {
     guard let encodedTest = user.percentEscaped().data(using: .utf8) else {
       return logger("JSON Can't encode Data")
     }
+    print("test : \(user.percentEscaped())")
 
     houseOfTodayService.postSignUpUserData(withBody: encodedTest) {
       result in
       switch result {
       case .success(let value):
         print("회원가입 완료", value)
-        let action = UIAlertAction(title: "확인", style: .default, handler: { (_) in
+        let alert = UIAlertController.show("회원가입이 완료되었습니다.", { (_) in
           self.navigationController?.pushViewController(self.loginWithEmailVC!, animated: true)
         })
-        UIAlertController.showAlert(title: nil, message: "회원가입이 완료되었습니다.", actions: [action])
+        DispatchQueue.main.async {
+          self.present(alert, animated: true, completion: nil)
+        }
       case .failure(let error):
-        print(error)
+        logger(error)
         // 더 세세한 오류들을 알려줘야 한다. 이미 가입된 회원입니다. 라든지.
-        UIAlertController.showMessage("회원가입 실패")
+        let alert = UIAlertController.show("회원가입 오류", nil)
+        DispatchQueue.main.async {
+          self.present(alert, animated: true, completion: nil)
+        }
       }
     }
   }
