@@ -41,7 +41,7 @@ final class StoreVC: CategoryTabBarViewController {
     print("StoreVC: viewDidLoad")
 
     customizeNaviBar()
-
+    //test()
     notiCenter.addObserver(self,
                            selector: #selector(presentCategoryListVC(_:)),
                            name: StoreVC.presentProductList,
@@ -50,6 +50,7 @@ final class StoreVC: CategoryTabBarViewController {
                            selector: #selector(presentProductDetailVC(_:)),
                            name: StoreVC.presentProductDetail,
                            object: nil)
+
   }
 
   deinit {
@@ -77,7 +78,8 @@ final class StoreVC: CategoryTabBarViewController {
 
     let bt = UIButton(type: .custom)
     bt.setTitle("스토어 검색", for: .normal)
-    bt.setImage(UIImage(named: "search"), for: .normal)
+    bt.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    bt.setImage(UIImage(named: "search3"), for: .normal)
     bt.setTitleColor(.lightGray, for: .normal)
     bt.imageView?.tintColor = .lightGray
     bt.imageEdgeInsets = UIEdgeInsets(top: 0, left: -140, bottom: 0, right: 0)
@@ -107,7 +109,18 @@ final class StoreVC: CategoryTabBarViewController {
     navigationItem.setRightBarButton(rightItem, animated: true)
 
     let width = UIScreen.main.bounds.width - leftItem.width - rightItem.width
-    bt.frame = CGRect(x: 0, y: 0, width: width, height: 60)
+    bt.frame = CGRect(x: 0, y: 0, width: width, height: 35)
+  }
+
+  func test() {
+    let naviView = UIView(frame: .zero)
+    view.addSubview(naviView)
+    naviView.backgroundColor = .yellow
+
+    naviView.snp.makeConstraints {
+      $0.top.leading.trailing.equalToSuperview()
+      $0.height.equalTo(35)
+    }
   }
 
   // MARK: - present VC
@@ -160,5 +173,11 @@ extension UIColor {
     let image = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
     UIGraphicsEndImageContext()
     return image
+  }
+}
+
+extension UINavigationBar {
+  open override func sizeThatFits(_ size: CGSize) -> CGSize {
+    return CGSize(width: self.frame.width, height: 20)
   }
 }

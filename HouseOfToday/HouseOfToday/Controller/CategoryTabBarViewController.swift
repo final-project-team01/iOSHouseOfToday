@@ -56,6 +56,13 @@ class CategoryTabBarViewController: UIViewController {
     return cv
   }()
 
+  private lazy var navigationView: UIView = {
+    let v = UIView(frame: .zero)
+    v.backgroundColor = .lightGray
+    view.addSubview(v)
+    return v
+  }()
+
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -124,8 +131,13 @@ class CategoryTabBarViewController: UIViewController {
   }
 
   private func makeConstraints() {
+    navigationView.snp.makeConstraints {
+      $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+      $0.height.equalTo(35)
+    }
+
     categoryTabBarView.snp.makeConstraints {
-      $0.top.equalTo(view.safeAreaLayoutGuide)
+      $0.top.equalTo(navigationView.snp.bottom)
       $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(view.snp.height).multipliedBy(0.045)
     }
