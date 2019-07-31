@@ -39,6 +39,9 @@ final class StoreVC: CategoryTabBarViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     print("StoreVC: viewDidLoad")
+
+    customizeNaviBar()
+
     notiCenter.addObserver(self,
                            selector: #selector(presentCategoryListVC(_:)),
                            name: StoreVC.presentProductList,
@@ -67,6 +70,24 @@ final class StoreVC: CategoryTabBarViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     print("viewDidAppear")
+  }
+
+  // MARK: - Custumizing NavigationBar - 창식
+  private func customizeNaviBar() {
+//    let searchController = UISearchController(searchResultsController: nil)
+//    searchController.searchBar.placeholder = "피자 검색!"
+//    searchController.obscuresBackgroundDuringPresentation = false
+//    let naviBar = self.navigationController?.navigationBar
+//    naviBar?.isTranslucent = true
+//    naviBar?.barStyle = .default
+//    naviBar?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//    let item = UINavigationItem(title: "gg")
+//    self.navigationItem.searchController = searchController
+
+    let button = UIButton(type: .system)
+    button.setTitle("test", for: .normal)
+    let barButtonItem = UIBarButtonItem(customView: button)
+    navigationItem.rightBarButtonItem = barButtonItem
   }
 
   // MARK: - present VC
