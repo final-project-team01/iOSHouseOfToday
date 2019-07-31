@@ -10,8 +10,6 @@ import UIKit
 
 class DetailRankingVC: UIViewController {
 
-  // FIXME: - //선택한 picker 기준으로 Sort
-
   private struct Key {
     static let sortStandard = "Sortstandard"
   }
@@ -38,14 +36,13 @@ class DetailRankingVC: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     // show animation 실행 // FIXME: - PickerVC 왜 애니메이션 안먹힐까나
-    if let userView = view as? PickerViewController {
+    if let userView = view as? PickerViewController { //흐음 여기가 문젠데 나중에 해결 하자
       userView.showView()
     }
   }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      fetchRankingList()
       configureAutoLayout()
 
         notiCenter.addObserver(self, selector: #selector(presentRankingPickerVC(_:)), name: .presentRankingPickerVC, object: nil)
@@ -95,8 +92,8 @@ class DetailRankingVC: UIViewController {
     }
   }
   // MARK: - Fetch Product List
-  private func fetchRankingList() {
-    service.fetchRankingList { result in
+  private func fetchRankingList(id: Int) {
+    service.fetchRankingList(id: id) { result in
       switch result {
       case .success(let list):
         print("success!!!")

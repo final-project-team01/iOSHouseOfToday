@@ -87,7 +87,7 @@ class TempRankingView: UIView {
     tableViewAutoLayout()
     tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
-    fetchRankingList()
+//    fetchRankingList(id: <#T##Int#>)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -102,8 +102,8 @@ class TempRankingView: UIView {
     }
   }
 
-  public func fetchRankingList() {
-    service.fetchRankingList { result in
+  public func fetchRankingList(id: Int) {
+    service.fetchRankingList(id: id) { result in
       switch result {
       case .success(let product):
         print("success!!! fetchRankingList")

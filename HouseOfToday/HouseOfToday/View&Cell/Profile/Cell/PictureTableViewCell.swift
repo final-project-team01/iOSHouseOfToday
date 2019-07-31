@@ -126,11 +126,9 @@ class PictureTableViewCell: UITableViewCell {
 
   private func alignButtonImageAndTitle (button: UIButton) {
 
-    let imageSize = button.imageView!.frame.size
     button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-
-    let titleSize = button.titleLabel!.frame.size
     button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
+
   }
 
   private func setupCollectionViewLayout() {

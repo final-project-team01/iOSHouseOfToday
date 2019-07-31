@@ -120,7 +120,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
   }
 
-  func fetchRankingList(completion: @escaping (Result<RankingList, ServiceError>) -> Void) {
+  func fetchRankingList(id: Int, completion: @escaping (Result<RankingList, ServiceError>) -> Void) {
 
     var urlComp = URLComponents(string: baseURL)
     urlComp?.path = "/products/ranking/"
