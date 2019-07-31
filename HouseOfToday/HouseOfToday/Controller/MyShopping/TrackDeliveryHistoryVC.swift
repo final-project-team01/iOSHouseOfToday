@@ -8,24 +8,19 @@
 
 import UIKit
 
+extension  Notification.Name {
+  static let trackDeliveryHistoryVC = Notification.Name("trackDeliveryHistoryVC")
+}
+
 class TrackDeliveryHistoryVC: UIViewController {
 
-  // FIXME: - navi
+  private let notiCenter = NotificationCenter.default
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+    view.backgroundColor = .red
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  }
 
 }

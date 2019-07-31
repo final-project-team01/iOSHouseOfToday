@@ -8,22 +8,32 @@
 
 import UIKit
 
+extension  Notification.Name {
+  static let myQuestionsListVC = Notification.Name("myQuestionsListVC")
+}
+
 class MyQuestionsListVC: UIViewController {
 
+  private let notiCenter = NotificationCenter.default
+
+  lazy var announcementLabel: UILabel = {
+    let label = UILabel(frame: CGRect.zero)
+    label.text = "문의내역이 없습니다."
+    label.font = UIFont.systemFont(ofSize: 15)
+    label.textColor = .lightGray
+    view.addSubview(label)
+    return label
+  }()
     override func viewDidLoad() {
         super.viewDidLoad()
+      configureAutoLayout()
+      view.backgroundColor = .green
+  }
 
-        // Do any additional setup after loading the view.
+  private func configureAutoLayout() {
+    announcementLabel.snp.makeConstraints { make in
+      make.top.equalToSuperview().multipliedBy(0.4)
+      make.leading.trailing.bottom.equalToSuperview()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  }
 }

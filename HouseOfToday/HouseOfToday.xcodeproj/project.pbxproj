@@ -89,6 +89,7 @@
 		AB1AF94322EDBF2F00299226 /* FontFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF94222EDBF2F00299226 /* FontFoundation.swift */; };
 		AB1AF94522EEC74200299226 /* RankingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AF94422EEC74200299226 /* RankingHeader.swift */; };
 		AB2353D822EFDA8B008E63AB /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2353D722EFDA8B008E63AB /* PickerVC.swift */; };
+		AB447D6622F1AEB60089CE4F /* CustomerServiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB447D6522F1AEB60089CE4F /* CustomerServiceVC.swift */; };
 		AB7EEA8B22DDD34F00F33663 /* ProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */; };
 		AB7EEA8E22DDD4C800F33663 /* ProfileBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */; };
 		AB7EEA9222DDD52400F33663 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7EEA9122DDD52400F33663 /* ProfileView.swift */; };
@@ -206,6 +207,7 @@
 		AB1AF94222EDBF2F00299226 /* FontFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontFoundation.swift; sourceTree = "<group>"; };
 		AB1AF94422EEC74200299226 /* RankingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeader.swift; sourceTree = "<group>"; };
 		AB2353D722EFDA8B008E63AB /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
+		AB447D6522F1AEB60089CE4F /* CustomerServiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServiceVC.swift; sourceTree = "<group>"; };
 		AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA9122DDD52400F33663 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -231,7 +233,7 @@
 		ABBA8FC522E9A65F001D43D7 /* RankingHorizontalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHorizontalCell.swift; sourceTree = "<group>"; };
 		ABBA8FC722E9D68E001D43D7 /* HeaderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableCell.swift; sourceTree = "<group>"; };
 		ABBA8FC922E9D720001D43D7 /* FooterTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterTableCell.swift; sourceTree = "<group>"; };
-		ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UploadPicCollectionView.swift; path = View/UploadPicCollectionView.swift; sourceTree = "<group>"; };
+		ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPicCollectionView.swift; sourceTree = "<group>"; };
 		ABE66FBD22E5846100125F98 /* PicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -522,9 +524,6 @@
 				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				AB7EEAA222E1AD9200F33663 /* Cell */,
 				AB7EEAA122E1AD8900F33663 /* View */,
-				AB7EEA9122DDD52400F33663 /* ProfileView.swift */,
-				AB7EEA9322DDD54500F33663 /* MyshoppingView.swift */,
-				ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -532,6 +531,9 @@
 		AB7EEAA122E1AD8900F33663 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AB7EEA9122DDD52400F33663 /* ProfileView.swift */,
+				AB7EEA9322DDD54500F33663 /* MyshoppingView.swift */,
+				ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -559,6 +561,7 @@
 				ABBA8FA522E6D1B1001D43D7 /* ProductScrapBookVC.swift */,
 				ABBA8FA322E6D126001D43D7 /* MyQuestionsListVC.swift */,
 				ABBA8FA722E6D1D0001D43D7 /* MyReViewVC.swift */,
+				AB447D6522F1AEB60089CE4F /* CustomerServiceVC.swift */,
 			);
 			path = MyShopping;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				4246671722E94BFB001CE665 /* UserStylingImageCell.swift in Sources */,
 				ABBA8FA822E6D1D0001D43D7 /* MyReViewVC.swift in Sources */,
 				42F3E4EE22E31E76002E1479 /* ProductDetailVC.swift in Sources */,
+				AB447D6622F1AEB60089CE4F /* CustomerServiceVC.swift in Sources */,
 				42FF928A22D5A48300639BAF /* HomeVC.swift in Sources */,
 				42490F7C22DFFA6E00EE1A01 /* StoreSampleData.swift in Sources */,
 				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
