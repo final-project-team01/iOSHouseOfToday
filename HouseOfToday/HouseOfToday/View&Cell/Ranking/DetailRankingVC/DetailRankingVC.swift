@@ -10,8 +10,6 @@ import UIKit
 
 class DetailRankingVC: UIViewController {
 
-  // FIXME: - //선택한 picker 기준으로 Sort
-
   private struct Key {
     static let sortStandard = "Sortstandard"
   }
@@ -27,7 +25,6 @@ class DetailRankingVC: UIViewController {
     tableView.register(cell: DetailRankingTableCell.self)
     tableView.register(RankingHeader.self, forHeaderFooterViewReuseIdentifier: "RankingHeader")
     tableView.showsVerticalScrollIndicator = false
-    tableView.allowsSelection = false
     tableView.separatorStyle = .none
     tableView.rowHeight = 120 // FIXME: - 임시
     tableView.backgroundColor = .white
@@ -38,18 +35,17 @@ class DetailRankingVC: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     // show animation 실행 // FIXME: - PickerVC 왜 애니메이션 안먹힐까나
-    if let userView = view as? PickerViewController {
+    if let userView = view as? PickerViewController { //흐음 여기가 문젠데 나중에 해결 하자
       userView.showView()
     }
   }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      fetchRankingList()
       configureAutoLayout()
-
-        notiCenter.addObserver(self, selector: #selector(presentRankingPickerVC(_:)), name: .presentRankingPickerVC, object: nil)
-    }
+      fetchRankingList()
+      notiCenter.addObserver(self, selector: #selector(presentRankingPickerVC(_:)), name: .presentRankingPickerVC, object: nil)
+  }
 
   deinit {
     notiCenter.removeObserver(self, name: .presentRankingPickerVC, object: nil)
@@ -94,6 +90,7 @@ class DetailRankingVC: UIViewController {
 
     }
   }
+
   // MARK: - Fetch Product List
   private func fetchRankingList() {
     service.fetchRankingList { result in
@@ -168,6 +165,11 @@ extension DetailRankingVC: UITableViewDataSource, UITableViewDelegate {
       cell.setImage(thumnailUrl: url)
     }
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let productID = sortedList[indexPath.row].id
+    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
   }
 
 }

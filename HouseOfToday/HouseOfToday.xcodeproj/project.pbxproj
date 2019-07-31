@@ -206,7 +206,6 @@
 		AB1AF94222EDBF2F00299226 /* FontFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontFoundation.swift; sourceTree = "<group>"; };
 		AB1AF94422EEC74200299226 /* RankingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeader.swift; sourceTree = "<group>"; };
 		AB2353D722EFDA8B008E63AB /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
-		AB447D5E22F02B5E0089CE4F /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCell.swift; sourceTree = "<group>"; };
 		AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBaseCell.swift; sourceTree = "<group>"; };
 		AB7EEA9122DDD52400F33663 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -345,7 +344,7 @@
 				42490F6C22DDDA8300EE1A01 /* Axtivity */,
 				42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
 				42490F2B22DCA21800EE1A01 /* Store */,
-				AB7EEA8922DDD32200F33663 /* Profile */,
+				AB7EEA8922DDD32200F33663 /* MyPage */,
 				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
 				4246670A22E7159B001CE665 /* UserAcitivityCell.swift */,
 			);
@@ -464,7 +463,6 @@
 				ABBA8FA022E6CF51001D43D7 /* MyShopping */,
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
 				42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */,
-				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
 				42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */,
@@ -518,16 +516,17 @@
 			path = DetailRankingVC;
 			sourceTree = "<group>";
 		};
-		AB7EEA8922DDD32200F33663 /* Profile */ = {
+		AB7EEA8922DDD32200F33663 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				AB7EEAA222E1AD9200F33663 /* Cell */,
 				AB7EEAA122E1AD8900F33663 /* View */,
 				AB7EEA9122DDD52400F33663 /* ProfileView.swift */,
 				AB7EEA9322DDD54500F33663 /* MyshoppingView.swift */,
 				ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */,
 			);
-			path = Profile;
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		AB7EEAA122E1AD8900F33663 /* View */ = {

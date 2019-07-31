@@ -10,9 +10,6 @@ import UIKit
 
 class DetailRankingTableCell: UITableViewCell {
 
-  // FIXME: - ProductDetailVC에서 하는 FetchProductDetail 참고해서 id정보 넘길 수 있게 만들기
-  // HomeVC에서도 id받기
-
   lazy var countLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "1"

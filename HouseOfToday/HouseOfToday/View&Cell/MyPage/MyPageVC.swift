@@ -26,10 +26,13 @@ class MyPageVC: CategoryTabBarViewController {
     super.viewDidLoad()
 
     notiCenter.addObserver(self, selector: #selector(presentPicCollectionView(_:)), name: .presentPhotoView, object: nil)
+
+    notiCenter.addObserver(self, selector: #selector(presentpresentMyShoppingView(_:)), name: .presentpresentMyShoppingView, object: nil)
   }
 
   deinit {
     notiCenter.removeObserver(self, name: .presentPhotoView, object: nil)
+    notiCenter.removeObserver(self, name: .presentpresentMyShoppingView, object: nil)
   }
 
 //  @objc func uploadPictureAlertPresent(_ sender: Notification) {
@@ -49,6 +52,15 @@ class MyPageVC: CategoryTabBarViewController {
         return print("fail downCasting")
     }
     present(picCollectionView, animated: true)
+  }
+
+  @objc func presentpresentMyShoppingView(_ sender: Notification) {
+//    guard let userInfo = sender.userInfo as? [String: UIViewController],
+//      let shoppingView = userInfo["presentMyShoppingView"]
+//      else {
+//        return print("fail downCasting")
+//    }
+//     navigationController?.pushViewController(shoppingView, animated: true)
   }
 
 }

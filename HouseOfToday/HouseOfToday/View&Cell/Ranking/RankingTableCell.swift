@@ -13,6 +13,8 @@ class RankingTableCell: UITableViewCell {
 
   private let service: HouseOfTodayServiceType = HouseOfTodayService()
 
+   private let notiCenter = NotificationCenter.default
+
   private lazy var layout: UICollectionViewFlowLayout = {
   let layout = UICollectionViewFlowLayout()
   layout.scrollDirection = .vertical
@@ -103,7 +105,12 @@ extension RankingTableCell: UICollectionViewDataSource, UICollectionViewDelegate
 
     return cell
   }
-}
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+      let productID = best100[indexPath.item].id
+      notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
+    }
+  }
 
 extension RankingTableCell: UICollectionViewDelegateFlowLayout {
 

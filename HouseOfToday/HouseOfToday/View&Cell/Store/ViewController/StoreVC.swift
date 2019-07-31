@@ -23,8 +23,8 @@ extension StoreVC {
 final class StoreVC: CategoryTabBarViewController {
 
   init() {
-    super.init(withTitles: ["홈"],
-               withViews: [StoreHomeView() ],
+    super.init(withTitles: ["홈", "랭킹"],
+               withViews: [StoreHomeView(), TempRankingView()],
                withScrollOption: false)
   }
 
@@ -50,6 +50,9 @@ final class StoreVC: CategoryTabBarViewController {
                            selector: #selector(presentProductDetailVC(_:)),
                            name: StoreVC.presentProductDetail,
                            object: nil)
+
+     notiCenter.addObserver(self, selector: #selector(presentRankingDetailView(_:)), name: .presentRankingDetailView, object: nil)
+
   }
 
   deinit {
@@ -59,6 +62,9 @@ final class StoreVC: CategoryTabBarViewController {
     notiCenter.removeObserver(self,
                               name: StoreVC.presentProductDetail,
                               object: nil)
+
+    notiCenter.removeObserver(self, name: .presentRankingDetailView, object: nil)
+
   }
 //
 //  override func loadView() {
@@ -117,5 +123,16 @@ final class StoreVC: CategoryTabBarViewController {
     vc.fetchProductDetail(id: id)
 
     navigationController?.pushViewController(vc, animated: true)
+  }
+
+  @objc func presentRankingDetailView(_ sender: Notification) {
+    guard let vc = sender.userInfo as? [String: UIViewController],
+      let detailRankingVC = vc["presentRankingDetailView"]
+      else {
+        return print("fail downCasting")
+    }
+
+    navigationController?.pushViewController(detailRankingVC, animated: true)
+
   }
 }
