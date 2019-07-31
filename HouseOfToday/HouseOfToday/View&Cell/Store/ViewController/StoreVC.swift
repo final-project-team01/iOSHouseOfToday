@@ -22,9 +22,25 @@ extension StoreVC {
 
 final class StoreVC: CategoryTabBarViewController {
 
+  // MARK: - Properties
+  let searchButton: UIButton = {
+    let bt = UIButton(type: .custom)
+    bt.frame = .zero
+    bt.setTitle("스토어 검색", for: .normal)
+    bt.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    bt.setImage(UIImage(named: "search"), for: .normal)
+    bt.setTitleColor(.lightGray, for: .normal)
+    bt.imageView?.tintColor = .lightGray
+    bt.layer.cornerRadius = 5
+    bt.backgroundColor = #colorLiteral(red: 0.9607055783, green: 0.9606983066, blue: 0.9567378163, alpha: 1)
+    return bt
+  }()
+
+  let storeHomeView = StoreHomeView()
+
   init() {
     super.init(withTitles: ["홈"],
-               withViews: [StoreHomeView() ],
+               withViews: [storeHomeView ],
                withScrollOption: false)
   }
 
@@ -40,8 +56,11 @@ final class StoreVC: CategoryTabBarViewController {
     super.viewDidLoad()
     print("StoreVC: viewDidLoad")
 
-    customizeNaviBar()
-    //test()
+    //storeHomeView.productCollectionView.delegate = self
+
+    configureNaviBar()
+    storeHomeViewDidScroll()
+
     notiCenter.addObserver(self,
                            selector: #selector(presentCategoryListVC(_:)),
                            name: StoreVC.presentProductList,
@@ -71,23 +90,40 @@ final class StoreVC: CategoryTabBarViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     print("viewDidAppear")
+    initializeSearchButton()
+  }
+
+  private func initializeSearchButton() {
+    // 한번만 호출되게 한다.
+    if searchButton.tag == 0 {
+      guard let titleView = navigationItem.titleView else { return logger("titleView is nil")}
+      let leftInset = -titleView.frame.size.width / 2
+      searchButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: 0)
+      searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: leftInset + 15, bottom: 0, right: 0)
+      searchButton.tag += 1
+    }
+  }
+
+  private func storeHomeViewDidScroll() {
+    storeHomeView.storeHomeViewDidScroll = {
+      direction in
+      switch direction {
+      case "up":
+        print("storeHomeViewDidScroll // up")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+      case "down":
+        print("storeHomeViewDidScroll // down")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+      default:
+        break
+      }
+    }
   }
 
   // MARK: - Custumizing NavigationBar - 창식
-  private func customizeNaviBar() {
+  private func configureNaviBar() {
 
-    let bt = UIButton(type: .custom)
-    bt.setTitle("스토어 검색", for: .normal)
-    bt.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    bt.setImage(UIImage(named: "search3"), for: .normal)
-    bt.setTitleColor(.lightGray, for: .normal)
-    bt.imageView?.tintColor = .lightGray
-    bt.imageEdgeInsets = UIEdgeInsets(top: 0, left: -140, bottom: 0, right: 0)
-    bt.titleEdgeInsets = UIEdgeInsets(top: 0, left: -130, bottom: 0, right: 0)
-
-    bt.layer.cornerRadius = 5
-    bt.backgroundColor = #colorLiteral(red: 0.9607055783, green: 0.9606983066, blue: 0.9567378163, alpha: 1)
-    navigationItem.titleView = bt
+    navigationItem.titleView = searchButton
 
     let naviBar = self.navigationController?.navigationBar
     naviBar?.isTranslucent = false
@@ -108,19 +144,8 @@ final class StoreVC: CategoryTabBarViewController {
     navigationItem.setLeftBarButton(leftItem, animated: true)
     navigationItem.setRightBarButton(rightItem, animated: true)
 
-    let width = UIScreen.main.bounds.width - leftItem.width - rightItem.width
-    bt.frame = CGRect(x: 0, y: 0, width: width, height: 35)
-  }
-
-  func test() {
-    let naviView = UIView(frame: .zero)
-    view.addSubview(naviView)
-    naviView.backgroundColor = .yellow
-
-    naviView.snp.makeConstraints {
-      $0.top.leading.trailing.equalToSuperview()
-      $0.height.equalTo(35)
-    }
+    let buttonWidth = UIScreen.main.bounds.width - leftItem.width - rightItem.width
+    searchButton.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: 35)
   }
 
   // MARK: - present VC
@@ -158,26 +183,9 @@ final class StoreVC: CategoryTabBarViewController {
 
   @objc private func cartButtonDidTap(_ sender: Any) {
     print("Cart 버튼 클릭")
-  }
-}
 
-extension UIColor {
-
-  /// Converts this `UIColor` instance to a 1x1 `UIImage` instance and returns it.
-  ///
-  /// - Returns: `self` as a 1x1 `UIImage`.
-  func as1ptImage() -> UIImage {
-    UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-    setFill()
-    UIGraphicsGetCurrentContext()?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-    let image = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
-    UIGraphicsEndImageContext()
-    return image
-  }
-}
-
-extension UINavigationBar {
-  open override func sizeThatFits(_ size: CGSize) -> CGSize {
-    return CGSize(width: self.frame.width, height: 20)
+    UIView.animate(withDuration: 2) {
+      self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
   }
 }

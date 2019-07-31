@@ -74,6 +74,7 @@
 		8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */; };
 		8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */; };
 		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
+		8EC216FF22F180C2006CFD1D /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */; };
 		8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */; };
 		8ED0608122E589F2003D610D /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608022E589F2003D610D /* AlertExtension.swift */; };
 		8ED0608322E6E737003D610D /* SigninWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */; };
@@ -190,6 +191,7 @@
 		8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableExtensions.swift; sourceTree = "<group>"; };
 		8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HouseOfToday-Bridging-Header.h"; sourceTree = "<group>"; };
 		8ED0608022E589F2003D610D /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 				4246670822E6F736001CE665 /* CALayerExtensions.swift */,
 				8ED0608022E589F2003D610D /* AlertExtension.swift */,
 				8ED0608822EABB2A003D610D /* NetworkExtensions.swift */,
+				8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				42286F8222EAB9B100127772 /* TestCell.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,
 				42286F7E22E989E300127772 /* CenteringFlowLayout.swift in Sources */,
+				8EC216FF22F180C2006CFD1D /* UIColorExtensions.swift in Sources */,
 				42F3E4AD22E05112002E1479 /* DataManager.swift in Sources */,
 				42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */,
 				42490F7622DEE51300EE1A01 /* CategoryListView1.swift in Sources */,
