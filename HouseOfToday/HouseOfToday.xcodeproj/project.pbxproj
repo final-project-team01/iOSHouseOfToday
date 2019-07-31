@@ -76,6 +76,8 @@
 		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
 		8EC216FF22F180C2006CFD1D /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */; };
 		8EC2170122F1AE29006CFD1D /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */; };
+		8EC2170322F1B7CD006CFD1D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170222F1B7CD006CFD1D /* CartViewController.swift */; };
+		8EC2170522F1B7EA006CFD1D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170422F1B7EA006CFD1D /* SettingViewController.swift */; };
 		8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */; };
 		8ED0608122E589F2003D610D /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608022E589F2003D610D /* AlertExtension.swift */; };
 		8ED0608322E6E737003D610D /* SigninWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */; };
@@ -194,6 +196,8 @@
 		8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
+		8EC2170222F1B7CD006CFD1D /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		8EC2170422F1B7EA006CFD1D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HouseOfToday-Bridging-Header.h"; sourceTree = "<group>"; };
 		8ED0608022E589F2003D610D /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
@@ -466,6 +470,8 @@
 				ABBA8FA922E6D1ED001D43D7 /* Profile */,
 				ABBA8FA022E6CF51001D43D7 /* MyShopping */,
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
+				8EC2170222F1B7CD006CFD1D /* CartViewController.swift */,
+				8EC2170422F1B7EA006CFD1D /* SettingViewController.swift */,
 				42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */,
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
@@ -777,6 +783,7 @@
 				42490F7C22DFFA6E00EE1A01 /* StoreSampleData.swift in Sources */,
 				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
 				42490F7822DF0E0300EE1A01 /* StoreHomeHeaderView.swift in Sources */,
+				8EC2170522F1B7EA006CFD1D /* SettingViewController.swift in Sources */,
 				AB1AF93B22EB112200299226 /* MoreCollectionCell.swift in Sources */,
 				42C4E5C222D70BBE00A88466 /* AddUserActivityView.swift in Sources */,
 				8EC2170122F1AE29006CFD1D /* UIBarButtonItemExtensions.swift in Sources */,
@@ -819,6 +826,7 @@
 				4246671522E84BC2001CE665 /* UserStylingDetailCell.swift in Sources */,
 				4230868422ED894B00203475 /* ProductReviewView.swift in Sources */,
 				ABE66FBC22E5834300125F98 /* UploadPicCollectionView.swift in Sources */,
+				8EC2170322F1B7CD006CFD1D /* CartViewController.swift in Sources */,
 				8ED060B322F02BD8003D610D /* LoginTextField.swift in Sources */,
 				42FF92A222D5A96E00639BAF /* SeviceError.swift in Sources */,
 				ABBA8FAF22E6E6F5001D43D7 /* RankingVC.swift in Sources */,

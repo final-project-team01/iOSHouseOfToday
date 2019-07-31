@@ -73,16 +73,6 @@ class MyPageVC: CategoryTabBarViewController {
     print("설정 버튼 클릭됨")
   }
 
-//  @objc func uploadPictureAlertPresent(_ sender: Notification) {
-//    guard let userInfo = sender.userInfo as? [String: UIAlertController],
-//      let alert = userInfo["alert"]
-//      else {
-//        return print("fail downCasting")
-//    }
-//    present(alert, animated: true)
-//
-//  }
-
   @objc func presentPicCollectionView(_ sender: Notification) {
     guard let userInfo = sender.userInfo as? [String: UICollectionViewController],
     let picCollectionView = userInfo["uploadPicCollectionView"]
