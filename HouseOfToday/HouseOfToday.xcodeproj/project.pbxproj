@@ -462,7 +462,7 @@
 			children = (
 				8ED060AB22EEC65E003D610D /* Login */,
 				ABBA8FA922E6D1ED001D43D7 /* Profile */,
-				ABBA8FA022E6CF51001D43D7 /* MyShopping */,
+				ABBA8FA022E6CF51001D43D7 /* MyShoppingConectViews */,
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
 				42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */,
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
@@ -518,9 +518,17 @@
 			path = DetailRankingVC;
 			sourceTree = "<group>";
 		};
+		AB447D6722F1B8870089CE4F /* Myshopping */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Myshopping;
+			sourceTree = "<group>";
+		};
 		AB7EEA8922DDD32200F33663 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				AB447D6722F1B8870089CE4F /* Myshopping */,
 				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				AB7EEAA222E1AD9200F33663 /* Cell */,
 				AB7EEAA122E1AD8900F33663 /* View */,
@@ -554,7 +562,7 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		ABBA8FA022E6CF51001D43D7 /* MyShopping */ = {
+		ABBA8FA022E6CF51001D43D7 /* MyShoppingConectViews */ = {
 			isa = PBXGroup;
 			children = (
 				ABBA8FA122E6D035001D43D7 /* TrackDeliveryHistoryVC.swift */,
@@ -563,7 +571,7 @@
 				ABBA8FA722E6D1D0001D43D7 /* MyReViewVC.swift */,
 				AB447D6522F1AEB60089CE4F /* CustomerServiceVC.swift */,
 			);
-			path = MyShopping;
+			path = MyShoppingConectViews;
 			sourceTree = "<group>";
 		};
 		ABBA8FA922E6D1ED001D43D7 /* Profile */ = {
