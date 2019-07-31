@@ -82,6 +82,8 @@ class TempRankingView: UIView {
     }
   }
 
+  internal var tempRankingViewDidScroll: ((String) -> Void)?
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     tableViewAutoLayout()
@@ -115,6 +117,7 @@ class TempRankingView: UIView {
       }
     }
   }
+
 }
 
 extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
@@ -183,6 +186,15 @@ extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
     guard let cell = cell as? RankingHorizontalCell else { return }
     cachedOffset[indexPath.section] = cell.offset
 
+  }
+
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard let callback = tempRankingViewDidScroll else { return logger("Callback Error") }
+    if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0) {
+      callback("up")
+    } else {
+      callback("down")
+    }
   }
 
 }

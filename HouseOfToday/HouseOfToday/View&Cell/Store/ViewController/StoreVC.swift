@@ -93,17 +93,18 @@ final class StoreVC: CategoryTabBarViewController {
     initializeSearchButton()
   }
 
+  // 창식 - viewDidAppear 시점에서 초기화 할 부분 , 초기화 이기에 1번만 실행되게 할 것
   private func initializeSearchButton() {
-    // 한번만 호출되게 한다.
     if searchButton.tag == 0 {
       guard let titleView = navigationItem.titleView else { return logger("titleView is nil")}
-      let leftInset = -titleView.frame.size.width / 2
+      let leftInset = -(titleView.frame.size.width / 2 + 20)
       searchButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: 0)
       searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: leftInset + 15, bottom: 0, right: 0)
       searchButton.tag += 1
     }
   }
 
+  // 창식 - storeHomeView 에서 스크롤 했을 때 받을 callback
   private func storeHomeViewDidScroll() {
     storeHomeView.storeHomeViewDidScroll = {
       direction in
@@ -120,7 +121,7 @@ final class StoreVC: CategoryTabBarViewController {
     }
   }
 
-  // MARK: - Custumizing NavigationBar - 창식
+  // MARK: - 창식 - Custumizing NavigationBar
   private func configureNaviBar() {
 
     navigationItem.titleView = searchButton
@@ -183,9 +184,6 @@ final class StoreVC: CategoryTabBarViewController {
 
   @objc private func cartButtonDidTap(_ sender: Any) {
     print("Cart 버튼 클릭")
-
-    UIView.animate(withDuration: 2) {
-      self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
   }
+
 }
