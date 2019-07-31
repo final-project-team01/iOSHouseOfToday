@@ -25,7 +25,6 @@ class DetailRankingVC: UIViewController {
     tableView.register(cell: DetailRankingTableCell.self)
     tableView.register(RankingHeader.self, forHeaderFooterViewReuseIdentifier: "RankingHeader")
     tableView.showsVerticalScrollIndicator = false
-    tableView.allowsSelection = false
     tableView.separatorStyle = .none
     tableView.rowHeight = 120 // FIXME: - 임시
     tableView.backgroundColor = .white
@@ -45,8 +44,8 @@ class DetailRankingVC: UIViewController {
         super.viewDidLoad()
       configureAutoLayout()
       fetchRankingList()
-        notiCenter.addObserver(self, selector: #selector(presentRankingPickerVC(_:)), name: .presentRankingPickerVC, object: nil)
-    }
+      notiCenter.addObserver(self, selector: #selector(presentRankingPickerVC(_:)), name: .presentRankingPickerVC, object: nil)
+  }
 
   deinit {
     notiCenter.removeObserver(self, name: .presentRankingPickerVC, object: nil)
@@ -166,6 +165,11 @@ extension DetailRankingVC: UITableViewDataSource, UITableViewDelegate {
       cell.setImage(thumnailUrl: url)
     }
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let productID = sortedList[indexPath.row].id
+    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
   }
 
 }

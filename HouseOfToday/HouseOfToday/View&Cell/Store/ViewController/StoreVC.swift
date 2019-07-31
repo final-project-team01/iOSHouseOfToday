@@ -52,6 +52,7 @@ final class StoreVC: CategoryTabBarViewController {
                            object: nil)
 
      notiCenter.addObserver(self, selector: #selector(presentRankingDetailView(_:)), name: .presentRankingDetailView, object: nil)
+
   }
 
   deinit {
@@ -124,17 +125,14 @@ final class StoreVC: CategoryTabBarViewController {
     navigationController?.pushViewController(vc, animated: true)
   }
 
-  //
   @objc func presentRankingDetailView(_ sender: Notification) {
     guard let userInfo = sender.userInfo as? [String: UIViewController],
-      let detailRankingVC = userInfo["presentRankingDetailView"] // FIXME: - 여기서 id 가져오는 코드 쓰기 ※ StoreVC 참고
+      let detailRankingVC = userInfo["presentRankingDetailView"]
       else {
         return print("fail downCasting")
     }
-      let vc = DetailRankingVC()
-//     vc.fetchRankingList(id: id)
+
     navigationController?.pushViewController(detailRankingVC, animated: true)
 
   }
-
 }
