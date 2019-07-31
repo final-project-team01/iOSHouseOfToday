@@ -63,7 +63,7 @@ final class StoreHomeView: UIView {
     didSet {
        productList = productListTemp.map {
         let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
-//        print($0.discountRate ?? "Err")
+
         return ProductList(id: $0.id,
                            brandName: $0.brandName,
                            productName: $0.productName,
@@ -136,7 +136,8 @@ extension StoreHomeView: UICollectionViewDataSource {
     switch section {
     case 0:
       return 0
-    case 1: return productList.count > 0 ? 4 : 0
+    case 1:
+      return productList.count > 0 ? 4 : 0
     case 3:
       return productList.count
     default:

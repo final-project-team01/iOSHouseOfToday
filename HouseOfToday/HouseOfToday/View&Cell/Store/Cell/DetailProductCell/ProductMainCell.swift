@@ -23,7 +23,7 @@ class ProductMainCell: UICollectionViewCell {
     height += ProductReviewView.height
     height += ExhibitionView.height
 
-    height += Metric.marginX * 10
+    height += Metric.marginX * 3
     return height
 
   }
@@ -131,12 +131,18 @@ class ProductMainCell: UICollectionViewCell {
     }
   }
 
+  public func updateHeight() {
+
+    productInfoView.snp.updateConstraints {
+      $0.height.equalTo(ProductInfomationView.height)
+    }
+
+    productInfoView.updateLongSizeAutolayout()
+  }
+
   public func updateSwipeImageViewPosition(positionY: CGFloat) {
 
-//    guard positionY > 0 else { return print("positionY: \(positionY)")}
-
     if 0..<swipeImageView.frame.height ~= positionY {
-//      print("positionY: \(positionY)")
       swipeImageView.snp.updateConstraints {
         $0.top.equalToSuperview().offset(positionY)
         $0.bottom.equalTo(firstView.snp.top).offset(positionY)

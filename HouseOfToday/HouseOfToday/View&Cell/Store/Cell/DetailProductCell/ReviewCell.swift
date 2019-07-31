@@ -62,7 +62,7 @@ class ReviewCell: UICollectionViewCell {
 
   private lazy var arrowToRight: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = ">"
+    //label.text = ">"
     label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
     addSubview(label)
     return label
@@ -207,7 +207,7 @@ class ReviewCell: UICollectionViewCell {
   private func addStarText(count: Int) -> String {
     var starText: String = "★"
 
-    for _ in 1...count {
+    for _ in 1..<count {
       starText += "★"
     }
 

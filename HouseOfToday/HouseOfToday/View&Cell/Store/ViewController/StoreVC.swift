@@ -71,7 +71,7 @@ final class StoreVC: CategoryTabBarViewController {
 
   // MARK: - present VC
   @objc private func presentCategoryListVC(_ sender: Notification) {
-
+//print(/sender.userInfo)
     guard let userInfo = sender.userInfo as? [String: Int],
       let id = userInfo["categoryId"]
       else {

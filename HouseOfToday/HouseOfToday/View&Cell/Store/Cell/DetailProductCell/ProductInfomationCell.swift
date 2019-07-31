@@ -197,7 +197,7 @@ class ProductInfomationCell: UICollectionViewCell {
   // MARK: - Spread ImageView Button Action
   @objc private func spreadImageViewAction(_ sender: UIButton) {
 
-    let totalHeight: Int = imageViews.reduce(0) { $0 + $1.getHeight() }
+    let totalHeight: Int = Int(imageViews.reduce(0) { $0 + $1.getHeight() })
 
     notiCenter.post(name: ProductDetailVC.cellSpread, object: nil, userInfo: ["TotalHeight": totalHeight])
   }

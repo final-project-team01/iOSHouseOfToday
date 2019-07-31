@@ -13,8 +13,11 @@ extension ProductDetailVC {
   static var cellSpread: Notification.Name {
     return Notification.Name("cellSpread")
   }
-  static var presentReview: Notification.Name {
-    return Notification.Name("presentReview")
+  static var present: Notification.Name {
+    return Notification.Name("present")
+  }
+  static var progressUpdate: Notification.Name {
+    return Notification.Name("progressUpdate")
   }
 }
 
@@ -24,19 +27,19 @@ class ProductDetailVC: UIViewController {
 
   private let service: HouseOfTodayServiceType = HouseOfTodayService()
 
-  lazy var bottomView: UIView = {
+  private lazy var bottomView: UIView = {
     let view = UIView(frame: CGRect.zero)
     view.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.7)
 
     return view
   }()
 
-  lazy var flowLayout: UICollectionViewFlowLayout = {
+  private lazy var flowLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
     return layout
   }()
 
-  lazy var collectionView: UICollectionView = {
+  private lazy var collectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     colV.register(cell: ProductMainCell.self)
     colV.register(cell: ProductStylingCell.self)
@@ -47,6 +50,14 @@ class ProductDetailVC: UIViewController {
     colV.delegate = self
     view.addSubview(colV)
     return colV
+  }()
+
+  private lazy var progressBar: UIProgressView = {
+    let progress = UIProgressView(progressViewStyle: .default)
+    progress.progressTintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    progress.backgroundColor = .clear
+//    progress.isHidden = true
+    return progress
   }()
 
   private var productList: [ProductList] = [] {
@@ -95,6 +106,8 @@ class ProductDetailVC: UIViewController {
     }
   }
 
+  private var reloadedHeight: CGFloat = 0
+
   private var productImages: [Int: UIImage] = [:]
 
   let notiCenter = NotificationCenter.default
@@ -106,6 +119,7 @@ class ProductDetailVC: UIViewController {
 
     autolayoutViews()
     setupNotificationCenter()
+    settingProgressView()
   }
 
   deinit {
@@ -113,8 +127,18 @@ class ProductDetailVC: UIViewController {
                               name: ProductDetailVC.cellSpread,
                               object: nil)
     notiCenter.removeObserver(self,
-                              name: ProductDetailVC.presentReview,
+                              name: ProductDetailVC.present,
                               object: nil)
+    notiCenter.removeObserver(self,
+                              name: ProductDetailVC.progressUpdate,
+                              object: nil)
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+
+    ProductInfomationView.height = 600
+    progressBar.isHidden = true
   }
 
   // MARK: - configure
@@ -133,73 +157,73 @@ class ProductDetailVC: UIViewController {
                            object: nil)
 
     notiCenter.addObserver(self,
-                           selector: #selector(presentReview(_:)),
-                           name: ProductDetailVC.presentReview,
+                           selector: #selector(presentVC(_:)),
+                           name: ProductDetailVC.present,
                            object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(updateProgressView(_:)),
+                           name: ProductDetailVC.progressUpdate,
+                           object: nil)
+  }
+
+  // MARK: - Setting Progress View
+  private func settingProgressView() {
+
+    if let naviBar = navigationController?.navigationBar {
+      naviBar.addSubview(progressBar)
+
+      progressBar.snp.makeConstraints {
+        $0.bottom.equalTo(naviBar.snp.bottom)
+        $0.left.equalTo(naviBar.snp.left)
+        $0.right.equalTo(naviBar.snp.right)
+      }
+    }
+  }
+
+  // MARK: - update progress view
+  @objc private func updateProgressView(_ sender: Notification) {
+    guard let userInfo = sender.userInfo as? [String: Float],
+      let value = userInfo["progressUpdate"]
+      else {
+        return print("fail down casting")
+    }
+
+    if progressBar.progress + value < 0.95 {
+      let update = progressBar.progress + value
+      progressBar.setProgress(update, animated: true)
+      progressBar.isHidden = false
+    } else {
+      print("true")
+      progressBar.isHidden = true
+    }
+    print("progressBar.progress: \(progressBar.progress)")
   }
 
   // MARK: - setReload collectionView
   @objc private func reloadCollectionView(_ sender: Notification) {
-//    collectionView.reloadSections()
     print("reloadCollectionView Click")
+    guard let userInfo = sender.userInfo as? [String: CGFloat],
+      let value = userInfo["TotalHeight"]
+      else {
+        return print("fail down casting")
+    }
+
+    reloadedHeight = value
+
+    collectionView.reloadData()
   }
 
   // MARK: - presentReview NotificationCenter
-  @objc private func presentReview(_ sender: Notification) {
+  @objc private func presentVC(_ sender: Notification) {
     print("presentReview Click")
-    let reviewVC = ReviewVC()
-    reviewVC.productDetailData = productDetail
 
-    navigationController?.pushViewController(reviewVC, animated: true)
-//    present(reviewVC, animated: true)
-  }
-
-  // MARK: - ImageDownload
-  private func getFirstImage(_ urls: [URL]) {
-
-    if let firstUrl = urls.first {
-      let downloader = ImageDownloader.default
-      downloader.downloadImage(with: firstUrl) { result in
-        switch result {
-        case .success(let value):
-          self.productImages[0] = value.image
-          self.getImages(urls)
-        case .failure(let error):
-          print(error)
-        }
-      }
+    guard let userInfo = sender.userInfo as? [String: UIViewController],
+      let vc = userInfo["viewController"]
+      else {
+        return print("fail down casting")
     }
-  }
 
-  private func getImages(_ urls: [URL]) {
-
-    for index in 1..<urls.count {
-
-      let downloader = ImageDownloader.default
-      downloader.downloadImage(with: urls[index]) { result in
-        switch result {
-        case .success(let value):
-//          print("success:", index)
-          self.productImages[index] = value.image
-        case .failure(let error):
-          print(error)
-        }
-      }
-    }
-  }
-
-  func resizeImage(image: UIImage?, resizeWidth: CGFloat) -> UIImage? {
-
-    guard let image = image else { return nil}
-
-    let scale = resizeWidth / image.size.width
-    let resizeHeight = image.size.height * scale
-    UIGraphicsBeginImageContext(CGSize(width: resizeWidth, height: resizeHeight))
-    image.draw(in: CGRect(x: 0, y: 0, width: resizeWidth, height: resizeHeight))
-    let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-
-    return resizeImage
+    navigationController?.pushViewController(vc, animated: true)
   }
 
   // MARK: - FetchProductDetail
@@ -252,7 +276,11 @@ extension ProductDetailVC: UICollectionViewDataSource {
     if indexPath.section == 0 {
       if indexPath.item == 0 {
         let cell = collectionView.dequeue(ProductMainCell.self, indexPath)
-        cell.productDetail = self.productDetail
+        if reloadedHeight == 0 {
+          cell.productDetail = self.productDetail
+        } else {
+          cell.updateHeight()
+        }
         return cell
       } else if indexPath.item == 1 {
         let cell = collectionView.dequeue(ProductStylingCell.self, indexPath)
@@ -304,7 +332,8 @@ extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
 
     if indexPath.section == 0 {
       if indexPath.item == 0 {
-        return CGSize(width: UIScreen.main.bounds.width, height: ProductMainCell.height)
+          return CGSize(width: UIScreen.main.bounds.width, height: ProductMainCell.height)
+
       } else if indexPath.item == 1 {
         return CGSize(width: UIScreen.main.bounds.width, height: ProductStylingCell.height)
       } else {
@@ -316,10 +345,11 @@ extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    if section == 3 {
+    if section == 1 {
       return Metric.dealOfTodayCellInset
     } else {
-      return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
+//    print(section)
   }
 }

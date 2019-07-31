@@ -11,7 +11,7 @@ import UIKit
 class ExhibitionView: UIView {
 
   // MARK: - Property
-  static var height: CGFloat = 600
+  static var height: CGFloat = 530
 
   private lazy var titleLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
@@ -43,8 +43,9 @@ class ExhibitionView: UIView {
   private lazy var qnaButton: UIButton = {
     let btn = UIButton(type: .custom)
     btn.backgroundColor = .white
-    btn.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+    btn.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     btn.layer.borderWidth = 0.5
+    btn.addTarget(self, action: #selector(touchQnA(_:)), for: .touchUpInside)
     addSubview(btn)
     return btn
   }()
@@ -85,8 +86,9 @@ class ExhibitionView: UIView {
   private lazy var policyButton: UIButton = {
     let btn = UIButton(type: .custom)
     btn.backgroundColor = .white
-    btn.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+    btn.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     btn.layer.borderWidth = 0.5
+    btn.addTarget(self, action: #selector(touchPolicy(_:)), for: .touchUpInside)
     addSubview(btn)
     return btn
   }()
@@ -115,10 +117,18 @@ class ExhibitionView: UIView {
     return label
   }()
 
+  private lazy var similarLabel: UILabel = {
+    let label = UILabel(frame: CGRect.zero)
+    label.text = "비슷한 상품"
+    label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    addSubview(label)
+    return label
+  }()
+
   // MARK: - View life cycle
   override func layoutSubviews() {
     super.layoutSubviews()
-    backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+    backgroundColor = .white
     autolayoutViews()
 
 //    qnaImageView.contentMode = .scaleAspectFit
@@ -197,6 +207,24 @@ class ExhibitionView: UIView {
       }
     }
 
+    if similarLabel.translatesAutoresizingMaskIntoConstraints {
+      similarLabel.snp.makeConstraints {
+        $0.top.equalTo(policyButton.snp.bottom).offset(Metric.marginY*1.5)
+        $0.leading.equalToSuperview().offset(Metric.marginX)
+      }
+    }
+
+  }
+
+  // MARK: - touch QnA Button
+  @objc private func touchQnA(_ sender: UIButton) {
+    print("touchQnA")
+  }
+
+  @objc private func touchPolicy(_ sender: UIButton) {
+    print("touchPolicy")
+    
+    
   }
 
 }
