@@ -13,7 +13,6 @@ class DetailRankingVC: UIViewController {
   private struct Key {
     static let sortStandard = "Sortstandard"
   }
-
     private let service: HouseOfTodayServiceType = HouseOfTodayService()
 
     private let notiCenter = NotificationCenter.default
@@ -44,34 +43,35 @@ class DetailRankingVC: UIViewController {
         super.viewDidLoad()
       configureAutoLayout()
       fetchRankingList()
-      notiCenter.addObserver(self, selector: #selector(presentRankingPickerVC(_:)), name: .presentRankingPickerVC, object: nil)
+//      notiCenter.addObserver(self, selector: #selector(presentRankingPickerVC(_:)), name: .presentRankingPickerVC, object: nil)
   }
 
   deinit {
     notiCenter.removeObserver(self, name: .presentRankingPickerVC, object: nil)
   }
 
-  @objc func presentRankingPickerVC(_ sender: Notification) {
-    guard let userInfo = sender.userInfo as? [String: UIViewController],
-      let rankingPickerVC = userInfo["presentRankingPickerVC"]
-      else {
-        return print("fail downCasting")
-    }
+  // FIXME: - 다시 시도해보기
+//  @objc func presentRankingPickerVC(_ sender: Notification) {
+//    guard let userInfo = sender.userInfo as? [String: UIViewController],
+//      let rankingPickerVC = userInfo["presentRankingPickerVC"]
+//      else {
+//        return print("fail downCasting")
+//    }
+//
+//    rankingPickerVC.modalPresentationStyle = .overCurrentContext
+//    present(rankingPickerVC, animated: false)
+//
+//  }
 
-    rankingPickerVC.modalPresentationStyle = .overCurrentContext
-    present(rankingPickerVC, animated: false)
+  private var sortedList: [RankingModel.Body] = []
 
-  }
-
-  private var sortedList: [RankingList.Body] = []
-
-  var best100: [RankingList.Body] = [] {
+  var best100: [RankingModel.Body] = [] {
     didSet {
       sortedList = best100
     }
   }
 
-  private var rankingList: RankingList? {
+  private var rankingList: RankingModel? {
     didSet {
       guard let info = rankingList else {return logger()}
 

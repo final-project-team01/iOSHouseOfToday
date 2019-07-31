@@ -1,24 +1,26 @@
 //
-//  RankingHorizontalCell.swift
+//  RankingTableCell.swift
 //  HouseOfToday
 //
-//  Created by Daisy on 25/07/2019.
-//  Copyright © 2019 CHANGGUEN YU. All rights reserved.
+//  Created by Daisy on 23/07/2019.
+//  Copyright © 2019 Daisy. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class RankingHorizontalCell: UITableViewCell {
+class RankingTableCell: UITableViewCell {
 
-  private let notiCenter = NotificationCenter.default
+  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+
+   private let notiCenter = NotificationCenter.default
 
   private lazy var layout: UICollectionViewFlowLayout = {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    layout.sectionHeadersPinToVisibleBounds = false
-    layout.sectionFootersPinToVisibleBounds = false
-    return layout
+  let layout = UICollectionViewFlowLayout()
+  layout.scrollDirection = .vertical
+  layout.sectionHeadersPinToVisibleBounds = false
+  layout.sectionFootersPinToVisibleBounds = false
+  return layout
   }()
 
   private lazy var collectionView: UICollectionView = {
@@ -27,22 +29,12 @@ class RankingHorizontalCell: UITableViewCell {
     collectionView.delegate = self
     collectionView.backgroundColor = .white
     collectionView.register(cell: RankingCollectionCell.self)
-    collectionView.register(cell: MoreCollectionCell.self)
-    collectionView.showsHorizontalScrollIndicator = false
     addSubview(collectionView)
     return collectionView
   }()
 
-  var offset: CGFloat {
-    get {
-      return collectionView.contentOffset.x
-    }
-    set {
-      collectionView.contentOffset.x = newValue
-    }
-  }
+  var best100: [RankingModel.Body] = [] {
 
-  var productList: [RankingList.Body] = [] {
     didSet {
       DispatchQueue.main.async {
         self.collectionView.reloadData()
@@ -51,8 +43,9 @@ class RankingHorizontalCell: UITableViewCell {
   }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super .init(style: style, reuseIdentifier: reuseIdentifier)
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
     cellAutolayout()
+    backgroundColor = .white
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -90,42 +83,36 @@ class RankingHorizontalCell: UITableViewCell {
 
 }
 
-extension RankingHorizontalCell: UICollectionViewDataSource, UICollectionViewDelegate {
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
-  }
+extension RankingTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 11
+
+    let count = best100.count > 9 ? 9 : best100.count
+    return count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-    switch indexPath.item {
-    case 10:
-      let cell = collectionView.dequeue(MoreCollectionCell.self, indexPath)
-      return cell
-    default:
-      let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
-      cell.countLabel.text = "\(indexPath.item + 1)"
-      cell.productNameLabel.text = "\(productList[indexPath.item].productName)"
-      cell.ratingStarRankLabel.attributedText =  getAttributeString(rate: "\(productList[indexPath.item].starAvg)")
-      cell.reviewCountLabel.text = "리뷰 \(productList[indexPath.item].reviewCount)"
+    let cell = collectionView.dequeue(RankingCollectionCell.self, indexPath)
+    cell.countLabel.text = "\(indexPath.item + 1)"
+    cell.productNameLabel.text = "\(best100[indexPath.item].productName)"
+    cell.ratingStarRankLabel.attributedText = getAttributeString(rate: "\(best100[indexPath.item].starAvg)")
+    cell.reviewCountLabel.text = "리뷰 \(best100[indexPath.item].reviewCount)"
 
-      if let url = URL(string: productList[indexPath.item].thumnailImages[0].image) {
-        cell.setImage(thumnailUrl: url)
-      }
-      return cell
+    if let url = URL(string: best100[indexPath.item].thumnailImages[0].image) {
+      cell.setImage(thumnailUrl: url)
+    }
+
+    return cell
+  }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+      let productID = best100[indexPath.item].id
+      notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
     }
   }
 
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let productID = productList[indexPath.item].id
-    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
-  }
-}
-
-extension RankingHorizontalCell: UICollectionViewDelegateFlowLayout {
+extension RankingTableCell: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
@@ -141,7 +128,7 @@ extension RankingHorizontalCell: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    return JMetric.rankingHorizontalInset
+    return JMetric.inset
   }
 
 }

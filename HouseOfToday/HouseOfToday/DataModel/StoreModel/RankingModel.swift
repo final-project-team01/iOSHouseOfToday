@@ -8,10 +8,7 @@
 
 import Foundation
 
-// FIXME: - Ranking Model 쪽으로 폴더 이동하기
-// FIXME: - 폴더정리하기
-
-struct RankingList: Decodable {
+struct RankingModel: Decodable {
 
   let best100: [Body]
   let lightHomedeco: [Body]

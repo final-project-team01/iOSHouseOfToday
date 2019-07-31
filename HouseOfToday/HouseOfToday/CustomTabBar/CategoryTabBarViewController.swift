@@ -34,7 +34,7 @@ class CategoryTabBarViewController: UIViewController {
   }
 
   // MARK: - 변수선언
-  private lazy var categoryTabBarView: CategoryTabBarView = {
+   lazy var categoryTabBarView: CategoryTabBarView = {
     let ctv = CategoryTabBarView()
     ctv.isScrollEnabled = self.categoryTabBarScrollIsEnabled
     ctv.categoryTitles = categoryTitles

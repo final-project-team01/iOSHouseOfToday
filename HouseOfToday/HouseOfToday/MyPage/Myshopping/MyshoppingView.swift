@@ -11,6 +11,14 @@ import SnapKit
 
 final class MyshoppingView: UIView {
 
+  private let notiCenter = NotificationCenter.default
+
+  private let trackDeliveryHistoryVC = TrackDeliveryHistoryVC()
+  private let productScrapBookVC = ProductScrapBookVC()
+  private let myQuestionsListVC = MyQuestionsListVC()
+  private let myReViewVC = MyReViewVC()
+  private let customerServiceVC = CustomerServiceVC()
+
   private lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.dataSource = self.self
@@ -19,7 +27,6 @@ final class MyshoppingView: UIView {
     tableView.register(cell: BeingOrderCell.self)
     tableView.register(cell: MyshoppingBaseCell.self)
     tableView.showsVerticalScrollIndicator = false
-    tableView.allowsSelection = false
 
     addSubview(tableView)
     return tableView
@@ -95,7 +102,24 @@ extension MyshoppingView: UITableViewDataSource, UITableViewDelegate {
             cell.setLabelItems(title: .customerService)
             cell.separatorInset = UIEdgeInsets.zero
             return cell
+    }
+  }
 
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    switch indexPath.row {
+    case 2:
+      notiCenter.post(name: .trackDeliveryHistoryVC, object: nil, userInfo: ["TrackDeliveryHistoryVC": trackDeliveryHistoryVC])
+    case 3:
+       notiCenter.post(name: .presentProductScrapBookVC, object: nil, userInfo: ["PresentProductScrapBookVC": productScrapBookVC])
+    case 4:
+       notiCenter.post(name: .myQuestionsListVC, object: nil, userInfo: ["MyQuestionsListVC": myQuestionsListVC])
+    case 5:
+       notiCenter.post(name: .myReViewVC, object: nil, userInfo: ["MyReViewVC": myReViewVC])
+    case 6:
+      notiCenter.post(name: .customerServiceVC, object: nil, userInfo: ["CustomerServiceVC": customerServiceVC])
+    default:
+      break
     }
   }
 

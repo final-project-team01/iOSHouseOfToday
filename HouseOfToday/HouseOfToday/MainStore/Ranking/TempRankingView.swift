@@ -53,18 +53,18 @@ class TempRankingView: UIView {
     return tableView
   }()
 
-  var best100: [RankingList.Body] = []
-  var lightHomedeco: [RankingList.Body] = []
-  var dailySupplies: [RankingList.Body] = []
-  var fabric: [RankingList.Body] = []
-  var kitchenware: [RankingList.Body] = []
-  var homeAppliances: [RankingList.Body] = []
-  var companionAnimal: [RankingList.Body] = []
-  var furniture: [RankingList.Body] = []
+  var best100: [RankingModel.Body] = []
+  var lightHomedeco: [RankingModel.Body] = []
+  var dailySupplies: [RankingModel.Body] = []
+  var fabric: [RankingModel.Body] = []
+  var kitchenware: [RankingModel.Body] = []
+  var homeAppliances: [RankingModel.Body] = []
+  var companionAnimal: [RankingModel.Body] = []
+  var furniture: [RankingModel.Body] = []
 
-  var rankingDatas: [[RankingList.Body]] = []
+  var rankingDatas: [[RankingModel.Body]] = []
 
-  private var rankingList: RankingList? {
+  private var rankingList: RankingModel? {
     didSet {
       guard let info = rankingList else {return logger()}
 
