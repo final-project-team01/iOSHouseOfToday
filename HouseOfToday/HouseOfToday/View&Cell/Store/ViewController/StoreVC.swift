@@ -22,9 +22,27 @@ extension StoreVC {
 
 final class StoreVC: CategoryTabBarViewController {
 
+  // MARK: - Properties
+  let searchButton: UIButton = {
+    let bt = UIButton(type: .custom)
+    bt.frame = .zero
+    bt.setTitle("스토어 검색", for: .normal)
+    bt.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    bt.setImage(UIImage(named: "search"), for: .normal)
+    bt.setTitleColor(.lightGray, for: .normal)
+    bt.imageView?.tintColor = .lightGray
+    bt.layer.cornerRadius = 5
+    bt.backgroundColor = #colorLiteral(red: 0.9607055783, green: 0.9606983066, blue: 0.9567378163, alpha: 1)
+    return bt
+  }()
+
+  let storeHomeView = StoreHomeView()
+  let tempRankingView = TempRankingView()
+
   init() {
+
     super.init(withTitles: ["홈", "랭킹"],
-               withViews: [StoreHomeView(), TempRankingView()],
+               withViews: [storeHomeView, tempRankingView],
                withScrollOption: false)
   }
 
@@ -36,35 +54,21 @@ final class StoreVC: CategoryTabBarViewController {
 
 //  let storeHomeView = StoreHomeView()
 
+  // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
     print("StoreVC: viewDidLoad")
 
-    customizeNaviBar()
+    configureNaviBar()
+    storeHomeViewDidScroll()
+    rankingViewDidScroll()
 
-    notiCenter.addObserver(self,
-                           selector: #selector(presentCategoryListVC(_:)),
-                           name: StoreVC.presentProductList,
-                           object: nil)
-    notiCenter.addObserver(self,
-                           selector: #selector(presentProductDetailVC(_:)),
-                           name: StoreVC.presentProductDetail,
-                           object: nil)
-
-     notiCenter.addObserver(self, selector: #selector(presentRankingDetailView(_:)), name: .presentRankingDetailView, object: nil)
+    addObservers()
 
   }
 
   deinit {
-    notiCenter.removeObserver(self,
-                              name: StoreVC.presentProductList,
-                              object: nil)
-    notiCenter.removeObserver(self,
-                              name: StoreVC.presentProductDetail,
-                              object: nil)
-
-    notiCenter.removeObserver(self, name: .presentRankingDetailView, object: nil)
-
+    removeObservers()
   }
 //
 //  override func loadView() {
@@ -76,24 +80,61 @@ final class StoreVC: CategoryTabBarViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     print("viewDidAppear")
+    initializeSearchButton()
   }
 
-  // MARK: - Custumizing NavigationBar - 창식
-  private func customizeNaviBar() {
-//    let searchController = UISearchController(searchResultsController: nil)
-//    searchController.searchBar.placeholder = "피자 검색!"
-//    searchController.obscuresBackgroundDuringPresentation = false
-//    let naviBar = self.navigationController?.navigationBar
-//    naviBar?.isTranslucent = true
-//    naviBar?.barStyle = .default
-//    naviBar?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//    let item = UINavigationItem(title: "gg")
-//    self.navigationItem.searchController = searchController
+  private func addObservers() {
+    notiCenter.addObserver(self,
+                           selector: #selector(presentCategoryListVC(_:)),
+                           name: StoreVC.presentProductList,
+                           object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(presentProductDetailVC(_:)),
+                           name: StoreVC.presentProductDetail,
+                           object: nil)
 
-    let button = UIButton(type: .system)
-    button.setTitle("test", for: .normal)
-    let barButtonItem = UIBarButtonItem(customView: button)
-    navigationItem.rightBarButtonItem = barButtonItem
+    notiCenter.addObserver(self, selector: #selector(presentRankingDetailView(_:)), name: .presentRankingDetailView, object: nil)
+  }
+
+  private func removeObservers() {
+    notiCenter.removeObserver(self,
+                              name: StoreVC.presentProductList,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: StoreVC.presentProductDetail,
+                              object: nil)
+
+    notiCenter.removeObserver(self, name: .presentRankingDetailView, object: nil)
+  }
+
+  // 창식 - viewDidAppear 시점에서 초기화 할 부분 , 초기화 이기에 1번만 실행되게 할 것
+  private func initializeSearchButton() {
+    if searchButton.tag == 0 {
+      guard let titleView = navigationItem.titleView else { return logger("titleView is nil")}
+      let leftInset = -(titleView.frame.size.width / 2 + 20)
+      searchButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: 0)
+      searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: leftInset + 15, bottom: 0, right: 0)
+      searchButton.tag += 1
+    }
+  }
+
+  // MARK: - 창식 - Custumizing NavigationBar
+  private func configureNaviBar() {
+
+    navigationItem.titleView = searchButton
+
+    let naviBar = self.navigationController?.navigationBar
+    naviBar?.isTranslucent = false
+    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+
+    let leftItem = UIBarButtonItem.setButton(self, action: #selector(menuButtonDidTap(_:)), imageName: "menu")
+    let rightItem = UIBarButtonItem.setButton(self, action: #selector(cartButtonDidTap(_:)), imageName: "cart2")
+    navigationItem.setLeftBarButton(leftItem, animated: true)
+    navigationItem.setRightBarButton(rightItem, animated: true)
+
+    let buttonWidth = UIScreen.main.bounds.width - leftItem.width - rightItem.width
+    searchButton.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: 35)
   }
 
   // MARK: - present VC
@@ -125,6 +166,14 @@ final class StoreVC: CategoryTabBarViewController {
     navigationController?.pushViewController(vc, animated: true)
   }
 
+  @objc private func menuButtonDidTap(_ sender: Any) {
+    print("Menu 버튼 클릭")
+  }
+
+  @objc private func cartButtonDidTap(_ sender: Any) {
+    print("Cart 버튼 클릭")
+  }
+
   @objc func presentRankingDetailView(_ sender: Notification) {
     guard let vc = sender.userInfo as? [String: UIViewController],
       let detailRankingVC = vc["presentRankingDetailView"]
@@ -134,5 +183,42 @@ final class StoreVC: CategoryTabBarViewController {
 
     navigationController?.pushViewController(detailRankingVC, animated: true)
 
+  }
+}
+
+// MARK: - 창식 - Callback
+extension StoreVC {
+
+  // storeHomeView 에서 스크롤 했을 때 받을 callback
+  private func storeHomeViewDidScroll() {
+    storeHomeView.storeHomeViewDidScroll = {
+      direction in
+      switch direction {
+      case "up":
+        print("storeHomeViewDidScroll // up")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+      case "down":
+        print("storeHomeViewDidScroll // down")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+      default:
+        break
+      }
+    }
+  }
+
+  private func rankingViewDidScroll() {
+    tempRankingView.tempRankingViewDidScroll = {
+      direction in
+      switch direction {
+      case "up":
+        print("rankingViewDidScroll // up")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+      case "down":
+        print("rankingViewDidScroll // down")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+      default:
+        break
+      }
+    }
   }
 }

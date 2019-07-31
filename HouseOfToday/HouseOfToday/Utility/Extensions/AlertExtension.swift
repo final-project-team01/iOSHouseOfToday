@@ -32,5 +32,13 @@ extension UIAlertController {
                 presenting.present(alert, animated: true, completion: nil)
             }
         }
+
     }
+
+  static func show(_ message: String, _ handler: ((UIAlertAction) -> Void)?) -> UIAlertController {
+    let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+    let action = UIAlertAction(title: "확인", style: .cancel, handler: handler)
+    alert.addAction(action)
+    return alert
+  }
 }

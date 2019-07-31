@@ -33,7 +33,7 @@ final class StoreHomeView: UIView {
     return layout
   }()
 
-  private lazy var productCollectionView: UICollectionView = {
+  lazy var productCollectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     colV.register(StoreHomeHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "StoreHomeHeaderView")
     colV.register(DefaultHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DefaultHeaderView")
@@ -76,6 +76,8 @@ final class StoreHomeView: UIView {
 
     }
   }
+
+  internal var storeHomeViewDidScroll: ((String) -> Void)?
 
   // MARK: - View life cycle
   override init(frame: CGRect) {
@@ -282,5 +284,14 @@ extension StoreHomeView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
     return Metric.itemSpacing[section]
+  }
+
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard let callback = storeHomeViewDidScroll else { return logger("Callback Error") }
+    if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0) {
+      callback("up")
+    } else {
+      callback("down")
+    }
   }
 }

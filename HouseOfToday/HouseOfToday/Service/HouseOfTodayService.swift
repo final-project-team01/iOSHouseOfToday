@@ -120,7 +120,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
   }
 
-  func fetchRankingList(completion: @escaping (Result<RankingList, ServiceError>) -> Void) {
+  func fetchRankingList(completion: @escaping (Result<RankingModel, ServiceError>) -> Void) {
 
     var urlComp = URLComponents(string: baseURL)
     urlComp?.path = "/products/ranking/"
@@ -136,7 +136,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
       guard let data = data else {return completion(.failure(.noData))}
 
-      if let rankingList = try? JSONDecoder().decode(RankingList.self, from: data) {
+      if let rankingList = try? JSONDecoder().decode(RankingModel.self, from: data) {
         completion(.success(rankingList))
       } else {
         completion(.failure(.invalidFormat))
@@ -159,8 +159,17 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
     urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
     URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+      let statusCode = (response as! HTTPURLResponse).statusCode
+      if statusCode == 400 {
+        if let data = data,
+          let errorMessage = try? JSONSerialization.jsonObject(with: data) as? [String: String] {
+          print("postSignUpUserData Status Code : \(statusCode) / error Message : \(errorMessage)")
+        } else {
+          logger(" error message parsing error ")
+        }
 
-      print("postSignUpUserData response Status Code : ", (response as! HTTPURLResponse).statusCode)
+      }
+
       guard error == nil else { return completion(.failure(.clientError)) }
 
       guard let header = response as? HTTPURLResponse,
