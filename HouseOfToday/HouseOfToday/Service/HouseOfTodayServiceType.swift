@@ -15,7 +15,7 @@ protocol HouseOfTodayServiceType {
   func fetchCategoryIdList(id: Int, completion: @escaping (Result<CategoryIdList, ServiceError>) -> Void)
   func fetchProductDetail(id: Int, completion: @escaping (Result<ProductDetail, ServiceError>) -> Void)
 
-  func fetchRankingList(id: Int, completion: @escaping (Result<RankingList, ServiceError>) -> Void) // FIXME: - 정아 추가
+  func fetchRankingList(completion: @escaping (Result<RankingList, ServiceError>) -> Void) // FIXME: - 정아 추가
 
   func postSignUpUserData(withBody body: Data?, completion: @escaping (Result<User, ServiceError>) -> Void)
 

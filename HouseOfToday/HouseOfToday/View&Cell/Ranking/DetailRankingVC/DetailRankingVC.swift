@@ -44,7 +44,7 @@ class DetailRankingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       configureAutoLayout()
-
+      fetchRankingList()
         notiCenter.addObserver(self, selector: #selector(presentRankingPickerVC(_:)), name: .presentRankingPickerVC, object: nil)
     }
 
@@ -91,9 +91,10 @@ class DetailRankingVC: UIViewController {
 
     }
   }
+
   // MARK: - Fetch Product List
-  private func fetchRankingList(id: Int) {
-    service.fetchRankingList(id: id) { result in
+  private func fetchRankingList() {
+    service.fetchRankingList { result in
       switch result {
       case .success(let list):
         print("success!!!")

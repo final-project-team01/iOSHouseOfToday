@@ -13,6 +13,8 @@ import SnapKit
 
 class TempRankingView: UIView {
 
+//  private let notiCenter = NotificationCenter.default
+
   private let sectionTitle = ["오늘의집 AWARDS", "인기", "생활용품 BEST", "패브릭 BEST", "주방용품 BEST", "가전제품 BEST", "반려동물 BEST", "가구 BEST"]
   private let sectionSubTitle = ["카테고리별 BEST 100", "조명&홈데코 BEST", "", "", "", "", "", ""]
   private let moreButtonCount = ["100", "14,836", "6,248", "8,101", "7,766", "3,161", "1,793", "15,003"]
@@ -87,7 +89,7 @@ class TempRankingView: UIView {
     tableViewAutoLayout()
     tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
-//    fetchRankingList(id: <#T##Int#>)
+    fetchRankingList()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -102,8 +104,8 @@ class TempRankingView: UIView {
     }
   }
 
-  public func fetchRankingList(id: Int) {
-    service.fetchRankingList(id: id) { result in
+  public func fetchRankingList() {
+    service.fetchRankingList { result in
       switch result {
       case .success(let product):
         print("success!!! fetchRankingList")
@@ -172,6 +174,12 @@ extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
       return cell
     }
   }
+
+//  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//    let productID = best100[indexPath.row].id
+//    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
+//    print("didtap 여기여기 나와라ㅠㅠ 이놔")
+//  }
 
   // cell 재사용시 collectionView cell의 위치가 변경되는 문제 해결
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
