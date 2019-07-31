@@ -126,8 +126,8 @@ final class StoreVC: CategoryTabBarViewController {
   }
 
   @objc func presentRankingDetailView(_ sender: Notification) {
-    guard let userInfo = sender.userInfo as? [String: UIViewController],
-      let detailRankingVC = userInfo["presentRankingDetailView"]
+    guard let vc = sender.userInfo as? [String: UIViewController],
+      let detailRankingVC = vc["presentRankingDetailView"]
       else {
         return print("fail downCasting")
     }

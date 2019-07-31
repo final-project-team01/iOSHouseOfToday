@@ -9,7 +9,13 @@
 import UIKit
 import SnapKit
 
+extension Notification.Name {
+  static let presentpresentMyShoppingView = Notification.Name("presentMyShoppingView")
+}
+
 final class MyshoppingThumbCell: UITableViewCell {
+
+  private let notiCenter = NotificationCenter.default
 
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
@@ -69,7 +75,7 @@ final class MyshoppingThumbCell: UITableViewCell {
     button.setTitleColor(.white, for: .normal)
     button.setTitle("바로가기", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.addTarget(self, action: #selector(gotoMyShopping), for: .touchUpInside)
+    button.addTarget(self, action: #selector(gotoMyShopping(_ :)), for: .touchUpInside)
     button.backgroundColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
     addSubview(button)
     return button
@@ -89,7 +95,9 @@ final class MyshoppingThumbCell: UITableViewCell {
     return detailStackView
   }()
 
-  @objc func gotoMyShopping() {
+  @objc func gotoMyShopping(_ sender: UIButton) {
+    let myShopping = MyshoppingView()
+    notiCenter.post(name: .presentpresentMyShoppingView, object: sender, userInfo: ["presentMyShoppingView": myShopping])
 
   }
 
