@@ -37,10 +37,12 @@ final class StoreVC: CategoryTabBarViewController {
   }()
 
   let storeHomeView = StoreHomeView()
+  let tempRankingView = TempRankingView()
 
   init() {
-    super.init(withTitles: ["홈"],
-               withViews: [storeHomeView ],
+
+    super.init(withTitles: ["홈", "랭킹"],
+               withViews: [storeHomeView, tempRankingView],
                withScrollOption: false)
   }
 
@@ -52,33 +54,21 @@ final class StoreVC: CategoryTabBarViewController {
 
 //  let storeHomeView = StoreHomeView()
 
+  // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
     print("StoreVC: viewDidLoad")
 
-    //storeHomeView.productCollectionView.delegate = self
-
     configureNaviBar()
     storeHomeViewDidScroll()
+    rankingViewDidScroll()
 
-    notiCenter.addObserver(self,
-                           selector: #selector(presentCategoryListVC(_:)),
-                           name: StoreVC.presentProductList,
-                           object: nil)
-    notiCenter.addObserver(self,
-                           selector: #selector(presentProductDetailVC(_:)),
-                           name: StoreVC.presentProductDetail,
-                           object: nil)
+    addObservers()
 
   }
 
   deinit {
-    notiCenter.removeObserver(self,
-                              name: StoreVC.presentProductList,
-                              object: nil)
-    notiCenter.removeObserver(self,
-                              name: StoreVC.presentProductDetail,
-                              object: nil)
+    removeObservers()
   }
 //
 //  override func loadView() {
@@ -93,6 +83,30 @@ final class StoreVC: CategoryTabBarViewController {
     initializeSearchButton()
   }
 
+  private func addObservers() {
+    notiCenter.addObserver(self,
+                           selector: #selector(presentCategoryListVC(_:)),
+                           name: StoreVC.presentProductList,
+                           object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(presentProductDetailVC(_:)),
+                           name: StoreVC.presentProductDetail,
+                           object: nil)
+
+    notiCenter.addObserver(self, selector: #selector(presentRankingDetailView(_:)), name: .presentRankingDetailView, object: nil)
+  }
+
+  private func removeObservers() {
+    notiCenter.removeObserver(self,
+                              name: StoreVC.presentProductList,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: StoreVC.presentProductDetail,
+                              object: nil)
+
+    notiCenter.removeObserver(self, name: .presentRankingDetailView, object: nil)
+  }
+
   // 창식 - viewDidAppear 시점에서 초기화 할 부분 , 초기화 이기에 1번만 실행되게 할 것
   private func initializeSearchButton() {
     if searchButton.tag == 0 {
@@ -101,23 +115,6 @@ final class StoreVC: CategoryTabBarViewController {
       searchButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: 0)
       searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: leftInset + 15, bottom: 0, right: 0)
       searchButton.tag += 1
-    }
-  }
-
-  // 창식 - storeHomeView 에서 스크롤 했을 때 받을 callback
-  private func storeHomeViewDidScroll() {
-    storeHomeView.storeHomeViewDidScroll = {
-      direction in
-      switch direction {
-      case "up":
-        print("storeHomeViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("storeHomeViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
     }
   }
 
@@ -131,17 +128,8 @@ final class StoreVC: CategoryTabBarViewController {
     naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
     naviBar?.shadowImage = UIColor.clear.as1ptImage()
 
-    let leftItem = UIBarButtonItem(image: UIImage(named: "menu"),
-                                   style: .plain,
-                                   target: self,
-                                   action: #selector(menuButtonDidTap(_:)))
-    leftItem.tintColor = .gray
-    let rightItem = UIBarButtonItem(image: UIImage(named: "cart"),
-                                    style: .plain,
-                                    target: self,
-                                    action: #selector(cartButtonDidTap(_:)))
-    rightItem.tintColor = .gray
-
+    let leftItem = UIBarButtonItem.setButton(self, action: #selector(menuButtonDidTap(_:)), imageName: "menu")
+    let rightItem = UIBarButtonItem.setButton(self, action: #selector(cartButtonDidTap(_:)), imageName: "cart2")
     navigationItem.setLeftBarButton(leftItem, animated: true)
     navigationItem.setRightBarButton(rightItem, animated: true)
 
@@ -186,4 +174,51 @@ final class StoreVC: CategoryTabBarViewController {
     print("Cart 버튼 클릭")
   }
 
+  @objc func presentRankingDetailView(_ sender: Notification) {
+    guard let vc = sender.userInfo as? [String: UIViewController],
+      let detailRankingVC = vc["presentRankingDetailView"]
+      else {
+        return print("fail downCasting")
+    }
+
+    navigationController?.pushViewController(detailRankingVC, animated: true)
+
+  }
+}
+
+// MARK: - 창식 - Callback
+extension StoreVC {
+
+  // storeHomeView 에서 스크롤 했을 때 받을 callback
+  private func storeHomeViewDidScroll() {
+    storeHomeView.storeHomeViewDidScroll = {
+      direction in
+      switch direction {
+      case "up":
+        print("storeHomeViewDidScroll // up")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+      case "down":
+        print("storeHomeViewDidScroll // down")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+      default:
+        break
+      }
+    }
+  }
+
+  private func rankingViewDidScroll() {
+    tempRankingView.tempRankingViewDidScroll = {
+      direction in
+      switch direction {
+      case "up":
+        print("rankingViewDidScroll // up")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+      case "down":
+        print("rankingViewDidScroll // down")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+      default:
+        break
+      }
+    }
+  }
 }

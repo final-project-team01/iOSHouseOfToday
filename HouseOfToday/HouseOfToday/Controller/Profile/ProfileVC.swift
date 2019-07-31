@@ -14,12 +14,10 @@ class ProfileVC: UIViewController {
     view = ProfileView()
   }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-      let navi = UINavigationController(rootViewController: ProfileVC())
-      present(navi, animated: true)
-
-    }
+  override func viewDidLoad() {
+      super.viewDidLoad()
+    let navi = UINavigationController(rootViewController: ProfileVC())
+    present(navi, animated: true)
+  }
 
 }

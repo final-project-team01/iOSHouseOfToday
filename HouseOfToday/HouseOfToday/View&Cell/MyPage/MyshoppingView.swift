@@ -25,6 +25,8 @@ final class MyshoppingView: UIView {
     return tableView
   }()
 
+  internal var myshoppingViewDidScroll: ((String) -> Void)?
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     tableViewAutoLayout()
@@ -108,6 +110,15 @@ extension MyshoppingView: UITableViewDataSource, UITableViewDelegate {
 
     }
 
+  }
+
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard let callback = myshoppingViewDidScroll else { return logger("Callback Error") }
+    if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0) {
+      callback("up")
+    } else {
+      callback("down")
+    }
   }
 
 }

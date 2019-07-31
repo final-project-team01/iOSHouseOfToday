@@ -75,6 +75,7 @@
 		8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */; };
 		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
 		8EC216FF22F180C2006CFD1D /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */; };
+		8EC2170122F1AE29006CFD1D /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */; };
 		8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */; };
 		8ED0608122E589F2003D610D /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608022E589F2003D610D /* AlertExtension.swift */; };
 		8ED0608322E6E737003D610D /* SigninWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */; };
@@ -192,6 +193,7 @@
 		8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableExtensions.swift; sourceTree = "<group>"; };
 		8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HouseOfToday-Bridging-Header.h"; sourceTree = "<group>"; };
 		8ED0608022E589F2003D610D /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
@@ -346,7 +348,7 @@
 				42490F6C22DDDA8300EE1A01 /* Axtivity */,
 				42490F4D22DDBB6000EE1A01 /* CustomTabBar */,
 				42490F2B22DCA21800EE1A01 /* Store */,
-				AB7EEA8922DDD32200F33663 /* Profile */,
+				AB7EEA8922DDD32200F33663 /* MyPage */,
 				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
 				4246670A22E7159B001CE665 /* UserAcitivityCell.swift */,
 			);
@@ -465,7 +467,6 @@
 				ABBA8FA022E6CF51001D43D7 /* MyShopping */,
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
 				42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */,
-				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
 				42FF92A522D5B44D00639BAF /* MainTabBarVC.swift */,
 				42490F6022DDC13800EE1A01 /* CategoryTabBarViewController.swift */,
@@ -493,6 +494,7 @@
 				8ED0608022E589F2003D610D /* AlertExtension.swift */,
 				8ED0608822EABB2A003D610D /* NetworkExtensions.swift */,
 				8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */,
+				8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -520,16 +522,17 @@
 			path = DetailRankingVC;
 			sourceTree = "<group>";
 		};
-		AB7EEA8922DDD32200F33663 /* Profile */ = {
+		AB7EEA8922DDD32200F33663 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				AB7EEAA222E1AD9200F33663 /* Cell */,
 				AB7EEAA122E1AD8900F33663 /* View */,
 				AB7EEA9122DDD52400F33663 /* ProfileView.swift */,
 				AB7EEA9322DDD54500F33663 /* MyshoppingView.swift */,
 				ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */,
 			);
-			path = Profile;
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		AB7EEAA122E1AD8900F33663 /* View */ = {
@@ -776,6 +779,7 @@
 				42490F7822DF0E0300EE1A01 /* StoreHomeHeaderView.swift in Sources */,
 				AB1AF93B22EB112200299226 /* MoreCollectionCell.swift in Sources */,
 				42C4E5C222D70BBE00A88466 /* AddUserActivityView.swift in Sources */,
+				8EC2170122F1AE29006CFD1D /* UIBarButtonItemExtensions.swift in Sources */,
 				42F3E4B522E0B637002E1479 /* CategoryList.swift in Sources */,
 				4246670922E6F736001CE665 /* CALayerExtensions.swift in Sources */,
 				42490F2A22DC8E1400EE1A01 /* HouseOfTodayServiceType.swift in Sources */,

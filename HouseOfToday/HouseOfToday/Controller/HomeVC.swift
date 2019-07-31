@@ -26,11 +26,11 @@ final class HomeVC: CategoryTabBarViewController {
     return bt
   }()
 
-  let tempRankingView = TempRankingView()
+  let tempView = UIView()
 
   init() {
     super.init(withTitles: ["랭킹"],
-               withViews: [tempRankingView],
+               withViews: [tempView],
                withScrollOption: false)
   }
 
@@ -38,17 +38,15 @@ final class HomeVC: CategoryTabBarViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
+//  required init?(coder aDecoder: NSCoder) {
+//    fatalError("init(coder:) has not been implemented")
+//  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
     configureNaviBar()
-    storeHomeViewDidScroll()
-
-    notiCenter.addObserver(self, selector: #selector(presentRankingDetailView(_:)), name: .presentRankingDetailView, object: nil)
-  }
-
-  deinit {
-    notiCenter.removeObserver(self, name: .presentRankingDetailView, object: nil)
+    //homeViewDidScroll()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -77,11 +75,7 @@ final class HomeVC: CategoryTabBarViewController {
     naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
     naviBar?.shadowImage = UIColor.clear.as1ptImage()
 
-    let rightItem = UIBarButtonItem(image: UIImage(named: "cart"),
-                                    style: .plain,
-                                    target: self,
-                                    action: #selector(cartButtonDidTap(_:)))
-    rightItem.tintColor = .gray
+    let rightItem = UIBarButtonItem.setButton(self, action: #selector(cartButtonDidTap(_:)), imageName: "cart2")
 
     navigationItem.setRightBarButton(rightItem, animated: true)
 
@@ -106,8 +100,9 @@ final class HomeVC: CategoryTabBarViewController {
   }
 
   // MARK: - Callback 
-  // 창식 - storeHomeView 에서 스크롤 했을 때 받을 callback
-  private func storeHomeViewDidScroll() {
+  // 창식 -  스크롤 했을 때 받을 callback
+  /*
+  private func homeViewDidScroll() {
     tempRankingView.tempRankingViewDidScroll = {
       direction in
       switch direction {
@@ -122,4 +117,5 @@ final class HomeVC: CategoryTabBarViewController {
       }
     }
   }
+  */
 }

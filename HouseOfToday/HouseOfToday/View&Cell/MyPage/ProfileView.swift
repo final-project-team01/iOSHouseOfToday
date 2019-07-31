@@ -18,7 +18,7 @@ final class ProfileView: UIView {
   }()
 
   @objc func reloadData() {
-    tableView.refreshControl?.endRefreshing()  //계속 안돌아가게 설정
+    tableView.refreshControl?.endRefreshing()  // 계속 안돌아가게 설정
     tableView.reloadData()
   }
 
@@ -37,6 +37,8 @@ final class ProfileView: UIView {
     addSubview(tableView)
     return tableView
   }()
+
+  internal var profileViewDidScroll: ((String) -> Void)?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -134,6 +136,15 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
 
     }
 
+  }
+
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard let callback = profileViewDidScroll else { return logger("Callback Error") }
+    if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0) {
+      callback("up")
+    } else {
+      callback("down")
+    }
   }
 
 }

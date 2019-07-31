@@ -11,6 +11,8 @@ import SnapKit
 
 class RankingHorizontalCell: UITableViewCell {
 
+  private let notiCenter = NotificationCenter.default
+
   private lazy var layout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
@@ -113,11 +115,14 @@ extension RankingHorizontalCell: UICollectionViewDataSource, UICollectionViewDel
       if let url = URL(string: productList[indexPath.item].thumnailImages[0].image) {
         cell.setImage(thumnailUrl: url)
       }
-
       return cell
     }
   }
 
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let productID = productList[indexPath.item].id
+    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
+  }
 }
 
 extension RankingHorizontalCell: UICollectionViewDelegateFlowLayout {

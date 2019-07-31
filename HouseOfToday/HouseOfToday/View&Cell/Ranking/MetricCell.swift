@@ -33,8 +33,8 @@ enum JMetric {
     let linspacing = JMetric.lineSpacing * (JMetric.numberOfLine - 1)
     let horizontalPadding = JMetric.rankingHorizontalInset.left + JMetric.rankingHorizontalInset.right + JMetric.nextOffSet
 
-    let itemSpacing = JMetric.itemSpacing * (JMetric.numberOfItem - 1)
-    let verticalPadding = JMetric.inset.top + JMetric.inset.bottom
+//    let itemSpacing = JMetric.itemSpacing * (JMetric.numberOfItem - 1)
+//    let verticalPadding = JMetric.inset.top + JMetric.inset.bottom
 
     let width = (UIScreen.main.bounds.width - linspacing - horizontalPadding) / JMetric.numberOfLine
     let height = (UIScreen.main.bounds.width - linspacing - horizontalPadding) / JMetric.numberOfItem

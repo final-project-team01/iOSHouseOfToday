@@ -13,6 +13,8 @@ import SnapKit
 
 class TempRankingView: UIView {
 
+//  private let notiCenter = NotificationCenter.default
+
   private let sectionTitle = ["오늘의집 AWARDS", "인기", "생활용품 BEST", "패브릭 BEST", "주방용품 BEST", "가전제품 BEST", "반려동물 BEST", "가구 BEST"]
   private let sectionSubTitle = ["카테고리별 BEST 100", "조명&홈데코 BEST", "", "", "", "", "", ""]
   private let moreButtonCount = ["100", "14,836", "6,248", "8,101", "7,766", "3,161", "1,793", "15,003"]

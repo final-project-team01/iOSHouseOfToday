@@ -14,8 +14,6 @@ class PickerViewController: UIViewController {
     static let sortStandard = "Sortstandard"
   }
 
-  private var isShowUserActivityView = false // FIXME: - 이거 아래 didSelectRow애서 하기
-
   private var didSelectRow = 0
 
   private lazy var clearView: UIView = {
@@ -137,7 +135,7 @@ class PickerViewController: UIViewController {
   // pickerVC 내려주기
   func customDismiss() {
     UIView.animate(withDuration: 0.33, animations: {
-      if let userView = self.view as? PickerViewController {
+      if let userView = self.view as? PickerViewController { //흐음 
         userView.hideView()
         userView.loadViewIfNeeded()
       }
