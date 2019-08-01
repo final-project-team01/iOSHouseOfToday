@@ -79,6 +79,7 @@ class MyPageVC: CategoryTabBarViewController {
 
   @objc private func settingDidTap(_ sender: Any) {
     print("설정 버튼 클릭됨")
+    self.navigationController?.pushViewController(SettingViewController(), animated: true)
   }
 
   @objc func presentPicCollectionView(_ sender: Notification) {
