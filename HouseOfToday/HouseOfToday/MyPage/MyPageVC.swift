@@ -142,32 +142,14 @@ extension MyPageVC {
   private func profileViewDidScroll() {
     profileView.profileViewDidScroll = {
       direction in
-      switch direction {
-      case "up":
-        print("rankingViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("rankingViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
+      hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "profileView")
     }
   }
 
   private func myshoppingViewDidScroll() {
     myshoppingView.myshoppingViewDidScroll = {
       direction in
-      switch direction {
-      case "up":
-        print("rankingViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("rankingViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
+      hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "myshoppingView")
     }
   }
 }

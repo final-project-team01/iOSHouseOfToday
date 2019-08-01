@@ -184,6 +184,22 @@ final class StoreVC: CategoryTabBarViewController {
     navigationController?.pushViewController(detailRankingVC, animated: true)
 
   }
+
+  override func willMove(toParent parent: UIViewController?) {
+    super.willMove(toParent: parent)
+    print("willMove")
+  }
+
+  override func viewSafeAreaInsetsDidChange() {
+    super.viewSafeAreaInsetsDidChange()
+    print("viewSafeAreaInsetsDidChange")
+  }
+
+  override var isBeingDismissed: Bool {
+    print("isBeingDismissed")
+    return super.isBeingDismissed
+  }
+
 }
 
 // MARK: - 창식 - Callback
@@ -193,32 +209,14 @@ extension StoreVC {
   private func storeHomeViewDidScroll() {
     storeHomeView.storeHomeViewDidScroll = {
       direction in
-      switch direction {
-      case "up":
-        print("storeHomeViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("storeHomeViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
+      hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "storeHomeView")
     }
   }
 
   private func rankingViewDidScroll() {
     tempRankingView.tempRankingViewDidScroll = {
       direction in
-      switch direction {
-      case "up":
-        print("rankingViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("rankingViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
+      hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "tempRankingView")
     }
   }
 }

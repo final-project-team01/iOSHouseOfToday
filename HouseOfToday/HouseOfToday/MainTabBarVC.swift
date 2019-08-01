@@ -41,7 +41,6 @@ final class MainTabBarVC: UITabBarController {
     self.delegate = self
     tabBar.backgroundColor = .white
     setupTabBarItems()
-
   }
 
   override func viewWillAppear(_ animated: Bool) {

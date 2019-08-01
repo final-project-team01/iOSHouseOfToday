@@ -78,6 +78,7 @@
 		8EC2170122F1AE29006CFD1D /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */; };
 		8EC2170322F1B7CD006CFD1D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170222F1B7CD006CFD1D /* CartViewController.swift */; };
 		8EC2170522F1B7EA006CFD1D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170422F1B7EA006CFD1D /* SettingViewController.swift */; };
+		8EC2173722F29789006CFD1D /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2173622F29789006CFD1D /* HelperFunctions.swift */; };
 		8ED0607B22E3182A003D610D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */; };
 		8ED0608122E589F2003D610D /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608022E589F2003D610D /* AlertExtension.swift */; };
 		8ED0608322E6E737003D610D /* SigninWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */; };
@@ -198,6 +199,7 @@
 		8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		8EC2170222F1B7CD006CFD1D /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		8EC2170422F1B7EA006CFD1D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		8EC2173622F29789006CFD1D /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		8ED0607A22E3182A003D610D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HouseOfToday-Bridging-Header.h"; sourceTree = "<group>"; };
 		8ED0608022E589F2003D610D /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 			children = (
 				AB1AF94222EDBF2F00299226 /* FontFoundation.swift */,
 				8E5B59E422D5AC7100BB01E8 /* Logger.swift */,
+				8EC2173622F29789006CFD1D /* HelperFunctions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -872,6 +875,7 @@
 				8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */,
 				8ED0608922EABB2A003D610D /* NetworkExtensions.swift in Sources */,
 				42286F8022EA037F00127772 /* ProductInfomationCell.swift in Sources */,
+				8EC2173722F29789006CFD1D /* HelperFunctions.swift in Sources */,
 				42286F8422EAF32100127772 /* SwipeImageCell.swift in Sources */,
 				42286F8222EAB9B100127772 /* TestCell.swift in Sources */,
 				8E5B59E922D5AD2D00BB01E8 /* TableViewCollectionViewExtensions.swift in Sources */,
