@@ -10,6 +10,7 @@ import Foundation
 
 protocol HouseOfTodayServiceType {
 
+  func fetchStoreHome(completion: @escaping (Result<StoreHomeList, ServiceError>) -> Void)
   func fetchCategoryList(completion: @escaping (Result<[CategoryList], ServiceError>) -> Void)
   func fetchProductList(completion: @escaping (Result<[ProductListTemp], ServiceError>) -> Void)
   func fetchCategoryIdList(id: Int, completion: @escaping (Result<CategoryIdList, ServiceError>) -> Void)

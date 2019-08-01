@@ -17,6 +17,16 @@ class ProductInfomationView: UIView {
   private lazy var cellTitleLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "상품정보"
+    label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+    addSubview(label)
+    return label
+  }()
+
+  private lazy var testLabel: UILabel = {
+    let label = UILabel(frame: CGRect.zero)
+    label.text = "상품정보"
+    label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
     addSubview(label)
     return label
@@ -42,8 +52,9 @@ class ProductInfomationView: UIView {
     btn.setTitle("펼치기 ∨", for: .normal)
     btn.setTitleColor(.white, for: .normal)
     btn.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+
     btn.addTarget(self, action: #selector(spreadImageViewAction(_:)), for: .touchUpInside)
-    gradationImageView.addSubview(btn)
+    addSubview(btn)
     return btn
   }()
 
@@ -57,7 +68,43 @@ class ProductInfomationView: UIView {
 
       let urls = info.detailImages.map ({ URL(string: $0.image) }).compactMap ({ $0 })
 
-      setImageViews(urls)
+      let totalValue = Float(1.0) / Float(urls.count)
+
+      if let firstImageView = imageViews.first, let firstUrl = urls.first {
+        firstImageView.tag = 0
+        firstImageView.kf.setImage(with: firstUrl,
+                                   placeholder: nil,
+                                   options: [.transition(.fade(1)), .loadDiskFileSynchronously],
+                                   progressBlock: nil) { [weak self] image, _, _, _ in
+
+                                    self?.notiCenter.post(name: ProductDetailVC.progressUpdate, object: nil, userInfo: ["progressUpdate": totalValue])
+                                    firstImageView.image = self?.resizeImage(image: image, resizeWidth: UIScreen.main.bounds.width)
+        }
+      }
+
+      for index in 1..<urls.count {
+        self.imageViews.append(UIImageView(frame: CGRect.zero))
+
+        if let lastView = imageViews.last {
+          lastView.contentMode = .scaleAspectFit
+          lastView.clipsToBounds = true
+
+          lastView.kf.setImage(with: urls[index],
+                               placeholder: nil,
+                               options: [.transition(.fade(1)), .loadDiskFileSynchronously],
+                               progressBlock: nil) { [weak self] _, _, _, _ in
+
+                                self?.notiCenter.post(name: ProductDetailVC.progressUpdate, object: nil, userInfo: ["progressUpdate": totalValue])
+//                                lastView.image = self?.resizeImage(image: image, resizeWidth: UIScreen.main.bounds.width)
+          }
+
+        }
+      }
+
+      DispatchQueue.main.async {
+        self.updateImageViewsAutolayout()
+      }
+
     }
   }
 
@@ -66,13 +113,16 @@ class ProductInfomationView: UIView {
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+    backgroundColor = .white
+
+    self.clipsToBounds = true
 
     let imageView = UIImageView(frame: CGRect.zero)
-    imageView.contentMode = .scaleAspectFill
+    imageView.contentMode = .top//.scaleAspectFill
     imageView.clipsToBounds = true
     imageViews.append(imageView)
     addSubview(imageView)
+
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -88,6 +138,13 @@ class ProductInfomationView: UIView {
   // MARK: - configure
   private func autolayoutViews() {
 
+//    if testLabel.translatesAutoresizingMaskIntoConstraints {
+//      testLabel.snp.makeConstraints {
+//        $0.top.equalToSuperview().offset(Metric.marginY)
+//        $0.leading.equalToSuperview().offset(Metric.marginY)
+//      }
+//    }
+
     if cellTitleLabel.translatesAutoresizingMaskIntoConstraints {
       cellTitleLabel.snp.makeConstraints {
         $0.top.equalToSuperview().offset(Metric.marginY)
@@ -95,27 +152,29 @@ class ProductInfomationView: UIView {
       }
     }
 
-    if let firstImageView = imageViews.first,
-      firstImageView.translatesAutoresizingMaskIntoConstraints {
-      print("firstImageView")
-      addSubview(firstImageView)
-      firstImageView.snp.makeConstraints {
-        $0.top.equalTo(cellTitleLabel.snp.bottom).offset(Metric.marginY)
-        $0.leading.trailing.bottom.equalToSuperview()
-      }
-    }
+//    if let firstImageView = imageViews.first,
+//      firstImageView.translatesAutoresizingMaskIntoConstraints {
+//      print("firstImageView")
+//      addSubview(firstImageView)
+//      firstImageView.snp.makeConstraints {
+//        $0.top.equalTo(cellTitleLabel.snp.bottom).offset(Metric.marginY*2)
+//        $0.leading.trailing.bottom.equalToSuperview()
+//      }
+//    }
 
     if gradationImageView.translatesAutoresizingMaskIntoConstraints {
       gradationImageView.snp.makeConstraints {
         $0.leading.trailing.bottom.equalToSuperview()
-        $0.height.equalTo(gradationImageView.snp.width).multipliedBy(0.3)
+        $0.height.equalTo(ProductInfomationView.height/3)
       }
     }
 
     if spreadButton.translatesAutoresizingMaskIntoConstraints {
+
       spreadButton.snp.makeConstraints {
-        $0.leading.trailing.bottom.equalToSuperview().inset(Metric.marginX)
-        $0.height.equalTo(gradationImageView.snp.height).multipliedBy(0.4)
+        $0.centerY.equalTo(gradationImageView.snp.centerY)
+        $0.leading.trailing.equalToSuperview()//.inset(Metric.marginX)
+        $0.height.equalTo(gradationImageView.snp.height).multipliedBy(0.3)
       }
     }
 
@@ -134,35 +193,10 @@ class ProductInfomationView: UIView {
         $0.height.equalTo(imageViews[index].getHeight())
       }
     }
-
-    //    if let lastImageView = imageViews.last {
-    //      lastImageView.snp.makeConstraints {
-    //        $0.bottom.equalToSuperview()
-    //      }
-    //    }
-
   }
 
   private func setImageViews(_ urls: [URL]) {
     failImageCount = 0
-
-    //    if let firstImageView = imageViews.first, let firstUrl = urls.first {
-    //      firstImageView.kf.setImage(with: firstUrl,
-    //                                 placeholder: nil,
-    //                                 options: [.transition(.fade(1)), .loadDiskFileSynchronously],
-    //                                 progressBlock: nil) {(_) in
-    //
-    //      }
-    //    }
-    if let firstImageView = imageViews.first, let firstUrl = urls.first {
-      firstImageView.kf.setImage(with: firstUrl,
-                                 placeholder: nil,
-                                 options: [.transition(.fade(1)), .loadDiskFileSynchronously],
-                                 progressBlock: nil) { [weak self] image, _, _, _ in
-
-                                  firstImageView.image = self?.resizeImage(image: image, resizeWidth: UIScreen.main.bounds.width)
-      }
-    }
 
     for index in 1..<urls.count {
 
@@ -180,31 +214,102 @@ class ProductInfomationView: UIView {
     }
   }
 
-  func resizeImage(image: UIImage?, resizeWidth: CGFloat) -> UIImage? {
+  private func updateImageViewsAutolayout() {
+
+    if let firstImageView = imageViews.first {
+      firstImageView.snp.makeConstraints {
+        $0.top.equalTo(cellTitleLabel.snp.bottom).offset(Metric.marginY*2)
+        $0.leading.trailing.equalToSuperview()
+        $0.width.equalTo(UIScreen.main.bounds.width)
+//        $0.bottom.equalToSuperview()
+      }
+    }
+
+    for index in 1..<imageViews.count {
+      addSubview(imageViews[index])
+      imageViews[index].snp.makeConstraints {
+        $0.top.equalTo(imageViews[index - 1].snp.bottom)
+        $0.left.right.equalToSuperview()
+        $0.height.equalTo(0)
+      }
+    }
+
+    if let lastImageView = imageViews.last {
+      lastImageView.snp.makeConstraints {
+        $0.bottom.equalToSuperview().priority(500)
+      }
+    }
+  }
+
+  public func updateLongSizeAutolayout() {
+
+    for index in 1..<imageViews.count {
+      imageViews[index].snp.updateConstraints {
+
+        //        if let image = imageViews[index].image {
+        //          let scale = (UIScreen.main.bounds.width)  / image.size.width
+        //          let resizeHeight = image.size.height * scale
+        //          $0.height.equalTo(resizeHeight)
+        //        } else {
+        $0.height.equalTo(imageViews[index].getHeight())
+        //        $0.height.equalTo((imageViews[index].image?.size.height ?? 0) )
+        //        }
+      }
+    }
+  }
+
+  public func getImagesHeight() -> CGFloat {
+
+    var height = imageViews.reduce(0) { $0 + $1.getHeight() }
+//    var height = imageViews.reduce(0) { $0 + ($1.image?.size.height ?? 0) }
+    print("height: \(height)")
+    return height
+  }
+
+  private func rescaling(image: UIImage?, resizeWidth: CGFloat) -> UIImage? {
+    guard let image = image else { return nil; print("rescaling fail")}
+
+//    image.scale = resizeWidth / image.size.width
+    return image
+  }
+
+  private func resizeImage(image: UIImage?, resizeWidth: CGFloat) -> UIImage? {
 
     guard let image = image else { return nil}
 
-    let scale = resizeWidth / image.size.width
+    let scale = (resizeWidth*1)  / image.size.width
     let resizeHeight = image.size.height * scale
     UIGraphicsBeginImageContext(CGSize(width: resizeWidth, height: resizeHeight))
     image.draw(in: CGRect(x: 0, y: 0, width: resizeWidth, height: resizeHeight))
     let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
 
+//    print("scale: ", resizeImage?.scale)
+//    resizeImage.set
     return resizeImage
   }
 
   // MARK: - Spread ImageView Button Action
   @objc private func spreadImageViewAction(_ sender: UIButton) {
+    print("spreadImageViewAction")
 
-    let totalHeight: Int = imageViews.reduce(0) { $0 + $1.getHeight() }
+    let totalHeight: CGFloat = getImagesHeight()
 
+    ProductInfomationView.height = totalHeight
     notiCenter.post(name: ProductDetailVC.cellSpread, object: nil, userInfo: ["TotalHeight": totalHeight])
   }
 }
 
 extension UIImageView {
-  func getHeight() -> Int {
-    return Int(image?.size.height ?? 0)
+  func getHeight() -> CGFloat {
+
+    if let width = image?.size.width {
+      let scale = (UIScreen.main.bounds.width)  / width
+      let resizeHeight = (image?.size.height ?? 0) * scale
+
+      return (resizeHeight + 0.5)
+    }
+
+    return (image?.size.height ?? 0)
   }
 }

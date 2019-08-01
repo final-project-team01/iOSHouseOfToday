@@ -12,7 +12,7 @@ class UsersStylingShotView: UIView {
 
   // MARK: - Property
 
-  static var height = Metric.StylingShotBigCellSize.height + Metric.StylingShotSmallCellSize.height + 100
+  static var height = Metric.StylingShotBigCellSize.height + Metric.StylingShotSmallCellSize.height + 120
 
   var pageNumber: Int = 10
 
@@ -90,7 +90,7 @@ class UsersStylingShotView: UIView {
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: CGRect.zero)
-    backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+    backgroundColor = .white
   }
 
   required init?(coder aDecoder: NSCoder) {

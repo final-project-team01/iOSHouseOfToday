@@ -59,11 +59,18 @@ final class StoreHomeView: UIView {
     }
   }
 
+//  private var storeHomeList: StoreHomeList? {
+//    didSet {
+//      let info = storeHomeList else { return print("")}
+//
+//    }
+//  }
+
   private var productListTemp: [ProductListTemp] = [] {
     didSet {
        productList = productListTemp.map {
         let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
-//        print($0.discountRate ?? "Err")
+
         return ProductList(id: $0.id,
                            brandName: $0.brandName,
                            productName: $0.productName,
@@ -82,7 +89,7 @@ final class StoreHomeView: UIView {
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
-    fetchProductList()
+    fetchStoreHome()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -110,20 +117,32 @@ final class StoreHomeView: UIView {
   }
 
   // MARK: - Fetch Product List
-
-  private func fetchProductList() {
-//    print("fetchProductList Start")
-    service.fetchProductList { result in
+  private func fetchStoreHome() {
+    service.fetchStoreHome { result in
       switch result {
       case .success(let list):
-        print("success!!! productList List Count: \(list.count)")
+        print("success!!! fetchStoreHome)")
 
-        self.productListTemp = list
+//        self.productListTemp = list
       case .failure(let error):
-        print("fetchProductList Error: \(error.localizedDescription)")
+        print("fetchStoreHome Error: \(error.localizedDescription)")
       }
     }
   }
+
+//  private func fetchProductList() {
+////    print("fetchProductList Start")
+//    service.fetchProductList { result in
+//      switch result {
+//      case .success(let list):
+//        print("success!!! productList List Count: \(list.count)")
+//
+//        self.productListTemp = list
+//      case .failure(let error):
+//        print("fetchProductList Error: \(error.localizedDescription)")
+//      }
+//    }
+//  }
 
 }
 
@@ -138,7 +157,8 @@ extension StoreHomeView: UICollectionViewDataSource {
     switch section {
     case 0:
       return 0
-    case 1: return productList.count > 0 ? 4 : 0
+    case 1:
+      return productList.count > 0 ? 4 : 0
     case 3:
       return productList.count
     default:

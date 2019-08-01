@@ -13,6 +13,15 @@ extension ProductDetailVC {
   static var cellSpread: Notification.Name {
     return Notification.Name("cellSpread")
   }
+  static var present: Notification.Name {
+    return Notification.Name("present")
+  }
+  static var progressUpdate: Notification.Name {
+    return Notification.Name("progressUpdate")
+  }
+  static var presentFormBottom: Notification.Name {
+    return Notification.Name("progressUpdate")
+  }
 }
 
 class ProductDetailVC: UIViewController {
@@ -21,23 +30,24 @@ class ProductDetailVC: UIViewController {
 
   private let service: HouseOfTodayServiceType = HouseOfTodayService()
 
-  lazy var bottomView: UIView = {
+  private lazy var bottomView: UIView = {
     let view = UIView(frame: CGRect.zero)
     view.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.7)
 
     return view
   }()
 
-  lazy var flowLayout: UICollectionViewFlowLayout = {
+  private lazy var flowLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
     return layout
   }()
 
-  lazy var collectionView: UICollectionView = {
+  private lazy var collectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     colV.register(cell: ProductMainCell.self)
     colV.register(cell: ProductStylingCell.self)
     colV.register(cell: ProductInfomationCell.self)
+    colV.register(cell: PopularityProductCell.self)
     colV.backgroundColor = .white
     colV.dataSource = self
     colV.delegate = self
@@ -45,14 +55,61 @@ class ProductDetailVC: UIViewController {
     return colV
   }()
 
-  private var productDetail: ProductDetail? = nil {
-    didSet {
+  private lazy var progressBar: UIProgressView = {
+    let progress = UIProgressView(progressViewStyle: .default)
+    progress.progressTintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    progress.backgroundColor = .clear
+    return progress
+  }()
 
+  private var productList: [ProductList] = [] {
+    didSet {
+      guard !productList.isEmpty else { return print("productList is empty")}
+
+      print("productList called")
       DispatchQueue.main.async { [weak self] in
-        self?.collectionView.reloadData()
+        let indexSet = IndexSet(integer: 1)
+        self?.collectionView.reloadSections(indexSet)
       }
     }
   }
+
+  private var productListTemp: CategoryIdList? {
+    didSet {
+      guard let products = productListTemp?.products else { return print("productListTemp?.products fail")}
+      print("productListTemp called" )
+      productList = products.map {
+        let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
+        //        let review = $0.review.map { $0.score }
+
+        return ProductList(id: $0.id,
+                           brandName: $0.brandName,
+                           productName: $0.productName,
+                           discountRate: $0.discountRate,
+                           price: $0.price,
+                           reviewCount: $0.reviewCount,
+                           starAvg: $0.starAvg,
+                           thumnailUrl: imageUrl)
+      }
+
+    }
+  }
+
+  private var productDetail: ProductDetail? = nil {
+    didSet {
+      guard let info = productDetail else { return print("productDetail is nil")}
+
+      print("ProductDetail called")
+
+      DispatchQueue.main.async { [weak self] in
+        let indexSet = IndexSet(integer: 0)
+        self?.collectionView.reloadSections(indexSet)
+        self?.fetchCategoryID(id: info.category)
+      }
+    }
+  }
+
+  private var reloadedHeight: CGFloat = 0
 
   private var productImages: [Int: UIImage] = [:]
 
@@ -64,12 +121,30 @@ class ProductDetailVC: UIViewController {
     view.backgroundColor = .white
 
     autolayoutViews()
+    setupNotificationCenter()
+    settingProgressView()
   }
 
   deinit {
     notiCenter.removeObserver(self,
                               name: ProductDetailVC.cellSpread,
                               object: nil)
+    notiCenter.removeObserver(self,
+                              name: ProductDetailVC.present,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: ProductDetailVC.progressUpdate,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: ProductDetailVC.presentFormBottom,
+                              object: nil)
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+
+    ProductInfomationView.height = 600
+    progressBar.isHidden = true
   }
 
   // MARK: - configure
@@ -86,60 +161,96 @@ class ProductDetailVC: UIViewController {
                            selector: #selector(reloadCollectionView(_:)),
                            name: ProductDetailVC.cellSpread,
                            object: nil)
+
+    notiCenter.addObserver(self,
+                           selector: #selector(presentVC(_:)),
+                           name: ProductDetailVC.present,
+                           object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(updateProgressView(_:)),
+                           name: ProductDetailVC.progressUpdate,
+                           object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(presentFromBottom(_:)),
+                           name: ProductDetailVC.presentFormBottom,
+                           object: nil)
+  }
+
+  // MARK: - Setting Progress View
+  private func settingProgressView() {
+
+    if let naviBar = navigationController?.navigationBar {
+      naviBar.addSubview(progressBar)
+
+      progressBar.snp.makeConstraints {
+        $0.bottom.equalTo(naviBar.snp.bottom)
+        $0.left.equalTo(naviBar.snp.left)
+        $0.right.equalTo(naviBar.snp.right)
+      }
+    }
+  }
+
+  // MARK: - update progress view
+  @objc private func updateProgressView(_ sender: Notification) {
+    guard let userInfo = sender.userInfo as? [String: Float],
+      let value = userInfo["progressUpdate"]
+      else {
+        return print("fail down casting")
+    }
+
+    if progressBar.progress + value < 0.95 {
+      let update = progressBar.progress + value
+      progressBar.setProgress(update, animated: true)
+      progressBar.isHidden = false
+    } else {
+      progressBar.isHidden = true
+    }
+//    print("progressBar.progress: \(progressBar.progress)")
   }
 
   // MARK: - setReload collectionView
   @objc private func reloadCollectionView(_ sender: Notification) {
-//    collectionView.reloadSections()
     print("reloadCollectionView Click")
-  }
-
-  // MARK: - ImageDownload
-  private func getFirstImage(_ urls: [URL]) {
-
-    if let firstUrl = urls.first {
-      let downloader = ImageDownloader.default
-      downloader.downloadImage(with: firstUrl) { result in
-        switch result {
-        case .success(let value):
-          self.productImages[0] = value.image
-          self.getImages(urls)
-        case .failure(let error):
-          print(error)
-        }
-      }
+    guard let userInfo = sender.userInfo as? [String: CGFloat],
+      let value = userInfo["TotalHeight"]
+      else {
+        return print("fail down casting")
     }
+
+    reloadedHeight = value
+
+    collectionView.reloadData()
   }
 
-  private func getImages(_ urls: [URL]) {
+  @objc private func presentFromBottom(_ sender: Notification) {
 
-    for index in 1..<urls.count {
-
-      let downloader = ImageDownloader.default
-      downloader.downloadImage(with: urls[index]) { result in
-        switch result {
-        case .success(let value):
-//          print("success:", index)
-          self.productImages[index] = value.image
-        case .failure(let error):
-          print(error)
-        }
-      }
+    guard let userInfo = sender.userInfo as? [String: UIViewController],
+      let vc = userInfo["viewController"]
+      else {
+        return print("fail down casting")
     }
+
+    let transition: CATransition = CATransition()
+    transition.duration = 0.5
+    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromTop
+    self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+
+    self.navigationController?.pushViewController(vc, animated: false)
   }
 
-  func resizeImage(image: UIImage?, resizeWidth: CGFloat) -> UIImage? {
+  // MARK: - presentReview NotificationCenter
+  @objc private func presentVC(_ sender: Notification) {
+    print("presentReview Click")
 
-    guard let image = image else { return nil}
+    guard let userInfo = sender.userInfo as? [String: UIViewController],
+      let vc = userInfo["viewController"]
+      else {
+        return print("fail down casting")
+    }
 
-    let scale = resizeWidth / image.size.width
-    let resizeHeight = image.size.height * scale
-    UIGraphicsBeginImageContext(CGSize(width: resizeWidth, height: resizeHeight))
-    image.draw(in: CGRect(x: 0, y: 0, width: resizeWidth, height: resizeHeight))
-    let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-
-    return resizeImage
+    self.navigationController?.pushViewController(vc, animated: true)
   }
 
   // MARK: - FetchProductDetail
@@ -154,33 +265,66 @@ class ProductDetailVC: UIViewController {
       }
     }
   }
-//  preferredLayoutAttributesFitting
+
+  public func fetchCategoryID(id: Int) {
+
+    service.fetchCategoryIdList(id: id) { result in
+      switch result {
+      case .success(let list):
+        print("success!!! List Count: \(list.products.count)")
+
+        self.productListTemp = list
+      case .failure(let error):
+
+        print("fetchCategoryList Error: \(error.localizedDescription)")
+      }
+    }
+  }
 
 }
 
 // MARK: - UICollectionViewDataSource
 extension ProductDetailVC: UICollectionViewDataSource {
 
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 2
+  }
+
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 1
+    if section == 0 {
+      print("numberOfItemsInSection")
+      return 1
+    } else {
+      print("productList.count: \(productList.count)")
+      return productList.count
+    }
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-    if indexPath.item == 0 {
-      let cell = collectionView.dequeue(ProductMainCell.self, indexPath)
-      cell.productDetail = self.productDetail
-      return cell
-    } else if indexPath.item == 1 {
-      let cell = collectionView.dequeue(ProductStylingCell.self, indexPath)
+    if indexPath.section == 0 {
+      if indexPath.item == 0 {
+        let cell = collectionView.dequeue(ProductMainCell.self, indexPath)
+        if reloadedHeight == 0 {
+          cell.productDetail = self.productDetail
+        } else {
+          cell.updateHeight()
+        }
+        return cell
+      } else if indexPath.item == 1 {
+        let cell = collectionView.dequeue(ProductStylingCell.self, indexPath)
 
-      return cell
-    } else {//if indexPath.item == 1 {
-      let cell = collectionView.dequeue(ProductInfomationCell.self, indexPath)
-      cell.productDetail = self.productDetail
+        return cell
+      } else {
+        let cell = collectionView.dequeue(ProductInfomationCell.self, indexPath)
+        cell.productDetail = self.productDetail
+        return cell
+      }
+    } else {
+      let cell = collectionView.dequeue(PopularityProductCell.self, indexPath)
+
       return cell
     }
-
   }
 }
 
@@ -194,17 +338,56 @@ extension ProductDetailVC: UICollectionViewDelegate {
       mainCell.updateSwipeImageViewPosition(positionY: (scrollView.bounds.origin.y + view.safeAreaInsets.top) / 2)
     }
   }
+
+  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    if let cell = cell as? PopularityProductCell {
+      cell.productInfo = productList[indexPath.item]
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    if let cell = cell as? PopularityProductCell {
+      cell.stopDownloadImage()
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    guard indexPath.section == 1 else { return print("section is 0")}
+
+    let vc = ProductDetailVC()
+
+    vc.fetchProductDetail(id: productList[indexPath.item].id)
+
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
 }
 
 extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    if indexPath.item == 0 {
-      return CGSize(width: UIScreen.main.bounds.width, height: ProductMainCell.height)
-    } else if indexPath.item == 1 {
-      return CGSize(width: UIScreen.main.bounds.width, height: ProductStylingCell.height)
+
+    if indexPath.section == 0 {
+      if indexPath.item == 0 {
+          return CGSize(width: UIScreen.main.bounds.width, height: ProductMainCell.height)
+      } else if indexPath.item == 1 {
+        return CGSize(width: UIScreen.main.bounds.width, height: ProductStylingCell.height)
+      } else {
+        return CGSize(width: UIScreen.main.bounds.width, height: 400)
+      }
     } else {
-      return CGSize(width: UIScreen.main.bounds.width, height: 400)
+      return Metric.popularityProductCellSize
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    if section == 1 {
+      return Metric.dealOfTodayCellInset
+    } else {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
   }
 }

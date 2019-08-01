@@ -13,8 +13,20 @@ class ProductMainCell: UICollectionViewCell {
   // MARK: - Property
   static var identifier: String = "ProductMainCell"
 
-  static let height = SwipeImageview.height + DetailProductFirstView.height + UsersStylingShotView.height + ProductInfomationView.height + ProductReviewView.height + Metric.marginX * 1
+//  static let height = SwipeImageview.height + DetailProductFirstView.height + UsersStylingShotView.height + ProductInfomationView.height + ProductReviewView.height + ExhibitionView.height// + Metric.marginX * 10
 
+  static var height: CGFloat {
+    var height = SwipeImageview.height
+    height += DetailProductFirstView.height
+    height += UsersStylingShotView.height
+    height += ProductInfomationView.height
+    height += ProductReviewView.height
+    height += ExhibitionView.height
+
+    height += Metric.marginX * 3
+    return height
+
+  }
   // FIXME: - 시간나면 collectionview가 아닌 image paging animation으로 바꾸라
   private let swipeImageView = SwipeImageview()
 
@@ -26,6 +38,8 @@ class ProductMainCell: UICollectionViewCell {
 
   private let productReviewView = ProductReviewView()
 
+  private let exhibitionView = ExhibitionView()
+
   public var productDetail: ProductDetail? = nil {
     didSet {
       guard let info = productDetail else { return }
@@ -34,6 +48,8 @@ class ProductMainCell: UICollectionViewCell {
 
       firstView.productDetail = info
       productInfoView.productDetail = info
+      productReviewView.productDetailData = info
+      exhibitionView.productDetailData = info
     }
   }
 
@@ -47,6 +63,7 @@ class ProductMainCell: UICollectionViewCell {
     addSubview(userStylingView)
     addSubview(productInfoView)
     addSubview(productReviewView)
+    addSubview(exhibitionView)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -63,8 +80,6 @@ class ProductMainCell: UICollectionViewCell {
 
   // MARK: - configure
   private func autolayoutViews() {
-//    let marginX = 15
-//    let marginY = 15
 
     if swipeImageView.translatesAutoresizingMaskIntoConstraints {
       swipeImageView.snp.makeConstraints {
@@ -79,7 +94,6 @@ class ProductMainCell: UICollectionViewCell {
     if firstView.translatesAutoresizingMaskIntoConstraints {
       firstView.snp.makeConstraints {
         $0.top.equalToSuperview().offset(SwipeImageview.height)
-//        $0.top.equalTo(swipeImageView.snp.bottom)//offset(marginY)
         $0.leading.trailing.equalToSuperview()
         $0.height.equalTo(DetailProductFirstView.height)
       }
@@ -108,14 +122,28 @@ class ProductMainCell: UICollectionViewCell {
         $0.height.equalTo(ProductReviewView.height)
       }
     }
+
+    if exhibitionView.translatesAutoresizingMaskIntoConstraints {
+      exhibitionView.snp.makeConstraints {
+        $0.top.equalTo(productReviewView.snp.bottom).offset(Metric.marginY)
+        $0.leading.trailing.equalToSuperview()
+        $0.height.equalTo(ExhibitionView.height)
+      }
+    }
+  }
+
+  public func updateHeight() {
+
+    productInfoView.snp.updateConstraints {
+      $0.height.equalTo(ProductInfomationView.height)
+    }
+
+    productInfoView.updateLongSizeAutolayout()
   }
 
   public func updateSwipeImageViewPosition(positionY: CGFloat) {
 
-//    guard positionY > 0 else { return print("positionY: \(positionY)")}
-
     if 0..<swipeImageView.frame.height ~= positionY {
-//      print("positionY: \(positionY)")
       swipeImageView.snp.updateConstraints {
         $0.top.equalToSuperview().offset(positionY)
         $0.bottom.equalTo(firstView.snp.top).offset(positionY)

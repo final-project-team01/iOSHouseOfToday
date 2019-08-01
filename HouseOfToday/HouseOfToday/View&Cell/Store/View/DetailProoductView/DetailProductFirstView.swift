@@ -12,30 +12,30 @@ class DetailProductFirstView: UIView {
 
   static var height: CGFloat {
 
-    if UIDevice().userInterfaceIdiom == .phone {
-      switch UIScreen.main.nativeBounds.height {
-      case 1136:
-        print("iPhone 5 or 5S or 5C")
-        return UIScreen.main.bounds.width
-      case 1334:
-        print("iPhone 6/6S/7/8")
-        return UIScreen.main.bounds.width * 0.95
-      case 2208:
-        print("iPhone 6+/6S+/7+/8+")
-        return UIScreen.main.bounds.width * 0.88
-      case 2436:
-        print("iPhone X")
-        return UIScreen.main.bounds.width * 0.88
-      case 1792:
-        print("iPhone Xr")
-        return UIScreen.main.bounds.width * 0.88
-      default:
-        print("unknown: \(UIScreen.main.nativeBounds.height)")
-        return UIScreen.main.bounds.width
-      }
-    }
+//    if UIDevice().userInterfaceIdiom == .phone {
+//      switch UIScreen.main.nativeBounds.height {
+//      case 1136:
+//        print("iPhone 5 or 5S or 5C")
+//        return UIScreen.main.bounds.width
+//      case 1334:
+//        print("iPhone 6/6S/7/8")
+//        return UIScreen.main.bounds.width * 0.95
+//      case 2208:
+//        print("iPhone 6+/6S+/7+/8+")
+//        return UIScreen.main.bounds.width * 0.88
+//      case 2436:
+//        print("iPhone X")
+//        return UIScreen.main.bounds.width * 0.88
+//      case 1792:
+//        print("iPhone Xr")
+//        return UIScreen.main.bounds.width * 0.88
+//      default:
+//        print("unknown: \(UIScreen.main.nativeBounds.height)")
+//        return UIScreen.main.bounds.width
+//      }
+//    }
     print("userInterfaceIdiom")
-    return UIScreen.main.bounds.width * 0.85
+    return 360
   }
 
   // MARK: - Property
@@ -43,7 +43,7 @@ class DetailProductFirstView: UIView {
     let label = UILabel(frame: CGRect.zero)
     label.text = "brand"
     label.textColor = UIColor.lightGray
-//    label.font = UIFont.systemFont(ofSize: 15)
+    label.font = UIFont.systemFont(ofSize: 13)
     addSubview(label)
     return label
   }()
@@ -53,7 +53,7 @@ class DetailProductFirstView: UIView {
     label.text = "product Name Label 1asldkfjhaslkjdfhalksjdfalkjhdfasdfasdfasdfasdfasdf"
     label.lineBreakMode = .byTruncatingTail
     label.numberOfLines = 2
-    label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+    label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
     addSubview(label)
     return label
   }()
@@ -78,9 +78,12 @@ class DetailProductFirstView: UIView {
   private lazy var ratingStarLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "★★★★★"
+    label.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     addSubview(label)
     return label
   }()
+
+  private var starView = RatingStarView()
 
   private lazy var ratingStarScoreLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
@@ -101,7 +104,7 @@ class DetailProductFirstView: UIView {
   private lazy var costPriceLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "999,999"
-//    label.font = UIFont.systemFont(ofSize: 15, weight: )
+
     addSubview(label)
     return label
   }()
@@ -130,6 +133,7 @@ class DetailProductFirstView: UIView {
     let label = UILabel(frame: CGRect.zero)
     label.text = "45P"
 //    label.font = UIFont.systemFont(ofSize: 10)
+    label.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     addSubview(label)
     return label
   }()
@@ -154,7 +158,7 @@ class DetailProductFirstView: UIView {
   private lazy var deliveryFreeLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = " 무료배송 "
-    label.font = UIFont.systemFont(ofSize: 15)
+    label.font = UIFont.systemFont(ofSize: 20)
     label.backgroundColor = #colorLiteral(red: 0.9293405414, green: 0.929452002, blue: 0.9293025732, alpha: 1)
     label.layer.masksToBounds = true
     label.layer.cornerRadius = 3
@@ -204,11 +208,29 @@ class DetailProductFirstView: UIView {
 
       ratingStarScoreLabel.text = "\(info.starAvg)"
 
-      discountLabel.text = "\(info.discountRate)"
-      priceLabel.text = "\(info.price / (Int(info.discountRate) ?? 1))"
-      costPriceLabel.text = "\(info.price)"
+      starView.rating = CGFloat(Double(info.starAvg) ?? 1.0 )
 
-      pointLabel.text = "\(Int(info.price / 1000))"
+      discountLabel.text = "\(info.discountRate)%"
+      priceLabel.text = "\(formetter(price: info.price))"
+
+//      Int(Double(info.price) / (1.0 / (Double(info.discountRate) ?? 1))))
+
+      let devide = (Double(info.discountRate) ?? 1.0) / 100.0
+      let value = Double(info.price) / devide
+
+      let attributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.systemFont(ofSize: 15),
+        .foregroundColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+      ]
+
+      let attributeString = NSMutableAttributedString(string: "\( formetter(price: Int(value)))",
+                                                      attributes: attributes)
+
+      attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
+
+      costPriceLabel.attributedText = attributeString
+
+      pointLabel.text = "\(Int(info.price / 1000))P"
 
     }
   }
@@ -220,6 +242,8 @@ class DetailProductFirstView: UIView {
 
     firstLineView.layer.addBorder([.top, .left], color: .black, width: 0.5)
     secondLineView.layer.addBorder([.top], color: .black, width: 0.5)
+
+    addSubview(starView)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -239,7 +263,7 @@ class DetailProductFirstView: UIView {
 
     if brandLabel.translatesAutoresizingMaskIntoConstraints {
       brandLabel.snp.makeConstraints {
-        $0.top.equalToSuperview()
+        $0.top.equalToSuperview().offset(marginY)
         $0.leading.equalToSuperview().offset(marginX)
       }
     }
@@ -248,7 +272,7 @@ class DetailProductFirstView: UIView {
       productNameLabel.snp.makeConstraints {
         $0.top.equalTo(brandLabel.snp.top).offset(marginY)
         $0.leading.equalToSuperview().offset(marginX)
-        $0.trailing.equalTo(shareButton.snp.leading).offset(marginX)
+        $0.trailing.equalTo(shareButton.snp.leading).offset(-marginX)
       }
     }
 
@@ -269,9 +293,19 @@ class DetailProductFirstView: UIView {
     }
 
     if ratingStarLabel.translatesAutoresizingMaskIntoConstraints {
+      ratingStarLabel.isHidden = true
       ratingStarLabel.snp.makeConstraints {
         $0.top.equalTo(productNameLabel.snp.bottom).offset(marginY/2)
         $0.leading.equalToSuperview().offset(marginX)
+      }
+    }
+
+    if starView.translatesAutoresizingMaskIntoConstraints {
+      starView.snp.makeConstraints {
+        $0.centerY.equalTo(ratingStarLabel)
+        $0.leading.equalTo(ratingStarLabel)
+        $0.width.equalTo(80)
+        $0.height.equalTo(16)
       }
     }
 
@@ -363,6 +397,13 @@ class DetailProductFirstView: UIView {
         $0.trailing.equalToSuperview().offset(-marginX)
       }
     }
+  }
+
+  private func formetter(price: Int) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+
+    return formatter.string(from: price as NSNumber) ?? ""
   }
 
 }
