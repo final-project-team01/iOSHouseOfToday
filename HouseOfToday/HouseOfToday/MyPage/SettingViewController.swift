@@ -17,7 +17,7 @@ class SettingViewController: UIViewController {
     tv.dataSource = self
     tv.delegate = self
     tv.sectionHeaderHeight = 30
-    //tv.sectionIndexBackgroundColor = #colorLiteral(red: 0.9373082519, green: 0.9340973496, blue: 0.9528850913, alpha: 1)
+
     view.addSubview(tv)
     return tv
   }()
@@ -28,7 +28,7 @@ class SettingViewController: UIViewController {
     return v
   }()
 
-  private let firstSection = ["프로필 수정", "맞춤정보 설정", "비밀번호 변경", "푸쉬 알림 설정", "내가 본 콘텐츠", "내 활동"]
+  private let firstSection = ["프로필 수정", "맞춤정보 설정", "비밀번호 변경", "푸쉬 알림 설정"]
   private let secondSection = ["오늘의집이 궁금해요", "FAQ", "의견 보내기", "서비스 이용 약관", "개인정보 보호정책", "버전 정보"]
   private var thirdSection = "로그인"
 
@@ -107,6 +107,9 @@ extension SettingViewController: UITableViewDataSource {
       cell.textLabel?.text = firstSection[indexPath.row]
     case 1:
       cell.textLabel?.text = secondSection[indexPath.row]
+      if indexPath.row == 5 {
+        cell.detailTextLabel?.text = "7.3.14"
+      }
     case 2:
       cell.textLabel?.text = thirdSection
     default:
@@ -114,6 +117,7 @@ extension SettingViewController: UITableViewDataSource {
     }
     cell.textLabel?.textColor = .darkGray
     cell.textLabel?.font = .systemFont(ofSize: 17, weight: .ultraLight)
+    cell.selectionStyle = .none
     return cell
   }
 
@@ -139,15 +143,19 @@ extension SettingViewController: UITableViewDelegate {
       switch indexPath.row {
       case 0:
         print("오늘의집이 궁금해요 클릭")
-        self.navigationController?.pushViewController(SecondSectionViewController(withURL: "http://bucketplace.co.kr/brand-story"), animated: true)
+        pushWebView(with: "http://bucketplace.co.kr/brand-story")
       case 1:
         print("FAQ 클릭")
+        pushWebView(with: "https://ohou.se/customer_center")
       case 2:
         print("의견 보내기")
+        pushWebView(with: "https://ohou.se/contacts/new")
       case 3:
         print("서비스 이용 약관")
+        pushWebView(with: "https://ohou.se/usepolicy")
       case 4:
         print("개인정보 보호정책")
+        pushWebView(with: "https://ohou.se/privacy")
       default:
         break
       }
@@ -157,6 +165,10 @@ extension SettingViewController: UITableViewDelegate {
     default:
       break
     }
+  }
+
+  private func pushWebView(with urlString: String) {
+    self.navigationController?.pushViewController(SecondSectionViewController(withURLString: urlString), animated: true)
   }
 
   private func configureLoginOrOut() {

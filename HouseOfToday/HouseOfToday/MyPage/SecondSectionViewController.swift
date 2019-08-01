@@ -14,17 +14,15 @@ class SecondSectionViewController: UIViewController {
   private lazy var webView: WKWebView = {
     let configuration = WKWebViewConfiguration()
     let wv = WKWebView(frame: .zero, configuration: configuration)
-    wv.backgroundColor = .yellow
-    wv.uiDelegate = self
     view.addSubview(wv)
     return wv
   }()
 
-  internal var url: String?
+  internal var urlString: String?
 
-  init(withURL url: String) {
+  init(withURLString urlString: String) {
     super.init(nibName: nil, bundle: nil)
-    self.url = url
+    self.urlString = urlString
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -34,14 +32,30 @@ class SecondSectionViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureNaviBar()
+    loadWebView()
+    makeContraints()
+  }
 
-    guard let urlString = self.url,
+  // configure Navigation Bar
+  private func configureNaviBar() {
+    let naviBar = self.navigationController?.navigationBar
+    naviBar?.isTranslucent = false
+    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+
+  private func loadWebView() {
+    guard let urlString = self.urlString,
       let url = URL(string: urlString)
       else { logger("url is nil"); return  }
+
     let request = URLRequest(url: url)
     self.webView.load(request)
-
-    makeContraints()
   }
 
   private func makeContraints() {
@@ -50,7 +64,8 @@ class SecondSectionViewController: UIViewController {
     }
   }
 
-}
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
+  }
 
-extension SecondSectionViewController: WKUIDelegate {
 }
