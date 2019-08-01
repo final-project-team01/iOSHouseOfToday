@@ -160,7 +160,7 @@
 		423086A022F298F800203475 /* StoreHomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHomeModel.swift; sourceTree = "<group>"; };
 		4246670622E6DD1D001CE665 /* SwipeImageview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeImageview.swift; sourceTree = "<group>"; };
 		4246670822E6F736001CE665 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
-		4246670A22E7159B001CE665 /* UserAcitivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAcitivityCell.swift; path = Axtivity/UserAcitivityCell.swift; sourceTree = "<group>"; };
+		4246670A22E7159B001CE665 /* UserAcitivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAcitivityCell.swift; sourceTree = "<group>"; };
 		4246671022E834D3001CE665 /* DetailProductFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductFirstView.swift; sourceTree = "<group>"; };
 		4246671222E8415B001CE665 /* UsersStylingShotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersStylingShotView.swift; sourceTree = "<group>"; };
 		4246671422E84BC2001CE665 /* UserStylingDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStylingDetailCell.swift; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
 		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
-		42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserActivityView.swift; path = "HouseOfToday/View&Cell/Axtivity/AddUserActivityView.swift"; sourceTree = SOURCE_ROOT; };
+		42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserActivityView.swift; path = HouseOfToday/Controller/AddUserActivityView.swift; sourceTree = SOURCE_ROOT; };
 		42C4E5C522DB238900A88466 /* HouseOfTodayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseOfTodayService.swift; sourceTree = "<group>"; };
 		42C4E5C922DC887800A88466 /* StoreHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHomeView.swift; sourceTree = "<group>"; };
 		42C4E5CB22DC890D00A88466 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
@@ -325,7 +325,7 @@
 			path = DetailProoductView;
 			sourceTree = "<group>";
 		};
-		42490F2B22DCA21800EE1A01 /* Store */ = {
+		42490F2B22DCA21800EE1A01 /* StoreHome */ = {
 			isa = PBXGroup;
 			children = (
 				42F3E4EC22E31E01002E1479 /* ViewController */,
@@ -335,7 +335,7 @@
 				42F3E4C222E21F6E002E1479 /* ModifyImageUrl.swift */,
 				42286F7D22E989E300127772 /* CenteringFlowLayout.swift */,
 			);
-			path = Store;
+			path = StoreHome;
 			sourceTree = "<group>";
 		};
 		42490F4D22DDBB6000EE1A01 /* CustomTabBar */ = {
@@ -365,16 +365,6 @@
 				42490F6722DDC15200EE1A01 /* IndicatorBarView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		42C4E5C322D81BFD00A88466 /* View&Cell */ = {
-			isa = PBXGroup;
-			children = (
-				42490F2B22DCA21800EE1A01 /* Store */,
-				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
-				4246670A22E7159B001CE665 /* UserAcitivityCell.swift */,
-			);
-			path = "View&Cell";
 			sourceTree = "<group>";
 		};
 		42C4E5C422D81C4E00A88466 /* DataModel */ = {
@@ -467,10 +457,9 @@
 				8ED060AB22EEC65E003D610D /* Login */,
 				42C4E5C422D81C4E00A88466 /* DataModel */,
 				AB447D6F22F1BF940089CE4F /* Home */,
-				AB447D6B22F1BDF20089CE4F /* MainStore */,
+				AB447D6B22F1BDF20089CE4F /* Store */,
 				AB7EEA8922DDD32200F33663 /* MyPage */,
-				42C4E5C322D81BFD00A88466 /* View&Cell */,
-				42FF92A022D5A90400639BAF /* Controller */,
+				42FF92A022D5A90400639BAF /* UserActivity */,
 				42FF928E22D5A48400639BAF /* Assets.xcassets */,
 				42FF929022D5A48400639BAF /* LaunchScreen.storyboard */,
 				42FF929322D5A48400639BAF /* Info.plist */,
@@ -499,12 +488,14 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		42FF92A022D5A90400639BAF /* Controller */ = {
+		42FF92A022D5A90400639BAF /* UserActivity */ = {
 			isa = PBXGroup;
 			children = (
 				42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */,
+				42C4E5C122D70BBE00A88466 /* AddUserActivityView.swift */,
+				4246670A22E7159B001CE665 /* UserAcitivityCell.swift */,
 			);
-			path = Controller;
+			path = UserActivity;
 			sourceTree = "<group>";
 		};
 		8E5B59E222D5AC3F00BB01E8 /* Helpers */ = {
@@ -568,12 +559,13 @@
 			path = Myshopping;
 			sourceTree = "<group>";
 		};
-		AB447D6B22F1BDF20089CE4F /* MainStore */ = {
+		AB447D6B22F1BDF20089CE4F /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				42490F2B22DCA21800EE1A01 /* StoreHome */,
 				ABBA8FB022E6EBB8001D43D7 /* Ranking */,
 			);
-			path = MainStore;
+			path = Store;
 			sourceTree = "<group>";
 		};
 		AB447D6C22F1BE8C0089CE4F /* StoreModel */ = {
@@ -594,7 +586,6 @@
 		AB447D6E22F1BEA70089CE4F /* MyPageModel */ = {
 			isa = PBXGroup;
 			children = (
-				8ED0608622E9C5E8003D610D /* MyPageModel.swift */,
 			);
 			path = MyPageModel;
 			sourceTree = "<group>";
