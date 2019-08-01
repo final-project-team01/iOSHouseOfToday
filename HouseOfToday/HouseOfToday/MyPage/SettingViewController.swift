@@ -35,7 +35,7 @@ class SettingViewController: UIViewController {
       self.thirdSection = newValue
     }
   }
-  
+
   let noti = NotificationCenter.default
 
   // MARK: - VC LifeCycle
@@ -68,19 +68,19 @@ class SettingViewController: UIViewController {
     }
     self.settingTableView.reloadData()
   }
-  
+
   private func configureNaviBar() {
     self.title = "설정"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
-    
-    let naviBar = self.navigationController?.navigationBar
-    naviBar?.isTranslucent = false
-    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
-    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+
+//    let naviBar = self.navigationController?.navigationBar
+//    naviBar?.isTranslucent = false
+//    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+//    naviBar?.shadowImage = UIColor.clear.as1ptImage()
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
     navigationItem.setLeftBarButton(backItem, animated: true)
   }
-  
+
   @objc private func backButtonDidTap(_ sender: Any) {
     self.navigationController?.popViewController(animated: true)
   }

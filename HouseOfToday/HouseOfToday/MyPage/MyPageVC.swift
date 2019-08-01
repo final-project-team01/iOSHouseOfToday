@@ -56,6 +56,11 @@ class MyPageVC: CategoryTabBarViewController {
   // MARK: - 창식 - Custumizing NavigationBar
   private func configureNaviBar() {
 
+//    self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back")
+//    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
+//    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//    self.navigationItem.backBarButtonItem?.tintColor = .darkGray
+
     let naviBar = self.navigationController?.navigationBar
     naviBar?.isTranslucent = false
     naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)

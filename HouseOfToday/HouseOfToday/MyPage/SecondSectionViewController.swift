@@ -39,14 +39,16 @@ class SecondSectionViewController: UIViewController {
 
   // configure Navigation Bar
   private func configureNaviBar() {
-    let naviBar = self.navigationController?.navigationBar
-    naviBar?.isTranslucent = false
-    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
-    naviBar?.shadowImage = UIColor.clear.as1ptImage()
-
+    title = "오늘의 집이 궁금해요"
+//    let naviBar = self.navigationController?.navigationBar
+//    naviBar?.isTranslucent = false
+//    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+//    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+//
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
 
     navigationItem.setLeftBarButton(backItem, animated: true)
+    self.navigationItem.backBarButtonItem?.tintColor = .darkGray
   }
 
   private func loadWebView() {

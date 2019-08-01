@@ -64,7 +64,25 @@ class CategoryProductListView: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
+    configureNaviBar()
     autolayoutViews()
+  }
+
+  // MARK: - 창식 - Navi 설정
+  private func configureNaviBar() {
+    self.title = "카테고리"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+
+    let naviBar = self.navigationController?.navigationBar
+    naviBar?.isTranslucent = false
+    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 
   // MARK: - configure
@@ -126,9 +144,10 @@ extension CategoryProductListView: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
     let vc = ProductDetailVC()
+    self.navigationController?.navigationBar.isHidden = false
+    self.navigationItem.hidesBackButton = true
 
     vc.fetchProductDetail(id: productList[indexPath.item].id)
-
     navigationController?.pushViewController(vc, animated: true)
   }
 
