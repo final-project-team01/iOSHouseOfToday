@@ -411,7 +411,6 @@
 		42F3E4EC22E31E01002E1479 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				42FF92A722D5B5EA00639BAF /* StoreVC.swift */,
 				42F3E4F522E5B5E8002E1479 /* CategoryProductListView.swift */,
 				42F3E4ED22E31E76002E1479 /* ProductDetailVC.swift */,
 				4230867F22ED650900203475 /* TestProductDetailVC.swift */,
@@ -561,6 +560,7 @@
 		AB447D6B22F1BDF20089CE4F /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				42FF92A722D5B5EA00639BAF /* StoreVC.swift */,
 				42490F2B22DCA21800EE1A01 /* StoreHome */,
 				ABBA8FB022E6EBB8001D43D7 /* Ranking */,
 			);

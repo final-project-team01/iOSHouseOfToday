@@ -195,10 +195,10 @@ extension StoreVC {
       direction in
       switch direction {
       case "up":
-        print("storeHomeViewDidScroll // up")
+//        print("storeHomeViewDidScroll // up")
         self.navigationController?.setNavigationBarHidden(false, animated: true)
       case "down":
-        print("storeHomeViewDidScroll // down")
+//        print("storeHomeViewDidScroll // down")
         self.navigationController?.setNavigationBarHidden(true, animated: true)
       default:
         break
