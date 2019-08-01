@@ -210,6 +210,16 @@ extension StoreVC {
     storeHomeView.storeHomeViewDidScroll = {
       direction in
       hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "storeHomeView")
+      switch direction {
+      case "up":
+//        print("storeHomeViewDidScroll // up")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+      case "down":
+//        print("storeHomeViewDidScroll // down")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+      default:
+        break
+      }
     }
   }
 

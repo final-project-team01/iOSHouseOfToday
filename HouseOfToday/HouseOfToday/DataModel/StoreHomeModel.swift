@@ -10,12 +10,12 @@ import Foundation
 
 struct StoreHomeList: Decodable {
   let todayDeal: [ProductListTemp]
-  let categoties: [CategoryList]
+  let categories: [CategoryList]
   let popularProducts: [ProductListTemp]
 
   enum CodingKeys: String, CodingKey {
     case todayDeal = "todaydeal"
-    case categoties
+    case categories
     case popularProducts = "popular_products"
   }
 }

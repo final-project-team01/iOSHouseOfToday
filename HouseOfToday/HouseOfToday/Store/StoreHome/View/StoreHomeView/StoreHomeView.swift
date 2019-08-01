@@ -55,20 +55,36 @@ final class StoreHomeView: UIView {
     didSet {
 
       count += 1
-      print("productList didSet: \(count)")
+//      print("productList didSet: \(count)")
     }
   }
 
-//  private var storeHomeList: StoreHomeList? {
-//    didSet {
-//      let info = storeHomeList else { return print("")}
-//
-//    }
-//  }
-
-  private var productListTemp: [ProductListTemp] = [] {
+  private var todayDeal: [ProductList] = [] {
     didSet {
-       productList = productListTemp.map {
+
+      count += 1
+//      print("productList didSet: \(count)")
+    }
+  }
+
+  private var storeHomeList: StoreHomeList? {
+    didSet {
+      guard let info = storeHomeList else { return print("storeHomeList is nil")}
+
+      todayDeal = info.todayDeal.map {
+        let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
+
+        return ProductList(id: $0.id,
+                           brandName: $0.brandName,
+                           productName: $0.productName,
+                           discountRate: $0.discountRate ?? "0",
+                           price: $0.price,
+                           reviewCount: $0.reviewCount,
+                           starAvg: $0.starAvg,
+                           thumnailUrl: imageUrl)
+      }
+
+      productList = info.popularProducts.map {
         let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
 
         return ProductList(id: $0.id,
@@ -83,6 +99,23 @@ final class StoreHomeView: UIView {
 
     }
   }
+
+//  private var productListTemp: [ProductListTemp] = [] {
+//    didSet {
+//       productList = productListTemp.map {
+//        let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
+//
+//        return ProductList(id: $0.id,
+//                           brandName: $0.brandName,
+//                           productName: $0.productName,
+//                           discountRate: $0.discountRate ?? "0",
+//                           price: $0.price,
+//                           reviewCount: $0.reviewCount,
+//                           starAvg: $0.starAvg,
+//                           thumnailUrl: imageUrl)
+//      }
+//    }
+//  }
 
   internal var storeHomeViewDidScroll: ((String) -> Void)?
 
@@ -123,7 +156,7 @@ final class StoreHomeView: UIView {
       case .success(let list):
         print("success!!! fetchStoreHome)")
 
-//        self.productListTemp = list
+        self.storeHomeList = list
       case .failure(let error):
         print("fetchStoreHome Error: \(error.localizedDescription)")
       }
@@ -158,7 +191,7 @@ extension StoreHomeView: UICollectionViewDataSource {
     case 0:
       return 0
     case 1:
-      return productList.count > 0 ? 4 : 0
+      return todayDeal.count
     case 3:
       return productList.count
     default:
@@ -174,6 +207,7 @@ extension StoreHomeView: UICollectionViewDataSource {
       if indexPath.section == 0 {
         if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoreHomeHeaderView", for: indexPath) as? StoreHomeHeaderView {
 
+          header.categoryList = storeHomeList?.categories ?? []
           return header
         }
       } else {
