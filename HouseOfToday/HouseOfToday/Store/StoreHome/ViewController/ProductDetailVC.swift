@@ -120,6 +120,7 @@ class ProductDetailVC: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = .white
 
+    configureNaviBar()
     autolayoutViews()
     setupNotificationCenter()
     settingProgressView()
@@ -188,6 +189,22 @@ class ProductDetailVC: UIViewController {
         $0.right.equalTo(naviBar.snp.right)
       }
     }
+  }
+
+  private func configureNaviBar() {
+    self.title = "설정"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+
+    let naviBar = self.navigationController?.navigationBar
+    naviBar?.isTranslucent = false
+    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 
   // MARK: - update progress view

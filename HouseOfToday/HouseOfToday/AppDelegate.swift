@@ -119,11 +119,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           self.loginNaviVC.dismiss(animated: true) {
             self.mainVC.present(alert, animated: true)
           }
+          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Login"), object: nil)
         } else {
           logger("오늘의 집 \(type.0)로 LogOut 완료")
           self.mainVC.present(self.loginNaviVC, animated: true) {
             self.loginNaviVC.present(alert, animated: true)
           }
+          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Logout"), object: nil)
         }
       }
     } else {

@@ -36,7 +36,7 @@ class CategoryListView: UIView {
     return colV
   }()
 
-  private var categoryList: [CategoryList] = [] {
+  public var categoryList: [CategoryList] = [] {
     didSet {
       guard !categoryList.isEmpty else { return print( "categoryList fail")}
       DispatchQueue.main.async { [weak self] in
@@ -48,12 +48,12 @@ class CategoryListView: UIView {
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
-    fetchCategoryList()
-    if collectionView.translatesAutoresizingMaskIntoConstraints {
-      collectionView.snp.makeConstraints {
-        $0.edges.equalToSuperview()
-      }
-    }
+//    fetchCategoryList()
+//    if collectionView.translatesAutoresizingMaskIntoConstraints {
+//      collectionView.snp.makeConstraints {
+//        $0.edges.equalToSuperview()
+//      }
+//    }
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -71,20 +71,20 @@ class CategoryListView: UIView {
   }
 
   // MARK: - Fetch Category List
-  private func fetchCategoryList() {
-    print("fetchCategoryList Start")
-    service.fetchCategoryList { result in
-      switch result {
-      case .success(let list):
-        print("success!!! List Count: \(list.count)")
-
-        self.categoryList = list
-      case .failure(let error):
-
-        print("fetchCategoryList Error: \(error.localizedDescription)")
-      }
-    }
-  }
+//  private func fetchCategoryList() {
+//    print("fetchCategoryList Start")
+//    service.fetchCategoryList { result in
+//      switch result {
+//      case .success(let list):
+//        print("success!!! List Count: \(list.count)")
+//
+//        self.categoryList = list
+//      case .failure(let error):
+//
+//        print("fetchCategoryList Error: \(error.localizedDescription)")
+//      }
+//    }
+//  }
 }
 
 // MARK: - UICollectionViewDataSource

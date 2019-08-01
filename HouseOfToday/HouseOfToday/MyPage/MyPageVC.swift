@@ -77,6 +77,7 @@ class MyPageVC: CategoryTabBarViewController {
 
   @objc private func settingDidTap(_ sender: Any) {
     print("설정 버튼 클릭됨")
+    self.navigationController?.pushViewController(SettingViewController(), animated: true)
   }
 
   @objc func presentPicCollectionView(_ sender: Notification) {
@@ -141,32 +142,14 @@ extension MyPageVC {
   private func profileViewDidScroll() {
     profileView.profileViewDidScroll = {
       direction in
-      switch direction {
-      case "up":
-        print("rankingViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("rankingViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
+      hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "profileView")
     }
   }
 
   private func myshoppingViewDidScroll() {
     myshoppingView.myshoppingViewDidScroll = {
       direction in
-      switch direction {
-      case "up":
-        print("rankingViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("rankingViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
+      hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "myshoppingView")
     }
   }
 }
