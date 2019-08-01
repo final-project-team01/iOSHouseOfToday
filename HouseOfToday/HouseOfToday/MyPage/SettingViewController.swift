@@ -22,16 +22,20 @@ class SettingViewController: UIViewController {
     return tv
   }()
 
-  private let sectionView: UIView = {
-    let v = UIView(frame: .zero)
-    v.backgroundColor = #colorLiteral(red: 0.9373082519, green: 0.9340973496, blue: 0.9528850913, alpha: 1)
-    return v
-  }()
-
   private let firstSection = ["프로필 수정", "맞춤정보 설정", "비밀번호 변경", "푸쉬 알림 설정"]
   private let secondSection = ["오늘의집이 궁금해요", "FAQ", "의견 보내기", "서비스 이용 약관", "개인정보 보호정책", "버전 정보"]
-  private var thirdSection = "로그인"
-
+  private var thirdSection: String {
+    get {
+      if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
+        return "Logout"
+      } else {
+        return "Login"
+      }
+    }set {
+      self.thirdSection = newValue
+    }
+  }
+  
   let noti = NotificationCenter.default
 
   // MARK: - VC LifeCycle
@@ -47,18 +51,12 @@ class SettingViewController: UIViewController {
     noti.removeObserver(self, name: NSNotification.Name(rawValue: "Logout"), object: nil)
   }
 
-  private func configureNaviBar() {
-    self.title = "설정"
-    self.navigationController?.setNavigationBarHidden(false, animated: true)
-  }
-
-  // 로그인 로그아웃 정보 받는 Notification
+  // // MARK: - Notification Methods
   private func observeNotifications() {
     noti.addObserver(self, selector: #selector(loginOrLogoutNoti(_:)), name: NSNotification.Name(rawValue: "Login"), object: nil)
     noti.addObserver(self, selector: #selector(loginOrLogoutNoti(_:)), name: NSNotification.Name(rawValue: "Logout"), object: nil)
   }
 
-  // MARK: - Action Methods
   @objc private func loginOrLogoutNoti(_ sender: Notification) {
     switch sender.name.rawValue {
     case "Login":
@@ -69,6 +67,22 @@ class SettingViewController: UIViewController {
       break
     }
     self.settingTableView.reloadData()
+  }
+  
+  private func configureNaviBar() {
+    self.title = "설정"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    
+    let naviBar = self.navigationController?.navigationBar
+    naviBar?.isTranslucent = false
+    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+  
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 
   // MARK: - Autolayout

@@ -56,10 +56,10 @@ class MyPageVC: CategoryTabBarViewController {
   // MARK: - 창식 - Custumizing NavigationBar
   private func configureNaviBar() {
 
-//    let naviBar = self.navigationController?.navigationBar
-//    naviBar?.isTranslucent = false
-//    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
-//    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+    let naviBar = self.navigationController?.navigationBar
+    naviBar?.isTranslucent = false
+    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+    naviBar?.shadowImage = UIColor.clear.as1ptImage()
 
     let cartItem = UIBarButtonItem.setButton(self, action: #selector(cartDidTap(_:)), imageName: "cart2")
     let shareItem = UIBarButtonItem.setButton(self, action: #selector(shareDidTap(_:)), imageName: "share2")
