@@ -87,6 +87,7 @@
 		8E5B59EB22D5AD4000BB01E8 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */; };
 		8E5B59ED22D5AD5500BB01E8 /* DecodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */; };
 		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
+		8E9F6DBE22F2D29900DB9869 /* SecondSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F6DBD22F2D29900DB9869 /* SecondSectionViewController.swift */; };
 		8EC216FF22F180C2006CFD1D /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */; };
 		8EC2170122F1AE29006CFD1D /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */; };
 		8EC2170322F1B7CD006CFD1D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170222F1B7CD006CFD1D /* CartViewController.swift */; };
@@ -220,6 +221,7 @@
 		8E5B59EA22D5AD4000BB01E8 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		8E5B59EC22D5AD5500BB01E8 /* DecodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableExtensions.swift; sourceTree = "<group>"; };
 		8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8E9F6DBD22F2D29900DB9869 /* SecondSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSectionViewController.swift; sourceTree = "<group>"; };
 		8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		8EC2170222F1B7CD006CFD1D /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
@@ -528,10 +530,10 @@
 		8ED060AB22EEC65E003D610D /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				8ED060B222F02BD8003D610D /* LoginTextField.swift */,
 				8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */,
 				8ED0608222E6E737003D610D /* SigninWithEmailViewController.swift */,
 				8ED0608422E6E759003D610D /* SignUpWithEmailViewController.swift */,
+				8ED060B222F02BD8003D610D /* LoginTextField.swift */,
 				8ED0607C22E32381003D610D /* HouseOfToday-Bridging-Header.h */,
 			);
 			path = Login;
@@ -606,6 +608,7 @@
 			children = (
 				42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */,
 				8EC2170422F1B7EA006CFD1D /* SettingViewController.swift */,
+				8E9F6DBD22F2D29900DB9869 /* SecondSectionViewController.swift */,
 				ABBA8FA922E6D1ED001D43D7 /* Profile */,
 				AB447D6722F1B8870089CE4F /* Myshopping */,
 			);
@@ -852,6 +855,7 @@
 				42490F2A22DC8E1400EE1A01 /* HouseOfTodayServiceType.swift in Sources */,
 				4230868D22EF018500203475 /* ExhibitionCell.swift in Sources */,
 				42F3E4F622E5B5E8002E1479 /* CategoryProductListView.swift in Sources */,
+				8E9F6DBE22F2D29900DB9869 /* SecondSectionViewController.swift in Sources */,
 				AB1AF93922EAA18100299226 /* RankingModel.swift in Sources */,
 				8E5B59E722D5AD1100BB01E8 /* UIControlExtensions.swift in Sources */,
 				42490F6B22DDC15200EE1A01 /* CategoryTabBarView.swift in Sources */,
