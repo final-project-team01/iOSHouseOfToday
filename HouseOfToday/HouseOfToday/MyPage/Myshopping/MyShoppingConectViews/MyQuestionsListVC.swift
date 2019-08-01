@@ -28,13 +28,13 @@ class MyQuestionsListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       configureAutoLayout()
-      view.backgroundColor = .green
+      view.backgroundColor = .white
   }
 
   private func configureAutoLayout() {
     announcementLabel.snp.makeConstraints { make in
-      make.top.equalToSuperview().multipliedBy(0.4)
-      make.leading.trailing.bottom.equalToSuperview()
+      make.centerX.equalToSuperview()
+      make.centerY.equalToSuperview().multipliedBy(0.4)
     }
   }
 }

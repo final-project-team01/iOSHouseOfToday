@@ -35,22 +35,20 @@ class MyPageVC: CategoryTabBarViewController {
 
   private func setAddNoti() {
     notiCenter.addObserver(self, selector: #selector(presentPicCollectionView(_:)), name: .presentPhotoView, object: nil)
-
     notiCenter.addObserver(self, selector: #selector(trackDeliveryHistoryVC(_:)), name: .trackDeliveryHistoryVC, object: nil)
-    notiCenter.addObserver(self, selector: #selector(presentProductScrapBookVC(_:)), name: .presentProductScrapBookVC, object: nil)
+    notiCenter.addObserver(self, selector: #selector(presentProductScrapBookVC(_:)), name: .productScrapBookVC, object: nil)
     notiCenter.addObserver(self, selector: #selector(myQuestionsListVC(_:)), name: .myQuestionsListVC, object: nil)
     notiCenter.addObserver(self, selector: #selector(myReViewVC(_:)), name: .myReViewVC, object: nil)
-    notiCenter.addObserver(self, selector: #selector(customerServiceVC(_:)), name: .customerServiceVC, object: nil)
+    notiCenter.addObserver(self, selector: #selector(customerCenterVC(_:)), name: .customerCenterVC, object: nil)
   }
 
   deinit {
     notiCenter.removeObserver(self, name: .presentPhotoView, object: nil)
-
     notiCenter.removeObserver(self, name: .trackDeliveryHistoryVC, object: nil)
-    notiCenter.removeObserver(self, name: .presentProductScrapBookVC, object: nil)
+    notiCenter.removeObserver(self, name: .productScrapBookVC, object: nil)
     notiCenter.removeObserver(self, name: .myQuestionsListVC, object: nil)
     notiCenter.removeObserver(self, name: .myReViewVC, object: nil)
-    notiCenter.removeObserver(self, name: .customerServiceVC, object: nil)
+    notiCenter.removeObserver(self, name: .customerCenterVC, object: nil)
   }
 
   // MARK: - 창식 - Custumizing NavigationBar
@@ -102,11 +100,11 @@ class MyPageVC: CategoryTabBarViewController {
 
   @objc func presentProductScrapBookVC(_ sender: Notification) {
     guard let vc = sender.userInfo as? [String: UIViewController],
-      let presentProductScrapBookVC = vc["PresentProductScrapBookVC"]
+      let productScrapBookVC = vc["ProductScrapBookVC"]
       else {
         return print("fail downCasting")
     }
-    navigationController?.pushViewController(presentProductScrapBookVC, animated: true)
+    navigationController?.pushViewController(productScrapBookVC, animated: true)
   }
 
   @objc func myQuestionsListVC(_ sender: Notification) {
@@ -127,14 +125,15 @@ class MyPageVC: CategoryTabBarViewController {
     navigationController?.pushViewController(myReViewVC, animated: true)
   }
 
-  @objc func customerServiceVC(_ sender: Notification) {
+  @objc func customerCenterVC(_ sender: Notification) {
     guard let vc = sender.userInfo as? [String: UIViewController],
-      let customerServiceVC = vc["CustomerServiceVC"]
+      let customerCenterVC = vc["CustomerCenterVC"]
       else {
         return print("fail downCasting")
     }
-    navigationController?.pushViewController(customerServiceVC, animated: true)
+    navigationController?.pushViewController(customerCenterVC, animated: true)
   }
+
 }
 
 // MARK: - 창식 - Callback
