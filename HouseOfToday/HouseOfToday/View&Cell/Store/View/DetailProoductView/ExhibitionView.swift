@@ -125,6 +125,15 @@ class ExhibitionView: UIView {
     return label
   }()
 
+  public var productDetailData: ProductDetail? {
+    didSet {
+      guard let info = productDetailData else { return print("productDetailData is nil")}
+
+      qnaTotalCountLabel.text = "\(info.qna.count)"
+
+    }
+  }
+
   // MARK: - View life cycle
   override func layoutSubviews() {
     super.layoutSubviews()
@@ -219,12 +228,20 @@ class ExhibitionView: UIView {
   // MARK: - touch QnA Button
   @objc private func touchQnA(_ sender: UIButton) {
     print("touchQnA")
+    let questionsAndAnswersVC = QuestionsAndAnswersVC()
+
+    if let qna = productDetailData?.qna {
+      questionsAndAnswersVC.qnaList = qna
+    }
+
+    NotificationCenter.default.post(name: ProductDetailVC.present, object: nil, userInfo: ["viewController": questionsAndAnswersVC])
   }
 
   @objc private func touchPolicy(_ sender: UIButton) {
     print("touchPolicy")
-    
-    
+    let deliveryPolicyVC = DeliveryPolicyVC()
+
+    NotificationCenter.default.post(name: ProductDetailVC.presentFormBottom, object: nil, userInfo: ["viewController": deliveryPolicyVC])
   }
 
 }

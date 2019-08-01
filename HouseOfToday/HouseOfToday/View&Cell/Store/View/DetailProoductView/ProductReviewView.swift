@@ -155,9 +155,9 @@ class ProductReviewView: UIView {
     btn.setAttributedTitle(mutableAttributedString, for: .normal)
 
     btn.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-    btn.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-    btn.layer.borderWidth = 1.0
-    btn.layer.cornerRadius = 5
+    btn.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    btn.layer.borderWidth = 0.5
+    btn.layer.cornerRadius = 10
     btn.layer.masksToBounds = true
 
     btn.addTarget(self, action: #selector(presentWriteReview(_:)), for: .touchUpInside)
@@ -395,6 +395,8 @@ class ProductReviewView: UIView {
 
   private func presentWriteReviewVC() {
     let writeReviewVC = UserWriteReviewVC()
+
+    writeReviewVC.productDetailData = productDetailData
 
     notiCenter.post(name: ProductDetailVC.present, object: nil, userInfo: ["viewController": writeReviewVC])
   }

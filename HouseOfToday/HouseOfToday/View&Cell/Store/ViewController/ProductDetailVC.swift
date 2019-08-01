@@ -19,6 +19,9 @@ extension ProductDetailVC {
   static var progressUpdate: Notification.Name {
     return Notification.Name("progressUpdate")
   }
+  static var presentFormBottom: Notification.Name {
+    return Notification.Name("progressUpdate")
+  }
 }
 
 class ProductDetailVC: UIViewController {
@@ -56,7 +59,6 @@ class ProductDetailVC: UIViewController {
     let progress = UIProgressView(progressViewStyle: .default)
     progress.progressTintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     progress.backgroundColor = .clear
-//    progress.isHidden = true
     return progress
   }()
 
@@ -75,6 +77,7 @@ class ProductDetailVC: UIViewController {
   private var productListTemp: CategoryIdList? {
     didSet {
       guard let products = productListTemp?.products else { return print("productListTemp?.products fail")}
+      print("productListTemp called" )
       productList = products.map {
         let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
         //        let review = $0.review.map { $0.score }
@@ -97,11 +100,11 @@ class ProductDetailVC: UIViewController {
       guard let info = productDetail else { return print("productDetail is nil")}
 
       print("ProductDetail called")
-      self.fetchCategoryID(id: info.category)
 
       DispatchQueue.main.async { [weak self] in
         let indexSet = IndexSet(integer: 0)
         self?.collectionView.reloadSections(indexSet)
+        self?.fetchCategoryID(id: info.category)
       }
     }
   }
@@ -131,6 +134,9 @@ class ProductDetailVC: UIViewController {
                               object: nil)
     notiCenter.removeObserver(self,
                               name: ProductDetailVC.progressUpdate,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: ProductDetailVC.presentFormBottom,
                               object: nil)
   }
 
@@ -164,6 +170,10 @@ class ProductDetailVC: UIViewController {
                            selector: #selector(updateProgressView(_:)),
                            name: ProductDetailVC.progressUpdate,
                            object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(presentFromBottom(_:)),
+                           name: ProductDetailVC.presentFormBottom,
+                           object: nil)
   }
 
   // MARK: - Setting Progress View
@@ -193,10 +203,9 @@ class ProductDetailVC: UIViewController {
       progressBar.setProgress(update, animated: true)
       progressBar.isHidden = false
     } else {
-      print("true")
       progressBar.isHidden = true
     }
-    print("progressBar.progress: \(progressBar.progress)")
+//    print("progressBar.progress: \(progressBar.progress)")
   }
 
   // MARK: - setReload collectionView
@@ -213,6 +222,24 @@ class ProductDetailVC: UIViewController {
     collectionView.reloadData()
   }
 
+  @objc private func presentFromBottom(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: UIViewController],
+      let vc = userInfo["viewController"]
+      else {
+        return print("fail down casting")
+    }
+
+    let transition: CATransition = CATransition()
+    transition.duration = 0.5
+    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromTop
+    self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+
+    self.navigationController?.pushViewController(vc, animated: false)
+  }
+
   // MARK: - presentReview NotificationCenter
   @objc private func presentVC(_ sender: Notification) {
     print("presentReview Click")
@@ -223,7 +250,7 @@ class ProductDetailVC: UIViewController {
         return print("fail down casting")
     }
 
-    navigationController?.pushViewController(vc, animated: true)
+    self.navigationController?.pushViewController(vc, animated: true)
   }
 
   // MARK: - FetchProductDetail
@@ -265,8 +292,10 @@ extension ProductDetailVC: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if section == 0 {
+      print("numberOfItemsInSection")
       return 1
     } else {
+      print("productList.count: \(productList.count)")
       return productList.count
     }
   }
@@ -286,7 +315,7 @@ extension ProductDetailVC: UICollectionViewDataSource {
         let cell = collectionView.dequeue(ProductStylingCell.self, indexPath)
 
         return cell
-      } else {//if indexPath.item == 1 {
+      } else {
         let cell = collectionView.dequeue(ProductInfomationCell.self, indexPath)
         cell.productDetail = self.productDetail
         return cell
@@ -324,6 +353,17 @@ extension ProductDetailVC: UICollectionViewDelegate {
     }
   }
 
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    guard indexPath.section == 1 else { return print("section is 0")}
+
+    let vc = ProductDetailVC()
+
+    vc.fetchProductDetail(id: productList[indexPath.item].id)
+
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
 }
 
 extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
@@ -333,7 +373,6 @@ extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
     if indexPath.section == 0 {
       if indexPath.item == 0 {
           return CGSize(width: UIScreen.main.bounds.width, height: ProductMainCell.height)
-
       } else if indexPath.item == 1 {
         return CGSize(width: UIScreen.main.bounds.width, height: ProductStylingCell.height)
       } else {
@@ -350,6 +389,5 @@ extension ProductDetailVC: UICollectionViewDelegateFlowLayout {
     } else {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-//    print(section)
   }
 }

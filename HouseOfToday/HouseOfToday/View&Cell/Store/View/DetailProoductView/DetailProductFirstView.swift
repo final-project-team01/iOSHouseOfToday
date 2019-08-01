@@ -104,7 +104,7 @@ class DetailProductFirstView: UIView {
   private lazy var costPriceLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "999,999"
-//    label.font = UIFont.systemFont(ofSize: 15, weight: )
+
     addSubview(label)
     return label
   }()
@@ -218,7 +218,17 @@ class DetailProductFirstView: UIView {
       let devide = (Double(info.discountRate) ?? 1.0) / 100.0
       let value = Double(info.price) / devide
 
-      costPriceLabel.text = "\( formetter(price: Int(value)))"
+      let attributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.systemFont(ofSize: 15),
+        .foregroundColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+      ]
+
+      let attributeString = NSMutableAttributedString(string: "\( formetter(price: Int(value)))",
+                                                      attributes: attributes)
+
+      attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
+
+      costPriceLabel.attributedText = attributeString
 
       pointLabel.text = "\(Int(info.price / 1000))P"
 
@@ -262,7 +272,7 @@ class DetailProductFirstView: UIView {
       productNameLabel.snp.makeConstraints {
         $0.top.equalTo(brandLabel.snp.top).offset(marginY)
         $0.leading.equalToSuperview().offset(marginX)
-        $0.trailing.equalTo(shareButton.snp.leading).offset(marginX)
+        $0.trailing.equalTo(shareButton.snp.leading).offset(-marginX)
       }
     }
 
@@ -295,7 +305,7 @@ class DetailProductFirstView: UIView {
         $0.centerY.equalTo(ratingStarLabel)
         $0.leading.equalTo(ratingStarLabel)
         $0.width.equalTo(80)
-        $0.height.equalTo(15)
+        $0.height.equalTo(16)
       }
     }
 

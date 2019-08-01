@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class UserWriteReviewVC: UIViewController {
 
@@ -23,14 +24,14 @@ class UserWriteReviewVC: UIViewController {
     return scroll
   }()
 
-  public lazy var titileImageView: UIImageView = {
+  private lazy var titileImageView: UIImageView = {
     let iv = UIImageView(frame: CGRect.zero)
     iv.contentMode = .scaleAspectFit
     scrollView.addSubview(iv)
     return iv
   }()
 
-  public lazy var productTitle: UILabel = {
+  private lazy var productTitle: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "Titleasdfasdflkjshdfliu laksdhflauksbdfalsbdflk aksdfhalskfdh"
     label.font = UIFont.systemFont(ofSize: 15)
@@ -191,9 +192,32 @@ class UserWriteReviewVC: UIViewController {
     return label
   }()
 
+  public var productDetailData: ProductDetail? {
+    didSet {
+      guard let info = productDetailData else {return print("productDetailData is nil")}
+
+      if let first = info.detailImages.first {
+        print("first.image: \(first.image)")
+        if let url = URL(string: first.image) {
+
+        titileImageView.kf.setImage(with: url,
+                                     placeholder: nil,
+                                     options: [.transition(.fade(0)), .loadDiskFileSynchronously],
+                                     progressBlock: nil) { (_) in
+        }
+      }
+      }
+
+      productTitle.text = "[\(info.brandName)] \(info.name)"
+
+    }
+  }
+
   // MARK: - View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    view.backgroundColor = .white
     makeRatingStarButton()
     autolayoutViews()
     autolayoutButtons()

@@ -12,6 +12,32 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
   let baseURL = "http://52.78.112.247"
 
+  func fetchStoreHome(completion: @escaping (Result<StoreHomeList, ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/storehome/"
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let storeHomeList = try? JSONDecoder().decode(StoreHomeList.self, from: data) {
+        completion(.success(storeHomeList))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+      }.resume()
+
+  }
+
   func fetchCategoryList(completion: @escaping (Result<[CategoryList], ServiceError>) -> Void) {
 
     var urlComp = URLComponents(string: baseURL)

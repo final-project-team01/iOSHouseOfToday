@@ -49,6 +49,7 @@ class ProductMainCell: UICollectionViewCell {
       firstView.productDetail = info
       productInfoView.productDetail = info
       productReviewView.productDetailData = info
+      exhibitionView.productDetailData = info
     }
   }
 

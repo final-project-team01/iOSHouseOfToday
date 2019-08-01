@@ -59,6 +59,13 @@ final class StoreHomeView: UIView {
     }
   }
 
+//  private var storeHomeList: StoreHomeList? {
+//    didSet {
+//      let info = storeHomeList else { return print("")}
+//
+//    }
+//  }
+
   private var productListTemp: [ProductListTemp] = [] {
     didSet {
        productList = productListTemp.map {
@@ -80,7 +87,7 @@ final class StoreHomeView: UIView {
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
-    fetchProductList()
+    fetchStoreHome()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -108,20 +115,32 @@ final class StoreHomeView: UIView {
   }
 
   // MARK: - Fetch Product List
-
-  private func fetchProductList() {
-//    print("fetchProductList Start")
-    service.fetchProductList { result in
+  private func fetchStoreHome() {
+    service.fetchStoreHome { result in
       switch result {
       case .success(let list):
-        print("success!!! productList List Count: \(list.count)")
+        print("success!!! fetchStoreHome)")
 
-        self.productListTemp = list
+//        self.productListTemp = list
       case .failure(let error):
-        print("fetchProductList Error: \(error.localizedDescription)")
+        print("fetchStoreHome Error: \(error.localizedDescription)")
       }
     }
   }
+
+//  private func fetchProductList() {
+////    print("fetchProductList Start")
+//    service.fetchProductList { result in
+//      switch result {
+//      case .success(let list):
+//        print("success!!! productList List Count: \(list.count)")
+//
+//        self.productListTemp = list
+//      case .failure(let error):
+//        print("fetchProductList Error: \(error.localizedDescription)")
+//      }
+//    }
+//  }
 
 }
 

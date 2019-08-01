@@ -123,6 +123,15 @@ extension CategoryProductListView: UICollectionViewDelegate {
     }
   }
 
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    let vc = ProductDetailVC()
+
+    vc.fetchProductDetail(id: productList[indexPath.item].id)
+
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

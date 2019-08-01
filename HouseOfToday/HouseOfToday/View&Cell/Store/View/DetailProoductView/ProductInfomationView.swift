@@ -115,6 +115,8 @@ class ProductInfomationView: UIView {
     super.init(frame: frame)
     backgroundColor = .white
 
+    self.clipsToBounds = true
+
     let imageView = UIImageView(frame: CGRect.zero)
     imageView.contentMode = .top//.scaleAspectFill
     imageView.clipsToBounds = true
