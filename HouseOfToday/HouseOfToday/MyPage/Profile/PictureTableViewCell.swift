@@ -82,7 +82,7 @@ class PictureTableViewCell: UITableViewCell {
 
     collectionView.delegate = self
     collectionView.dataSource = self
-    collectionView.register(cell: PictureCollectionViewCell.self)
+    collectionView.register(cell: PictureCVCell.self)
     collectionView.backgroundColor = .clear
 
     addSubview(collectionView)
@@ -179,7 +179,7 @@ extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDele
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureCollectionViewCell.identifier, for: indexPath) as! PictureCollectionViewCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureCVCell.identifier, for: indexPath) as! PictureCVCell
 
     return cell
 

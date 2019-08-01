@@ -20,10 +20,11 @@ class MyQuestionsListVC: UIViewController {
     let label = UILabel(frame: CGRect.zero)
     label.text = "문의내역이 없습니다."
     label.font = UIFont.systemFont(ofSize: 15)
-    label.textColor = .lightGray
+    label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
     view.addSubview(label)
     return label
   }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
       configureAutoLayout()
