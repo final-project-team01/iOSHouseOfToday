@@ -68,8 +68,8 @@ final class MyshoppingBaseCell: UITableViewCell {
       titleLabel.text = title.rawValue
       countLabel.isHidden = true
 
-    default:
-      break
+//    default:
+//      break
     }
 
   }

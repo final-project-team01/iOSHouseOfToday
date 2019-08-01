@@ -116,8 +116,6 @@ final class ProfileBaseCell: UITableViewCell {
 
       rightSideCellButton.isHidden = true
 
-    default:
-      break
     }
 
   }

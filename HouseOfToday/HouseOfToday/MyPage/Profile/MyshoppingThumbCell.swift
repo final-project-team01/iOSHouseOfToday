@@ -98,7 +98,7 @@ final class MyshoppingThumbCell: UITableViewCell {
   }()
 
   @objc func gotoMyShopping(_ sender: UIButton) {
-   let myVC = MyPageVC()
+//   let myVC = MyPageVC()
 
    // FIXME: - didSelectedCategoryCell 아마 `didSelectedCategoryCell` 써서 해보기
   }
