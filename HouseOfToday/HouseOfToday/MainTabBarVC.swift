@@ -48,8 +48,6 @@ final class MainTabBarVC: UITabBarController {
     MainTabBarVC.tabBarHeight = view.safeAreaInsets.bottom
   }
 
-  }
-
   deinit {
     print("MainTabBarVC is Deinit")
 
