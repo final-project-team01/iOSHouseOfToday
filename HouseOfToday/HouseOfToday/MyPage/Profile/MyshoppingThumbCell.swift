@@ -9,8 +9,6 @@
 import UIKit
 import SnapKit
 
-// FIXME: -  디버깅창에서 오토레이아웃 잘못된 부분 수정하기 아마도 Ranking 쪽
-
 extension Notification.Name {
   static let presentpresentMyShoppingView = Notification.Name("presentMyShoppingView")
 }
@@ -100,6 +98,7 @@ final class MyshoppingThumbCell: UITableViewCell {
   @objc func gotoMyShopping(_ sender: UIButton) {
 //   let myVC = MyPageVC()
 
+    
    // FIXME: - didSelectedCategoryCell 아마 `didSelectedCategoryCell` 써서 해보기
   }
 

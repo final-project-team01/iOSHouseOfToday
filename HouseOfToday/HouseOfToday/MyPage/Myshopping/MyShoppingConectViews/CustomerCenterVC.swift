@@ -8,7 +8,7 @@
 
 import UIKit
 
-// FIXME: - GG 내일 해보자 0801 ViewLifeCycle?
+// FIXME: - GG 내일 해보자 ViewLifeCycle?
 
 extension  Notification.Name {
   static let customerCenterVC = Notification.Name("CustomerCenterVC")
