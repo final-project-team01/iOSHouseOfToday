@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestCell: UICollectionViewCell {
+final class TestCell: UICollectionViewCell {
   // MARK: - Property
   static var identifier: String = "PopularityProductCell"
 

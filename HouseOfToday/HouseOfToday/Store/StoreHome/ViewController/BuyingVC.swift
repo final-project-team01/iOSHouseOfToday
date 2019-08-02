@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BuyingVC: UIViewController {
+final class BuyingVC: UIViewController {
 
   // MARK: - Property
   private lazy var buyingView: UIView = {
@@ -20,7 +20,7 @@ class BuyingVC: UIViewController {
 
   private lazy var shoppingBagButton: UIButton = {
     let btn = UIButton(type: .custom)
-    btn.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    btn.backgroundColor = #colorLiteral(red: 0.8776302934, green: 0.8724135756, blue: 0.8816406131, alpha: 1)
     btn.setTitle("장바구니", for: .normal)
     btn.setTitleColor(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), for: .normal)
     btn.setTitleColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .highlighted)
@@ -72,6 +72,32 @@ class BuyingVC: UIViewController {
     return btn
   }()
 
+  private lazy var dissmissButton: UIButton = {
+    let btn = UIButton(type: .custom)
+    btn.backgroundColor = .clear
+    btn.addTarget(self, action: #selector(touchUpDissmiss(_:)), for: .touchUpInside)
+    view.addSubview(btn)
+    return btn
+  }()
+  
+  private lazy var flowLayout: UICollectionViewFlowLayout = {
+    let layout = UICollectionViewFlowLayout()
+    // FIXME: -  delegate 로 수정
+    layout.headerReferenceSize = CGSize(width: Int(UIScreen.main.bounds.width - Metric.marginX*2),
+                                        height: 200)
+    return layout
+  }()
+  
+  private lazy var collectionView: UICollectionView = {
+    let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
+    colV.backgroundColor = .lightGray
+    colV.dataSource = self
+    colV.delegate = self
+    colV.register(cell: BuyingProductOptionCell.self)
+    colV.register(<#T##viewClass: AnyClass?##AnyClass?#>, forSupplementaryViewOfKind: <#T##String#>, withReuseIdentifier: <#T##String#>)
+    return colV
+  }()
+
   // MARK: - View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -83,21 +109,25 @@ class BuyingVC: UIViewController {
   // MARK: - configure
   private func autolayoutViews() {
 
+    dissmissButton.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+
     buyingView.snp.makeConstraints {
       $0.leading.trailing.bottom.equalToSuperview()
-      $0.height.equalTo(150)
+      $0.height.equalTo(170)
     }
 
     shoppingBagButton.snp.makeConstraints {
-      $0.leading.equalToSuperview().offset(Metric.marginX)
+      $0.leading.equalToSuperview().offset(Metric.marginX/2)
       $0.bottom.equalTo(view.safeAreaLayoutGuide)
       $0.height.equalTo(50)
     }
 
     buyingButton.snp.makeConstraints {
-      $0.leading.equalTo(shoppingBagButton.snp.trailing).offset(Metric.marginX)
-      $0.trailing.equalToSuperview().offset(-Metric.marginX)
-      $0.width.equalTo(shoppingBagButton)
+      $0.leading.equalTo(shoppingBagButton.snp.trailing).offset(Metric.marginX/2)
+      $0.trailing.equalToSuperview().offset(-Metric.marginX/2)
+      $0.width.height.equalTo(shoppingBagButton)
       $0.bottom.equalTo(view.safeAreaLayoutGuide)
     }
 
@@ -137,4 +167,28 @@ class BuyingVC: UIViewController {
 
   }
 
+  @objc private func touchUpDissmiss(_ sender: UIButton) {
+
+    self.presentingViewController?.dismiss(animated: false, completion: nil)
+  }
+
+}
+
+
+extension BuyingVC: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeue(<#T##reusableCell: Cell.Type##Cell.Type#>, indexPath)
+    
+    return cell
+  }
+  
+  
+}
+
+extension BuyingVC: UICollectionViewDelegateFlowLayout {
+  
 }

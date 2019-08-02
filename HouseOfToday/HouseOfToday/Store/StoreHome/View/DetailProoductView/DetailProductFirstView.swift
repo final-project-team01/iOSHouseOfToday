@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailProductFirstView: UIView {
+final class DetailProductFirstView: UIView {
 
   static var height: CGFloat {
 

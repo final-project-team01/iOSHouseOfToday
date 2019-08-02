@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class UserWriteReviewVC: UIViewController {
+final class UserWriteReviewVC: UIViewController {
 
   // MARK: - Property
   private lazy var scrollView: UIScrollView = {

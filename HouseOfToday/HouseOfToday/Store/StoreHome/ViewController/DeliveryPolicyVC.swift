@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeliveryPolicyVC: UIViewController {
+final class DeliveryPolicyVC: UIViewController {
 
   // MARK: - Property
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryProductListView: UIViewController {
+final class CategoryProductListView: UIViewController {
 
   // MARK: - Property
   private let service: HouseOfTodayServiceType = HouseOfTodayService()

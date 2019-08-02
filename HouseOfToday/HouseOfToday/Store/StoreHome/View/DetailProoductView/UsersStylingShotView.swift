@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UsersStylingShotView: UIView {
+final class UsersStylingShotView: UIView {
 
   // MARK: - Property
 
