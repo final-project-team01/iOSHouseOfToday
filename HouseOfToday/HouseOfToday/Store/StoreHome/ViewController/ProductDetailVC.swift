@@ -280,7 +280,7 @@ class ProductDetailVC: UIViewController {
 
     sender.isHighlighted.toggle()
   }
-  
+
   private func configureNaviBar() {
     self.title = "BEST"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
