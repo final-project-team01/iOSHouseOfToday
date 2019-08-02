@@ -23,6 +23,8 @@ extension StoreVC {
 final class StoreVC: CategoryTabBarViewController {
 
   // MARK: - Properties
+  static var safeBottom: CGFloat = 0
+
   let searchButton: UIButton = {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
@@ -81,6 +83,8 @@ final class StoreVC: CategoryTabBarViewController {
     super.viewDidAppear(animated)
     print("viewDidAppear")
     initializeSearchButton()
+
+    StoreVC.safeBottom = view.safeAreaInsets.bottom
   }
 
   private func addObservers() {
@@ -143,7 +147,7 @@ final class StoreVC: CategoryTabBarViewController {
     guard let userInfo = sender.userInfo as? [String: Int],
       let id = userInfo["categoryId"]
       else {
-        return print("fail down casting")
+        return print("fail down casting: presentCategoryListVC")
     }
 
     let vc = CategoryProductListView()
@@ -161,8 +165,10 @@ final class StoreVC: CategoryTabBarViewController {
     }
 
     let vc = ProductDetailVC()
+
     vc.fetchProductDetail(id: id)
 
+//    present(vc, animated: true)
     navigationController?.pushViewController(vc, animated: true)
   }
 

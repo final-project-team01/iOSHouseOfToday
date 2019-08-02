@@ -44,13 +44,14 @@ final class MainTabBarVC: UITabBarController {
     tabBar.backgroundColor = .white
     setupTabBarItems()
 
-    // get safetabbar height
-    MainTabBarVC.tabBarHeight = view.safeAreaInsets.bottom
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     self.navigationController?.setNavigationBarHidden(false, animated: true)
+    // get safetabbar height
+    MainTabBarVC.tabBarHeight = view.safeAreaInsets.bottom
+    print("MainTabBarVC.tabBarHeight", MainTabBarVC.tabBarHeight)
   }
 
   deinit {
