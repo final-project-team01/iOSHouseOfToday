@@ -25,10 +25,10 @@ class MyQuestionsListVC: UIViewController {
     return label
   }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      configureAutoLayout()
-      view.backgroundColor = .white
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    configureAutoLayout()
+    view.backgroundColor = .white
   }
 
   private func configureAutoLayout() {

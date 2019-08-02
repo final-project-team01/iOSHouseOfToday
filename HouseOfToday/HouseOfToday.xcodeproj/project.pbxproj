@@ -625,6 +625,7 @@
 				ABBA8FA522E6D1B1001D43D7 /* ProductScrapBookVC.swift */,
 				ABBA8FA322E6D126001D43D7 /* MyQuestionsListVC.swift */,
 				ABBA8FA722E6D1D0001D43D7 /* MyReViewVC.swift */,
+				ABBA8FAA22E6D21D001D43D7 /* WriteReviewVC.swift */,
 				AB447D7122F2AF940089CE4F /* CustomerCenterVC.swift */,
 			);
 			path = MyShoppingConectViews;
@@ -637,7 +638,6 @@
 				AB7EEA8A22DDD34F00F33663 /* ProfileUserCell.swift */,
 				AB7EEA8D22DDD4C800F33663 /* ProfileBaseCell.swift */,
 				AB7EEA9B22DF05BF00F33663 /* MyshoppingThumbCell.swift */,
-				ABBA8FAA22E6D21D001D43D7 /* WriteReviewVC.swift */,
 				AB7EEA9D22DF38B800F33663 /* PictureTableViewCell.swift */,
 				ABE66FBB22E5834300125F98 /* UploadPicCollectionView.swift */,
 				AB7EEA9F22DF3EF000F33663 /* PictureCVCell.swift */,

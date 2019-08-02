@@ -94,11 +94,10 @@ final class MyshoppingThumbCell: UITableViewCell {
     return detailStackView
   }()
 
-// FIXME: - 누르면 나의쇼핑 View로 가기 구현
+  // FIXME: - 누르면 나의쇼핑 View로 가기 구현
   @objc func gotoMyShopping(_ sender: UIButton) {
-   let myVC = MyPageVC()
-//    myVC.indicatorBarView.didSelectCategoryCell = IndexPath(index: 2)
-//    myVC.didSelectCategoryTabBarCell()
+    let myVC = MyPageVC()
+
   }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
