@@ -48,7 +48,7 @@ class WriteReviewVC: UIViewController {
     button.setTitle("직접 입력하러 가기", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
     button.setTitleColor(.white, for: .normal)
-    button.backgroundColor = #colorLiteral(red: 0.238917172, green: 0.809586525, blue: 0.9523653388, alpha: 1)
+    button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8470588235)
     button.layer.cornerRadius = 5
     button.layer.masksToBounds = true
     button.addTarget(self, action: #selector(didTapGoToWriteReviewButton(_:)), for: .touchUpInside)

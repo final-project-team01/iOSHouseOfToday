@@ -39,7 +39,7 @@ final class StoreVC: CategoryTabBarViewController {
   }()
 
   let storeHomeView = StoreHomeView()
-  let tempRankingView = TempRankingView()
+  let tempRankingView = RankingView()
 
   init() {
 

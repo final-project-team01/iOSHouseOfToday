@@ -11,7 +11,7 @@ import SnapKit
 
 // FIXME: - 더보기 버튼 BEST100만 눌렀을 때만 넘어가기
 
-class TempRankingView: UIView {
+class RankingView: UIView {
 
 //  private let notiCenter = NotificationCenter.default
 
@@ -122,7 +122,7 @@ class TempRankingView: UIView {
 
 }
 
-extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
+extension RankingView: UITableViewDataSource, UITableViewDelegate {
 
   // HeaderView Setting
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

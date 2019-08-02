@@ -76,7 +76,7 @@ class MyReViewVC: UIViewController {
     return button
   }()
 
-  lazy var reviewStatusLabel: UILabel = {
+  private lazy var reviewStatusLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "리뷰가 없어요"
     label.font = UIFont.systemFont(ofSize: 15)
