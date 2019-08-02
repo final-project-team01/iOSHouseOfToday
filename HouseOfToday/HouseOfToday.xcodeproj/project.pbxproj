@@ -89,6 +89,8 @@
 		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
 		8E9F6DBE22F2D29900DB9869 /* SecondSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F6DBD22F2D29900DB9869 /* SecondSectionViewController.swift */; };
 		8E9F6DC222F309B900DB9869 /* PushAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F6DC122F309B900DB9869 /* PushAlertViewController.swift */; };
+		8E9F6DC522F30EB800DB9869 /* PushTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F6DC422F30EB800DB9869 /* PushTableCell.swift */; };
+		8E9F6DEB22F3EBBE00DB9869 /* ErrorLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F6DEA22F3EBBE00DB9869 /* ErrorLogs.swift */; };
 		8EC216FF22F180C2006CFD1D /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */; };
 		8EC2170122F1AE29006CFD1D /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */; };
 		8EC2170322F1B7CD006CFD1D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2170222F1B7CD006CFD1D /* CartViewController.swift */; };
@@ -224,6 +226,8 @@
 		8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8E9F6DBD22F2D29900DB9869 /* SecondSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSectionViewController.swift; sourceTree = "<group>"; };
 		8E9F6DC122F309B900DB9869 /* PushAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAlertViewController.swift; sourceTree = "<group>"; };
+		8E9F6DC422F30EB800DB9869 /* PushTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTableCell.swift; sourceTree = "<group>"; };
+		8E9F6DEA22F3EBBE00DB9869 /* ErrorLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogs.swift; sourceTree = "<group>"; };
 		8EC216FE22F180C2006CFD1D /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		8EC2170022F1AE29006CFD1D /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		8EC2170222F1B7CD006CFD1D /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
@@ -508,6 +512,7 @@
 				AB1AF94222EDBF2F00299226 /* FontFoundation.swift */,
 				8E5B59E422D5AC7100BB01E8 /* Logger.swift */,
 				8EC2173622F29789006CFD1D /* HelperFunctions.swift */,
+				8E9F6DEA22F3EBBE00DB9869 /* ErrorLogs.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -612,6 +617,7 @@
 				8EC2170422F1B7EA006CFD1D /* SettingViewController.swift */,
 				8E9F6DBD22F2D29900DB9869 /* SecondSectionViewController.swift */,
 				8E9F6DC122F309B900DB9869 /* PushAlertViewController.swift */,
+				8E9F6DC422F30EB800DB9869 /* PushTableCell.swift */,
 				ABBA8FA922E6D1ED001D43D7 /* Profile */,
 				AB447D6722F1B8870089CE4F /* Myshopping */,
 			);
@@ -836,6 +842,7 @@
 			files = (
 				4230869F22F1AC0600203475 /* QnaCell.swift in Sources */,
 				4230869122F02ABA00203475 /* RatingStarView.swift in Sources */,
+				8E9F6DC522F30EB800DB9869 /* PushTableCell.swift in Sources */,
 				4230869B22F189AE00203475 /* DeliveryPolicyVC.swift in Sources */,
 				ABBA8FB722E6EF39001D43D7 /* RankingCollectionCell.swift in Sources */,
 				ABBA8FBF22E6FD62001D43D7 /* CategoryBestCell.swift in Sources */,
@@ -892,6 +899,7 @@
 				42F3E4AF22E08BDE002E1479 /* HouseOfTodayServiceStub.swift in Sources */,
 				ABBA8FCA22E9D720001D43D7 /* FooterTableCell.swift in Sources */,
 				4246671322E8415B001CE665 /* UsersStylingShotView.swift in Sources */,
+				8E9F6DEB22F3EBBE00DB9869 /* ErrorLogs.swift in Sources */,
 				AB7EEA9A22DEEE2700F33663 /* MyshoppingBaseCell.swift in Sources */,
 				4230868022ED650900203475 /* TestProductDetailVC.swift in Sources */,
 				4246671522E84BC2001CE665 /* UserStylingDetailCell.swift in Sources */,

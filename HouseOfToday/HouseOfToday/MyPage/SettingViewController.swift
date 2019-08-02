@@ -16,26 +16,23 @@ class SettingViewController: UIViewController {
     tv.register(cell: UITableViewCell.self)
     tv.dataSource = self
     tv.delegate = self
-    tv.sectionHeaderHeight = 30
 
     view.addSubview(tv)
     return tv
   }()
-
+  private var state = ""
   private let firstSection = ["프로필 수정", "맞춤정보 설정", "비밀번호 변경", "푸쉬 알림 설정"]
   private let secondSection = ["오늘의집이 궁금해요", "FAQ", "의견 보내기", "서비스 이용 약관", "개인정보 보호정책", "버전 정보"]
   private var thirdSection: String {
     get {
-      if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
-        return "Logout"
+      if let _ = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String] {
+        return "로그아웃"
       } else {
-        return "Login"
+        return "로그인"
       }
-    }set {
-      self.thirdSection = newValue
     }
   }
-  
+
   let noti = NotificationCenter.default
 
   // MARK: - VC LifeCycle
@@ -58,29 +55,17 @@ class SettingViewController: UIViewController {
   }
 
   @objc private func loginOrLogoutNoti(_ sender: Notification) {
-    switch sender.name.rawValue {
-    case "Login":
-      self.thirdSection = "로그아웃"
-    case "Logout":
-      self.thirdSection = "로그인"
-    default:
-      break
-    }
     self.settingTableView.reloadData()
   }
-  
+
   private func configureNaviBar() {
     self.title = "설정"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
-    
-    let naviBar = self.navigationController?.navigationBar
-    naviBar?.isTranslucent = false
-    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
-    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
     navigationItem.setLeftBarButton(backItem, animated: true)
   }
-  
+
   @objc private func backButtonDidTap(_ sender: Any) {
     self.navigationController?.popViewController(animated: true)
   }
@@ -129,7 +114,7 @@ extension SettingViewController: UITableViewDataSource {
     default:
       cell.textLabel?.text = "error"
     }
-    cell.textLabel?.textColor = .darkGray
+    cell.textLabel?.textColor = .black
     cell.textLabel?.font = .systemFont(ofSize: 17, weight: .ultraLight)
     cell.selectionStyle = .none
     return cell
@@ -140,20 +125,24 @@ extension SettingViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 extension SettingViewController: UITableViewDelegate {
 
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 30
-  }
-
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch indexPath.section {
-    case 0:
+    case 0: // 첫 번째 섹션
       switch indexPath.row {
       case 0:
         print("프로필 수정 클릭")
+      case 1:
+        print("맞춤정보 설정 클릭")
+      case 2:
+        print("비밀번호 변경")
+        pushWebView(with: "https://ohou.se/users/4502981/edit_password")
+      case 3:
+        print("푸쉬 알림 설정 클릭")
+        self.navigationController?.pushViewController(PushAlertViewController(), animated: true)
       default:
         break
       }
-    case 1:
+    case 1: // 두 번째 섹션
       switch indexPath.row {
       case 0:
         print("오늘의집이 궁금해요 클릭")
@@ -173,7 +162,7 @@ extension SettingViewController: UITableViewDelegate {
       default:
         break
       }
-    case 2:
+    case 2: // 마지막 섹션
       print("\(thirdSection) 버튼 클릭됨")
       configureLoginOrOut()
     default:
