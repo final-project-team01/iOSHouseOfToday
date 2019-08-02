@@ -119,49 +119,34 @@ class DealOfTodayCell: UICollectionViewCell {
 
       brandLabel.text = info.brandName
       productNameLabel.text = info.productName
-      priceLabel.text = formetter(price: info.price)//"\(info.price)"
+      priceLabel.text = formetter(price: info.price)
 
       ratingStarRankLabel.text = "\(info.starAvg)"
-      discountLabel.attributedText = getAttributeString(rate: info.discountRate)//"\(info.discountRate)%"
+      discountLabel.attributedText = getAttributeString(rate: info.discountRate)
       reviewCountLabel.text = "리뷰 \(info.reviewCount)"
-//      if info.review.count > 0 {
-//        let average = info.review.reduce(0) { $0 + $1 } / info.review.count
-//        ratingStarRankLabel.text = "\(average)"
-//      } else {
-//        ratingStarRankLabel.text = "\(0.0)"
-//      }
 
       if let url = URL(string: info.thumnailUrl[0]) {
         setImage(thumnailUrl: url)
       }
-
-//      DispatchQueue.global().async { [weak self] in
-//        do {
-//          if let url = URL(string: info.thumnailUrl[0]) {
-//            let data = try Data(contentsOf: url)
-//            DispatchQueue.main.async { [weak self] in
-//              guard let `self` = self else { return logger()}
-//              self.thumnailImageView.image = UIImage(data: data)
-//            }
-//          }
-//        } catch {
-//          print("makeCategoryButton id: \(info.id), Error: \(error.localizedDescription)")
-//        }
-//      }
     }
   }
+
+  private var timer = Timer()
 
   private let margin = 15
 
   // MARK: - View life cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
-
-//    backgroundColor = UIColor(red: 100/255, green: 230/255, blue: 50/255, alpha: 1)
+    setupTimer()
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  deinit {
+    killTimer()
   }
 
   override func layoutSubviews() {
@@ -264,6 +249,61 @@ class DealOfTodayCell: UICollectionViewCell {
     return mutableAttributedString
   }
 
+  // MARK: - Setting Timeer
+  private func setupTimer() {
+    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (_) in
+      self?.setTimeAttackLabel()
+    })
+  }
+
+  private func killTimer() {
+    timer.fire()
+  }
+
+  private func setTimeAttackLabel() {
+
+    let nowDate = Date()
+    let formetter = ISO8601DateFormatter()
+    let tomorrow = Date(timeInterval: 86400, since: nowDate)
+    let tomorrowFormetter = DateFormatter()
+
+    tomorrowFormetter.dateFormat = "yyyy-MM-dd"
+
+    let tomorrowString = tomorrowFormetter.string(from: tomorrow) + "T00:00:00+0000"
+
+    if let date = formetter.date(from: tomorrowString) {
+
+      let components = Set<Calendar.Component>([.second, .minute, .hour, .day])
+      let differenceOfDate = Calendar.current.dateComponents(components, from: nowDate, to: date)
+
+      guard let day = differenceOfDate.day, let hour = differenceOfDate.hour,
+        let minute = differenceOfDate.minute, let second = differenceOfDate.second else { return }
+
+      var diffText: String = ""
+      var hourText: String = ""
+      var minuteText: String = ""
+      var secondText: String = ""
+
+      if hour < 10 {
+        hourText = "0\(hour)"
+      } else { hourText = "\(hour)"}
+      if minute < 10 {
+        minuteText = "0\(minute)"
+      } else { minuteText = "\(minute)" }
+      if second < 10 {
+        secondText = "0\(second)"
+      } else { secondText = "\(second)"}
+
+      if day == 0 {
+        diffText = " \(hourText): \(minuteText): \(secondText) 남음 "
+      } else {
+        diffText = " 0\(day)일 \(hourText): \(minuteText): \(secondText) 남음 "
+      }
+      timeRemainingLabel.text = diffText
+    }
+
+  }
+
   // MARK: - Image Download & setImage
   private func setImage(thumnailUrl: URL) {
 
@@ -271,34 +311,7 @@ class DealOfTodayCell: UICollectionViewCell {
                                   placeholder: nil,
                                   options: [.transition(.fade(1)), .loadDiskFileSynchronously],
                                   progressBlock: nil) { (_) in
-//                                    print("result: ", result)
     }
-
-    // 셀이 보여지기 전에
-    // 만들어준 커스텀 셀의 이미지뷰를 불러온다.
-//    let imageView = (cell as! ImageCollectionViewCell).cellImageView!
-    // 일반적으로 쓰는 가장 흔한 방법
-//    thumnailImageView.kf.setImage(
-//      with: thumnailUrl, // url 넣기
-//      placeholder: nil, // 이미지가 보여지기전 사진 넣기
-//      // 옵션들 이미지 보여지는 방식이나 캐시 방식 정할 수 있음
-//      // .loadDiskFileSynchronously: 로딩 성능의 균형을 맞추어 깜박임을 없앤다.
-//      options: [.transition(.fade(1)), .loadDiskFileSynchronously],
-//      // 진행률이 업데이트 될때 마다 호출 되는 메서드
-//      // response에 예상 콘텐츠 길이가 포함되어 있지 않으면 호출되지 않음.
-//      // progressBlock은 서버 응답에 헤더에 "Content-Length"가 포함 된 경우에만 호출됩니다.
-//      progressBlock: { receivedSize, totalSize in
-//        //                print("****\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
-//        //                이미지 퍼센테이지 호출하는법
-//        let percentage = (Float(receivedSize) / Float(totalSize)) * 100.0
-//        print("\(indexPath.row + 1)번째 이미지: downloading progress: \(percentage)%")
-//    },
-//      // 완료 블럭 완료된 시점에 호출됨.
-//      completionHandler: { result in
-//        print(result)
-//        print("\(indexPath.row + 1): Finished")
-//    }
-//    )
   }
 
   public func stopDownloadImage() {

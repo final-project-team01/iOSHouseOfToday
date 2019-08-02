@@ -115,10 +115,50 @@ class ProductDetailVC: UIViewController {
 
   let notiCenter = NotificationCenter.default
 
+  private lazy var bookMarkButton: UIButton = {
+    let btn = UIButton(type: .custom)
+    btn.setImage(UIImage(named: "bookMark"), for: .normal)
+    btn.setImage(UIImage(named: "bookMarkOpaSelected"), for: .selected)
+    btn.setTitle("879", for: .normal)
+    btn.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+    btn.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+    btn.titleEdgeInsets = UIEdgeInsets(top: 10, left: -40, bottom: -20, right: 0)
+    btn.imageEdgeInsets = UIEdgeInsets(top: -10, left: 0, bottom: 10, right: 0)
+//    btn.backgroundColor = .red
+    btn.addTarget(self, action: #selector(touchBookMarkButton(_:)), for: .touchUpInside)
+    bottomBarView.addSubview(btn)
+    return btn
+  }()
+
+  private lazy var buyingButton: UIButton = {
+    let btn = UIButton(type: .custom)
+    btn.setTitle("구매하기", for: .normal)
+    btn.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+    btn.setTitleColor(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), for: .highlighted)
+    btn.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    btn.clipsToBounds = true
+    btn.layer.cornerRadius = 5
+    btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    btn.addTarget(self, action: #selector(touchUpInsideBuyingButton(_:)), for: .touchUpInside)
+    btn.addTarget(self, action: #selector(touchallEventBuyingButton(_:)), for: .touchDown)
+    bottomBarView.addSubview(btn)
+    return btn
+  }()
+
+  private lazy var bottomBarView: UIView = {
+    let bv = UIView(frame: CGRect.zero)
+    bv.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
+
+    view.addSubview(bv)
+    return bv
+  }()
+
   // MARK: - View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
+    self.tabBarController?.tabBar.isHidden = true
+    self.navigationController?.navigationBar.isHidden = false
 
     configureNaviBar()
     autolayoutViews()
@@ -153,6 +193,25 @@ class ProductDetailVC: UIViewController {
 
     collectionView.snp.makeConstraints {
       $0.edges.equalToSuperview()
+    }
+
+    bottomBarView.snp.makeConstraints {
+      $0.bottom.leading.trailing.equalToSuperview()
+      $0.height.equalTo(StoreVC.safeBottom + 10)//.offset(Metric.marginY/2)
+    }
+
+    buyingButton.snp.makeConstraints {
+      $0.top.equalTo(bottomBarView.snp.top).offset(Metric.marginY/3)
+      $0.trailing.equalTo(bottomBarView.snp.trailing).offset(-Metric.marginX/3)
+      $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-Metric.marginY/3)
+      $0.leading.equalTo(bottomBarView.snp.leading).offset(Metric.marginX * 4)
+    }
+
+    bookMarkButton.snp.makeConstraints {
+      $0.top.equalTo(buyingButton)
+      $0.leading.equalTo(bottomBarView).offset(Metric.marginX)
+      $0.height.equalTo(buyingButton)
+      $0.width.equalTo(40)
     }
   }
 
@@ -191,6 +250,37 @@ class ProductDetailVC: UIViewController {
     }
   }
 
+  @objc private func touchBookMarkButton(_ sender: UIButton) {
+    print("touchBookMarkButton")
+
+    sender.isSelected.toggle()
+
+    UIView.animate(withDuration: 0.1, animations: {// [weak self]
+      sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+    }) { bool in
+      if bool {
+        UIView.animate(withDuration: 0.1, animations: { //[weak self] _ in
+          sender.transform = .identity
+        })
+      }
+    }
+  }
+
+  // MARK: - buying button click
+  @objc private func touchUpInsideBuyingButton(_ sender: UIButton) {
+
+    let buyingVC = BuyingVC()
+    buyingVC.modalTransitionStyle = .crossDissolve
+    buyingVC.modalPresentationStyle = .overFullScreen
+    present(buyingVC, animated: true)
+
+  }
+
+  @objc private func touchallEventBuyingButton(_ sender: UIButton) {
+
+    sender.isHighlighted.toggle()
+  }
+  
   private func configureNaviBar() {
     self.title = "BEST"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -207,7 +297,7 @@ class ProductDetailVC: UIViewController {
     guard let userInfo = sender.userInfo as? [String: Float],
       let value = userInfo["progressUpdate"]
       else {
-        return print("fail down casting")
+        return print("fail down casting -> updateProgressView")
     }
 
     if progressBar.progress + value < 0.95 {
@@ -226,7 +316,7 @@ class ProductDetailVC: UIViewController {
     guard let userInfo = sender.userInfo as? [String: CGFloat],
       let value = userInfo["TotalHeight"]
       else {
-        return print("fail down casting")
+        return print("fail down casting -> reloadCollectionView")
     }
 
     reloadedHeight = value
@@ -239,7 +329,7 @@ class ProductDetailVC: UIViewController {
     guard let userInfo = sender.userInfo as? [String: UIViewController],
       let vc = userInfo["viewController"]
       else {
-        return print("fail down casting")
+        return print("fail down casting-> presentFromBottom")
     }
 
     let transition: CATransition = CATransition()
@@ -259,7 +349,7 @@ class ProductDetailVC: UIViewController {
     guard let userInfo = sender.userInfo as? [String: UIViewController],
       let vc = userInfo["viewController"]
       else {
-        return print("fail down casting")
+        return print("fail down casting: -> presentVC")
     }
 
     self.navigationController?.pushViewController(vc, animated: true)

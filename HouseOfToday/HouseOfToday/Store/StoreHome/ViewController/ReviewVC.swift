@@ -99,7 +99,7 @@ class ReviewVC: UIViewController {
 
     guard let userInfo = sender.userInfo as? [String: String],
       let sort = userInfo["sortNumber"] else {
-        return print("fail down casting")
+        return print("fail down casting: sortReviewList")
     }
 
     print("print success \(sort)")

@@ -13,7 +13,7 @@ class DetailProductFirstView: UIView {
   static var height: CGFloat {
 
 //    if UIDevice().userInterfaceIdiom == .phone {
-//      switch UIScreen.main.nativeBounds.height {
+//      switch UIScreen.ma9in.nativeBounds.height {
 //      case 1136:
 //        print("iPhone 5 or 5S or 5C")
 //        return UIScreen.main.bounds.width
