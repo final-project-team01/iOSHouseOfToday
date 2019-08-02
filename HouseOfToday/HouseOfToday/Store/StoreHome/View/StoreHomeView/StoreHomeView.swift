@@ -281,7 +281,11 @@ extension StoreHomeView: UICollectionViewDelegate {
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    if indexPath.section == 3 {
+    if indexPath.section == 1 {
+      let productID = todayDeal[indexPath.item].id
+
+      notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
+    } else if indexPath.section == 3 {
 
       let productID = productList[indexPath.item].id
 

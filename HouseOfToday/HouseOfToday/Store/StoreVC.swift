@@ -23,6 +23,8 @@ extension StoreVC {
 final class StoreVC: CategoryTabBarViewController {
 
   // MARK: - Properties
+  static var safeBottom: CGFloat = 0
+
   let searchButton: UIButton = {
     let bt = UIButton(type: .custom)
     bt.frame = .zero
@@ -81,6 +83,8 @@ final class StoreVC: CategoryTabBarViewController {
     super.viewDidAppear(animated)
     print("viewDidAppear")
     initializeSearchButton()
+
+    StoreVC.safeBottom = view.safeAreaInsets.bottom
   }
 
   private func addObservers() {
@@ -123,6 +127,12 @@ final class StoreVC: CategoryTabBarViewController {
 
     navigationItem.titleView = searchButton
 
+    // FIXME: -  뒤로 돌아가기 버튼좀 없애보자 제발. 아래꺼 모두 효과 없음
+//    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
+//    self.navigationController?.navigationBar.backIndicatorImage = nil
+//    self.navigationItem.hidesBackButton = true
+//    self.navigationItem.setHidesBackButton(true, animated: true)
+
     let naviBar = self.navigationController?.navigationBar
     naviBar?.isTranslucent = false
     naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
@@ -143,7 +153,7 @@ final class StoreVC: CategoryTabBarViewController {
     guard let userInfo = sender.userInfo as? [String: Int],
       let id = userInfo["categoryId"]
       else {
-        return print("fail down casting")
+        return print("fail down casting: presentCategoryListVC")
     }
 
     let vc = CategoryProductListView()
@@ -161,8 +171,10 @@ final class StoreVC: CategoryTabBarViewController {
     }
 
     let vc = ProductDetailVC()
+
     vc.fetchProductDetail(id: id)
 
+//    present(vc, animated: true)
     navigationController?.pushViewController(vc, animated: true)
   }
 
@@ -210,16 +222,6 @@ extension StoreVC {
     storeHomeView.storeHomeViewDidScroll = {
       direction in
       hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "storeHomeView")
-      switch direction {
-      case "up":
-//        print("storeHomeViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-//        print("storeHomeViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
     }
   }
 

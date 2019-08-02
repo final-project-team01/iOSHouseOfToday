@@ -40,26 +40,18 @@ final class MainTabBarVC: UITabBarController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-//    let tabBarVC = [homeVC, storeVC, expertVC, myPageVC]
-//    tabBarVC.forEach {
-//
-//      let naviBar = self.navigationController?.navigationBar
-//      naviBar?.isTranslucent = false
-//      naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
-//      naviBar?.shadowImage = UIColor.clear.as1ptImage()
-//
-//      naviBar?.backIndicatorImage = UIImage(named: "back")
-//      naviBar?.backIndicatorTransitionMaskImage = UIImage(named: "back")
-//      $0.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//    }
-
     self.delegate = self
     tabBar.backgroundColor = .white
     setupTabBarItems()
 
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
     // get safetabbar height
     MainTabBarVC.tabBarHeight = view.safeAreaInsets.bottom
+    print("MainTabBarVC.tabBarHeight", MainTabBarVC.tabBarHeight)
   }
 
   deinit {
