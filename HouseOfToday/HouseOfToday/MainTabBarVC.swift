@@ -47,7 +47,7 @@ final class MainTabBarVC: UITabBarController {
   }
 
   override func viewWillAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+    super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(false, animated: true)
     // get safetabbar height
     MainTabBarVC.tabBarHeight = view.safeAreaInsets.bottom

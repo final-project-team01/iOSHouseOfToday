@@ -12,9 +12,11 @@ extension UIBarButtonItem {
 
   static func setButton(_ target: Any?, action: Selector, imageName: String) -> UIBarButtonItem {
     let button = UIButton(type: .custom)
+
+    // 버튼 이미지에 색 넣는 전처리
     button.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
     button.addTarget(target, action: action, for: .touchUpInside)
-    button.tintColor = .gray
+    button.tintColor = .darkGray
 
     let menuBarItem = UIBarButtonItem(customView: button)
     menuBarItem.customView?.translatesAutoresizingMaskIntoConstraints = false

@@ -160,6 +160,7 @@ class ProductDetailVC: UIViewController {
     self.tabBarController?.tabBar.isHidden = true
     self.navigationController?.navigationBar.isHidden = false
 
+    configureNaviBar()
     autolayoutViews()
     setupNotificationCenter()
     settingProgressView()
@@ -278,6 +279,17 @@ class ProductDetailVC: UIViewController {
   @objc private func touchallEventBuyingButton(_ sender: UIButton) {
 
     sender.isHighlighted.toggle()
+  }
+  
+  private func configureNaviBar() {
+    self.title = "BEST"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 
   // MARK: - update progress view

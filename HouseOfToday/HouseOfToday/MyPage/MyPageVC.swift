@@ -56,6 +56,11 @@ class MyPageVC: CategoryTabBarViewController {
   // MARK: - 창식 - Custumizing NavigationBar
   private func configureNaviBar() {
 
+//    self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back")
+//    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
+//    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//    self.navigationItem.backBarButtonItem?.tintColor = .darkGray
+
     let naviBar = self.navigationController?.navigationBar
     naviBar?.isTranslucent = false
     naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
@@ -75,10 +80,18 @@ class MyPageVC: CategoryTabBarViewController {
 
   @objc private func shareDidTap(_ sender: Any) {
     print("공유하기 버튼 클릭됨")
+    announceActivity()
+  }
+
+  private func announceActivity() {
+    let activityVC = UIActivityViewController(activityItems: ["공유"], applicationActivities: nil)
+    activityVC.excludedActivityTypes = [.airDrop, .mail, .message, .print]
+    self.present(activityVC, animated: true, completion: nil)
   }
 
   @objc private func settingDidTap(_ sender: Any) {
     print("설정 버튼 클릭됨")
+    self.navigationController?.pushViewController(SettingViewController(), animated: true)
   }
 
   @objc func presentPicCollectionView(_ sender: Notification) {
@@ -142,32 +155,14 @@ extension MyPageVC {
   private func profileViewDidScroll() {
     profileView.profileViewDidScroll = {
       direction in
-      switch direction {
-      case "up":
-        print("rankingViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("rankingViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
+      hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "profileView")
     }
   }
 
   private func myshoppingViewDidScroll() {
     myshoppingView.myshoppingViewDidScroll = {
       direction in
-      switch direction {
-      case "up":
-        print("rankingViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("rankingViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
+      hideNaviBarWhenUserDidScroll(to: direction, with: self.navigationController, where: "myshoppingView")
     }
   }
 }
