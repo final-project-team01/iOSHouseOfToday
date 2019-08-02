@@ -62,6 +62,11 @@ class SettingViewController: UIViewController {
     self.title = "설정"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
 
+    let naviBar = self.navigationController?.navigationBar
+    naviBar?.isTranslucent = false
+    naviBar?.setBackgroundImage(UIColor.clear.as1ptImage(), for: .default)
+    naviBar?.shadowImage = UIColor.clear.as1ptImage()
+
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
     navigationItem.setLeftBarButton(backItem, animated: true)
   }

@@ -17,7 +17,7 @@ class MyReViewVC: UIViewController {
   private let notiCenter = NotificationCenter.default
 
   // FIXME: - fommatta로 `숫자`색상 바꾸기
-  lazy var reviewLabel: UILabel = {
+  private lazy var reviewLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "리뷰 0"
     label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -29,9 +29,9 @@ class MyReViewVC: UIViewController {
   private lazy var bestButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("베스트순", for: .normal)
-     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
     button.setTitleColor(.white, for: .normal)
-    button.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    button.backgroundColor = #colorLiteral(red: 0.238917172, green: 0.809586525, blue: 0.9523653388, alpha: 1)
     button.layer.cornerRadius = 5
     button.layer.masksToBounds = true
     button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
@@ -70,8 +70,8 @@ class MyReViewVC: UIViewController {
     button.setTitle("리뷰 쓰기", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
     button.setTitleColor(.white, for: .normal)
-    button.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-    //    button.addTarget(self, action: #selector(didTapWriteReviewButton(_:)), for: .touchUpInside)
+    button.backgroundColor = #colorLiteral(red: 0.238917172, green: 0.809586525, blue: 0.9523653388, alpha: 1)
+        button.addTarget(self, action: #selector(didTapWriteReviewButton(_:)), for: .touchUpInside)
     view.addSubview(button)
     return button
   }()
@@ -85,21 +85,27 @@ class MyReViewVC: UIViewController {
     return label
   }()
 
-  @objc func didTapButton(_ sender: UIButton) {
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    view.backgroundColor = .white
+    configureAutoLayout()
+  }
+
+  // MARK: - Action Methods
+  @objc private func didTapButton(_ sender: UIButton) {
     bestButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
     newestButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
     rowAvgButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-    sender.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    sender.backgroundColor = #colorLiteral(red: 0.238917172, green: 0.809586525, blue: 0.9523653388, alpha: 1)
   }
 
-    override func viewDidLoad() {
-      super.viewDidLoad()
-      view.backgroundColor = .white
-      configureAutoLayout()
-    }
+  @objc private func didTapWriteReviewButton(_ sender: UIButton) {
+    let writeReviewVC = WriteReviewVC()
+    navigationController?.pushViewController(writeReviewVC, animated: true)
+  }
 
+  // MARK: - AutoLayout
   private func configureAutoLayout() {
-
     let margin: CGFloat = 15
 
     reviewLabel.snp.makeConstraints { make in
@@ -135,10 +141,11 @@ class MyReViewVC: UIViewController {
       make.bottom.equalTo(writeReviewButton.snp.top)
     }
 
+    // FIXME: - 밑에 탭바 없어지면 height 사이즈 0.07로 바꾸기
     writeReviewButton.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview()
       make.bottom.equalToSuperview()
-      make.height.equalToSuperview().multipliedBy(0.07)
+      make.height.equalToSuperview().multipliedBy(0.2)
     }
 
   }

@@ -69,7 +69,6 @@ final class MyshoppingThumbCell: UITableViewCell {
     return label
   }()
 
-  // FIXME: - 누르면 나의쇼핑 View로 가기 구현
   private lazy var rightSideCellButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitleColor(.white, for: .normal)
@@ -95,10 +94,10 @@ final class MyshoppingThumbCell: UITableViewCell {
     return detailStackView
   }()
 
+  // FIXME: - 누르면 나의쇼핑 View로 가기 구현
   @objc func gotoMyShopping(_ sender: UIButton) {
-//   let myVC = MyPageVC()
+    let myVC = MyPageVC()
 
-   // FIXME: - didSelectedCategoryCell 아마 `didSelectedCategoryCell` 써서 해보기
   }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

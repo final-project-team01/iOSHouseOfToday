@@ -34,7 +34,6 @@ class TrackDeliveryHistoryVC: UIViewController {
     button.setTitle("전체상태", for: .normal)
     button.setTitleColor(#colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-//    button.imageView?.contentMode = .scaleAspectFill
     button.setImage(UIImage(named: "downArrow"), for: .normal)
     button.layer.borderColor = UIColor.lightGray.cgColor
     button.layer.borderWidth = 1
