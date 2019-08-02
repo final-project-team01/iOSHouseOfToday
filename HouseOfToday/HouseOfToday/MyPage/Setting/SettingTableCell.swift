@@ -21,15 +21,23 @@ class SettingTableCell: UITableViewCell {
 
   internal lazy var bottomTextField: UITextField = {
     let tf = UITextField(frame: .zero)
+    tf.backgroundColor = .gray
     contentView.addSubview(tf)
     return tf
     }()
 
+  internal var isTextViewEditable: Bool = false {
+    didSet {
+      self.tailTextView.isEditable = self.isTextViewEditable
+    }
+  }
+
   internal var isNeedTextField: Bool = false {
     didSet {
       bottomTextField.snp.makeConstraints {
-        $0.top.equalTo(textLabel!.snp.bottom).offset(5)
-        $0.center.equalToSuperview()
+        $0.centerY.equalToSuperview().inset(-30)
+        $0.centerX.equalToSuperview()
+        $0.width.equalToSuperview().multipliedBy(0.9)
       }
     }
   }

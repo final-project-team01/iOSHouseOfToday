@@ -10,26 +10,13 @@ import UIKit
 
 class ChangeProfileViewController: UIViewController {
 
-  private lazy var backgroundImageView: UIImageView = {
-    let iv = UIImageView(frame: .zero)
-    iv.backgroundColor = .red
-    view.addSubview(iv)
-    return iv
-  }()
-
-  private lazy var profileImageView: UIImageView = {
-    let iv = UIImageView(frame: .zero)
-    iv.backgroundColor = .yellow
-    backgroundImageView.addSubview(iv)
-    return iv
-  }()
-
   private lazy var changeProfileTableView: UITableView = {
     let tv = UITableView(frame: .zero)
     tv.allowsSelection = false
     tv.register(cell: SettingTableCell.self)
-    tv.register(cell: UITableViewCell.self)
+    tv.register(ChangeProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
     tv.dataSource = self
+    tv.delegate = self
     tv.backgroundColor = .green
     view.addSubview(tv)
     return tv
@@ -43,15 +30,8 @@ class ChangeProfileViewController: UIViewController {
 
   private func makeConstraints() {
 
-    profileImageView.snp.makeConstraints {
-      $0.center.equalToSuperview()
-      $0.width.equalToSuperview().multipliedBy(0.33)
-      $0.height.equalTo(profileImageView.snp.width)
-    }
-
     changeProfileTableView.snp.makeConstraints {
-      $0.top.equalTo(backgroundImageView.snp.bottom)
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.edges.equalToSuperview()
     }
   }
 
@@ -77,17 +57,39 @@ extension ChangeProfileViewController: UITableViewDataSource {
 
     let cell = tableView.dequeue(SettingTableCell.self)
     switch indexPath.row {
-    case 1:
+    case 0:
       cell.textLabel?.text = "닉네임"
+      cell.isTextViewEditable = true
       cell.tailTextView.text = "test"
-    case 2:
+    case 1:
       cell.textLabel?.text = "MY URL"
-    case 3:
+    case 2:
       cell.textLabel?.text = "한 줄 소개"
       cell.isNeedTextField = true
     default:
       break
     }
     return cell
+  }
+
+}
+
+extension ChangeProfileViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! ChangeProfileHeaderView
+
+    return header
+  }
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return UIScreen.main.bounds.height * 0.25
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if indexPath.row == 2 {
+      return UIScreen.main.bounds.height * 0.1
+    } else {
+      return 45
+    }
   }
 }
