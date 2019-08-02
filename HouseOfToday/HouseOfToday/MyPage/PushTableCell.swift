@@ -10,15 +10,34 @@ import UIKit
 
 class PushTableCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+  private lazy var switchButton: UISwitch = {
+    let s = UISwitch(frame: .zero)
+    s.isOn = true
+    contentView.addSubview(s)
+    return s
+  }()
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+  }
 
-        // Configure the view for the selected state
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    logger(ErrorLogs.coderInit.message)
+    fatalError(ErrorLogs.coderInit.message)
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    makeConstraints()
+  }
+
+  // MARK: - Autolayout
+  private func makeConstraints() {
+    switchButton.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.trailing.equalToSuperview().inset(10)
     }
+  }
 
 }

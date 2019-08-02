@@ -80,6 +80,13 @@ class MyPageVC: CategoryTabBarViewController {
 
   @objc private func shareDidTap(_ sender: Any) {
     print("공유하기 버튼 클릭됨")
+    announceActivity()
+  }
+
+  private func announceActivity() {
+    let activityVC = UIActivityViewController(activityItems: ["공유"], applicationActivities: nil)
+    activityVC.excludedActivityTypes = [.airDrop, .mail, .message, .print]
+    self.present(activityVC, animated: true, completion: nil)
   }
 
   @objc private func settingDidTap(_ sender: Any) {
