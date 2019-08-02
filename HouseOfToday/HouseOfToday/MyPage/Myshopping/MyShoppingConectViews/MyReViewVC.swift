@@ -17,7 +17,7 @@ class MyReViewVC: UIViewController {
   private let notiCenter = NotificationCenter.default
 
   // FIXME: - fommatta로 `숫자`색상 바꾸기
-  lazy var reviewLabel: UILabel = {
+  private lazy var reviewLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "리뷰 0"
     label.font = UIFont.boldSystemFont(ofSize: 15)
