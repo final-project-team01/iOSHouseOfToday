@@ -50,7 +50,6 @@ class DetailRankingVC: UIViewController {
     notiCenter.removeObserver(self, name: .presentRankingPickerVC, object: nil)
   }
 
-  // FIXME: - 다시 시도해보기
   @objc func presentRankingPickerVC(_ sender: Notification) {
     guard let userInfo = sender.userInfo as? [String: UIViewController],
       let rankingPickerVC = userInfo["presentRankingPickerVC"]

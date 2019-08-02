@@ -70,7 +70,8 @@ class WriteReviewVC: UIViewController {
   }
 
   @objc private func didTapGoToWriteReviewButton(_ sender: UIButton) {
-//    UserWriteReviewVC
+    let userWriteReviewVC = UserWriteReviewVC()
+    navigationController?.pushViewController(userWriteReviewVC, animated: true)
   }
 
   private func alignButtonImageAndTitle(button: UIButton) {

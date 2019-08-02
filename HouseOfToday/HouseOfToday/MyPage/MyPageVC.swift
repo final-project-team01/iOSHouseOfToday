@@ -40,6 +40,7 @@ class MyPageVC: CategoryTabBarViewController {
     notiCenter.addObserver(self, selector: #selector(myQuestionsListVC(_:)), name: .myQuestionsListVC, object: nil)
     notiCenter.addObserver(self, selector: #selector(myReViewVC(_:)), name: .myReViewVC, object: nil)
     notiCenter.addObserver(self, selector: #selector(customerCenterVC(_:)), name: .customerCenterVC, object: nil)
+    notiCenter.addObserver(self, selector: #selector(userWriteReviewVC(_:)), name: .userWriteReviewVC, object: nil)
   }
 
   deinit {
@@ -49,6 +50,7 @@ class MyPageVC: CategoryTabBarViewController {
     notiCenter.removeObserver(self, name: .myQuestionsListVC, object: nil)
     notiCenter.removeObserver(self, name: .myReViewVC, object: nil)
     notiCenter.removeObserver(self, name: .customerCenterVC, object: nil)
+    notiCenter.removeObserver(self, name: .userWriteReviewVC, object: nil)
   }
 
   // MARK: - 창식 - Custumizing NavigationBar
@@ -145,6 +147,15 @@ class MyPageVC: CategoryTabBarViewController {
         return print("fail downCasting")
     }
     navigationController?.pushViewController(customerCenterVC, animated: true)
+  }
+
+  @objc func userWriteReviewVC(_ sender: Notification) {
+    guard let vc = sender.userInfo as? [String: UIViewController],
+    let userWriteReviewVC = vc["UserWriteReviewVC"]
+      else {
+        return print("fail downCasting")
+    }
+    navigationController?.pushViewController(userWriteReviewVC, animated: true)
   }
 
 }

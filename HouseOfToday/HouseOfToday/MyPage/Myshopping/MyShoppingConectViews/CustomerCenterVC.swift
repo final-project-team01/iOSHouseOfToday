@@ -20,7 +20,7 @@ class CustomerCenterVC: UIViewController {
 
   private lazy var scrollView: UIScrollView = {
     let scrollView = UIScrollView()
-    //    scrollView.frame.size.width = view.frame.size.width // 이러케 강제로 해주면 scaledl 안변하는데;; 없으면 0.0으로 나온다
+    //    scrollView.frame.size.width = view.frame.size.width // 이러케 강제로 해주면 scale 안변하는데;; 없으면 0.0으로 나온다
     view.addSubview(scrollView)
     return scrollView
   }()

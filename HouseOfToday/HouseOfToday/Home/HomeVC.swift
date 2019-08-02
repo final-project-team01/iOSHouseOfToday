@@ -92,7 +92,7 @@ final class HomeVC: CategoryTabBarViewController {
   // MARK: Notification Action Methods
   @objc func presentRankingDetailView(_ sender: Notification) {
     guard let userInfo = sender.userInfo as? [String: UIViewController],
-      let detailRankingVC = userInfo["presentRankingDetailView"] // FIXME: - 여기서 id 가져오는 코드 쓰기 ※ StoreVC 참고
+      let detailRankingVC = userInfo["presentRankingDetailView"]
       else {
         return print("fail downCasting")
     }

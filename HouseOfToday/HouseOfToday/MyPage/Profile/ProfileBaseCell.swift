@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+extension Notification.Name {
+  static let userWriteReviewVC = Notification.Name("UserWriteReviewVC")
+}
+
 final class ProfileBaseCell: UITableViewCell {
 
   enum TitleName: String {
@@ -17,6 +21,8 @@ final class ProfileBaseCell: UITableViewCell {
     case reviewWriting    = "리뷰쓰기"
     case review           = "리뷰"
   }
+
+  private let notiCenter = NotificationCenter.default
 
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
@@ -41,6 +47,7 @@ final class ProfileBaseCell: UITableViewCell {
     let button = UIButton(type: .custom)
     button.setTitleColor(.white, for: .normal)
     button.setTitle("바로가기", for: .normal)
+    button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
     button.backgroundColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
     addSubview(button)
@@ -66,41 +73,31 @@ final class ProfileBaseCell: UITableViewCell {
 
     case .picture:
       titleLabel.text = title.rawValue
-
       rightSideCellButton.setTitle("올리기", for: .normal)
       rightSideCellButton.backgroundColor = .clear
       rightSideCellButton.setTitleColor( #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1), for: .normal)
       rightSideCellButton.contentHorizontalAlignment = .right
 
     case .houseWarming:
-
       titleLabel.text = title.rawValue
-
       rightSideCellButton.isHidden = true
-
       subTitleLabel.text = subTitle
       subTitleLabel.backgroundColor = .white
       subTitleLabel.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
 
     case .reviewWriting:
-
       titleLabel.text = title.rawValue
       subTitleLabel.isHidden = true
-
       rightSideCellButton.setTitle("리뷰쓰기", for: .normal)
 
     case .review:
-
       titleLabel.text = title.rawValue
-
       subTitleLabel.text = subTitle
       subTitleLabel.backgroundColor = .white
       subTitleLabel.textColor = #colorLiteral(red: 0.27849105, green: 0.8343001604, blue: 0.9591807723, alpha: 1)
-
       rightSideCellButton.isHidden = true
 
     }
-
   }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -112,6 +109,12 @@ final class ProfileBaseCell: UITableViewCell {
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  // MARK: - Action Methods
+  @objc private func didTapButton(_ sender: UIButton) {
+    let userWriteReviewVC = UserWriteReviewVC()
+    notiCenter.post(name: .userWriteReviewVC, object: sender, userInfo: ["UserWriteReviewVC": userWriteReviewVC])
   }
 
   override func layoutSubviews() {
