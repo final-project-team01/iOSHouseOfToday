@@ -42,7 +42,7 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitle("•••", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
     button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
-//    button.addTarget(self, action: #selector(didTapDotdotdotButton(_:)), for: .touchUpInside)
+    //    button.addTarget(self, action: #selector(didTapDotdotdotButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -67,10 +67,10 @@ class PictureTableViewCell: UITableViewCell {
   private lazy var heartButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("1", for: .normal)
+    button.setTitleColor(.darkGray, for: .normal)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
     button.setImage(UIImage(named: "picHeart"), for: .normal)
     button.setImage(UIImage(named: "fullPicHeart"), for: .selected)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.setTitleColor(.darkGray, for: .normal)
     button.addTarget(self, action: #selector(didTapHeartButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
@@ -79,11 +79,12 @@ class PictureTableViewCell: UITableViewCell {
   private lazy var scrapButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("1", for: .normal)
+    button.setTitleColor(.darkGray, for: .normal)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
     button.setImage(UIImage(named: "picBookMark"), for: .normal)
     button.setImage(UIImage(named: "fullPicBookMark"), for: .selected)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.setTitleColor(.darkGray, for: .normal)
     button.addTarget(self, action: #selector(didTapScrapButton(_:)), for: .touchUpInside)
+    button.isUserInteractionEnabled = true
     addSubview(button)
     return button
   }()
@@ -92,7 +93,7 @@ class PictureTableViewCell: UITableViewCell {
     let button = UIButton(type: .custom)
     button.setTitle("1", for: .normal)
     button.setImage(UIImage(named: "picComment"), for: .normal)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
     button.setTitleColor(.darkGray, for: .normal)
     button.addTarget(self, action: #selector(didTapCommentButton(_:)), for: .touchUpInside)
     addSubview(button)
@@ -103,32 +104,38 @@ class PictureTableViewCell: UITableViewCell {
     let button = UIButton(type: .custom)
     button.setTitle("1", for: .normal)
     button.setImage(UIImage(named: "picShare"), for: .normal)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
     button.setTitleColor(.darkGray, for: .normal)
     button.addTarget(self, action: #selector(didTapSharingButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
 
-  private lazy var replyButton: UIButton = {
+  private lazy var authorImageButton: UIButton = {
+    let button = UIButton(type: .custom)
+    button.setImage(UIImage(named: "user"), for: .normal)
+    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
+    //    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
+    addSubview(button)
+    return button
+  }()
+
+  private lazy var authorNicknameButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("author", for: .normal)
-    button.setImage(UIImage(named: "author_profile_image"), for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
-    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-    button.contentHorizontalAlignment = .left
+    //    button.contentHorizontalAlignment = .left
     button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
-//    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
+    //    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
 
   private lazy var authorCommentLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "노란색 의자 너무 예뻐요😊"
+    label.text = "노란색 의자 너무 예뻐요😊" // FIXME: - authorNicknameButton width 계산해서 앞쪽에 추가해주고 오토레이아웃 다시 잡기
     label.numberOfLines = 2
-    label.lineBreakMode = .byTruncatingTail // FIXME: - 마지막에 `...더보기` 나오게 만들기
+    label.lineBreakMode = .byTruncatingTail
     label.font = UIFont.systemFont(ofSize: 15)
     label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
     addSubview(label)
@@ -137,9 +144,9 @@ class PictureTableViewCell: UITableViewCell {
 
   private lazy var socialButtonStackView: UIStackView = {
     let stackView = UIStackView(arrangedSubviews: [ self.heartButton,
-                                             self.scrapButton,
-                                             self.commentButton,
-                                             self.sharingButton]
+                                                    self.scrapButton,
+                                                    self.commentButton,
+                                                    self.sharingButton]
     )
     stackView.axis = .horizontal
     stackView.alignment = .center
@@ -149,11 +156,31 @@ class PictureTableViewCell: UITableViewCell {
     return stackView
   }()
 
+  private lazy var layout: UICollectionViewFlowLayout = {
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    layout.sectionHeadersPinToVisibleBounds = false
+    layout.sectionFootersPinToVisibleBounds = false
+    return layout
+  }()
+
+  private lazy var collectionView: UICollectionView = {
+    let collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    collectionView.backgroundColor = .blue
+    collectionView.register(cell: PictureCollectionViewCell.self)
+    addSubview(collectionView)
+    return collectionView
+  }()
+
   // MARK: - View life cycle
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     makeConstraints()
     backgroundColor = .white
+    isUserInteractionEnabled = true
+
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -161,7 +188,6 @@ class PictureTableViewCell: UITableViewCell {
   }
 
   // MARK: - Action Methods
-
   @objc private func didTapUserInfoButton(_ sender: UIButton) {
     print("didTapUserInfoButton")
     // FIXME: - 유저 Info로 넘어가는 페이지 만들기
@@ -186,14 +212,14 @@ class PictureTableViewCell: UITableViewCell {
   }
 
   @objc private func didTapHeartButton(_ sender: UIButton) {
-    print("❤️❤️❤️❤️❤️")
-   //toggle & count 적용해주기
+    sender.isSelected.toggle()
+    // FIXME: - count 적용해주기
 
   }
 
   @objc private func didTapScrapButton(_ sender: UIButton) {
-    print("📂📂📂📂📂")
-   //toggle & count 적용해주기
+    sender.isSelected.toggle()
+    // FIXME: - count 적용해주기
 
   }
 
@@ -211,9 +237,12 @@ class PictureTableViewCell: UITableViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    let cornerRadiusValue = userInfoButton.imageView!.frame.width
-    userInfoButton.imageView?.layer.cornerRadius = cornerRadiusValue/2
+
+    userInfoButton.imageView?.layer.cornerRadius = userInfoButton.imageView!.frame.width/2
     userInfoButton.clipsToBounds = true
+
+    authorImageButton.imageView?.layer.cornerRadius = authorImageButton.imageView!.frame.width/2
+    authorImageButton.clipsToBounds = true
   }
 
   // MARK: - AutoLayout
@@ -222,36 +251,90 @@ class PictureTableViewCell: UITableViewCell {
     let margin: CGFloat = 10
 
     // 15는 superView에 대한
-      userInfoButton.snp.makeConstraints { make in
-        make.top.leading.equalToSuperview().inset(15)
-        make.trailing.equalTo(followStatusButton.snp.leading).inset(-10)
-        make.bottom.equalTo(bodyTextLabel.snp.top).inset(-margin)
-      }
+    userInfoButton.snp.makeConstraints { make in
+      make.top.leading.equalToSuperview().inset(15)
+      make.trailing.equalTo(followStatusButton.snp.leading).inset(-10)
+      make.bottom.equalTo(bodyTextLabel.snp.top).inset(-margin)
+    }
 
-      followStatusButton.snp.makeConstraints { make in
-        make.top.equalToSuperview().inset(15)
-        make.bottom.equalTo(bodyTextLabel.snp.top).inset(-margin)
-      }
+    followStatusButton.snp.makeConstraints { make in
+      make.top.equalToSuperview().inset(15)
+      make.bottom.equalTo(bodyTextLabel.snp.top).inset(-margin)
+    }
 
-      dotdotdotButton.snp.makeConstraints { make in
-        make.top.trailing.equalToSuperview().inset(15)
-        make.bottom.equalTo(bodyTextLabel.snp.top).inset(-margin)
-      }
+    dotdotdotButton.snp.makeConstraints { make in
+      make.top.trailing.equalToSuperview().inset(15)
+      make.bottom.equalTo(bodyTextLabel.snp.top).inset(-margin)
+    }
 
     bodyTextLabel.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(15)
       make.bottom.equalTo(thumbnailImageView.snp.top).inset(-margin)
     }
 
-      thumbnailImageView.snp.makeConstraints { make in
-        make.leading.trailing.equalToSuperview().inset(15)
-        make.width.equalTo(thumbnailImageView.snp.height)
+    thumbnailImageView.snp.makeConstraints { make in
+      make.leading.trailing.equalToSuperview()
+      make.width.equalTo(thumbnailImageView.snp.height)
     }
 
     socialButtonStackView.snp.makeConstraints { make in
-      make.top.equalTo(thumbnailImageView.snp.bottom).inset(-margin)
-      make.leading.trailing.equalToSuperview()
-      make.bottom.equalToSuperview().inset(100)
+      make.top.equalTo(thumbnailImageView.snp.bottom)
+      make.centerX.equalToSuperview()
+      make.width.equalToSuperview().multipliedBy(0.9)
+    }
+
+    authorImageButton.snp.makeConstraints { make in
+      make.top.equalTo(socialButtonStackView.snp.bottom)
+      make.leading.equalToSuperview().inset(margin)
+      make.bottom.equalTo(collectionView.snp.top).inset(-margin)
+    }
+    authorNicknameButton.snp.makeConstraints { make in
+      make.top.equalTo(socialButtonStackView.snp.bottom)
+      make.leading.equalTo(authorImageButton.snp.trailing).offset(5)
+      make.trailing.equalTo(authorCommentLabel.snp.leading).offset(-5)
+      make.bottom.equalTo(collectionView.snp.top).inset(-margin)
+    }
+    authorCommentLabel.snp.makeConstraints { make in
+      make.top.equalTo(socialButtonStackView.snp.bottom)
+      make.trailing.equalToSuperview().inset(margin)
+      make.bottom.equalTo(collectionView.snp.top).inset(-margin)
+    }
+
+    collectionView.snp.makeConstraints { make in
+      make.leading.trailing.equalToSuperview().inset(margin)
+      make.bottom.equalToSuperview().inset(30)
     }
   }
+}
+
+extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 10
+  }
+
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeue(PictureCollectionViewCell.self, indexPath)
+    return cell
+
+  }
+
+}
+
+extension PictureTableViewCell: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+      return JMetric.rankkingCellSize
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+     return JMetric.lineSpacing
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return JMetric.itemSpacing
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+     return JMetric.rankingHorizontalInset
+  }
+
 }
