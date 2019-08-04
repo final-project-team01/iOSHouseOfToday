@@ -42,16 +42,14 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitle("•••", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
     button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
-    button.addTarget(self, action: #selector(didTapDotdotdotButton(_:)), for: .touchUpInside)
+//    button.addTarget(self, action: #selector(didTapDotdotdotButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
 
-  var more = "...더보기" // FIXME: - 이렇게 하면 안될꺼 같은디 흐음
-
   private lazy var bodyTextLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "아내는 남편을 '그 자신이 가장 좋아하는 것들을 모아 만든 이름'으로 불렀고, 실제로 남편의 남은 인생을 그가 꿈꾸던 좋은 것들로 채워주었다. 남편은 아내를 '한때 자신의 것이었던 이름'으로 불렀다. 결혼 이후 세상을 떠날 때까지 김환기에게 아내 김향안은 또 다른 자신이었다. 5월의 사랑, 꿈, 아름다운 자연을 같이 나눌 사람은 하나밖에 없었던가. 한 사람이 가고 나니 5월의 이야기를 나눌 사람이 없다. 별들은 많으나 사랑할 수 있는 별은 하나밖에 없다." + self.more
+    label.text = "아내는 남편을 '그 자신이 가장 좋아하는 것들을 모아 만든 이름'으로 불렀고, 실제로 남편의 남은 인생을 그가 꿈꾸던 좋은 것들로 채워주었다. 남편은 아내를 '한때 자신의 것이었던 이름'으로 불렀다. 결혼 이후 세상을 떠날 때까지 김환기에게 아내 김향안은 또 다른 자신이었다. 5월의 사랑, 꿈, 아름다운 자연을 같이 나눌 사람은 하나밖에 없었던가. 한 사람이 가고 나니 5월의 이야기를 나눌 사람이 없다. 별들은 많으나 사랑할 수 있는 별은 하나밖에 없다."
     label.numberOfLines = 5
     label.lineBreakMode = .byTruncatingTail // FIXME: - 마지막에 `...더보기` 나오게 만들기
     label.font = UIFont.systemFont(ofSize: 15)
@@ -72,7 +70,8 @@ class PictureTableViewCell: UITableViewCell {
     button.setImage(UIImage(named: "picHeart"), for: .normal)
     button.setImage(UIImage(named: "fullPicHeart"), for: .selected)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.setTitleColor(.blue, for: .normal) //색상 바꿔주기 `alignButtonImageAndTitle` 적용
+    button.setTitleColor(.darkGray, for: .normal)
+    button.addTarget(self, action: #selector(didTapHeartButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -83,7 +82,8 @@ class PictureTableViewCell: UITableViewCell {
     button.setImage(UIImage(named: "picBookMark"), for: .normal)
     button.setImage(UIImage(named: "fullPicBookMark"), for: .selected)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.setTitleColor(.blue, for: .normal) //색상 바꿔주기 `alignButtonImageAndTitle` 적용
+    button.setTitleColor(.darkGray, for: .normal)
+    button.addTarget(self, action: #selector(didTapScrapButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -93,7 +93,7 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitle("1", for: .normal)
     button.setImage(UIImage(named: "picComment"), for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.setTitleColor(.blue, for: .normal) //색상 바꿔주기 `alignButtonImageAndTitle` 적용
+    button.setTitleColor(.darkGray, for: .normal)
     button.addTarget(self, action: #selector(didTapCommentButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
@@ -104,10 +104,49 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitle("1", for: .normal)
     button.setImage(UIImage(named: "picShare"), for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-    button.setTitleColor(.blue, for: .normal) //색상 바꿔주기 `alignButtonImageAndTitle` 적용
+    button.setTitleColor(.darkGray, for: .normal)
     button.addTarget(self, action: #selector(didTapSharingButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
+  }()
+
+  private lazy var replyButton: UIButton = {
+    let button = UIButton(type: .custom)
+    button.setTitle("author", for: .normal)
+    button.setImage(UIImage(named: "author_profile_image"), for: .normal)
+    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
+    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
+    button.contentHorizontalAlignment = .left
+    button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
+//    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
+    addSubview(button)
+    return button
+  }()
+
+  private lazy var authorCommentLabel: UILabel = {
+    let label = UILabel(frame: CGRect.zero)
+    label.text = "노란색 의자 너무 예뻐요😊"
+    label.numberOfLines = 2
+    label.lineBreakMode = .byTruncatingTail // FIXME: - 마지막에 `...더보기` 나오게 만들기
+    label.font = UIFont.systemFont(ofSize: 15)
+    label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+    addSubview(label)
+    return label
+  }()
+
+  private lazy var socialButtonStackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: [ self.heartButton,
+                                             self.scrapButton,
+                                             self.commentButton,
+                                             self.sharingButton]
+    )
+    stackView.axis = .horizontal
+    stackView.alignment = .center
+    stackView.distribution = .fillEqually
+    stackView.spacing = 10
+    addSubview(stackView)
+    return stackView
   }()
 
   // MARK: - View life cycle
@@ -122,6 +161,7 @@ class PictureTableViewCell: UITableViewCell {
   }
 
   // MARK: - Action Methods
+
   @objc private func didTapUserInfoButton(_ sender: UIButton) {
     print("didTapUserInfoButton")
     // FIXME: - 유저 Info로 넘어가는 페이지 만들기
@@ -142,6 +182,18 @@ class PictureTableViewCell: UITableViewCell {
   @objc private func didTapDotdotdotButton(_ sender: UIButton) {
     print("didTapDotdotdotButton")
     // FIXME: - 신고, 취소 알럿? 띄우기
+
+  }
+
+  @objc private func didTapHeartButton(_ sender: UIButton) {
+    print("❤️❤️❤️❤️❤️")
+   //toggle & count 적용해주기
+
+  }
+
+  @objc private func didTapScrapButton(_ sender: UIButton) {
+    print("📂📂📂📂📂")
+   //toggle & count 적용해주기
 
   }
 
@@ -194,7 +246,12 @@ class PictureTableViewCell: UITableViewCell {
       thumbnailImageView.snp.makeConstraints { make in
         make.leading.trailing.equalToSuperview().inset(15)
         make.width.equalTo(thumbnailImageView.snp.height)
+    }
 
+    socialButtonStackView.snp.makeConstraints { make in
+      make.top.equalTo(thumbnailImageView.snp.bottom).inset(-margin)
+      make.leading.trailing.equalToSuperview()
+      make.bottom.equalToSuperview().inset(100)
     }
   }
 }
