@@ -610,8 +610,8 @@
 		AB447D6F22F1BF940089CE4F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				ABD5D7EC22F424EB00E8FF72 /* Picture */,
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
+				ABD5D7EC22F424EB00E8FF72 /* Picture */,
 			);
 			path = Home;
 			sourceTree = "<group>";

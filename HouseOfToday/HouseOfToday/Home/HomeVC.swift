@@ -26,11 +26,11 @@ final class HomeVC: CategoryTabBarViewController {
     return bt
   }()
 
-  let tempView = UIView()
+  let pictureView = PictureView()
 
   init() {
-    super.init(withTitles: ["랭킹"],
-               withViews: [tempView],
+    super.init(withTitles: ["사진"],
+               withViews: [pictureView],
                withScrollOption: false)
   }
 

@@ -23,12 +23,11 @@ class PictureView: UIView {
   }
 
   private lazy var tableView: UITableView = {
-    let tableView = UITableView() // FIXME: - (frame: .zero, style: .grouped) 이거로 안해도 될꺼 같긴한데 나중에 확인해보기
+    let tableView = UITableView()
     tableView.dataSource = self.self
     tableView.delegate = self.self
     tableView.register(cell: PictureTableViewCell.self)
-//    tableView.register(HeaderTableCell.self, forHeaderFooterViewReuseIdentifier: "HeaderTableCell") 나중에 헤더 만들면 넣기
-//    tableView.allowsSelection = false
+    //    tableView.allowsSelection = false
     //    tableView.rowHeight = UITableView.automaticDimension
     tableView.backgroundColor = .white
     tableView.showsVerticalScrollIndicator = false
@@ -49,7 +48,7 @@ class PictureView: UIView {
 
   // MARK: - AutoLayout
   private func tableViewAutoLayout() {
-    if translatesAutoresizingMaskIntoConstraints {
+    if tableView.translatesAutoresizingMaskIntoConstraints {
       tableView.snp.makeConstraints { make in
         make.edges.equalToSuperview()
       }
@@ -64,6 +63,7 @@ extension PictureView: UITableViewDataSource, UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: PictureTableViewCell.identifier, for: indexPath) as! PictureTableViewCell
+    cell.selectionStyle = .none
     return cell
   }
 
