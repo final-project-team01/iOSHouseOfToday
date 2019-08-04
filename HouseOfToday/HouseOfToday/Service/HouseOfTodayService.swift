@@ -10,7 +10,8 @@ import Foundation
 
 final class HouseOfTodayService: HouseOfTodayServiceType {
 
-  let baseURL = "http://52.78.112.247"
+//  let baseURL = "http://52.78.112.247"
+  let baseURL = "http://clonehouseoftodayapi.jinukk.me/"///products/orderitem/
 
   func fetchStoreHome(completion: @escaping (Result<StoreHomeList, ServiceError>) -> Void) {
 
@@ -227,6 +228,39 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
     URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
 
       print("postLoginDataForGetToKen response Status Code : ", (response as! HTTPURLResponse).statusCode)
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: String],
+        let token = jsonObject["token"] {
+        completion(.success(token))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+
+      }.resume()
+  }
+
+  func postCartItem(withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void) {
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/orderitem/"
+    guard let url = urlComp?.url else { return logger("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "POST"
+
+    urlRequest.httpBody = body
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+
+      print("response Status Code : ", (response as! HTTPURLResponse).statusCode)
 
       guard error == nil else { return completion(.failure(.clientError)) }
 

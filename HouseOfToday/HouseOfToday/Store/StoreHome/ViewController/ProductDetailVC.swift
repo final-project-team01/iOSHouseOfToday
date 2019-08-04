@@ -153,6 +153,8 @@ final class ProductDetailVC: UIViewController {
     return bv
   }()
 
+  let buyingVC = BuyingVC()
+
   // MARK: - View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -269,10 +271,13 @@ final class ProductDetailVC: UIViewController {
   // MARK: - buying button click
   @objc private func touchUpInsideBuyingButton(_ sender: UIButton) {
 
-    let buyingVC = BuyingVC()
-    buyingVC.modalTransitionStyle = .crossDissolve
-    buyingVC.modalPresentationStyle = .overFullScreen
-    present(buyingVC, animated: true)
+    if let options = productDetail?.productOption {
+
+      buyingVC.options = options
+      buyingVC.modalTransitionStyle = .crossDissolve
+      buyingVC.modalPresentationStyle = .overFullScreen
+      present(buyingVC, animated: true)
+    }
 
   }
 
