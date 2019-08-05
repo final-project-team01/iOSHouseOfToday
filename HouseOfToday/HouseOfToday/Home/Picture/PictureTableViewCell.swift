@@ -49,7 +49,7 @@ class PictureTableViewCell: UITableViewCell {
 
   private lazy var bodyTextLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "아내는 남편을 '그 자신이 가장 좋아하는 것들을 모아 만든 이름'으로 불렀고, 실제로 남편의 남은 인생을 그가 꿈꾸던 좋은 것들로 채워주었다. 남편은 아내를 '한때 자신의 것이었던 이름'으로 불렀다. 결혼 이후 세상을 떠날 때까지 김환기에게 아내 김향안은 또 다른 자신이었다. 5월의 사랑, 꿈, 아름다운 자연을 같이 나눌 사람은 하나밖에 없었던가. 한 사람이 가고 나니 5월의 이야기를 나눌 사람이 없다. 별들은 많으나 사랑할 수 있는 별은 하나밖에 없다."
+    label.text = "sdgfdhgjhghgjfdhdgfssfdshfdjgfhkgjhklkjhkgfjdgsfawasdfhghjhkl/;iuytreraewaerstdyfghklyul;ihuytretwreqwearsdhdjfkgyluiyutyrteawqsad"
     label.numberOfLines = 5
     label.lineBreakMode = .byTruncatingTail // FIXME: - 마지막에 `...더보기` 나오게 만들기
     label.font = UIFont.systemFont(ofSize: 15)
@@ -133,7 +133,7 @@ class PictureTableViewCell: UITableViewCell {
 
   private lazy var authorCommentLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "노란색 의자 너무 예뻐요😊" // FIXME: - authorNicknameButton width 계산해서 앞쪽에 추가해주고 오토레이아웃 다시 잡기
+    label.text = "노란색 의자 너무 예뻐요😊" // FIXME: - authorNicknameButton width 계산해서 앞쪽에 추가해주고 오토레이아웃 다시 잡아보자
     label.numberOfLines = 2
     label.lineBreakMode = .byTruncatingTail
     label.font = UIFont.systemFont(ofSize: 15)
@@ -159,16 +159,14 @@ class PictureTableViewCell: UITableViewCell {
   private lazy var layout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-    layout.sectionHeadersPinToVisibleBounds = false
-    layout.sectionFootersPinToVisibleBounds = false
     return layout
   }()
 
   private lazy var collectionView: UICollectionView = {
-    let collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.backgroundColor = .blue
+    collectionView.backgroundColor = .white
     collectionView.register(cell: PictureCollectionViewCell.self)
     addSubview(collectionView)
     return collectionView
@@ -179,8 +177,6 @@ class PictureTableViewCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     makeConstraints()
     backgroundColor = .white
-    isUserInteractionEnabled = true
-
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -237,7 +233,6 @@ class PictureTableViewCell: UITableViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-
     userInfoButton.imageView?.layer.cornerRadius = userInfoButton.imageView!.frame.width/2
     userInfoButton.clipsToBounds = true
 
@@ -250,7 +245,6 @@ class PictureTableViewCell: UITableViewCell {
 
     let margin: CGFloat = 10
 
-    // 15는 superView에 대한
     userInfoButton.snp.makeConstraints { make in
       make.top.leading.equalToSuperview().inset(15)
       make.trailing.equalTo(followStatusButton.snp.leading).inset(-10)
@@ -286,28 +280,33 @@ class PictureTableViewCell: UITableViewCell {
     authorImageButton.snp.makeConstraints { make in
       make.top.equalTo(socialButtonStackView.snp.bottom)
       make.leading.equalToSuperview().inset(margin)
-      make.bottom.equalTo(collectionView.snp.top).inset(-margin)
+      make.bottom.equalTo(collectionView.snp.top)//.inset(-margin)
     }
     authorNicknameButton.snp.makeConstraints { make in
       make.top.equalTo(socialButtonStackView.snp.bottom)
       make.leading.equalTo(authorImageButton.snp.trailing).offset(5)
       make.trailing.equalTo(authorCommentLabel.snp.leading).offset(-5)
-      make.bottom.equalTo(collectionView.snp.top).inset(-margin)
+      make.bottom.equalTo(collectionView.snp.top)//.inset(-margin)
     }
     authorCommentLabel.snp.makeConstraints { make in
       make.top.equalTo(socialButtonStackView.snp.bottom)
       make.trailing.equalToSuperview().inset(margin)
-      make.bottom.equalTo(collectionView.snp.top).inset(-margin)
+      make.bottom.equalTo(collectionView.snp.top)//.inset(-margin)
     }
 
     collectionView.snp.makeConstraints { make in
-      make.leading.trailing.equalToSuperview().inset(margin)
+      make.leading.trailing.equalToSuperview()
       make.bottom.equalToSuperview().inset(30)
+      make.height.equalTo(100)
     }
   }
 }
 
 extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
+
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return 10
   }
@@ -322,11 +321,16 @@ extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDele
 
 extension PictureTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-      return JMetric.rankkingCellSize
+
+      let lineSpacing = JMetric.lineSpacing
+      let horizontalPadding = JMetric.rankingHorizontalInset.left + JMetric.rankingHorizontalInset.right + 50
+      let width = (collectionView.frame.width - lineSpacing - horizontalPadding) / 4
+
+      return CGSize(width: width.rounded(.down), height: width.rounded(.down))
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-     return JMetric.lineSpacing
+    return JMetric.lineSpacing
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

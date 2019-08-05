@@ -193,7 +193,6 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         } else {
           logger(" error message parsing error ")
         }
-
       }
 
       guard error == nil else { return completion(.failure(.clientError)) }
@@ -244,6 +243,32 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }
 
       }.resume()
+  }
+
+  func fetchPictureList(completion: @escaping (Result<PictureModel, ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/community/photo/"
+    
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+    
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
+      
+      guard error == nil else {return completion(.failure(.clientError))}
+      
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode else {return completion(.failure(.noData))}
+      
+      guard let data = data else {return completion(.failure(.noData))}
+      
+      if let pictureThumbList = try? JSONDecoder().decode(PictureModel.self, from: data) {
+        completion(.success(pictureThumbList))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+      
+      }.resume()
+    
   }
 
 }

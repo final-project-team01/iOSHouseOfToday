@@ -12,10 +12,7 @@ class PictureCollectionViewCell: UICollectionViewCell {
 
   lazy var thumnailImageView: UIImageView = {
     let imageView = UIImageView(frame: CGRect.zero)
-//    imageView.image = UIImage(named: "user")
-    imageView.backgroundColor = .yellow
-    imageView.layer.cornerRadius = imageView.frame.width/2
-    imageView.layer.masksToBounds = true
+    imageView.image = UIImage(named: "user")
     addSubview(imageView)
     return imageView
   }()
@@ -29,9 +26,15 @@ class PictureCollectionViewCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    thumnailImageView.layer.cornerRadius = thumnailImageView.frame.width/2
+    thumnailImageView.layer.masksToBounds = true
+
+  }
+
   // MARK: - configure
   private func cellAutolayout() {
-
     thumnailImageView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }

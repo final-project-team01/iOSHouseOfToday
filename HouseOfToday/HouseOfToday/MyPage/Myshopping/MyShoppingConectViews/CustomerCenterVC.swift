@@ -20,7 +20,8 @@ class CustomerCenterVC: UIViewController {
 
   private lazy var scrollView: UIScrollView = {
     let scrollView = UIScrollView()
-    //    scrollView.frame.size.width = view.frame.size.width // 이러케 강제로 해주면 scale 안변하는데;; 없으면 0.0으로 나온다
+    scrollView.minimumZoomScale = 0.1
+    scrollView.delegate = self
     view.addSubview(scrollView)
     return scrollView
   }()
@@ -37,7 +38,7 @@ class CustomerCenterVC: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = .white
     configureAutoLayout()
-    fitToScrollView()
+
   }
 
   private func configureAutoLayout() {
@@ -52,11 +53,22 @@ class CustomerCenterVC: UIViewController {
 
   private func fitToScrollView() {
     let zoomScale = (scrollView.frame.size.width) / (imageView.image!.size.width)
-    scrollView.setZoomScale(zoomScale, animated: true)
 
     print("(scrollView.frame.size.width)", (scrollView.frame.size.width))
     print("(imageView.image!.size.width)", (imageView.image!.size.width))
     print("scrollView.frame.size.width / (imageView.image!.size.width)", scrollView.frame.size.width / (imageView.image!.size.width))
 
+    scrollView.setZoomScale(zoomScale, animated: false)
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    fitToScrollView()
+  }
+}
+
+extension CustomerCenterVC: UIScrollViewDelegate {
+  func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    return imageView
   }
 }
