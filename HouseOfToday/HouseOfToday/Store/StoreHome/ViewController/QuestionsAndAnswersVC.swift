@@ -33,6 +33,22 @@ class QuestionsAndAnswersVC: UIViewController {
     }
   }
 
+  // MARK: - Setting Navigation Bar
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureNaviBar()
+  }
+  private func configureNaviBar() {
+    self.title = "질문과답변"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationItem.setHidesBackButton(true, animated: false)
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
+  }
+
 }
 
 extension QuestionsAndAnswersVC: UITableViewDataSource {

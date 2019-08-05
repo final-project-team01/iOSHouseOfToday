@@ -24,8 +24,23 @@ class ChangeProfileViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    configureNaviBar()
     makeConstraints()
+  }
+
+  // MARK: - Setting Navigation Bar
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureNaviBar()
+  }
+  private func configureNaviBar() {
+    self.title = "프로필 수정"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationItem.setHidesBackButton(true, animated: false)
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 
   private func makeConstraints() {
@@ -35,17 +50,6 @@ class ChangeProfileViewController: UIViewController {
     }
   }
 
-  private func configureNaviBar() {
-    self.title = "프로필 수정"
-    self.navigationController?.setNavigationBarHidden(false, animated: true)
-
-    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
-    navigationItem.setLeftBarButton(backItem, animated: true)
-  }
-
-  @objc private func backButtonDidTap(_ sender: Any) {
-    self.navigationController?.popViewController(animated: true)
-  }
 }
 
 extension ChangeProfileViewController: UITableViewDataSource {
