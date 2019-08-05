@@ -61,12 +61,17 @@ final class StoreVC: CategoryTabBarViewController {
     super.viewDidLoad()
     print("StoreVC: viewDidLoad")
 
-    configureNaviBar()
+    //configureNaviBar()
     storeHomeViewDidScroll()
     rankingViewDidScroll()
 
     addObservers()
 
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureNaviBar()
   }
 
   deinit {
@@ -83,7 +88,6 @@ final class StoreVC: CategoryTabBarViewController {
     super.viewDidAppear(animated)
     print("viewDidAppear")
     initializeSearchButton()
-
     StoreVC.safeBottom = view.safeAreaInsets.bottom
   }
 
@@ -126,12 +130,7 @@ final class StoreVC: CategoryTabBarViewController {
   private func configureNaviBar() {
 
     navigationItem.titleView = searchButton
-
-    // FIXME: -  뒤로 돌아가기 버튼좀 없애보자 제발. 아래꺼 모두 효과 없음
-//    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
-//    self.navigationController?.navigationBar.backIndicatorImage = nil
-//    self.navigationItem.hidesBackButton = true
-//    self.navigationItem.setHidesBackButton(true, animated: true)
+    self.navigationController?.navigationItem.setHidesBackButton(true, animated: false)
 
     let naviBar = self.navigationController?.navigationBar
     naviBar?.isTranslucent = false

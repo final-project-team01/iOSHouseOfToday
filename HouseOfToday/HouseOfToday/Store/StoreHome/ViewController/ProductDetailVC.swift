@@ -160,7 +160,6 @@ class ProductDetailVC: UIViewController {
     self.tabBarController?.tabBar.isHidden = true
     self.navigationController?.navigationBar.isHidden = false
 
-    configureNaviBar()
     autolayoutViews()
     setupNotificationCenter()
     settingProgressView()
@@ -179,6 +178,11 @@ class ProductDetailVC: UIViewController {
     notiCenter.removeObserver(self,
                               name: ProductDetailVC.presentFormBottom,
                               object: nil)
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureNaviBar()
   }
 
   override func viewDidDisappear(_ animated: Bool) {
@@ -284,6 +288,7 @@ class ProductDetailVC: UIViewController {
   private func configureNaviBar() {
     self.title = "BEST"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationItem.setHidesBackButton(true, animated: false)
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
     navigationItem.setLeftBarButton(backItem, animated: true)
   }
