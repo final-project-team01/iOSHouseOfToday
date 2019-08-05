@@ -18,7 +18,7 @@ struct PictureModel: Decodable {
   let scrapCount: Int
   let commentCount: Int
   let text: String
-  let comments: [CommentInfo]
+  let comments: [CommentsInfo]
 
   enum CodingKeys: String, CodingKey {
     case id
@@ -32,7 +32,7 @@ struct PictureModel: Decodable {
     case comments
   }
 
-  struct CommentInfo: Decodable {
+  struct CommentsInfo: Decodable {
     let authorProfileImage: String
     let author: String
     let text: String

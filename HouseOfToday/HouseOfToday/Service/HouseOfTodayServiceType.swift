@@ -18,5 +18,6 @@ protocol HouseOfTodayServiceType {
   func fetchRankingList(completion: @escaping (Result<RankingModel, ServiceError>) -> Void)
   func postSignUpUserData(withBody body: Data?, completion: @escaping (Result<User, ServiceError>) -> Void)
   func postLoginDataForGetToKen(toPath path: String, withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void)
+  func fetchPictureList(completion: @escaping (Result<[PictureModel], ServiceError>) -> Void)
 
 }
