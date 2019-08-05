@@ -69,7 +69,7 @@ class SelectOptionView: UIView {
 extension SelectOptionView: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     print("SelectOptionView: \(options.count)")
-    return options.count
+    return options.count + 1
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,8 +80,8 @@ extension SelectOptionView: UITableViewDataSource {
     } else {
       let cell = tableView.dequeue(OptionCell.self)
       cell.selectionStyle = UITableViewCell.SelectionStyle.none
-      cell.productNameLabel.text = "\(options[indexPath.row].name)"
-      cell.priceLabel.text = "\(formetter(price: options[indexPath.row].price))원"
+      cell.productNameLabel.text = "\(options[indexPath.row - 1].name)"
+      cell.priceLabel.text = "\(formetter(price: options[indexPath.row - 1].price))원"
       return cell
     }
   }

@@ -74,12 +74,6 @@ final class BuyingProductOptionCell: UICollectionViewCell {
     return label
   }()
 
-  //  weak var shoppingCartList: ShoppingList? {
-  //    didSet {
-  //      guard let info = shoppingCartList else { return print("shoppingCartList is nil")}
-  //
-  //    }
-  //  }
   weak var shoppingCart: ShoppingCart? {
     didSet {
       guard let info = shoppingCart else { return print("shoppingCartList is nil")}

@@ -21,5 +21,6 @@ protocol HouseOfTodayServiceType {
   func postSignUpUserData(withBody body: Data?, completion: @escaping (Result<User, ServiceError>) -> Void)
 
   func postLoginDataForGetToKen(toPath path: String, withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void)
-
+  func postShoppingCartItem(cartData: Data, completion: @escaping (Result<ShoppingOptionCart, ServiceError>) -> Void)
+  func postOrderProducts(data: Data, completion: @escaping (Result<OrderProductList, ServiceError>) -> Void)
 }

@@ -65,7 +65,7 @@ final class BuyingVC: UIViewController {
 
   private lazy var priceInfoLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "price Info"
+    label.attributedText = getAttributedText()
     buyingView.addSubview(label)
     return label
   }()
@@ -154,11 +154,14 @@ final class BuyingVC: UIViewController {
     didSet {
 
       updateCart()
-      //collectionView.reloadData()
     }
   }
 
+  private let service = HouseOfTodayService()
+
   private let notiCenter = NotificationCenter.default
+
+  public var showCart: (() -> Void)?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -280,7 +283,6 @@ final class BuyingVC: UIViewController {
 
   // MARK: - Update Cart
   private func updateCart() {
-
     priceInfoLabel.attributedText = getAttributedText()
     collectionView.reloadData()
   }
@@ -331,13 +333,45 @@ final class BuyingVC: UIViewController {
   }
 
   @objc private func touchUpBuyingButton(_ sender: UIButton) {
-//    showFadeView()
-    // FIXME: - 다이렉트 구입 추가
+
+    var id = ""
+    var option = ""
+    var quantity = ""
+
+    shoppingCartList.forEach {
+      id = "\($0.productId)"
+      option += "\($0.productId),"
+      quantity += "\($0.quantity),"
+    }
+
+    option.removeLast()
+    quantity.removeLast()
+
+    print("id: \(id), option: \(option), quantity: \(quantity)")
+
+    let postData = NSMutableData(data: "pd_id=\(id)".data(using: String.Encoding.utf8)!)
+    postData.append("&po_list=\(option)".data(using: String.Encoding.utf8)!)
+    postData.append("&qty_list=\(quantity)".data(using: String.Encoding.utf8)!)
+
+    postOrderProducts(post: postData as Data)
 
   }
 
   @objc private func touchUpShoppingBagButton(_ sender: UIButton) {
-//    hideFadeView()
+
+    let postCartList = shoppingCartList.map { (cart) -> NSMutableData in
+
+      let postData = NSMutableData(data: "product=\(cart.productId)".data(using: String.Encoding.utf8)!)
+      postData.append("&product_option=\(cart.optionId)".data(using: String.Encoding.utf8)!)
+      postData.append("&quantity=\(cart.quantity)".data(using: String.Encoding.utf8)!)
+
+      return postData
+    }
+
+    for cart in postCartList {
+
+      postShoppingCartItem(post: cart as Data)
+    }
 
   }
 
@@ -359,7 +393,7 @@ final class BuyingVC: UIViewController {
     if let userInfo = sender.userInfo as? [String: Int],
       let row = userInfo["indexPathRow"] {
 
-      print("id", row)
+      hideFadeView()
 
       for cort in shoppingCartList {
         if cort.optionId == options[row].id {
@@ -374,7 +408,6 @@ final class BuyingVC: UIViewController {
                    price: options[row].price,
                    quantity: 1)
 
-      hideFadeView()
       shoppingCartList.append(option)
 
     } else {
@@ -442,12 +475,54 @@ final class BuyingVC: UIViewController {
       self?.view.layoutIfNeeded()
     }
   }
+
+  // MARK: - postShoppingCartItem
+  private func postShoppingCartItem(post: Data) {
+    service.postShoppingCartItem(cartData: post) { result in
+      switch result {
+      case .success(let list):
+        print(list)
+
+        DispatchQueue.main.async { [weak self] in
+          self?.shoppingCartList.removeAll()
+
+          self?.presentingViewController?.dismiss(animated: false, completion: { [weak self] in
+            self?.showCart?()
+          })
+
+        }
+
+        break
+      case .failure(let error):
+        print("fetchStoreHome: \(error.localizedDescription)")
+      }
+    }
+  }
+
+  // MARK: - postOrderProducts
+  private func postOrderProducts(post: Data) {
+    service.postOrderProducts(data: post) { result in
+      switch result {
+      case .success(let list):
+        print(list)
+
+        DispatchQueue.main.async {
+          self.shoppingCartList.removeAll()
+        }
+
+        break
+      case .failure(let error):
+        print("fetchStoreHome: \(error.localizedDescription)")
+      }
+    }
+  }
+
 }
 
 extension BuyingVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-    return shoppingCartList.count//shoppingCartList.shoppingCart.count
+    return shoppingCartList.count
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
