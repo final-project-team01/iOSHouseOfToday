@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryListView: UIView {
+final class CategoryListView: UIView {
 
   // MARK: - Property
   static var height = (UIScreen.main.bounds.width / 4) * 3

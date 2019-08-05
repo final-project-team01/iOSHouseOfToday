@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class ProductInfomationView: UIView {
+final class ProductInfomationView: UIView {
 
   // MARK: - Property
   static var height: CGFloat = 600

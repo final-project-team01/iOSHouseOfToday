@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class DealOfTodayCell: UICollectionViewCell {
+final class DealOfTodayCell: UICollectionViewCell {
 
   // MARK: - Property
   static var identifier: String = "DealOfTodayCell"

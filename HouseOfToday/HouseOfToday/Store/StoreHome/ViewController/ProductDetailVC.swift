@@ -24,7 +24,7 @@ extension ProductDetailVC {
   }
 }
 
-class ProductDetailVC: UIViewController {
+final class ProductDetailVC: UIViewController {
 
   // MARK: - Property
 
@@ -153,6 +153,19 @@ class ProductDetailVC: UIViewController {
     return bv
   }()
 
+  private lazy var cartImageView: UIImageView = {
+    let iv = UIImageView(image: UIImage(named: "whiteCart"))
+    iv.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+//    iv.contentMode = .scaleAspectFit
+    iv.clipsToBounds = true
+    iv.layer.cornerRadius = UIScreen.main.bounds.width / 4
+    view.addSubview(iv)
+    view.sendSubviewToBack(iv)
+    return iv
+  }()
+
+  let buyingVC = BuyingVC()
+
   // MARK: - View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -163,6 +176,7 @@ class ProductDetailVC: UIViewController {
     autolayoutViews()
     setupNotificationCenter()
     settingProgressView()
+
   }
 
   deinit {
@@ -201,7 +215,7 @@ class ProductDetailVC: UIViewController {
 
     bottomBarView.snp.makeConstraints {
       $0.bottom.leading.trailing.equalToSuperview()
-      $0.height.equalTo(StoreVC.safeBottom + 10)//.offset(Metric.marginY/2)
+      $0.height.equalTo(100)
     }
 
     buyingButton.snp.makeConstraints {
@@ -216,6 +230,11 @@ class ProductDetailVC: UIViewController {
       $0.leading.equalTo(bottomBarView).offset(Metric.marginX)
       $0.height.equalTo(buyingButton)
       $0.width.equalTo(40)
+    }
+
+    cartImageView.snp.makeConstraints {
+      $0.center.equalToSuperview()
+      $0.width.height.equalTo(UIScreen.main.bounds.width/2)
     }
   }
 
@@ -254,6 +273,50 @@ class ProductDetailVC: UIViewController {
     }
   }
 
+  // MARK: -
+  public func showCartView() {
+
+    print("showCartView")
+    view.bringSubviewToFront(cartImageView)
+//    cartView.isHidden
+    UIView.animateKeyframes(withDuration: 1.5,
+                            delay: 0,
+                            options: [],
+                            animations: { [weak self] in
+                              UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: { [weak self] in
+                                if let cartView = self?.cartImageView {
+                                  cartView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                                }
+                                self?.view.layoutIfNeeded()
+                              })
+
+                              UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.5, animations: { [weak self] in
+
+                                if let cartView = self?.cartImageView {
+                                  cartView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+//                                  cartView.alpha = 0
+                                }
+
+                                self?.view.layoutIfNeeded()
+                              })
+                              UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.8, animations: { [weak self] in
+
+                                if let cartView = self?.cartImageView {
+                                  cartView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                                  cartView.alpha = 0
+                                }
+
+                                self?.view.layoutIfNeeded()
+                              })
+    }) { [weak self] _ in
+      guard let cartView = self?.cartImageView else { return }
+
+      self?.view.sendSubviewToBack(cartView)
+      cartView.alpha = 1
+    }
+
+  }
+
   @objc private func touchBookMarkButton(_ sender: UIButton) {
     print("touchBookMarkButton")
 
@@ -273,10 +336,14 @@ class ProductDetailVC: UIViewController {
   // MARK: - buying button click
   @objc private func touchUpInsideBuyingButton(_ sender: UIButton) {
 
-    let buyingVC = BuyingVC()
-    buyingVC.modalTransitionStyle = .crossDissolve
-    buyingVC.modalPresentationStyle = .overFullScreen
-    present(buyingVC, animated: true)
+    if let options = productDetail?.productOption {
+
+      buyingVC.options = options
+      buyingVC.showCart = showCartView
+      buyingVC.modalTransitionStyle = .crossDissolve
+      buyingVC.modalPresentationStyle = .overFullScreen
+      present(buyingVC, animated: true)
+    }
 
   }
 

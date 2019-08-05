@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExhibitionView: UIView {
+final class ExhibitionView: UIView {
 
   // MARK: - Property
   static var height: CGFloat = 530

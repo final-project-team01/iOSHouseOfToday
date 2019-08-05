@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductReviewView: UIView {
+final class ProductReviewView: UIView {
 
   // MARK: - Property
   static var height = Metric.ReviewCellSize.height * 4.8

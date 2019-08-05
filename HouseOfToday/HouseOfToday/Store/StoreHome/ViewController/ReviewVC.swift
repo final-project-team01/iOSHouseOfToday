@@ -14,7 +14,7 @@ extension ReviewVC {
   }
 }
 
-class ReviewVC: UIViewController {
+final class ReviewVC: UIViewController {
 
   private lazy var folwLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()

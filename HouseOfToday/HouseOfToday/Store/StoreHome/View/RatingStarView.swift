@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RatingStarView: UIView {
+final class RatingStarView: UIView {
   let colorView = UIView()
   let starImageView = UIImageView()
 

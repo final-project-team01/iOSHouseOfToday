@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuestionsAndAnswersVC: UIViewController {
+final class QuestionsAndAnswersVC: UIViewController {
 
   // MARK: - Property
   private lazy var tableView: UITableView = {

@@ -10,7 +10,8 @@ import Foundation
 
 final class HouseOfTodayService: HouseOfTodayServiceType {
 
-  let baseURL = "http://52.78.112.247"
+//  let baseURL = "http://52.78.112.247"
+  let baseURL = "http://clonehouseoftodayapi.jinukk.me/"
 
   func fetchStoreHome(completion: @escaping (Result<StoreHomeList, ServiceError>) -> Void) {
 
@@ -246,4 +247,82 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
   }
 
+  func postShoppingCartItem(cartData: Data, completion: @escaping (Result<ShoppingOptionCart, ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/orderitem/"
+    guard let url = urlComp?.url else { return logger("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "POST"
+
+    urlRequest.httpBody = cartData
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    urlRequest.addValue("Token 69e86dfbeca27eec3f6a96c0addffd9f272449e2", forHTTPHeaderField: "Authorization")
+
+    print(urlRequest.allHTTPHeaderFields)
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+
+      print("response Status Code : ", (response as! HTTPURLResponse).statusCode)
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      guard let str = try? JSONSerialization.jsonObject(with: data, options: []) else { return print("JSONSerialization Error")}
+
+      print(str)
+
+      if let shoppingOptionCart = try? JSONDecoder().decode(ShoppingOptionCart.self, from: data) {
+        completion(.success(shoppingOptionCart))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+
+      }.resume()
+  }
+
+  func postOrderProducts(data: Data, completion: @escaping (Result<OrderProductList, ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/order_direct/create/"
+    guard let url = urlComp?.url else { return logger("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "POST"
+
+    urlRequest.httpBody = data
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    urlRequest.addValue("Token 69e86dfbeca27eec3f6a96c0addffd9f272449e2", forHTTPHeaderField: "Authorization")
+
+//    print(urlRequest.allHTTPHeaderFields)
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+
+      print("response Status Code : ", (response as! HTTPURLResponse).statusCode)
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      guard let str = try? JSONSerialization.jsonObject(with: data, options: []) else { return print("JSONSerialization Error")}
+
+      print(str)
+
+      if let orderProducts = try? JSONDecoder().decode(OrderProductList.self, from: data) {
+        completion(.success(orderProducts))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+
+      }.resume()
+  }
 }
