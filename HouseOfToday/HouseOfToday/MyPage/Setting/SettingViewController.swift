@@ -21,7 +21,7 @@ class SettingViewController: UIViewController {
     return tv
   }()
   private var state = ""
-  private let firstSection = ["프로필 수정", "맞춤정보 설정", "비밀번호 변경", "푸쉬 알림 설정"]
+  private let firstSection = ["프로필 수정", "비밀번호 변경", "푸쉬 알림 설정"]
   private let secondSection = ["오늘의집이 궁금해요", "FAQ", "의견 보내기", "서비스 이용 약관", "개인정보 보호정책", "버전 정보"]
   private var thirdSection: String {
     get {
@@ -38,10 +38,14 @@ class SettingViewController: UIViewController {
   // MARK: - VC LifeCycle
     override func viewDidLoad() {
       super.viewDidLoad()
-      configureNaviBar()
       makeConstraints()
       observeNotifications()
     }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureNaviBar()
+  }
 
   deinit {
     noti.removeObserver(self, name: NSNotification.Name(rawValue: "Login"), object: nil)
@@ -61,7 +65,7 @@ class SettingViewController: UIViewController {
   private func configureNaviBar() {
     self.title = "설정"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
-
+    self.navigationItem.setHidesBackButton(true, animated: false)
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
     navigationItem.setLeftBarButton(backItem, animated: true)
   }
@@ -131,12 +135,11 @@ extension SettingViewController: UITableViewDelegate {
       switch indexPath.row {
       case 0:
         print("프로필 수정 클릭")
+        self.navigationController?.pushViewController(ChangeProfileViewController(), animated: true)
       case 1:
-        print("맞춤정보 설정 클릭")
-      case 2:
         print("비밀번호 변경")
         pushWebView(with: "https://ohou.se/users/4502981/edit_password")
-      case 3:
+      case 2:
         print("푸쉬 알림 설정 클릭")
         self.navigationController?.pushViewController(PushAlertViewController(), animated: true)
       default:
