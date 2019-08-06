@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class HeaderTableCell: UITableViewHeaderFooterView {
+class TableHeader: UITableViewHeaderFooterView {
 
     static var height = UIScreen.main.bounds.height/8
 

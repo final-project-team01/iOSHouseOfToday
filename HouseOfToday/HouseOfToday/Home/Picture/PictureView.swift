@@ -10,6 +10,8 @@ import UIKit
 
 class PictureView: UIView {
 
+  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+
   private lazy var refreshControl: UIRefreshControl = {
     let refreshControl = UIRefreshControl()
     refreshControl.tintColor = .lightGray
@@ -37,13 +39,44 @@ class PictureView: UIView {
     return tableView
   }()
 
+  private var pictureList: [PictureModel] = [] {
+    didSet {
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+    }
+  }
+
+  private var commentsList: [PictureModel.CommentsInfo] = [] {
+    didSet {
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+    }
+  }
+
   override init(frame: CGRect) {
     super.init(frame: frame)
+    fetchPictureList()
     tableViewAutoLayout()
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  public func fetchPictureList() {
+    service.fetchPictureList { result in
+      switch result {
+      case .success(let product):
+        print("success!!! fetchPictureList")
+        self.pictureList = product
+
+      case .failure(let error):
+
+        print("fetchPictureList Error: \(error.localizedDescription)")
+      }
+    }
   }
 
   // MARK: - AutoLayout
@@ -58,12 +91,28 @@ class PictureView: UIView {
 
 extension PictureView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    return pictureList.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: PictureTableViewCell.identifier, for: indexPath) as! PictureTableViewCell
     cell.selectionStyle = .none
+
+    cell.pictureInfo = pictureList[indexPath.row]
+    cell.commentsInfo = pictureList[indexPath.row].comments[0]
+
+    if let url = URL(string: pictureList[indexPath.row].image) {
+      cell.setImage(thumnailUrl: url)
+    }
+
+    if let url = URL(string: pictureList[indexPath.row].authorProfileImage) {
+      cell.setUserprofileImage(thumnailUrl: url)
+    }
+
+    if let url = URL(string: pictureList[indexPath.row].comments[0].authorProfileImage) {
+      cell.userThumbNailButton(thumnailUrl: url)
+    }
+
     return cell
   }
 

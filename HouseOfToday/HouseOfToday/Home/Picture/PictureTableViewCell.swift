@@ -10,14 +10,18 @@ import UIKit
 
 class PictureTableViewCell: UITableViewCell {
 
-  private lazy var userInfoButton: UIButton = {
+  private lazy var userThumbNailButton: UIButton = {
+    let button = UIButton(type: .custom)
+    button.setImage(UIImage(named: "user"), for: .normal)
+    button.addTarget(self, action: #selector(didTapUserInfoButton(_:)), for: .touchUpInside)
+    addSubview(button)
+    return button
+  }()
+
+  private lazy var userNicknameButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("daisy_ko_", for: .normal)
-    button.setImage(UIImage(named: "user"), for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
-    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-    button.contentHorizontalAlignment = .left
     button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
     button.addTarget(self, action: #selector(didTapUserInfoButton(_:)), for: .touchUpInside)
     addSubview(button)
@@ -49,7 +53,7 @@ class PictureTableViewCell: UITableViewCell {
 
   private lazy var bodyTextLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "sdgfdhgjhghgjfdhdgfssfdshfdjgfhkgjhklkjhkgfjdgsfawasdfhghjhkl/;iuytreraewaerstdyfghklyul;ihuytretwreqwearsdhdjfkgyluiyutyrteawqsad"
+    label.text = "sdgfdhgjhghgjfdhdgfssfdshfdjgfhkgjhklkjhkgfjdgs"
     label.numberOfLines = 5
     label.lineBreakMode = .byTruncatingTail // FIXME: - 마지막에 `...더보기` 나오게 만들기
     label.font = UIFont.systemFont(ofSize: 15)
@@ -102,7 +106,6 @@ class PictureTableViewCell: UITableViewCell {
 
   private lazy var sharingButton: UIButton = {
     let button = UIButton(type: .custom)
-    button.setTitle("1", for: .normal)
     button.setImage(UIImage(named: "picShare"), for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
     button.setTitleColor(.darkGray, for: .normal)
@@ -120,11 +123,10 @@ class PictureTableViewCell: UITableViewCell {
     return button
   }()
 
-  private lazy var authorNicknameButton: UIButton = {
+   private lazy var authorNicknameButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("author", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-    //    button.contentHorizontalAlignment = .left
     button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
     //    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
     addSubview(button)
@@ -171,6 +173,27 @@ class PictureTableViewCell: UITableViewCell {
     addSubview(collectionView)
     return collectionView
   }()
+
+  // MARK: - Get data
+
+  public var pictureInfo: PictureModel? {
+    didSet {
+      guard let info = pictureInfo else {return logger()}
+      userNicknameButton.setTitle(info.author, for: .normal)
+      bodyTextLabel.text = info.text
+      heartButton.setTitle("\(info.likeCount)", for: .normal)
+      scrapButton.setTitle("\(info.scrapCount)", for: .normal)
+      commentButton.setTitle("\(info.commentCount)", for: .normal)
+    }
+  }
+
+  public var commentsInfo: PictureModel.CommentsInfo? {
+    didSet {
+      guard let info = commentsInfo else {return logger()}
+      authorNicknameButton.setTitle("\(info.author)", for: .normal)
+      authorCommentLabel.text = info.text
+    }
+  }
 
   // MARK: - View life cycle
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -233,8 +256,8 @@ class PictureTableViewCell: UITableViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    userInfoButton.imageView?.layer.cornerRadius = userInfoButton.imageView!.frame.width/2
-    userInfoButton.clipsToBounds = true
+    userThumbNailButton.imageView?.layer.cornerRadius = userThumbNailButton.imageView!.frame.width/2
+    userThumbNailButton.clipsToBounds = true
 
     authorImageButton.imageView?.layer.cornerRadius = authorImageButton.imageView!.frame.width/2
     authorImageButton.clipsToBounds = true
@@ -245,8 +268,16 @@ class PictureTableViewCell: UITableViewCell {
 
     let margin: CGFloat = 10
 
-    userInfoButton.snp.makeConstraints { make in
+    userThumbNailButton.snp.makeConstraints { make in
       make.top.leading.equalToSuperview().inset(15)
+      make.bottom.equalTo(bodyTextLabel.snp.top).inset(-margin)
+      make.width.equalToSuperview().multipliedBy(0.1)
+      make.height.equalTo(userThumbNailButton.snp.width)
+    }
+
+    userNicknameButton.snp.makeConstraints { make in
+      make.top.equalToSuperview().inset(15)
+      make.leading.equalTo(userThumbNailButton.snp.trailing).offset(10)
       make.trailing.equalTo(followStatusButton.snp.leading).inset(-10)
       make.bottom.equalTo(bodyTextLabel.snp.top).inset(-margin)
     }
@@ -279,19 +310,21 @@ class PictureTableViewCell: UITableViewCell {
 
     authorImageButton.snp.makeConstraints { make in
       make.top.equalTo(socialButtonStackView.snp.bottom)
-      make.leading.equalToSuperview().inset(margin)
-      make.bottom.equalTo(collectionView.snp.top)//.inset(-margin)
+      make.leading.equalToSuperview().inset(15)
+      make.bottom.equalTo(collectionView.snp.top)
+      make.width.equalToSuperview().multipliedBy(0.06)
+      make.height.equalTo(authorImageButton.snp.width)
     }
     authorNicknameButton.snp.makeConstraints { make in
       make.top.equalTo(socialButtonStackView.snp.bottom)
       make.leading.equalTo(authorImageButton.snp.trailing).offset(5)
       make.trailing.equalTo(authorCommentLabel.snp.leading).offset(-5)
-      make.bottom.equalTo(collectionView.snp.top)//.inset(-margin)
+      make.bottom.equalTo(collectionView.snp.top)
     }
     authorCommentLabel.snp.makeConstraints { make in
       make.top.equalTo(socialButtonStackView.snp.bottom)
       make.trailing.equalToSuperview().inset(margin)
-      make.bottom.equalTo(collectionView.snp.top)//.inset(-margin)
+      make.bottom.equalTo(collectionView.snp.top)
     }
 
     collectionView.snp.makeConstraints { make in
@@ -299,6 +332,35 @@ class PictureTableViewCell: UITableViewCell {
       make.bottom.equalToSuperview().inset(30)
       make.height.equalTo(100)
     }
+  }
+
+  // MARK: - Image Download & setImage
+
+  //user thumbnail
+  func setUserprofileImage(thumnailUrl: URL) {
+    userThumbNailButton.kf.setImage(with: thumnailUrl, for: .normal)
+  }
+
+  //main product image
+  func setImage(thumnailUrl: URL) {
+
+    thumbnailImageView.kf.setImage(with: thumnailUrl,
+                                   placeholder: nil,
+                                   options: [.transition(.fade(0)), .loadDiskFileSynchronously],
+                                   progressBlock: nil) { (_) in
+    }
+  }
+
+  //comment user thumbnail
+  func userThumbNailButton(thumnailUrl: URL) { //맞나?
+    authorImageButton.kf.setImage(with: thumnailUrl, for: .normal)
+  }
+
+  //stop download
+  public func stopDownloadImage() {
+    thumbnailImageView.kf.cancelDownloadTask()
+    userThumbNailButton.imageView!.kf.cancelDownloadTask()
+    authorImageButton.imageView!.kf.cancelDownloadTask() //맞나?
   }
 }
 
@@ -322,11 +384,11 @@ extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDele
 extension PictureTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-      let lineSpacing = JMetric.lineSpacing
-      let horizontalPadding = JMetric.rankingHorizontalInset.left + JMetric.rankingHorizontalInset.right + 50
-      let width = (collectionView.frame.width - lineSpacing - horizontalPadding) / 4
+    let lineSpacing = JMetric.lineSpacing
+    let horizontalPadding = JMetric.rankingHorizontalInset.left + JMetric.rankingHorizontalInset.right + 50
+    let width = (collectionView.frame.width - lineSpacing - horizontalPadding) / 4
 
-      return CGSize(width: width.rounded(.down), height: width.rounded(.down))
+    return CGSize(width: width.rounded(.down), height: width.rounded(.down))
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -338,7 +400,7 @@ extension PictureTableViewCell: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-     return JMetric.rankingHorizontalInset
+    return JMetric.rankingHorizontalInset
   }
 
 }
