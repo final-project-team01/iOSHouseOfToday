@@ -174,7 +174,6 @@ final class StoreVC: CategoryTabBarViewController {
 
     vc.fetchProductDetail(id: id)
 
-//    present(vc, animated: true)
     navigationController?.pushViewController(vc, animated: true)
   }
 

@@ -44,7 +44,8 @@ final class HomeVC: CategoryTabBarViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    addObservers()
+    removeObservers()
     configureNaviBar()
     //homeViewDidScroll()
   }
@@ -63,6 +64,19 @@ final class HomeVC: CategoryTabBarViewController {
       searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: leftInset + 15, bottom: 0, right: 0)
       searchButton.tag += 1
     }
+  }
+
+  private func addObservers() {
+    notiCenter.addObserver(self,
+                           selector: #selector(presentPicDetailVC(_:)),
+                           name: .picDetailID,
+                           object: nil)
+  }
+
+  private func removeObservers() {
+    notiCenter.removeObserver(self,
+                              name: .picDetailID,
+                              object: nil)
   }
 
   // 창식
@@ -118,4 +132,22 @@ final class HomeVC: CategoryTabBarViewController {
     }
   }
   */
+
+  @objc private func presentPicDetailVC(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: Int],
+      let id = userInfo["productID"]
+      else {
+        return
+    }
+
+    let vc = PicDetailVC()
+
+//    vc.fetchProductDetail(id: id)
+
+    // FIXME: - 넘겨줄라면 id 값을 가지는 데이터 먼저 파싱해줘야 할꺼 같아서 그거 파싱하고~! 뿌리고 넘겨보자 우선 1. 파싱 2. 미리보기 3.연결
+
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
 }

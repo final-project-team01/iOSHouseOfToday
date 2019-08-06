@@ -13,6 +13,7 @@ struct PictureModel: Decodable {
   let id: Int
   let author: String
   let authorProfileImage: String
+  let productImage: String
   let image: String
   let hitCount: Int
   let likeCount: Int
@@ -25,6 +26,7 @@ struct PictureModel: Decodable {
     case id
     case author
     case authorProfileImage = "author_profile_image"
+    case productImage = "product_image"
     case image
     case hitCount = "hit_count"
     case likeCount = "like_count"

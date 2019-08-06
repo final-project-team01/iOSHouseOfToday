@@ -35,20 +35,17 @@ class PicDetailVC: UIViewController {
     return tableView
   }()
 
-  
-//  label
-  
-  //lebel
-  
-  //imageview
-  
-  //collectionview
-  
-  //comment labe
-  
-  // +버튼 
   override func viewDidLoad() {
     super.viewDidLoad()
+    makeConstraints()
+
+  }
+
+  // MARK: - AutoLayout
+  private func makeConstraints() {
+    tableView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
 
   }
 

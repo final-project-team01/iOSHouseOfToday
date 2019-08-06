@@ -8,9 +8,15 @@
 
 import UIKit
 
+extension Notification.Name {
+  static let picDetailID = Notification.Name("PicDetailID")
+}
+
 class PictureView: UIView {
 
   private let service: HouseOfTodayServiceType = HouseOfTodayService()
+
+  private let notiCenter = NotificationCenter.default
 
   private lazy var refreshControl: UIRefreshControl = {
     let refreshControl = UIRefreshControl()
@@ -29,7 +35,6 @@ class PictureView: UIView {
     tableView.dataSource = self.self
     tableView.delegate = self.self
     tableView.register(cell: PictureTableViewCell.self)
-    //    tableView.allowsSelection = false
     //    tableView.rowHeight = UITableView.automaticDimension
     tableView.backgroundColor = .white
     tableView.showsVerticalScrollIndicator = false
@@ -98,8 +103,11 @@ extension PictureView: UITableViewDataSource, UITableViewDelegate {
     let cell = tableView.dequeueReusableCell(withIdentifier: PictureTableViewCell.identifier, for: indexPath) as! PictureTableViewCell
     cell.selectionStyle = .none
 
-    cell.pictureInfo = pictureList[indexPath.row]
-    cell.commentsInfo = pictureList[indexPath.row].comments[0]
+//    cell.thumnailCellDidLoad = {
+//      (pictureCollectionCell, pictureColelctionIndexPath) in
+//      let url = URL(string: "https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-productions-156151488972741898.jpg/144/144")!
+//      pictureCollectionCell.commentThumbButton(thumnailUrl: url)
+//    }
 
     if let url = URL(string: pictureList[indexPath.row].image) {
       cell.setImage(thumnailUrl: url)
@@ -114,6 +122,11 @@ extension PictureView: UITableViewDataSource, UITableViewDelegate {
     }
 
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let productID = pictureList[indexPath.row].id
+    notiCenter.post(name: .picDetailID, object: nil, userInfo: ["PicDetailID": productID])
   }
 
 }

@@ -88,7 +88,7 @@ class PictureTableViewCell: UITableViewCell {
     button.setImage(UIImage(named: "picBookMark"), for: .normal)
     button.setImage(UIImage(named: "fullPicBookMark"), for: .selected)
     button.addTarget(self, action: #selector(didTapScrapButton(_:)), for: .touchUpInside)
-    button.isUserInteractionEnabled = true
+//    button.isUserInteractionEnabled = true
     addSubview(button)
     return button
   }()
@@ -158,13 +158,14 @@ class PictureTableViewCell: UITableViewCell {
     return stackView
   }()
 
+  // MARK: - collectionview
   private lazy var layout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     return layout
   }()
 
-  private lazy var collectionView: UICollectionView = {
+  internal lazy var collectionView: UICollectionView = {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.dataSource = self
     collectionView.delegate = self
@@ -176,6 +177,14 @@ class PictureTableViewCell: UITableViewCell {
 
   // MARK: - Get data
 
+  private var pictureList: [PictureModel] = [] {
+    didSet {
+      DispatchQueue.main.async {
+        self.collectionView.reloadData()
+      }
+    }
+  }
+
   public var pictureInfo: PictureModel? {
     didSet {
       guard let info = pictureInfo else {return logger()}
@@ -184,6 +193,9 @@ class PictureTableViewCell: UITableViewCell {
       heartButton.setTitle("\(info.likeCount)", for: .normal)
       scrapButton.setTitle("\(info.scrapCount)", for: .normal)
       commentButton.setTitle("\(info.commentCount)", for: .normal)
+      info.productImage
+
+      commentsInfo = info.comments.first
     }
   }
 
@@ -352,7 +364,7 @@ class PictureTableViewCell: UITableViewCell {
   }
 
   //comment user thumbnail
-  func userThumbNailButton(thumnailUrl: URL) { //맞나?
+  func userThumbNailButton(thumnailUrl: URL) {
     authorImageButton.kf.setImage(with: thumnailUrl, for: .normal)
   }
 
@@ -360,21 +372,23 @@ class PictureTableViewCell: UITableViewCell {
   public func stopDownloadImage() {
     thumbnailImageView.kf.cancelDownloadTask()
     userThumbNailButton.imageView!.kf.cancelDownloadTask()
-    authorImageButton.imageView!.kf.cancelDownloadTask() //맞나?
+    authorImageButton.imageView!.kf.cancelDownloadTask()
   }
 }
 
 extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
-  }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 10
+    return 1
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeue(PictureCollectionViewCell.self, indexPath)
+
+//    if let url = URL(string: pictureList[indexPath.item].productImage) {
+//      cell.commentThumbButton(thumnailUrl: url)
+//    }
+
     return cell
 
   }
