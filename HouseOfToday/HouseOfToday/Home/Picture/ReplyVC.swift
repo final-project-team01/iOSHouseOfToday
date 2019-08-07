@@ -24,7 +24,7 @@ class ReplyVC: UIViewController {
     button.setTitle("등록", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
     button.setTitleColor(.lightGray, for: .normal)
-//    button.addTarget(self, action: #selector(didTapFollowStatusButton(_:)), for: .touchUpInside)
+    //    button.addTarget(self, action: #selector(didTapFollowStatusButton(_:)), for: .touchUpInside)
     view.addSubview(button)
     return button
   }()
@@ -43,15 +43,15 @@ class ReplyVC: UIViewController {
     return textfield
   }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      makeConstraints()
-      view.backgroundColor = .white
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    makeConstraints()
+    view.backgroundColor = .white
 
-      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
-      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)

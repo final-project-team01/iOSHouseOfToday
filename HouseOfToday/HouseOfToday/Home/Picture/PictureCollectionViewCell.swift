@@ -26,11 +26,11 @@ class PictureCollectionViewCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
 
- public func commentThumbButton(thumnailUrl: URL) {
+  public func commentThumbButton(thumnailUrl: URL) {
     thumnailImageView.kf.setImage(with: thumnailUrl,
-                                   placeholder: nil,
-                                   options: [.transition(.fade(0)), .loadDiskFileSynchronously],
-                                   progressBlock: nil) { (_) in
+                                  placeholder: nil,
+                                  options: [.transition(.fade(0)), .loadDiskFileSynchronously],
+                                  progressBlock: nil) { (_) in
     }
   }
 

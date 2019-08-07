@@ -30,7 +30,8 @@ class PicDetailTableviewCell: UITableViewCell {
 
   private lazy var productImageView: UIImageView = {
     let imageView = UIImageView(frame: .zero)
-    imageView.image = UIImage(named: "ahhh")
+    imageView.image = UIImage(named: "test")
+    //    imageView.contentMode = .scaleAspectFit
     addSubview(imageView)
     return imageView
   }()
@@ -45,9 +46,10 @@ class PicDetailTableviewCell: UITableViewCell {
   internal lazy var collectionView: UICollectionView = {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.backgroundColor = .white
-//    collectionView.dataSource = self
-//    collectionView.delegate = self
-//    collectionView.register(cell: PictureCollectionViewCell.self)
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    collectionView.register(cell: PictureCollectionViewCell.self)
+    collectionView.backgroundColor = .blue
     addSubview(collectionView)
     return collectionView
   }()
@@ -62,17 +64,23 @@ class PicDetailTableviewCell: UITableViewCell {
     return label
   }()
 
-//  private lazy var scrapButton: UIButton = {
-//    let button = UIButton(type: .custom)
-//    button.setTitle("author", for: .normal)
-//    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-//    button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
-//    //    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
-//    addSubview(button)
-//    return button
-//  }()
-
   // +버튼
+
+  // MARK: - getData
+
+  public var picDetailInfo: PicDetailModel? {
+    didSet {
+      guard let info = picDetailInfo else {return logger()}
+      categoryLabel.text = info.category
+      //등등 넣기
+
+      DispatchQueue.main.async {
+        self.collectionView.reloadData()
+      }
+
+      //collectionView로 들어가는거 ㄱㄱ
+    }
+  }
 
   // MARK: - View life cycle
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -87,20 +95,57 @@ class PicDetailTableviewCell: UITableViewCell {
 
   private func makeConstraints() {
 
-    categoryLabel.snp.makeConstraints { make in
-      make.top.leading.equalToSuperview()
-      make.bottom.equalTo(productImageView.snp.top)
-    }
-
-    createdLabel.snp.makeConstraints { make in
-      make.top.trailing.equalToSuperview()
-      make.bottom.equalTo(productImageView.snp.top)
-    }
+    //    categoryLabel.snp.makeConstraints { make in
+    //      make.top.leading.equalToSuperview().inset(15)
+    //      make.bottom.equalTo(productImageView.snp.top).inset(-10)
+    //    }
+    //
+    //    createdLabel.snp.makeConstraints { make in
+    //      make.top.trailing.equalToSuperview().inset(15)
+    //      make.bottom.equalTo(productImageView.snp.top).inset(-10)
+    ////    }
+    //
+    //    productImageView.snp.makeConstraints { make in
+    //      make.leading.trailing.equalToSuperview()
+    //      make.bottom.equalTo(collectionView.snp.top)
+    //    }
+    //
+    //    collectionView.snp.makeConstraints { make in
+    //      make.leading.trailing.equalToSuperview()
+    //      make.bottom.equalToSuperview().inset(30)
+    //      make.height.equalTo(100)
+    //    }
 
     productImageView.snp.makeConstraints { make in
-      make.leading.trailing.bottom.equalToSuperview()
+      make.edges.equalToSuperview()
+      //      make.width.equalTo(500)
+      //      make.height.equalTo(100)
     }
+  }
 
+  public func setMainProductImage(thumnailUrl: URL) {
+
+    productImageView.kf.setImage(with: thumnailUrl,
+                                 placeholder: nil,
+                                 options: [.transition(.fade(0)), .loadDiskFileSynchronously],
+                                 progressBlock: nil) { (_) in
+    }
+  }
+
+  //stop download
+  public func stopDownloadImage() {
+    productImageView.kf.cancelDownloadTask()
+  }
+}
+
+extension PicDetailTableviewCell: UICollectionViewDataSource, UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 1
+  }
+
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeue(PictureCollectionViewCell.self, indexPath)
+    return cell //셀 재사용으로 해볼까?
   }
 
 }

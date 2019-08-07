@@ -71,11 +71,6 @@ final class HomeVC: CategoryTabBarViewController {
 
   private func addObservers() {
     notiCenter.addObserver(self,
-                           selector: #selector(presentPicDetailVC(_:)),
-                           name: .picDetailID,
-                           object: nil
-    )
-    notiCenter.addObserver(self,
                            selector: #selector(presentReplyVC(_:)),
                            name: .replyVC,
                            object: nil
@@ -93,15 +88,28 @@ final class HomeVC: CategoryTabBarViewController {
                            object: nil
 
     )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentProductDetailVC(_:)),
+                           name: StoreVC.presentProductDetail,
+                           object: nil
+    )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentpicDetailID(_:)),
+                           name: .picDetailID,
+                           object: nil
+    )
   }
 
   private func removeObservers() {
-    notiCenter.removeObserver(self,
-                              name: .picDetailID,
-                              object: nil)
     notiCenter.removeObserver(self, name: .replyVC, object: nil)
     notiCenter.removeObserver(self, name: .activityC, object: nil)
     notiCenter.removeObserver(self, name: .picAlert, object: nil)
+    notiCenter.removeObserver(self,
+                              name: StoreVC.presentProductList,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: .picDetailID,
+                              object: nil)
   }
 
   // 창식
@@ -139,7 +147,7 @@ final class HomeVC: CategoryTabBarViewController {
   }
 
   @objc private func presentReplyVC(_ sender: Notification) {
-     print("fail downCasting")
+    print("fail downCasting")
     guard let userInfo = sender.userInfo as? [String: UIViewController],
       let vc = userInfo["ReplyVC"]
       else {
@@ -172,7 +180,22 @@ final class HomeVC: CategoryTabBarViewController {
 
   }
 
-  // MARK: - Callback 
+  @objc private func presentProductDetailVC(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: Int],
+      let id = userInfo["productID"]
+      else {
+        return
+    }
+
+    let vc = ProductDetailVC()
+
+    vc.fetchProductDetail(id: id)
+
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
+  // MARK: - Callback
   // 창식 -  스크롤 했을 때 받을 callback
   /*
    private func homeViewDidScroll() {
@@ -192,10 +215,10 @@ final class HomeVC: CategoryTabBarViewController {
    }
    */
 
-  @objc private func presentPicDetailVC(_ sender: Notification) {
+  @objc private func presentpicDetailID(_ sender: Notification) {
 
     guard let userInfo = sender.userInfo as? [String: Int],
-      let id = userInfo["productID"]
+      let id = userInfo["PicDetailID"]
       else {
         return
     }

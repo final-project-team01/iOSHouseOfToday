@@ -52,14 +52,6 @@ class PictureView: UIView {
     }
   }
 
-  private var commentsList: [PictureModel.CommentsInfo] = [] {
-    didSet {
-      DispatchQueue.main.async {
-        self.tableView.reloadData()
-      }
-    }
-  }
-
   override init(frame: CGRect) {
     super.init(frame: frame)
     fetchPictureList()
@@ -122,6 +114,7 @@ extension PictureView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let productID = pictureList[indexPath.row].id
     notiCenter.post(name: .picDetailID, object: nil, userInfo: ["PicDetailID": productID])
+
   }
 
 }

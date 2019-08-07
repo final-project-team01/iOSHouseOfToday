@@ -271,10 +271,10 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
   }
 
-  func fetchPicDetailList(completion: @escaping (Result<PicDetailModel, ServiceError>) -> Void) {
+  func fetchPicDetailList(id: Int, completion: @escaping (Result<PicDetailModel, ServiceError>) -> Void) {
 
     var urlComp = URLComponents(string: baseURL)
-    urlComp?.path = "/community/photo/"
+    urlComp?.path = "/community/photo/\(id)/"
 
     guard let url = urlComp?.url else { return print("guard get url fail")}
 

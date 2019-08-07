@@ -69,7 +69,7 @@ class ProductDetailVC: UIViewController {
       print("productList called")
       DispatchQueue.main.async { [weak self] in
         let indexSet = IndexSet(integer: 1)
-        self?.collectionView.reloadSections(indexSet)
+//        self?.collectionView.reloadSections(indexSet)
       }
     }
   }
@@ -103,7 +103,7 @@ class ProductDetailVC: UIViewController {
 
       DispatchQueue.main.async { [weak self] in
         let indexSet = IndexSet(integer: 0)
-        self?.collectionView.reloadSections(indexSet)
+//        self?.collectionView.reloadSections(indexSet)
         self?.fetchCategoryID(id: info.category)
       }
     }

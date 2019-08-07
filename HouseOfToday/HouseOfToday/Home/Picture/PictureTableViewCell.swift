@@ -364,7 +364,7 @@ class PictureTableViewCell: UITableViewCell {
     }
   }
 
-   // MARK: - Action Methods
+  // MARK: - Action Methods
 
   //user thumbnail
   func setUserprofileImage(thumnailUrl: URL) {
@@ -431,5 +431,11 @@ extension PictureTableViewCell: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     return JMetric.rankingHorizontalInset
+  }
+
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let productID = pictureInfo?.productID
+    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
+
   }
 }
