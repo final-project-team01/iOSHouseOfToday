@@ -38,14 +38,17 @@ final class HomeVC: CategoryTabBarViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-//  required init?(coder aDecoder: NSCoder) {
-//    fatalError("init(coder:) has not been implemented")
-//  }
+  deinit {
+    removeObservers()
+  }
+
+  //  required init?(coder aDecoder: NSCoder) {
+  //    fatalError("init(coder:) has not been implemented")
+  //  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
     addObservers()
-    removeObservers()
     configureNaviBar()
     //homeViewDidScroll()
   }
@@ -70,13 +73,35 @@ final class HomeVC: CategoryTabBarViewController {
     notiCenter.addObserver(self,
                            selector: #selector(presentPicDetailVC(_:)),
                            name: .picDetailID,
-                           object: nil)
+                           object: nil
+    )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentReplyVC(_:)),
+                           name: .replyVC,
+                           object: nil
+
+    )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentActivityC(_:)),
+                           name: .activityC,
+                           object: nil
+
+    )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentPicAlert(_:)),
+                           name: .picAlert,
+                           object: nil
+
+    )
   }
 
   private func removeObservers() {
     notiCenter.removeObserver(self,
                               name: .picDetailID,
                               object: nil)
+    notiCenter.removeObserver(self, name: .replyVC, object: nil)
+    notiCenter.removeObserver(self, name: .activityC, object: nil)
+    notiCenter.removeObserver(self, name: .picAlert, object: nil)
   }
 
   // 창식
@@ -110,28 +135,62 @@ final class HomeVC: CategoryTabBarViewController {
       else {
         return print("fail downCasting")
     }
-  navigationController?.pushViewController(detailRankingVC, animated: true)
+    navigationController?.pushViewController(detailRankingVC, animated: true)
+  }
+
+  @objc private func presentReplyVC(_ sender: Notification) {
+     print("fail downCasting")
+    guard let userInfo = sender.userInfo as? [String: UIViewController],
+      let vc = userInfo["ReplyVC"]
+      else {
+        return print("fail downCasting")
+    }
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
+  @objc private func presentActivityC(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: UIActivityViewController],
+      let vc = userInfo["ActivityVC"]
+      else {
+        return print("fail downCasting")
+    }
+
+    present(vc, animated: true)
+
+  }
+
+  @objc private func presentPicAlert(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: UIAlertController],
+      let alert = userInfo["PicAlert"]
+      else {
+        return print("fail downCasting")
+    }
+
+    present(alert, animated: true)
+
   }
 
   // MARK: - Callback 
   // 창식 -  스크롤 했을 때 받을 callback
   /*
-  private func homeViewDidScroll() {
-    tempRankingView.tempRankingViewDidScroll = {
-      direction in
-      switch direction {
-      case "up":
-        print("storeHomeViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("storeHomeViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
-      }
-    }
-  }
-  */
+   private func homeViewDidScroll() {
+   tempRankingView.tempRankingViewDidScroll = {
+   direction in
+   switch direction {
+   case "up":
+   print("storeHomeViewDidScroll // up")
+   self.navigationController?.setNavigationBarHidden(false, animated: true)
+   case "down":
+   print("storeHomeViewDidScroll // down")
+   self.navigationController?.setNavigationBarHidden(true, animated: true)
+   default:
+   break
+   }
+   }
+   }
+   */
 
   @objc private func presentPicDetailVC(_ sender: Notification) {
 
@@ -143,7 +202,7 @@ final class HomeVC: CategoryTabBarViewController {
 
     let vc = PicDetailVC()
 
-//    vc.fetchProductDetail(id: id)
+    //    vc.fetchProductDetail(id: id)
 
     // FIXME: - 넘겨줄라면 id 값을 가지는 데이터 먼저 파싱해줘야 할꺼 같아서 그거 파싱하고~! 뿌리고 넘겨보자 우선 1. 파싱 2. 미리보기 3.연결
 

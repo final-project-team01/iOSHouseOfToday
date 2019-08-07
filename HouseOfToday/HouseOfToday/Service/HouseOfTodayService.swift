@@ -270,32 +270,31 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
 
   }
-  
-  
+
   func fetchPicDetailList(completion: @escaping (Result<PicDetailModel, ServiceError>) -> Void) {
-    
+
     var urlComp = URLComponents(string: baseURL)
     urlComp?.path = "/community/photo/"
-    
+
     guard let url = urlComp?.url else { return print("guard get url fail")}
-    
+
     URLSession.shared.dataTask(with: url) { (data, response, error) in
-      
+
       guard error == nil else {return completion(.failure(.clientError))}
-      
+
       guard let header = response as? HTTPURLResponse,
         (200..<300) ~= header.statusCode else {return completion(.failure(.noData))}
-      
+
       guard let data = data else {return completion(.failure(.noData))}
-      
+
       if let picDetailList = try? JSONDecoder().decode(PicDetailModel.self, from: data) {
         completion(.success(picDetailList))
       } else {
         completion(.failure(.invalidFormat))
       }
-      
+
       }.resume()
-    
+
   }
 
 }

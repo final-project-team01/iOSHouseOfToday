@@ -52,7 +52,15 @@ class PicDetailTableviewCell: UITableViewCell {
     return collectionView
   }()
 
-  //comment labe
+  private lazy var picBodyTextLabel: UILabel = {
+    let label = UILabel(frame: CGRect.zero)
+    label.text = "sdgfdhgjhghgjfdhdgfssfdshfdjgfhkgjhklkjhkgfjdgs"
+    label.numberOfLines = 0
+    label.font = UIFont.systemFont(ofSize: 15)
+    label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+    addSubview(label)
+    return label
+  }()
 
 //  private lazy var scrapButton: UIButton = {
 //    let button = UIButton(type: .custom)

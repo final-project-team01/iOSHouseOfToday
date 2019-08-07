@@ -8,7 +8,17 @@
 
 import UIKit
 
+extension Notification.Name {
+  static let replyVC = Notification.Name("ReplyVC")
+  static let activityC = Notification.Name("ActivityC")
+  static let picAlert = Notification.Name("PicAlert")
+}
+
 class PictureTableViewCell: UITableViewCell {
+
+  private let notiCenter = NotificationCenter.default
+
+  let replyVC = ReplyVC()
 
   private lazy var userThumbNailButton: UIButton = {
     let button = UIButton(type: .custom)
@@ -46,7 +56,7 @@ class PictureTableViewCell: UITableViewCell {
     button.setTitle("•••", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
     button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
-    //    button.addTarget(self, action: #selector(didTapDotdotdotButton(_:)), for: .touchUpInside)
+    button.addTarget(self, action: #selector(didTapDotdotdotButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -88,7 +98,6 @@ class PictureTableViewCell: UITableViewCell {
     button.setImage(UIImage(named: "picBookMark"), for: .normal)
     button.setImage(UIImage(named: "fullPicBookMark"), for: .selected)
     button.addTarget(self, action: #selector(didTapScrapButton(_:)), for: .touchUpInside)
-//    button.isUserInteractionEnabled = true
     addSubview(button)
     return button
   }()
@@ -123,7 +132,7 @@ class PictureTableViewCell: UITableViewCell {
     return button
   }()
 
-   private lazy var authorNicknameButton: UIButton = {
+  private lazy var authorNicknameButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("author", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
@@ -175,15 +184,7 @@ class PictureTableViewCell: UITableViewCell {
     return collectionView
   }()
 
-  // MARK: - Get data
-
-  private var pictureList: [PictureModel] = [] {
-    didSet {
-      DispatchQueue.main.async {
-        self.collectionView.reloadData()
-      }
-    }
-  }
+  // MARK: - getData
 
   public var pictureInfo: PictureModel? {
     didSet {
@@ -193,7 +194,10 @@ class PictureTableViewCell: UITableViewCell {
       heartButton.setTitle("\(info.likeCount)", for: .normal)
       scrapButton.setTitle("\(info.scrapCount)", for: .normal)
       commentButton.setTitle("\(info.commentCount)", for: .normal)
-      info.productImage
+
+      DispatchQueue.main.async {
+        self.collectionView.reloadData()
+      }
 
       commentsInfo = info.comments.first
     }
@@ -237,32 +241,46 @@ class PictureTableViewCell: UITableViewCell {
   }
 
   @objc private func didTapDotdotdotButton(_ sender: UIButton) {
-    print("didTapDotdotdotButton")
-    // FIXME: - 신고, 취소 알럿? 띄우기
 
+    let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    let doneAction = UIAlertAction(title: "신고", style: .default, handler: nil)
+    let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+
+    //Add Action
+    alertController.addAction(doneAction)
+    alertController.addAction(cancelAction)
+
+    notiCenter.post(name: .picAlert, object: sender, userInfo: ["PicAlert": alertController])
   }
 
   @objc private func didTapHeartButton(_ sender: UIButton) {
     sender.isSelected.toggle()
-    // FIXME: - count 적용해주기
-
+    if sender.isSelected {
+      pictureInfo?.likeCount += 1
+    } else {
+      pictureInfo?.likeCount -= 1
+    }
   }
 
   @objc private func didTapScrapButton(_ sender: UIButton) {
     sender.isSelected.toggle()
-    // FIXME: - count 적용해주기
-
+    if sender.isSelected {
+      pictureInfo?.scrapCount += 1
+    } else {
+      pictureInfo?.scrapCount -= 1
+    }
   }
 
+  // replyVC 로 넘어가기
   @objc private func didTapCommentButton(_ sender: UIButton) {
-    print("didTapCommentButton")
-    // FIXME: - comment View 로 넘어가기
-
+    notiCenter.post(name: .replyVC, object: sender, userInfo: ["ReplyVC": replyVC])
   }
 
   @objc private func didTapSharingButton(_ sender: UIButton) {
-    print("sharingButton")
-    // FIXME: - sharing 창 띄우기
+    let activityVC = UIActivityViewController(activityItems: ["공유"], applicationActivities: nil)
+    activityVC.excludedActivityTypes = [.airDrop, .mail, .message, .print]
+
+    notiCenter.post(name: .activityC, object: sender, userInfo: ["ActivityVC": activityVC])
 
   }
 
@@ -346,7 +364,7 @@ class PictureTableViewCell: UITableViewCell {
     }
   }
 
-  // MARK: - Image Download & setImage
+   // MARK: - Action Methods
 
   //user thumbnail
   func setUserprofileImage(thumnailUrl: URL) {
@@ -385,14 +403,12 @@ extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDele
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeue(PictureCollectionViewCell.self, indexPath)
 
-//    if let url = URL(string: pictureList[indexPath.item].productImage) {
-//      cell.commentThumbButton(thumnailUrl: url)
-//    }
+    if let url = URL(string: pictureInfo?.productImage ?? "" ) {
+      cell.commentThumbButton(thumnailUrl: url)
+    }
 
     return cell
-
   }
-
 }
 
 extension PictureTableViewCell: UICollectionViewDelegateFlowLayout {
@@ -416,5 +432,4 @@ extension PictureTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     return JMetric.rankingHorizontalInset
   }
-
 }

@@ -102,12 +102,7 @@ extension PictureView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: PictureTableViewCell.identifier, for: indexPath) as! PictureTableViewCell
     cell.selectionStyle = .none
-
-//    cell.thumnailCellDidLoad = {
-//      (pictureCollectionCell, pictureColelctionIndexPath) in
-//      let url = URL(string: "https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-productions-156151488972741898.jpg/144/144")!
-//      pictureCollectionCell.commentThumbButton(thumnailUrl: url)
-//    }
+    cell.pictureInfo = pictureList[indexPath.row]
 
     if let url = URL(string: pictureList[indexPath.row].image) {
       cell.setImage(thumnailUrl: url)

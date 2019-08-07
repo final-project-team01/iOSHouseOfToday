@@ -16,8 +16,8 @@ struct PictureModel: Decodable {
   let productImage: String
   let image: String
   let hitCount: Int
-  let likeCount: Int
-  let scrapCount: Int
+  var likeCount: Int
+  var scrapCount: Int
   let commentCount: Int
   let text: String
   let comments: [CommentsInfo]
