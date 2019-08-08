@@ -85,8 +85,11 @@ class ShoppingFooterView: UITableViewHeaderFooterView {
 
   }
 
+//  private let service: HouseOfTodayServiceType = HouseOfTodayService()
   @objc private func touchUpBuyingButton(_ sender: UIButton) {
     print("touchUpBuyingButton")
+
+    NotificationCenter.default.post(name: CartVC.buyingButton, object: nil, userInfo: [:])
   }
 
 }

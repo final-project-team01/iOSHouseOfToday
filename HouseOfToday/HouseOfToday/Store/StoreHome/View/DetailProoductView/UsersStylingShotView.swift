@@ -91,6 +91,8 @@ final class UsersStylingShotView: UIView {
   override init(frame: CGRect) {
     super.init(frame: CGRect.zero)
     backgroundColor = .white
+
+    fetchPictureList()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -142,6 +144,31 @@ final class UsersStylingShotView: UIView {
       }
     }
   }
+
+  private var pictureList: [PictureModel] = [] {
+    didSet {
+      DispatchQueue.main.async {
+        self.bigerCollectionView.reloadData()
+        self.smallerCollectionView.reloadData()
+      }
+    }
+  }
+
+  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+  public func fetchPictureList() {
+    service.fetchPictureList { result in
+      switch result {
+      case .success(let product):
+        print("success!!! fetchPictureList")
+        self.pictureList = product
+
+      case .failure(let error):
+
+        print("fetchPictureList Error: \(error.localizedDescription)")
+      }
+    }
+  }
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -152,21 +179,43 @@ extension UsersStylingShotView: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return colorList.count
+    return pictureList.count//colorList.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
     if bigerCollectionView == collectionView {
       let cell = collectionView.dequeue(UserStylingDetailCell.self, indexPath)
-      cell.backgroundColor = colorList[indexPath.item]
+//      cell.backgroundColor = colorList[indexPath.item]
+
+      if let url = URL(string: pictureList[indexPath.item].image),
+        let authorUrl = URL(string: pictureList[indexPath.item].authorProfileImage) {
+
+        cell.thumnailImageView.kf.setImage(with: url,
+                                           placeholder: nil,
+                                           options: [.transition(.fade(1)), .loadDiskFileSynchronously],
+                                           progressBlock: nil)
+
+        cell.userImageView.kf.setImage(with: authorUrl,
+                                       placeholder: nil,
+                                       options: [.transition(.fade(1)), .loadDiskFileSynchronously],
+                                       progressBlock: nil)
+        cell.userNameLabel.text = "\(pictureList[indexPath.item].author)"
+        cell.totalShotCountLabel.text = "\(indexPath.item+1)/\(pictureList.count)"
+      }
+
       return cell
     }
 
 //    if smallerCollectionView == collectionView {
-      let cell = collectionView.dequeue(UserStylingImageCell.self, indexPath)
-      cell.backgroundColor = colorList[indexPath.item]
-      return cell
+    let cell = collectionView.dequeue(UserStylingImageCell.self, indexPath)
+    if let url = URL(string: pictureList[indexPath.item].image) {
+      cell.thumnailImageView.kf.setImage(with: url,
+                                         placeholder: nil,
+                                         options: [.transition(.fade(1)), .loadDiskFileSynchronously],
+                                         progressBlock: nil)
+    }
+    return cell
 //    }
   }
 }
@@ -181,11 +230,27 @@ extension UsersStylingShotView: UICollectionViewDelegate {
 
     if collectionView == bigerCollectionView {
       print("selectItem2: ", indexPath.item)
+//
+
+      NotificationCenter.default.post(name: ProductDetailVC.presentPicDetail, object: nil, userInfo: ["picDetail": Int(indexPath.item + 1)])
+
     } else if collectionView == smallerCollectionView {
       bigerCollectionView.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
       collectionView.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
     }
 
+  }
+
+  func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    if let cell = cell as? UserStylingDetailCell {
+      cell.thumnailImageView.kf.cancelDownloadTask()
+      cell.userImageView.kf.cancelDownloadTask()
+    }
+
+    if let cell = cell as? UserStylingImageCell {
+      cell.thumnailImageView.kf.cancelDownloadTask()
+//      cell.userImageView.kf.cancelDownloadTask()
+    }
   }
 
   func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

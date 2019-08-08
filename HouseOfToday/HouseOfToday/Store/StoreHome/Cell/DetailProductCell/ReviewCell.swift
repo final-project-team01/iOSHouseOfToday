@@ -206,6 +206,7 @@ class ReviewCell: UICollectionViewCell {
 
   private func addStarText(count: Int) -> String {
     var starText: String = "★"
+    guard count > 0 else { return starText }
 
     for _ in 1..<count {
       starText += "★"
