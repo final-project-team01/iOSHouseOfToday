@@ -69,7 +69,7 @@ final class MyshoppingBaseCell: UITableViewCell {
       countLabel.isHidden = true
 
     default:
-      break
+      print("out of range setLabelItems")
     }
 
   }

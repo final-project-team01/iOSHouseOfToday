@@ -93,7 +93,6 @@ class PickerViewController: UIViewController {
       // FIXME: - top 어케 해주징?
       make.leading.trailing.bottom.equalToSuperview()
       make.height.equalToSuperview().multipliedBy(0.33)
-
     }
 
     cancelButton.snp.makeConstraints { make in
@@ -144,9 +143,7 @@ class PickerViewController: UIViewController {
         let detailRankingVC = navi.topViewController as? DetailRankingVC {
 
         detailRankingVC.sortList(self.didSelectRow)
-
       }
-
       self.presentingViewController?.dismiss(animated: false, completion: nil)
     }
   }

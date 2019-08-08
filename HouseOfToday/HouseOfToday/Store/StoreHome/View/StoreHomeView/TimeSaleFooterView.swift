@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimeSaleFooterView: UICollectionReusableView {
+final class TimeSaleFooterView: UICollectionReusableView {
 
   // MARK: - Property
   static var height = UIScreen.main.bounds.height / 10

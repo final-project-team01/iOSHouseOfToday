@@ -14,8 +14,9 @@ final class ProfileUserCell: UITableViewCell {
   private lazy var userImageButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "userImage"), for: .normal)
-    button.layer.cornerRadius = button.frame.width / 2
-    button.clipsToBounds = true
+    //    userImageButton?.contentMode = .scaleAspectFill
+//    button.layer.cornerRadius = button.frame.width / 2
+//    button.clipsToBounds = true
     addSubview(button)
     return button
   }()
@@ -217,6 +218,7 @@ final class ProfileUserCell: UITableViewCell {
 
     userImageButton.layer.cornerRadius = userImageButton.frame.width / 2
     userImageButton.clipsToBounds = true
+    userImageButton.imageView?.contentMode = .scaleAspectFit
 
     inviteFrendsButton.layer.cornerRadius = inviteFrendsButton.frame.height / 2
     inviteFrendsButton.clipsToBounds = true

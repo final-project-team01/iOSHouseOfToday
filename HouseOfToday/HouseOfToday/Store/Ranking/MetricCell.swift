@@ -20,6 +20,7 @@ enum JMetric {
   static var rankkingCellSize: CGSize {
 
     let linspacing = JMetric.lineSpacing * (JMetric.numberOfLine - 1)
+
     let horizontalPadding = JMetric.inset.left + JMetric.inset.right + JMetric.nextOffSet
 
     let width = (UIScreen.main.bounds.width - linspacing - horizontalPadding) / JMetric.numberOfLine
@@ -30,11 +31,8 @@ enum JMetric {
 
   static var rankkingHorizontalCellSize: CGSize {
 
-    let linspacing = JMetric.lineSpacing * (JMetric.numberOfLine - 1)
+    let linspacing = JMetric.lineSpacing * 9
     let horizontalPadding = JMetric.rankingHorizontalInset.left + JMetric.rankingHorizontalInset.right + JMetric.nextOffSet
-
-//    let itemSpacing = JMetric.itemSpacing * (JMetric.numberOfItem - 1)
-//    let verticalPadding = JMetric.inset.top + JMetric.inset.bottom
 
     let width = (UIScreen.main.bounds.width - linspacing - horizontalPadding) / JMetric.numberOfLine
     let height = (UIScreen.main.bounds.width - linspacing - horizontalPadding) / JMetric.numberOfItem

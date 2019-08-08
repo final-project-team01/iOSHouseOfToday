@@ -39,7 +39,7 @@ final class StoreVC: CategoryTabBarViewController {
   }()
 
   let storeHomeView = StoreHomeView()
-  let tempRankingView = TempRankingView()
+  let tempRankingView = RankingView()
 
   init() {
 
@@ -102,6 +102,7 @@ final class StoreVC: CategoryTabBarViewController {
                            object: nil)
 
     notiCenter.addObserver(self, selector: #selector(presentRankingDetailView(_:)), name: .presentRankingDetailView, object: nil)
+
   }
 
   private func removeObservers() {
@@ -113,6 +114,7 @@ final class StoreVC: CategoryTabBarViewController {
                               object: nil)
 
     notiCenter.removeObserver(self, name: .presentRankingDetailView, object: nil)
+
   }
 
   // 창식 - viewDidAppear 시점에서 초기화 할 부분 , 초기화 이기에 1번만 실행되게 할 것
@@ -173,7 +175,6 @@ final class StoreVC: CategoryTabBarViewController {
 
     vc.fetchProductDetail(id: id)
 
-//    present(vc, animated: true)
     navigationController?.pushViewController(vc, animated: true)
   }
 
@@ -181,8 +182,23 @@ final class StoreVC: CategoryTabBarViewController {
     print("Menu 버튼 클릭")
   }
 
+  // MARK: - present ShoppingCartVC
   @objc private func cartButtonDidTap(_ sender: Any) {
-    print("Cart 버튼 클릭")
+
+//    let shoppingCartVC = ShoppingCartVC()
+
+    let cartVC = CartVC()
+
+    let navi = UINavigationController(rootViewController: cartVC)
+
+    let transition = CATransition()
+    transition.duration = 0.5
+    transition.type = CATransitionType.moveIn
+    transition.subtype = CATransitionSubtype.fromRight
+    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    view.window!.layer.add(transition, forKey: kCATransition)
+
+    present(navi, animated: true)
   }
 
   @objc func presentRankingDetailView(_ sender: Notification) {

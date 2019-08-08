@@ -17,7 +17,7 @@ final class MyshoppingView: UIView {
   private let productScrapBookVC = ProductScrapBookVC()
   private let myQuestionsListVC = MyQuestionsListVC()
   private let myReViewVC = MyReViewVC()
-  private let customerServiceVC = CustomerServiceVC()
+  private let customerCenterVC = CustomerCenterVC()
 
   private lazy var tableView: UITableView = {
     let tableView = UITableView()
@@ -111,13 +111,14 @@ extension MyshoppingView: UITableViewDataSource, UITableViewDelegate {
     case 2:
       notiCenter.post(name: .trackDeliveryHistoryVC, object: nil, userInfo: ["TrackDeliveryHistoryVC": trackDeliveryHistoryVC])
     case 3:
-       notiCenter.post(name: .presentProductScrapBookVC, object: nil, userInfo: ["PresentProductScrapBookVC": productScrapBookVC])
+       notiCenter.post(name: .productScrapBookVC, object: nil, userInfo: ["ProductScrapBookVC": productScrapBookVC])
     case 4:
+
        notiCenter.post(name: .myQuestionsListVC, object: nil, userInfo: ["MyQuestionsListVC": myQuestionsListVC])
     case 5:
        notiCenter.post(name: .myReViewVC, object: nil, userInfo: ["MyReViewVC": myReViewVC])
     case 6:
-      notiCenter.post(name: .customerServiceVC, object: nil, userInfo: ["CustomerServiceVC": customerServiceVC])
+      notiCenter.post(name: .customerCenterVC, object: nil, userInfo: ["CustomerCenterVC": customerCenterVC])
     default:
       break
     }

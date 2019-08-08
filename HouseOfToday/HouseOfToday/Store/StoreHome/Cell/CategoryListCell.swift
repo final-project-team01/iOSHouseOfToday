@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryListCell: UICollectionViewCell {
+final class CategoryListCell: UICollectionViewCell {
 
   // MARK: - Property
   static var identifier: String = "CategoryListCell"

@@ -13,12 +13,12 @@ final class SwipeView: UIView {
   // MARK: - Property
   static var height = UIScreen.main.bounds.height / 5
 
-  var pageNumber: Int = 10
+  var pageNumber: Int = 7
 
   private lazy var pageControl: UIPageControl = {
     let page = UIPageControl()
     page.currentPage = 0
-    page.numberOfPages = pageNumber
+    page.numberOfPages = 7
     page.hidesForSinglePage = true
     page.currentPageIndicatorTintColor = .white
     page.pageIndicatorTintColor = .darkGray
@@ -39,7 +39,8 @@ final class SwipeView: UIView {
 
   private lazy var collectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
-    colV.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Item")
+//    colV.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Item")
+    colV.register(cell: SwipeCell.self)
     colV.backgroundColor = .white
     colV.dataSource = self
     colV.delegate = self
@@ -105,8 +106,9 @@ final class SwipeView: UIView {
 
   // 5초에 한번 호출
   private func nextImageShowing() {
-    let itemAt = pageControl.currentPage + 1 < 10 ? pageControl.currentPage + 1 : 0
+    let itemAt = pageControl.currentPage + 1 < 7 ? pageControl.currentPage + 1 : 0
     collectionView.selectItem(at: IndexPath(item: itemAt, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    pageControl.currentPage = itemAt
   }
 
   public func timerFire() {
@@ -117,12 +119,14 @@ final class SwipeView: UIView {
 // MARK: - UICollectionViewDataSource
 extension SwipeView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return pageNumber
+    return 7
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Item", for: indexPath)
-    cell.backgroundColor = colorList[indexPath.item]
+//    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Item", for: indexPath)
+    let cell = collectionView.dequeue(SwipeCell.self, indexPath)
+    cell.imageView.image = UIImage(named: "banner\(indexPath.item + 1)")
+//    cell.backgroundColor = colorList[indexPath.item]
     return cell
   }
 }

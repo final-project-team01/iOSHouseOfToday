@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuestionsAndAnswersVC: UIViewController {
+final class QuestionsAndAnswersVC: UIViewController {
 
   // MARK: - Property
   private lazy var tableView: UITableView = {
@@ -27,6 +27,8 @@ class QuestionsAndAnswersVC: UIViewController {
   // MARK: - View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+
+//    UITableView().contentSize
 
     tableView.snp.makeConstraints {
       $0.edges.equalTo(view.safeAreaLayoutGuide)

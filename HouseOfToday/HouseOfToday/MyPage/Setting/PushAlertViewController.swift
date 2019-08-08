@@ -19,6 +19,7 @@ class PushAlertViewController: UIViewController {
   }()
 
   private let firstSection = ["ON/OFF" ]
+
   private let secondSection = ["추천 게시물", "이벤트 알림", "주문정보", "마케팅정보", "누가 내 포스팅에 좋아요를 눌렀을 때", "누가 내 포스팅에 댓글을 달았을 때", "누가 내 포스팅에 스크랩을 했을 때", "누가 나를 팔로우 했을 때", "누가 나를 언급했을 때", "누가 내 댓글에 좋아요를 눌렀을 때", "전문가 시공 상담 업데이트"]
 
     override func viewDidLoad() {
@@ -48,7 +49,6 @@ class PushAlertViewController: UIViewController {
       $0.edges.equalTo(view.safeAreaLayoutGuide)
     }
   }
-
 }
 
 extension PushAlertViewController: UITableViewDataSource {

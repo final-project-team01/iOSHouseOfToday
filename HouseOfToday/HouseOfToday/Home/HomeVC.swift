@@ -26,11 +26,11 @@ final class HomeVC: CategoryTabBarViewController {
     return bt
   }()
 
-  let tempView = UIView()
+  let pictureView = PictureView()
 
   init() {
-    super.init(withTitles: ["랭킹"],
-               withViews: [tempView],
+    super.init(withTitles: ["사진"],
+               withViews: [pictureView],
                withScrollOption: false)
   }
 
@@ -38,13 +38,17 @@ final class HomeVC: CategoryTabBarViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-//  required init?(coder aDecoder: NSCoder) {
-//    fatalError("init(coder:) has not been implemented")
-//  }
+  deinit {
+    removeObservers()
+  }
+
+  //  required init?(coder aDecoder: NSCoder) {
+  //    fatalError("init(coder:) has not been implemented")
+  //  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    addObservers()
     configureNaviBar()
     //homeViewDidScroll()
   }
@@ -63,6 +67,49 @@ final class HomeVC: CategoryTabBarViewController {
       searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: leftInset + 15, bottom: 0, right: 0)
       searchButton.tag += 1
     }
+  }
+
+  private func addObservers() {
+    notiCenter.addObserver(self,
+                           selector: #selector(presentReplyVC(_:)),
+                           name: .replyVC,
+                           object: nil
+
+    )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentActivityC(_:)),
+                           name: .activityC,
+                           object: nil
+
+    )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentPicAlert(_:)),
+                           name: .picAlert,
+                           object: nil
+
+    )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentProductDetailVC(_:)),
+                           name: StoreVC.presentProductDetail,
+                           object: nil
+    )
+    notiCenter.addObserver(self,
+                           selector: #selector(presentpicDetailID(_:)),
+                           name: .picDetailID,
+                           object: nil
+    )
+  }
+
+  private func removeObservers() {
+    notiCenter.removeObserver(self, name: .replyVC, object: nil)
+    notiCenter.removeObserver(self, name: .activityC, object: nil)
+    notiCenter.removeObserver(self, name: .picAlert, object: nil)
+    notiCenter.removeObserver(self,
+                              name: StoreVC.presentProductList,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: .picDetailID,
+                              object: nil)
   }
 
   // 창식
@@ -86,36 +133,113 @@ final class HomeVC: CategoryTabBarViewController {
   // MARK: - Action Methods
   // 창식
   @objc private func cartButtonDidTap(_ sender: Any) {
-    print("Cart 버튼 클릭")
+
+    //    let shoppingCartVC = ShoppingCartVC()
+
+    let cartVC = CartVC()
+
+    let navi = UINavigationController(rootViewController: cartVC)
+
+    let transition = CATransition()
+    transition.duration = 0.5
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromRight
+    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    view.window!.layer.add(transition, forKey: kCATransition)
+    present(navi, animated: true)
   }
 
   // MARK: Notification Action Methods
   @objc func presentRankingDetailView(_ sender: Notification) {
     guard let userInfo = sender.userInfo as? [String: UIViewController],
-      let detailRankingVC = userInfo["presentRankingDetailView"] // FIXME: - 여기서 id 가져오는 코드 쓰기 ※ StoreVC 참고
+      let detailRankingVC = userInfo["presentRankingDetailView"]
       else {
         return print("fail downCasting")
     }
-  navigationController?.pushViewController(detailRankingVC, animated: true)
+    navigationController?.pushViewController(detailRankingVC, animated: true)
   }
 
-  // MARK: - Callback 
+  @objc private func presentReplyVC(_ sender: Notification) {
+    print("fail downCasting")
+    guard let userInfo = sender.userInfo as? [String: UIViewController],
+      let vc = userInfo["ReplyVC"]
+      else {
+        return print("fail downCasting")
+    }
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
+  @objc private func presentActivityC(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: UIActivityViewController],
+      let vc = userInfo["ActivityVC"]
+      else {
+        return print("fail downCasting")
+    }
+
+    present(vc, animated: true)
+
+  }
+
+  @objc private func presentPicAlert(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: UIAlertController],
+      let alert = userInfo["PicAlert"]
+      else {
+        return print("fail downCasting")
+    }
+
+    present(alert, animated: true)
+
+  }
+
+  @objc private func presentProductDetailVC(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: Int],
+      let id = userInfo["productID"]
+      else {
+        return
+    }
+
+    let vc = ProductDetailVC()
+
+    vc.fetchProductDetail(id: id)
+
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
+  // MARK: - Callback
   // 창식 -  스크롤 했을 때 받을 callback
   /*
-  private func homeViewDidScroll() {
-    tempRankingView.tempRankingViewDidScroll = {
-      direction in
-      switch direction {
-      case "up":
-        print("storeHomeViewDidScroll // up")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-      case "down":
-        print("storeHomeViewDidScroll // down")
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-      default:
-        break
+   private func homeViewDidScroll() {
+   tempRankingView.tempRankingViewDidScroll = {
+   direction in
+   switch direction {
+   case "up":
+   print("storeHomeViewDidScroll // up")
+   self.navigationController?.setNavigationBarHidden(false, animated: true)
+   case "down":
+   print("storeHomeViewDidScroll // down")
+   self.navigationController?.setNavigationBarHidden(true, animated: true)
+   default:
+   break
+   }
+   }
+   }
+   */
+
+  @objc private func presentpicDetailID(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: Int],
+      let id = userInfo["PicDetailID"]
+      else {
+        return
       }
-    }
+
+    let vc = PicDetailVC()
+
+    vc.fetchPicDetailList(id: id)
+    navigationController?.pushViewController(vc, animated: true)
   }
-  */
+
 }
