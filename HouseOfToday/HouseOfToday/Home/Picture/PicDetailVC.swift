@@ -31,6 +31,7 @@ class PicDetailVC: UIViewController {
     tableView.register(cell: PicDetailTableviewCell.self)
     tableView.register(cell: ReplyTableViewCell.self)
     tableView.register(cell: TextfieldTableviewCell.self)
+    tableView.register(TableViewFooter.self, forHeaderFooterViewReuseIdentifier: "TableViewFooter")
     tableView.backgroundColor = .white
     tableView.showsVerticalScrollIndicator = false
     tableView.separatorStyle = .none
@@ -75,6 +76,20 @@ class PicDetailVC: UIViewController {
 }
 
 extension PicDetailVC: UITableViewDataSource, UITableViewDelegate {
+
+//  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//    guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableViewFooter") as? TableViewFooter else {
+//
+//      return nil
+//    }
+//
+//    return view
+//  }
+//
+//  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//    return TableViewFooter.height
+//  }
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return (picDetailList?.photoComments.count ?? 0 ) + 2
   }

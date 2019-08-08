@@ -185,7 +185,7 @@ class PictureTableViewCell: UITableViewCell {
     return collectionView
   }()
 
-  // MARK: - getData
+  // MARK: - get data
 
   public var pictureInfo: PictureModel? {
     didSet {

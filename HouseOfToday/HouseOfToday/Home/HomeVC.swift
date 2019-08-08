@@ -27,10 +27,11 @@ final class HomeVC: CategoryTabBarViewController {
   }()
 
   let pictureView = PictureView()
+  let houseWarmingView = HouseWarmingView()
 
   init() {
-    super.init(withTitles: ["사진"],
-               withViews: [pictureView],
+    super.init(withTitles: ["사진", "집들이"],
+               withViews: [pictureView, houseWarmingView],
                withScrollOption: false)
   }
 

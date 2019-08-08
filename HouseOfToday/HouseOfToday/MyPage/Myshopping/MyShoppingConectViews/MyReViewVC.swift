@@ -141,11 +141,10 @@ class MyReViewVC: UIViewController {
       make.bottom.equalTo(writeReviewButton.snp.top)
     }
 
-    // FIXME: - 밑에 탭바 없어지면 height 사이즈 0.07로 바꾸기
     writeReviewButton.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview()
-      make.bottom.equalToSuperview()
-      make.height.equalToSuperview().multipliedBy(0.2)
+      make.bottom.equalTo(view.safeAreaLayoutGuide)
+      make.height.equalToSuperview().multipliedBy(0.07)
     }
 
   }
