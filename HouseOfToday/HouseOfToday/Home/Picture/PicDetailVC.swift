@@ -12,8 +12,6 @@ class PicDetailVC: UIViewController {
 
   private let service: HouseOfTodayServiceType = HouseOfTodayService()
 
-  let picDetailTableViewcell = PicDetailTableviewCell()
-
   private lazy var refreshControl: UIRefreshControl = {
     let refreshControl = UIRefreshControl()
     refreshControl.tintColor = .lightGray
@@ -31,6 +29,8 @@ class PicDetailVC: UIViewController {
     tableView.dataSource = self.self
     tableView.delegate = self.self
     tableView.register(cell: PicDetailTableviewCell.self)
+    tableView.register(cell: ReplyTableViewCell.self)
+    tableView.register(cell: TextfieldTableviewCell.self)
     tableView.backgroundColor = .white
     tableView.showsVerticalScrollIndicator = false
     tableView.separatorStyle = .none
@@ -76,18 +76,50 @@ class PicDetailVC: UIViewController {
 
 extension PicDetailVC: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    return (picDetailList?.photoComments.count ?? 0 ) + 2
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: PicDetailTableviewCell.identifier, for: indexPath) as! PicDetailTableviewCell
 
-    if let url = URL(string: picDetailList?.image ?? "") {
-      cell.setMainProductImage(thumnailUrl: url)
+    var textFieldCaseNum = (picDetailList?.photoComments.count ?? 0 ) + 1
+
+    switch indexPath.row {
+    case 0:
+      let cell = tableView.dequeueReusableCell(withIdentifier: PicDetailTableviewCell.identifier, for: indexPath) as! PicDetailTableviewCell
+      cell.selectionStyle = UITableViewCell.SelectionStyle.none
+
+      if let url = URL(string: picDetailList?.image ?? "") {
+        cell.setMainProductImage(thumnailUrl: url)
+      }
+
+      if let url = URL(string: picDetailList?.authorProfileImage ?? "") {
+        cell.getAuthorImage(thumnailUrl: url)
+      }
+
+      cell.picDetailInfo = picDetailList
+
+      return cell
+
+    case textFieldCaseNum:
+      let cell = tableView.dequeueReusableCell(withIdentifier: TextfieldTableviewCell.identifier, for: indexPath) as! TextfieldTableviewCell
+      cell.selectionStyle = UITableViewCell.SelectionStyle.none
+
+      return cell
+
+    default:
+
+      let cell = tableView.dequeueReusableCell(withIdentifier: ReplyTableViewCell.identifier, for: indexPath) as! ReplyTableViewCell
+      //데이터 받기
+      cell.selectionStyle = UITableViewCell.SelectionStyle.none
+      cell.CommentsList = picDetailList?.photoComments[indexPath.row - 1]
+
+      if let url = URL(string: picDetailList?.photoComments[indexPath.row - 1].authorProfileImage ?? "") {
+        cell.getReplyAuthorImage(thumnailUrl: url)
+      }
+      return cell
+
     }
-    cell.picDetailInfo = picDetailList
 
-    return cell
   }
 
 }
