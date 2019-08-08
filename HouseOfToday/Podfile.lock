@@ -1,20 +1,48 @@
 PODS:
+  - GoogleSignIn (4.4.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.2.1):
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+  - GoogleToolboxForMac/Defines (2.2.1)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.1)":
+    - GoogleToolboxForMac/DebugUtils (= 2.2.1)
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
+  - GTMSessionFetcher/Core (1.2.2)
+  - Kingfisher (5.7.0)
+  - naveridlogin-sdk-ios (4.0.12)
   - SnapKit (5.0.0)
-  - SwiftLint (0.33.0)
+  - SwiftLint (0.34.0)
 
 DEPENDENCIES:
+  - GoogleSignIn
+  - Kingfisher (~> 5.0)
+  - naveridlogin-sdk-ios
   - SnapKit (~> 5.0.0)
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - GoogleSignIn
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
+    - Kingfisher
+    - naveridlogin-sdk-ios
     - SnapKit
     - SwiftLint
 
 SPEC CHECKSUMS:
+  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
+  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
+  naveridlogin-sdk-ios: f894849d1f3454f8a68a57383ba29bd9f0d0257f
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
-  SwiftLint: fed9c66336e41fc74dc48a73678380718f0c8b0e
+  SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
 
-PODFILE CHECKSUM: 317fdcbc6bb3087518191e36d116b747ebcde596
+PODFILE CHECKSUM: e3e8cf96b6f7073423dc3a9795a5032fa875b1ff
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.7.1
