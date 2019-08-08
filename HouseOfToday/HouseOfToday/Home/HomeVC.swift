@@ -42,10 +42,6 @@ final class HomeVC: CategoryTabBarViewController {
     removeObservers()
   }
 
-  //  required init?(coder aDecoder: NSCoder) {
-  //    fatalError("init(coder:) has not been implemented")
-  //  }
-
   override func viewDidLoad() {
     super.viewDidLoad()
     addObservers()
@@ -98,6 +94,7 @@ final class HomeVC: CategoryTabBarViewController {
                            name: .picDetailID,
                            object: nil
     )
+
   }
 
   private func removeObservers() {
@@ -110,6 +107,7 @@ final class HomeVC: CategoryTabBarViewController {
     notiCenter.removeObserver(self,
                               name: .picDetailID,
                               object: nil)
+
   }
 
   // 창식

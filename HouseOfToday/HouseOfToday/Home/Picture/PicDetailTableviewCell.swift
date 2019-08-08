@@ -30,7 +30,7 @@ class PicDetailTableviewCell: UITableViewCell {
     return label
   }()
 
-  lazy var productImageView: UIImageView = {
+  private lazy var productImageView: UIImageView = {
     let imageView = UIImageView(frame: .zero)
     imageView.image = UIImage(named: "test")
     imageView.contentMode = .scaleAspectFit
@@ -193,12 +193,10 @@ class PicDetailTableviewCell: UITableViewCell {
   private lazy var plusButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "opaPlusButton"), for: .normal)
-    //    button.addTarget(self, action: #selector(didTapFollowStatusButton(_:)), for: .touchUpInside)  // FIXME: - 상품 디테일로 연결
-    productImageView.addSubview(button)
+    button.addTarget(self, action: #selector(didTapPlusButton(_:)), for: .touchUpInside)
+    addSubview(button)
     return button
   }()
-
-  // MARK: - getData
 
   public var picDetailInfo: PicDetailModel? {
     didSet {
@@ -212,6 +210,13 @@ class PicDetailTableviewCell: UITableViewCell {
       replyCountLabel.text = "\(info.commentCount)"
       viewsCountLabel.text = "\(info.hitCount)"
 
+      plusButton.snp.makeConstraints { make in
+        make.centerX.equalTo(productImageView.snp.trailing).multipliedBy(floor(info.axisLeft ) * 0.01 )
+        make.centerY.equalTo(productImageView.snp.bottom).multipliedBy(floor(info.axisTop ) * 0.01 )
+      }
+
+      self.bringSubviewToFront(plusButton)
+
       DispatchQueue.main.async {
         self.collectionView.reloadData()
       }
@@ -223,14 +228,11 @@ class PicDetailTableviewCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     makeConstraints()
     backgroundColor = .white
-//    print("picDetailInfo?.axisLeft🧤", picDetailInfo?.axisLeft)
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
-// MARK: - getData
 
   override func layoutSubviews() {
     super.layoutSubviews()
@@ -293,13 +295,9 @@ class PicDetailTableviewCell: UITableViewCell {
       make.leading.equalToSuperview().inset(15)
       make.bottom.equalToSuperview().inset(30)
     }
-
-    plusButton.snp.makeConstraints { _ in
-//      make.centerX.equalTo(plusButton.snp.top).multipliedBy(picDetailInfo?.axisTop ?? 0)
-//      make.centerY.equalTo(plusButton.snp.leading).multipliedBy(picDetailInfo?.axisLeft ?? 0)
-    }
   }
 
+  // MARK: - getData
   public func setMainProductImage(thumnailUrl: URL) {
     //MainImage
     productImageView.kf.setImage(with: thumnailUrl,
@@ -327,6 +325,7 @@ class PicDetailTableviewCell: UITableViewCell {
     authorImageButton.imageView!.kf.cancelDownloadTask()
   }
 
+  // MARK: - ActionMethod
   //팔로잉 버튼
   @objc private func didTapFollowStatusButton(_ sender: UIButton) {
     followBool.toggle()
@@ -342,6 +341,11 @@ class PicDetailTableviewCell: UITableViewCell {
       followStatusButton.layer.borderColor = UIColor.lightGray.cgColor
       followStatusButton.layer.borderWidth = 1
     }
+  }
+
+  @objc private func didTapPlusButton(_ sender: UIButton) {
+    let productID = picDetailInfo?.productID
+    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
   }
 }
 

@@ -86,6 +86,7 @@ extension PicDetailVC: UITableViewDataSource, UITableViewDelegate {
     switch indexPath.row {
     case 0:
       let cell = tableView.dequeueReusableCell(withIdentifier: PicDetailTableviewCell.identifier, for: indexPath) as! PicDetailTableviewCell
+
       cell.selectionStyle = UITableViewCell.SelectionStyle.none
 
       if let url = URL(string: picDetailList?.image ?? "") {
