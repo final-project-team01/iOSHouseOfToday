@@ -28,26 +28,27 @@ class HouseWarmingDetailViewController: UIViewController {
 
   private var detail: HouseWarmingDetail? {
     didSet {
+      guard let info = detail?.content else {return }
+      self.contents = info
       DispatchQueue.main.async {
-        self.detailTableView.reloadData()
+//        self.detailTableView.reloadData()
       }
     }
   }
 
   private var contents: [Content] = [] {
     didSet {
+      guard !contents.isEmpty else { return }
       DispatchQueue.main.async {
         self.detailTableView.reloadData()
       }
     }
   }
 
-
   // MARK: - ViewController LifeCyle
   override func viewDidLoad() {
     super.viewDidLoad()
     makeConstraints()
-
   }
 
   // MARK: - Setting Navigation Bar
@@ -57,7 +58,7 @@ class HouseWarmingDetailViewController: UIViewController {
   }
 
   private func configureNaviBar() {
-    self.title = "프로필"
+    self.title = "집들이"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
     self.navigationItem.setHidesBackButton(true, animated: false)
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
@@ -67,14 +68,14 @@ class HouseWarmingDetailViewController: UIViewController {
     self.navigationController?.popViewController(animated: true)
   }
 
-  private func fetchHouseWarmingDetail(with id: Int) {
+   func fetchHouseWarmingDetail(with id: Int) {
     DataManager.shard.service.fetchHouseWarmingDetail(with: id) {
       [weak self] result in
       guard let `self` = self else { return logger("weak reference Error") }
       switch result {
       case .success(let detail):
         self.detail = detail
-        self.contents = detail.content
+
       case .failure(let error):
         logger(error.localizedDescription)
       }

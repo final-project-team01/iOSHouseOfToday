@@ -69,6 +69,7 @@
 		426BC32D22FC49D50056F997 /* OrderListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BC32C22FC49D50056F997 /* OrderListVC.swift */; };
 		426BC32F22FC4BC10056F997 /* OrderListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BC32E22FC4BC10056F997 /* OrderListCell.swift */; };
 		426BC33122FC7A660056F997 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BC33022FC7A660056F997 /* ReviewModel.swift */; };
+		426BC33322FCA8A20056F997 /* UserQnAWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BC33222FCA8A20056F997 /* UserQnAWriteVC.swift */; };
 		42C4E5BC22D5BA9E00A88466 /* ExpertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */; };
 		42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */; };
 		42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */; };
@@ -248,6 +249,7 @@
 		426BC32C22FC49D50056F997 /* OrderListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListVC.swift; sourceTree = "<group>"; };
 		426BC32E22FC4BC10056F997 /* OrderListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCell.swift; sourceTree = "<group>"; };
 		426BC33022FC7A660056F997 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
+		426BC33222FCA8A20056F997 /* UserQnAWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserQnAWriteVC.swift; sourceTree = "<group>"; };
 		42C4E5BB22D5BA9E00A88466 /* ExpertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertVC.swift; sourceTree = "<group>"; };
 		42C4E5BD22D5BAB700A88466 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		42C4E5BF22D5BB2B00A88466 /* AddUserActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserActivityVC.swift; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 				423086A822F3D9FB00203475 /* BuyingVC.swift */,
 				423086BE22F6E32200203475 /* ShoppingCartVC.swift */,
 				426BC32022FA5BB30056F997 /* CartVC.swift */,
+				426BC33222FCA8A20056F997 /* UserQnAWriteVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -766,10 +769,6 @@
 			isa = PBXGroup;
 			children = (
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
-				8E7712BD22FC720F00B763DF /* HouseWarmingDetailViewController.swift */,
-				8E7712C722FC992300B763DF /* CoverImageHeaderView.swift */,
-				8E7712C122FC767D00B763DF /* TitleCollectionCell.swift */,
-				8E7712C322FC769300B763DF /* ContentCollectionCell.swift */,
 				ABD5D7EC22F424EB00E8FF72 /* Picture */,
 				AB7EFE5522FC6715005675CC /* Housewarming */,
 			);
@@ -792,6 +791,10 @@
 			children = (
 				AB7EFE5622FC676B005675CC /* HouseWarmingView.swift */,
 				AB7EFE5822FC68E0005675CC /* HouseWarmingTableViewCell.swift */,
+				8E7712BD22FC720F00B763DF /* HouseWarmingDetailViewController.swift */,
+				8E7712C722FC992300B763DF /* CoverImageHeaderView.swift */,
+				8E7712C122FC767D00B763DF /* TitleCollectionCell.swift */,
+				8E7712C322FC769300B763DF /* ContentCollectionCell.swift */,
 			);
 			path = Housewarming;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				42C4E5BE22D5BAB700A88466 /* MyPageVC.swift in Sources */,
 				42490F7822DF0E0300EE1A01 /* StoreHomeHeaderView.swift in Sources */,
 				8EC2170522F1B7EA006CFD1D /* SettingViewController.swift in Sources */,
+				426BC33322FCA8A20056F997 /* UserQnAWriteVC.swift in Sources */,
 				423086BD22F58B7200203475 /* SelectOptionView.swift in Sources */,
 				AB1AF93B22EB112200299226 /* MoreCollectionCell.swift in Sources */,
 				8EC2170122F1AE29006CFD1D /* UIBarButtonItemExtensions.swift in Sources */,
