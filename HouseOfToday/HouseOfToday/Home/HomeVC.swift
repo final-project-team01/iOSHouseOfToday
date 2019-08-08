@@ -221,14 +221,11 @@ final class HomeVC: CategoryTabBarViewController {
       let id = userInfo["PicDetailID"]
       else {
         return
-    }
+      }
 
     let vc = PicDetailVC()
 
-    //    vc.fetchProductDetail(id: id)
-
-    // FIXME: - 넘겨줄라면 id 값을 가지는 데이터 먼저 파싱해줘야 할꺼 같아서 그거 파싱하고~! 뿌리고 넘겨보자 우선 1. 파싱 2. 미리보기 3.연결
-
+    vc.fetchPicDetailList(id: id)
     navigationController?.pushViewController(vc, animated: true)
   }
 

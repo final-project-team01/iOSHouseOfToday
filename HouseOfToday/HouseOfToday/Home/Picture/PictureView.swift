@@ -112,8 +112,10 @@ extension PictureView: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let productID = pictureList[indexPath.row].id
-    notiCenter.post(name: .picDetailID, object: nil, userInfo: ["PicDetailID": productID])
+
+    let picDetailID = pictureList[indexPath.row].id
+
+    notiCenter.post(name: .picDetailID, object: nil, userInfo: ["PicDetailID": picDetailID])
 
   }
 

@@ -12,6 +12,8 @@ class PicDetailVC: UIViewController {
 
   private let service: HouseOfTodayServiceType = HouseOfTodayService()
 
+  let picDetailTableViewcell = PicDetailTableviewCell()
+
   private lazy var refreshControl: UIRefreshControl = {
     let refreshControl = UIRefreshControl()
     refreshControl.tintColor = .lightGray
@@ -33,10 +35,6 @@ class PicDetailVC: UIViewController {
     tableView.showsVerticalScrollIndicator = false
     tableView.separatorStyle = .none
     tableView.refreshControl = refreshControl
-    //    tableView.rowHeight = UITableView.automaticDimension
-    //    tableView.estimatedRowHeight = 250 // FIXME: - 강제 적으로 주면 안될꺼같음 오토디멘션으로 해보자
-    tableView.rowHeight = 250
-    tableView.backgroundColor = .yellow
     view.addSubview(tableView)
     return tableView
   }()
@@ -52,19 +50,18 @@ class PicDetailVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     makeConstraints()
-    //    fetchPicDetailList()
   }
 
   public func fetchPicDetailList(id: Int) {
     service.fetchPicDetailList(id: id) { result in
       switch result {
       case .success(let product):
-        print("success!!! fetchPictureList")
+        print("success!!! fetchPicDetailList")
         self.picDetailList = product
 
       case .failure(let error):
 
-        print("fetchPictureList Error: \(error.localizedDescription)")
+        print("fetchPicDetailList Error: \(error.localizedDescription)")
       }
     }
   }
@@ -85,27 +82,12 @@ extension PicDetailVC: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: PicDetailTableviewCell.identifier, for: indexPath) as! PicDetailTableviewCell
 
-    if let url = URL(string: "\(picDetailList?.productImage)") {
+    if let url = URL(string: picDetailList?.image ?? "") {
       cell.setMainProductImage(thumnailUrl: url)
     }
+    cell.picDetailInfo = picDetailList
+
     return cell
-  }
-
-  //  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-  //    let currentImage = images[indexPath.row]
-  //    let image = UIImage(named: "test")
-  //    guard let imagecrop = image?.getCropRatio() else { return 0.0 }
-  //    return tableView.frame.width * imagecrop
-
-  //  }
-
-}
-
-extension UIImage {
-
-  func getCropRatio() -> CGFloat {
-    var widthRatio = CGFloat( self.size.width / self.size.height )
-    return widthRatio
   }
 
 }
