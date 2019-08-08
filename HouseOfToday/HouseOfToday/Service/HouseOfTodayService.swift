@@ -13,7 +13,6 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
   let baseURL = "http://52.78.112.247"
 
 //  let baseURL = "http://clonehouseoftodayapi.jinukk.me/"
-
   func fetchStoreHome(completion: @escaping (Result<StoreHomeList, ServiceError>) -> Void) {
 
     var urlComp = URLComponents(string: baseURL)
@@ -36,7 +35,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-    }.resume()
+      }.resume()
 
   }
 
@@ -121,7 +120,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-    }.resume()
+      }.resume()
   }
 
   func fetchProductDetail(id: Int, completion: @escaping (Result<ProductDetail, ServiceError>) -> Void) {
@@ -145,7 +144,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-    }.resume()
+      }.resume()
   }
 
   func fetchRankingList(completion: @escaping (Result<RankingModel, ServiceError>) -> Void) {
@@ -170,7 +169,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
 
-    }.resume()
+      }.resume()
 
   }
 
@@ -211,7 +210,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
 
-    }.resume()
+      }.resume()
   }
 
   func postLoginDataForGetToKen(toPath path: String, withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void) {
@@ -244,7 +243,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
 
-    }.resume()
+      }.resume()
   }
 
   func fetchPictureList(completion: @escaping (Result<[PictureModel], ServiceError>) -> Void) {
@@ -269,7 +268,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
 
-    }.resume()
+      }.resume()
 
   }
 
@@ -310,7 +309,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
 
-    }.resume()
+      }.resume()
 
   }
 
@@ -336,7 +335,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
 
-    }.resume()
+      }.resume()
 
   }
 
@@ -376,7 +375,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
 
-    }.resume()
+      }.resume()
 
   }
 
@@ -408,7 +407,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-    }.resume()
+      }.resume()
   }
 
   func postCartList(data: Data, completion: @escaping (Result<[ShoppingOptionCart], ServiceError>) -> Void) {
@@ -474,7 +473,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-    }.resume()
+      }.resume()
 
   }
 
@@ -549,4 +548,57 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
 
   }
+
+  // MARK: - Home
+  func fetchHouseWarmingDetail(with id: Int, completion: @escaping (Result<HouseWarmingDetail, ServiceError>) -> Void) {
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/community/housewarming/" + String(id)
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let detail = try? JSONDecoder().decode(HouseWarmingDetail.self, from: data) {
+        completion(.success(detail))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+    }.resume()
+  }
+
+  func fetchAccountList(with token: String, completion: @escaping (Result<[SocialUser], ServiceError>) -> Void) {
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/accounts/list/"
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "GET"
+
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    urlRequest.addValue("Token " + token, forHTTPHeaderField: "Authorization")
+
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let socialUser = try? JSONDecoder().decode([SocialUser].self, from: data) {
+        completion(.success(socialUser))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+      }.resume()
+  }
+
 }

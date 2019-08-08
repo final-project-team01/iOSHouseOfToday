@@ -17,6 +17,7 @@ class SettingViewController: UIViewController {
     tv.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "footer")
     tv.dataSource = self
     tv.delegate = self
+    tv.tableFooterView = UIView()
 
     tv.estimatedRowHeight = 80
 
@@ -24,7 +25,7 @@ class SettingViewController: UIViewController {
     return tv
   }()
   private var state = ""
-  private let firstSection = ["프로필 수정", "비밀번호 변경", "푸쉬 알림 설정"]
+  private let firstSection = ["프로필", "비밀번호 변경", "푸쉬 알림 설정"]
   private let secondSection = ["오늘의집이 궁금해요", "FAQ", "의견 보내기", "서비스 이용 약관", "개인정보 보호정책", "버전 정보"]
   private var thirdSection: String {
     get {
@@ -137,14 +138,6 @@ extension SettingViewController: UITableViewDataSource {
 
 // MARK: - TableView Delegate
 extension SettingViewController: UITableViewDelegate {
-
-  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableView.automaticDimension
-  }
-
-  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    return 80
-  }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch indexPath.section {
