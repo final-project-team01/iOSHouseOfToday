@@ -798,10 +798,10 @@
 			isa = PBXGroup;
 			children = (
 				ABBA8FC022E727EF001D43D7 /* RankingView.swift */,
+				AB1AF93A22EB112200299226 /* MoreCollectionCell.swift */,
 				ABBA8FB422E6EC37001D43D7 /* RankingTableCell.swift */,
 				ABBA8FC522E9A65F001D43D7 /* RankingHorizontalCell.swift */,
 				ABBA8FB622E6EF39001D43D7 /* RankingCollectionCell.swift */,
-				AB1AF93A22EB112200299226 /* MoreCollectionCell.swift */,
 				ABBA8FBE22E6FD62001D43D7 /* CategoryBestCell.swift */,
 				ABBA8FC722E9D68E001D43D7 /* TableHeader.swift */,
 				ABBA8FC922E9D720001D43D7 /* TableFooter.swift */,
