@@ -41,7 +41,7 @@ final class DetailProductFirstView: UIView {
   // MARK: - Property
   private lazy var brandLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "brand"
+    label.text = "loading.."
     label.textColor = UIColor.lightGray
     label.font = UIFont.systemFont(ofSize: 13)
     addSubview(label)
@@ -50,7 +50,7 @@ final class DetailProductFirstView: UIView {
 
   private lazy var productNameLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "product Name Label 1asldkfjhaslkjdfhalksjdfalkjhdfasdfasdfasdfasdfasdf"
+    label.text = "loading.."
     label.lineBreakMode = .byTruncatingTail
     label.numberOfLines = 2
     label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
@@ -103,7 +103,7 @@ final class DetailProductFirstView: UIView {
 
   private lazy var costPriceLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "999,999"
+    label.text = "loading.."
 
     addSubview(label)
     return label
@@ -111,7 +111,7 @@ final class DetailProductFirstView: UIView {
 
   private lazy var priceLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "111,111원"
+    label.text = "loading.."
     label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     addSubview(label)
     return label
@@ -131,7 +131,7 @@ final class DetailProductFirstView: UIView {
 
   private lazy var pointLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "45P"
+    label.text = "loading.."
 //    label.font = UIFont.systemFont(ofSize: 10)
     label.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     addSubview(label)
