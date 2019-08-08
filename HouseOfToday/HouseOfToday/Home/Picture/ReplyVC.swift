@@ -80,19 +80,11 @@ class ReplyVC: UIViewController {
   }
 
   @objc private func keyboardWillShow(_ sender: Notification) {
-    //    self.view.frame.origin.y = -150
-    self.textfield.frame.origin.y = self.view.frame.origin.y + 330
-    self.registButton.frame.origin.y = self.view.frame.origin.y + 330
-
-    print("self.view.frame.origin.y", self.view.frame.origin.y)
-    print("self.textfield.frame.origin.y", self.textfield.frame.origin.y)
+        self.view.frame.origin.y = -150
   }
 
   @objc func keyboardWillHide(_ sender: Notification) {
-
-    //    self.view.frame.origin.y = 0
-    self.textfield.frame.origin.y = 0
-    self.registButton.frame.origin.y = 0
+        self.view.frame.origin.y = 0
 
   }
 
