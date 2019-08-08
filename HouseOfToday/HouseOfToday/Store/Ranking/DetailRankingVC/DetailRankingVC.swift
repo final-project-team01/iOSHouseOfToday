@@ -37,6 +37,7 @@ class DetailRankingVC: UIViewController {
     if let userView = view as? PickerViewController { //흐음 여기가 문젠데 나중에 해결 하자
       userView.showView()
     }
+    configureNaviBar()
   }
 
     override func viewDidLoad() {
@@ -48,6 +49,17 @@ class DetailRankingVC: UIViewController {
 
   deinit {
     notiCenter.removeObserver(self, name: .presentRankingPickerVC, object: nil)
+  }
+
+  private func configureNaviBar() {
+    self.title = "더보기"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationItem.setHidesBackButton(true, animated: false)
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 
   @objc func presentRankingPickerVC(_ sender: Notification) {

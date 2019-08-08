@@ -82,6 +82,17 @@ class MyPageVC: CategoryTabBarViewController {
 
   @objc private func cartDidTap(_ sender: Any) {
     print("장바구니 클릭됨")
+    let cartVC = CartVC()
+
+    let navi = UINavigationController(rootViewController: cartVC)
+
+    let transition = CATransition()
+    transition.duration = 0.5
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromRight
+    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    view.window!.layer.add(transition, forKey: kCATransition)
+    present(navi, animated: true)
   }
 
   @objc private func shareDidTap(_ sender: Any) {
