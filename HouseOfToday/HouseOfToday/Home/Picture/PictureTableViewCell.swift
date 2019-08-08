@@ -18,7 +18,7 @@ class PictureTableViewCell: UITableViewCell {
 
   private let notiCenter = NotificationCenter.default
 
-  let replyVC = ReplyVC()
+  let replyVC = WriteReplyVC()
 
   private lazy var userThumbNailButton: UIButton = {
     let button = UIButton(type: .custom)
@@ -63,7 +63,7 @@ class PictureTableViewCell: UITableViewCell {
 
   private lazy var bodyTextLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "sdgfdhgjhghgjfdhdgfssfdshfdjgfhkgjhklkjhkgfjdgs"
+    label.text = "Loading..."
     label.numberOfLines = 5
     label.lineBreakMode = .byTruncatingTail // FIXME: - 마지막에 `...더보기` 나오게 만들기
     label.font = UIFont.systemFont(ofSize: 15)
@@ -74,6 +74,7 @@ class PictureTableViewCell: UITableViewCell {
 
   private lazy var thumbnailImageView: UIImageView = {
     let imageview = UIImageView(image: UIImage(named: "ahhh"))
+    imageview.contentMode = .scaleAspectFill
     addSubview(imageview)
     return imageview
   }()
@@ -126,7 +127,7 @@ class PictureTableViewCell: UITableViewCell {
   private lazy var authorImageButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "user"), for: .normal)
-    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
+//    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
     //    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
@@ -184,7 +185,7 @@ class PictureTableViewCell: UITableViewCell {
     return collectionView
   }()
 
-  // MARK: - getData
+  // MARK: - get data
 
   public var pictureInfo: PictureModel? {
     didSet {
@@ -341,7 +342,7 @@ class PictureTableViewCell: UITableViewCell {
     authorImageButton.snp.makeConstraints { make in
       make.top.equalTo(socialButtonStackView.snp.bottom)
       make.leading.equalToSuperview().inset(15)
-      make.bottom.equalTo(collectionView.snp.top)
+      make.bottom.equalTo(collectionView.snp.top).offset(-5)
       make.width.equalToSuperview().multipliedBy(0.06)
       make.height.equalTo(authorImageButton.snp.width)
     }
@@ -349,12 +350,12 @@ class PictureTableViewCell: UITableViewCell {
       make.top.equalTo(socialButtonStackView.snp.bottom)
       make.leading.equalTo(authorImageButton.snp.trailing).offset(5)
       make.trailing.equalTo(authorCommentLabel.snp.leading).offset(-5)
-      make.bottom.equalTo(collectionView.snp.top)
+      make.bottom.equalTo(collectionView.snp.top).offset(-5)
     }
     authorCommentLabel.snp.makeConstraints { make in
       make.top.equalTo(socialButtonStackView.snp.bottom)
       make.trailing.equalToSuperview().inset(margin)
-      make.bottom.equalTo(collectionView.snp.top)
+      make.bottom.equalTo(collectionView.snp.top).offset(-5)
     }
 
     collectionView.snp.makeConstraints { make in

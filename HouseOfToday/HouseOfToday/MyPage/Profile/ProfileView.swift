@@ -79,17 +79,20 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
 
     //나의 쇼핑
     case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: MyshoppingThumbCell.identifier, for: indexPath) as! MyshoppingThumbCell
-            cell.separatorInset = UIEdgeInsets.zero
-            return cell
+      let cell = tableView.dequeueReusableCell(withIdentifier: MyshoppingThumbCell.identifier, for: indexPath) as! MyshoppingThumbCell
+      cell.separatorInset = UIEdgeInsets.zero
+      return cell
     //사진
     case 2: // FIXME: - 높이 유동적으로 상태에 따라 설정
-//      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
-//      cell.setLabelItems(title: .picture)
-//      cell.separatorInset = UIEdgeInsets.zero
-//      return cell
+      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
+      cell.setLabelItems(title: .picture)
 
-      let cell = tableView.dequeueReusableCell(withIdentifier: ProfilePicTableViewCell.identifier, for: indexPath) as! ProfilePicTableViewCell
+      if indexPath.row == 2 {
+        cell.rightSideCellButton.isEnabled = false
+      } else {
+        cell.rightSideCellButton.isEnabled = true
+      }
+
       cell.separatorInset = UIEdgeInsets.zero
       return cell
 
@@ -124,13 +127,6 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
       return 230
     case 1:
       return 100
-    case 2:
-      // FIXME: - 셀 높이 조절
-//      let baseHeight:CGFloat = 30
-//      let itemCount = items.count % 3
-//      let itemHieght:CGFloat = 70
-//      let sum = baseHeight + ((itemCount + 1) * itemHieght)
-      return 520
     default:
       return 80
 

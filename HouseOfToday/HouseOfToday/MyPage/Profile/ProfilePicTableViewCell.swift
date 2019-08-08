@@ -37,7 +37,7 @@ class ProfilePicTableViewCell: UITableViewCell {
     return label
   }()
 
-  private lazy var rightSideCellButton: UIButton = {
+    lazy var rightSideCellButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitle("전체보기", for: .normal)
     button.backgroundColor = .clear

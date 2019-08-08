@@ -27,10 +27,11 @@ final class HomeVC: CategoryTabBarViewController {
   }()
 
   let pictureView = PictureView()
+  let houseWarmingView = HouseWarmingView()
 
   init() {
-    super.init(withTitles: ["사진"],
-               withViews: [pictureView],
+    super.init(withTitles: ["사진", "집들이"],
+               withViews: [pictureView, houseWarmingView],
                withScrollOption: false)
   }
 
@@ -41,10 +42,6 @@ final class HomeVC: CategoryTabBarViewController {
   deinit {
     removeObservers()
   }
-
-  //  required init?(coder aDecoder: NSCoder) {
-  //    fatalError("init(coder:) has not been implemented")
-  //  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -98,6 +95,7 @@ final class HomeVC: CategoryTabBarViewController {
                            name: .picDetailID,
                            object: nil
     )
+
   }
 
   private func removeObservers() {
@@ -110,6 +108,7 @@ final class HomeVC: CategoryTabBarViewController {
     notiCenter.removeObserver(self,
                               name: .picDetailID,
                               object: nil)
+
   }
 
   // 창식

@@ -10,6 +10,8 @@ import UIKit
 
 class PicDetailTableviewCell: UITableViewCell {
 
+  private let notiCenter = NotificationCenter.default
+
   private lazy var categoryLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "30평대 | 내추럴 | 스타일아파트"
@@ -28,7 +30,7 @@ class PicDetailTableviewCell: UITableViewCell {
     return label
   }()
 
-  lazy var productImageView: UIImageView = {
+  private lazy var productImageView: UIImageView = {
     let imageView = UIImageView(frame: .zero)
     imageView.image = UIImage(named: "test")
     imageView.contentMode = .scaleAspectFit
@@ -49,14 +51,13 @@ class PicDetailTableviewCell: UITableViewCell {
     collectionView.dataSource = self
     collectionView.delegate = self
     collectionView.register(cell: PictureCollectionViewCell.self)
-    collectionView.backgroundColor = .blue
     addSubview(collectionView)
     return collectionView
   }()
 
   private lazy var picBodyTextLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "sdgfdhgjhghgjfdhdgfssfdshfdjgfhkgjhklkjhkgfjdgs"
+    label.text = "Loading..."
     label.numberOfLines = 0
     label.font = UIFont.systemFont(ofSize: 15)
     label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
@@ -67,8 +68,8 @@ class PicDetailTableviewCell: UITableViewCell {
   private lazy var authorImageButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "user"), for: .normal)
-    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
-    //    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
+    button.imageView?.contentMode = .scaleAspectFill
+//    button.addTarget(self, action: #selector(didTapReplyButton(_:)), for: .touchUpInside)
     addSubview(button)
     return button
   }()
@@ -189,52 +190,14 @@ class PicDetailTableviewCell: UITableViewCell {
     return stackView
   }()
 
-  private lazy var commentStatusLabel: UILabel = {
-    let label = UILabel(frame: CGRect.zero)
-    label.text = "첫 번째 댓글을 남겨주세요!"
-    label.font = UIFont.boldSystemFont(ofSize: 22)
-    label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-    addSubview(label)
-    return label
-  }()
-
-  private lazy var textfield: UITextField = {
-    let textfield = UITextField()
-    textfield.placeholder = "칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
-    textfield.font = UIFont.systemFont(ofSize: 12)
-    textfield.textColor = .lightGray
-    textfield.borderStyle = .roundedRect
-    textfield.layer.borderWidth = 1
-    textfield.layer.borderColor = UIColor.lightGray.cgColor
-    textfield.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-    //    textfield.delegate = self
-    addSubview(textfield)
-    return textfield
-  }()
-
-  private lazy var registButton: UIButton = {
-    let button = UIButton(type: .custom)
-    button.setTitle("등록", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-    button.setTitleColor(#colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
-    //    button.addTarget(self, action: #selector(didTapFollowStatusButton(_:)), for: .touchUpInside)
-    addSubview(button)
-    return button
-  }()
-
   private lazy var plusButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "opaPlusButton"), for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-    button.setTitleColor(.white, for: .normal)
-    button.backgroundColor = #colorLiteral(red: 0.238917172, green: 0.809586525, blue: 0.9523653388, alpha: 1)
-    button.alpha = 0.5
-    //    button.addTarget(self, action: #selector(didTapFollowStatusButton(_:)), for: .touchUpInside)
-    addSubview(button)
+    button.addTarget(self, action: #selector(didTapPlusButton(_:)), for: .touchUpInside)
+    productImageView.addSubview(button)
+    productImageView.isUserInteractionEnabled = true
     return button
   }()
-
-  // MARK: - getData
 
   public var picDetailInfo: PicDetailModel? {
     didSet {
@@ -248,18 +211,17 @@ class PicDetailTableviewCell: UITableViewCell {
       replyCountLabel.text = "\(info.commentCount)"
       viewsCountLabel.text = "\(info.hitCount)"
 
-      //등등 넣기
+      plusButton.snp.makeConstraints { make in
+        make.centerX.equalTo(productImageView.snp.trailing).multipliedBy(floor(info.axisLeft ) * 0.01 )
+        make.centerY.equalTo(productImageView.snp.bottom).multipliedBy(floor(info.axisTop ) * 0.01 )
+      }
+
+      self.bringSubviewToFront(plusButton)
 
       DispatchQueue.main.async {
         self.collectionView.reloadData()
       }
-
-      //collectionView로 들어가는거 ㄱㄱ
     }
-  }
-
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    endEditing(true)
   }
 
   // MARK: - View life cycle
@@ -267,10 +229,6 @@ class PicDetailTableviewCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     makeConstraints()
     backgroundColor = .white
-
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -286,8 +244,8 @@ class PicDetailTableviewCell: UITableViewCell {
     plusButton.clipsToBounds = true
   }
 
+  // MARK: - AutoLayout
   private func makeConstraints() {
-
     categoryLabel.snp.makeConstraints { make in
       make.top.leading.equalToSuperview().inset(15)
       make.bottom.equalTo(productImageView.snp.top).inset(-10)
@@ -300,7 +258,7 @@ class PicDetailTableviewCell: UITableViewCell {
 
     productImageView.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview()
-      make.bottom.equalTo(collectionView.snp.top)
+      make.bottom.equalTo(collectionView.snp.top).inset(-10)
     }
 
     collectionView.snp.makeConstraints { make in
@@ -317,6 +275,8 @@ class PicDetailTableviewCell: UITableViewCell {
       make.top.equalTo(picBodyTextLabel.snp.bottom).offset(15)
       make.leading.equalToSuperview().inset(15)
       make.bottom.equalTo(detailInfoStackView.snp.top).offset(-10)
+      make.width.equalToSuperview().multipliedBy(0.1)
+      make.height.equalTo(authorImageButton.snp.width)
     }
 
     authorNicknameButton.snp.makeConstraints { make in
@@ -334,29 +294,13 @@ class PicDetailTableviewCell: UITableViewCell {
 
     detailInfoStackView.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(15)
-      make.bottom.equalTo(commentStatusLabel.snp.top).offset(-15)
+      make.bottom.equalToSuperview().inset(30)
     }
-
-    commentStatusLabel.snp.makeConstraints { make in
-      make.leading.equalToSuperview().inset(15)
-      make.bottom.equalTo(textfield.snp.top).offset(-15)
-    }
-
-    textfield.snp.makeConstraints { make in
-      make.leading.bottom.equalToSuperview().inset(15)
-      make.trailing.equalTo(registButton.snp.leading).offset(-10)
-      make.height.equalToSuperview().multipliedBy(0.06)
-    }
-
-    registButton.snp.makeConstraints { make in
-      make.trailing.bottom.equalToSuperview().inset(15)
-      make.centerY.equalTo(textfield.snp.centerY)
-    }
-
   }
 
+  // MARK: - getData
   public func setMainProductImage(thumnailUrl: URL) {
-
+    //MainImage
     productImageView.kf.setImage(with: thumnailUrl,
                                  placeholder: nil,
                                  options: [.transition(.fade(0)), .loadDiskFileSynchronously],
@@ -365,27 +309,24 @@ class PicDetailTableviewCell: UITableViewCell {
                                   if let h = image?.size.height, let w = image?.size.width {
                                     let height = UIScreen.main.bounds.width * h / w
 
-                                    self?.productImageView.snp.makeConstraints {//updateConstraints {
+                                    self?.productImageView.snp.makeConstraints {
                                       $0.height.equalTo(height)
                                     }
                                   }
     }
   }
 
+  //authorImage
+  func getAuthorImage(thumnailUrl: URL) {
+    authorImageButton.kf.setImage(with: thumnailUrl, for: .normal)
+  }
+
   public func stopDownloadImage() {
     productImageView.kf.cancelDownloadTask()
+    authorImageButton.imageView!.kf.cancelDownloadTask()
   }
 
-  //키보드 올렸다가 내렸다가
-  @objc private func keyboardWillShow(_ sender: Notification) {
-    frame.origin.y = -160
-
-  }
-
-  @objc func keyboardWillHide(_ sender: Notification) {
-    frame.origin.y = 0
-  }
-
+  // MARK: - ActionMethod
   //팔로잉 버튼
   @objc private func didTapFollowStatusButton(_ sender: UIButton) {
     followBool.toggle()
@@ -402,6 +343,11 @@ class PicDetailTableviewCell: UITableViewCell {
       followStatusButton.layer.borderWidth = 1
     }
   }
+
+  @objc private func didTapPlusButton(_ sender: UIButton) {
+    let productID = picDetailInfo?.productID
+    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
+  }
 }
 
 extension PicDetailTableviewCell: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -410,7 +356,12 @@ extension PicDetailTableviewCell: UICollectionViewDataSource, UICollectionViewDe
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeue(PictureCollectionViewCell.self, indexPath) //셀 재사용으로 해볼까?
+    let cell = collectionView.dequeue(PictureCollectionViewCell.self, indexPath)
+
+    if let url = URL(string: picDetailInfo?.productImage ?? "") {
+      cell.commentThumbButton(thumnailUrl: url)
+    }
+
     return cell
   }
 
@@ -439,8 +390,8 @@ extension PicDetailTableviewCell: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //    let productID = pictureInfo?.productID
-    //    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
+    let productID = picDetailInfo?.productID
+    notiCenter.post(name: StoreVC.presentProductDetail, object: nil, userInfo: ["productID": productID])
 
   }
 }
