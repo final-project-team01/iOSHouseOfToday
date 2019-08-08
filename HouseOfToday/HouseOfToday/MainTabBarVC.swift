@@ -43,7 +43,6 @@ final class MainTabBarVC: UITabBarController {
     self.delegate = self
     tabBar.backgroundColor = .white
     setupTabBarItems()
-
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -143,6 +142,49 @@ final class MainTabBarVC: UITabBarController {
   // return: true -> button 이 선택되어 있는 상태
   private func getAnimationButtonStatus() -> Bool {
     return addUserActivityButton.transform != .identity
+  }
+
+  private lazy var cartImageView: UIImageView = {
+    let iv = UIImageView(image: UIImage(named: "whiteCart"))
+    iv.backgroundColor = .black
+    iv.contentMode = .scaleAspectFit
+    iv.clipsToBounds = true
+    iv.layer.cornerRadius = UIScreen.main.bounds.width / 4
+    view.addSubview(iv)
+    view.sendSubviewToBack(iv)
+    return iv
+  }()
+  // MARK: -
+  public func showCartView() {
+
+    print("showCartView")
+    view.bringSubviewToFront(cartImageView)
+    //    cartView.isHidden
+    UIView.animateKeyframes(withDuration: 1,
+                            delay: 0,
+                            options: [],
+                            animations: { [weak self] in
+                              UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.1, animations: { [weak self] in
+                                if let cartView = self?.cartImageView {
+                                  cartView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                                }
+                                self?.view.layoutIfNeeded()
+                              })
+
+                              UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.9, animations: { [weak self] in
+
+                                if let cartView = self?.cartImageView {
+                                  cartView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+                                }
+
+                                self?.view.layoutIfNeeded()
+                              })
+    }) { [weak self] _ in
+      guard let cartView = self?.cartImageView else { return }
+
+      self?.view.bringSubviewToFront(cartView)
+    }
+
   }
 }
 

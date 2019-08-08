@@ -23,7 +23,6 @@ class PushTableCell: UITableViewCell {
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    logger(ErrorLogs.coderInit.message)
     fatalError(ErrorLogs.coderInit.message)
   }
 

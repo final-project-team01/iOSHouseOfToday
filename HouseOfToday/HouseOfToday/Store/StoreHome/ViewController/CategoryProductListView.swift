@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryProductListView: UIViewController {
+final class CategoryProductListView: UIViewController {
 
   // MARK: - Property
   private let service: HouseOfTodayServiceType = HouseOfTodayService()
@@ -122,7 +122,6 @@ extension CategoryProductListView: UICollectionViewDataSource {
 
     return cell
   }
-
 }
 
 // MARK: - UICollectionViewDelegate
@@ -150,7 +149,6 @@ extension CategoryProductListView: UICollectionViewDelegate {
     vc.fetchProductDetail(id: productList[indexPath.item].id)
     navigationController?.pushViewController(vc, animated: true)
   }
-
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

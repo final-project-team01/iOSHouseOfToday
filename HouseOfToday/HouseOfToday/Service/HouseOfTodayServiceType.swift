@@ -20,4 +20,7 @@ protocol HouseOfTodayServiceType {
   func postLoginDataForGetToKen(toPath path: String, withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void)
   func fetchPictureList(completion: @escaping (Result<[PictureModel], ServiceError>) -> Void)
   func fetchPicDetailList(id: Int, completion: @escaping (Result<PicDetailModel, ServiceError>) -> Void)
+  func postShoppingCartItem(cartData: Data, completion: @escaping (Result<ShoppingOptionCart, ServiceError>) -> Void)
+  func postOrderProducts(data: Data, completion: @escaping (Result<OrderProductList, ServiceError>) -> Void)
+
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReviewHeaderView: UICollectionReusableView {
+final class ReviewHeaderView: UICollectionReusableView {
 
   // MARK: - Property
   private lazy var titleLabel: UILabel = {

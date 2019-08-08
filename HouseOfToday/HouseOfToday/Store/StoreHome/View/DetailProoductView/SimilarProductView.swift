@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SimilarProductsView: UIView {
+final class SimilarProductsView: UIView {
 
   // MARK: - Property
   private lazy var titleLabel: UILabel = {

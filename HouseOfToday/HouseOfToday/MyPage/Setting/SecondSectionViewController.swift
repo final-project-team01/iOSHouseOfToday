@@ -41,34 +41,31 @@ class SecondSectionViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    configureNaviBar()
     loadWebView()
     makeContraints()
     print("progress :", webView.estimatedProgress)
+  }
+
+  // MARK: - Setting Navigation Bar
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureNaviBar()
+  }
+  private func configureNaviBar() {
+    self.title = "오늘의 집이 궁금해요"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationItem.setHidesBackButton(true, animated: false)
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
     if keyPath == "estimatedProgress" {
       progressBar.progress = Float(webView.estimatedProgress)
     }
-  }
-
-//  if progressBar.progress + value < 0.95 {
-//  let update = progressBar.progress + value
-//  progressBar.setProgress(update, animated: true)
-//  progressBar.isHidden = false
-//  } else {
-//  progressBar.isHidden = true
-//  }
-
-  // configure Navigation Bar
-  private func configureNaviBar() {
-    title = "오늘의 집이 궁금해요"
-
-    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
-
-    navigationItem.setLeftBarButton(backItem, animated: true)
-    self.navigationItem.backBarButtonItem?.tintColor = .darkGray
   }
 
   private func loadWebView() {
@@ -89,9 +86,5 @@ class SecondSectionViewController: UIViewController {
       $0.top.equalTo(progressBar.snp.bottom)
       $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
     }
-  }
-
-  @objc private func backButtonDidTap(_ sender: Any) {
-    self.navigationController?.popViewController(animated: true)
   }
 }
