@@ -17,13 +17,24 @@ class ChangeProfileViewController: UIViewController {
     tv.register(ChangeProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
     tv.dataSource = self
     tv.delegate = self
-    tv.backgroundColor = .green
+    tv.tableFooterView = UIView()
+    tv.backgroundColor = .white
     view.addSubview(tv)
     return tv
   }()
 
+  private var profileData: (URL, String)? {
+    didSet {
+      DispatchQueue.main.async {
+        self.changeProfileTableView.reloadData()
+        print("url, nickName :", self.profileData)
+      }
+    }
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
+    fetchAccountList()
     makeConstraints()
   }
 
@@ -32,8 +43,9 @@ class ChangeProfileViewController: UIViewController {
     super.viewWillAppear(animated)
     configureNaviBar()
   }
+
   private func configureNaviBar() {
-    self.title = "프로필 수정"
+    self.title = "프로필"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
     self.navigationItem.setHidesBackButton(true, animated: false)
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
@@ -41,6 +53,28 @@ class ChangeProfileViewController: UIViewController {
   }
   @objc private func backButtonDidTap(_ sender: Any) {
     self.navigationController?.popViewController(animated: true)
+  }
+
+  // MARK: - Networking
+  private func fetchAccountList() {
+    // MARK: - Networking
+    if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String],
+      let token = tokenInfo["token"] {
+      DataManager.shard.service.fetchAccountList(with: token) {
+        result in
+        switch result {
+        case .success(let socialUser):
+          let user = socialUser.first!
+          let url = URL(string: user.profileImageUrlStr)
+          self.profileData = (url!, user.nickName)
+
+        case .failure(let error):
+          logger(error.localizedDescription)
+        }
+      }
+    } else {
+      logger("token is nothing")
+    }
   }
 
   private func makeConstraints() {
@@ -54,7 +88,7 @@ class ChangeProfileViewController: UIViewController {
 
 extension ChangeProfileViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 3
+    return 2
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,12 +98,13 @@ extension ChangeProfileViewController: UITableViewDataSource {
     case 0:
       cell.textLabel?.text = "닉네임"
       cell.isTextViewEditable = true
-      cell.tailTextView.text = "test"
+      if let profileData = self.profileData {
+        cell.tailTextView.text = profileData.1
+      } else {
+        cell.tailTextView.text = ""
+      }
     case 1:
       cell.textLabel?.text = "MY URL"
-    case 2:
-      cell.textLabel?.text = "한 줄 소개"
-      cell.isNeedTextField = true
     default:
       break
     }
@@ -81,7 +116,13 @@ extension ChangeProfileViewController: UITableViewDataSource {
 extension ChangeProfileViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! ChangeProfileHeaderView
-
+    if let profileData = self.profileData {
+      DispatchQueue.main.async {
+        header.profileImageView.kf.setImage(with: profileData.0)
+      }
+    } else {
+      header.profileImageView.backgroundColor = .white
+    }
     return header
   }
 

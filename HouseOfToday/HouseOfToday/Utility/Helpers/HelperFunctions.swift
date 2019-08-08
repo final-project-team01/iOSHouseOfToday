@@ -9,7 +9,6 @@
 import UIKit
 
 internal func hideNaviBarWhenUserDidScroll(to direction: String, with naviVC: UINavigationController?, where whereIs: String) {
-  print("\(whereIs)에서 // \(direction)")
   switch direction {
   case "up":
     naviVC?.setNavigationBarHidden(false, animated: true)

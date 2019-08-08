@@ -94,10 +94,9 @@ final class MyshoppingThumbCell: UITableViewCell {
     return detailStackView
   }()
 
-  // FIXME: - 누르면 나의쇼핑 View로 가기 구현
   @objc func gotoMyShopping(_ sender: UIButton) {
     let myVC = MyPageVC()
-
+    NotificationCenter.default.post(name: .presentpresentMyShoppingView, object: nil)
   }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
