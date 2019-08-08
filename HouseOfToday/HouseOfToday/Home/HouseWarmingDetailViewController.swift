@@ -42,11 +42,12 @@ class HouseWarmingDetailViewController: UIViewController {
     }
   }
 
+
   // MARK: - ViewController LifeCyle
   override func viewDidLoad() {
     super.viewDidLoad()
     makeConstraints()
-    fetchHouseWarmingDetail(with: 1)
+
   }
 
   // MARK: - Setting Navigation Bar
