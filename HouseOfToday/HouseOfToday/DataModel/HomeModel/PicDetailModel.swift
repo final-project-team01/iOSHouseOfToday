@@ -15,7 +15,7 @@ struct PicDetailModel: Decodable {
   let created: String
   let image: String
   let axisLeft: CGFloat
-  let axisTop: CGFloat
+  let axisTop: Double
   let productImage: String
   let productID: Int
   let text: String

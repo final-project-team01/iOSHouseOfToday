@@ -147,23 +147,6 @@ class LoginViewController: UIViewController {
     return bt
   }()
 
-//  private lazy var popTip: PopTip = {
-//    let pt = PopTip()
-//    pt.shadowOpacity = 0.5
-//    pt.shadowColor = .lightGray
-//    pt.shadowRadius = .pi / 2
-//    pt.shadowOffset = CGSize(width: 1, height: 1)
-//    pt.borderWidth = 0.1
-//    pt.borderColor = .lightGray
-//    pt.edgeMargin = 5
-//    pt.cornerRadius = 15
-//    pt.actionAnimation = .bounce(4)
-//    pt.bubbleColor = .white
-//    pt.textColor = .black
-//    pt.font = UIFont.preferredFont(forTextStyle: .body)
-//    return pt
-//  }()
-
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -173,7 +156,7 @@ class LoginViewController: UIViewController {
     NaverThirdPartyLoginConnection.getSharedInstance()?.delegate = self
 
     view.bringSubviewToFront(bottomLayoutGuideView)
-
+    view.backgroundColor = .white
     makeConstraints()
   }
 
@@ -380,8 +363,6 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate, NaverThir
       googleUserInfo["username"] = username
       // 프로필 이미지가 없으면 nil 이 아니라 빈 문자열
       googleUserInfo["social_profile"] = user.profile.imageURL(withDimension: 110)?.description ?? ""
-      logger("haha", user.profile.imageURL(withDimension: 110))
-
       /// Networking
       let encodedData = googleUserInfo.percentEscaped().data(using: .utf8)
       self.houseOfTodayService.postLoginDataForGetToKen(toPath: "/get_token/social/", withBody: encodedData) { (result) in

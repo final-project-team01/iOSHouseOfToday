@@ -14,14 +14,18 @@ class SettingViewController: UIViewController {
   private lazy var settingTableView: UITableView = {
     let tv = UITableView(frame: .zero)
     tv.register(cell: UITableViewCell.self)
+    tv.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "footer")
     tv.dataSource = self
     tv.delegate = self
+    tv.tableFooterView = UIView()
+
+    tv.estimatedRowHeight = 80
 
     view.addSubview(tv)
     return tv
   }()
   private var state = ""
-  private let firstSection = ["프로필 수정", "비밀번호 변경", "푸쉬 알림 설정"]
+  private let firstSection = ["프로필", "비밀번호 변경", "푸쉬 알림 설정"]
   private let secondSection = ["오늘의집이 궁금해요", "FAQ", "의견 보내기", "서비스 이용 약관", "개인정보 보호정책", "버전 정보"]
   private var thirdSection: String {
     get {
@@ -83,7 +87,7 @@ class SettingViewController: UIViewController {
   // MARK: - Autolayout
   private func makeConstraints() {
     settingTableView.snp.makeConstraints {
-      $0.edges.equalTo(view.safeAreaLayoutGuide)
+      $0.edges.equalToSuperview()
     }
   }
 }
@@ -177,6 +181,7 @@ extension SettingViewController: UITableViewDelegate {
     default:
       break
     }
+
   }
 
   private func pushWebView(with urlString: String) {
