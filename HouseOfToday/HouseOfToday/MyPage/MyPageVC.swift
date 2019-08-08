@@ -33,6 +33,11 @@ class MyPageVC: CategoryTabBarViewController {
     myshoppingViewDidScroll()
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    fetchAccountList()
+  }
+
   private func setAddNoti() {
     notiCenter.addObserver(self, selector: #selector(presentPicCollectionView(_:)), name: .presentPhotoView, object: nil)
     notiCenter.addObserver(self, selector: #selector(trackDeliveryHistoryVC(_:)), name: .trackDeliveryHistoryVC, object: nil)
@@ -41,6 +46,9 @@ class MyPageVC: CategoryTabBarViewController {
     notiCenter.addObserver(self, selector: #selector(myReViewVC(_:)), name: .myReViewVC, object: nil)
     notiCenter.addObserver(self, selector: #selector(customerCenterVC(_:)), name: .customerCenterVC, object: nil)
     notiCenter.addObserver(self, selector: #selector(userWriteReviewVC(_:)), name: .userWriteReviewVC, object: nil)
+    notiCenter.addObserver(self, selector: #selector(myShoppingButtonDidTap(_:)), name: .presentpresentMyShoppingView, object: nil)
+    notiCenter.addObserver(self, selector: #selector(accountNoti(_:)), name: NSNotification.Name(rawValue: "Login"), object: nil)
+    notiCenter.addObserver(self, selector: #selector(accountNoti(_:)), name: NSNotification.Name(rawValue: "Logout"), object: nil)
   }
 
   deinit {
@@ -51,15 +59,13 @@ class MyPageVC: CategoryTabBarViewController {
     notiCenter.removeObserver(self, name: .myReViewVC, object: nil)
     notiCenter.removeObserver(self, name: .customerCenterVC, object: nil)
     notiCenter.removeObserver(self, name: .userWriteReviewVC, object: nil)
+    notiCenter.removeObserver(self, name: .presentpresentMyShoppingView, object: nil)
+    notiCenter.removeObserver(self, name: NSNotification.Name(rawValue: "Login"), object: nil)
+    notiCenter.removeObserver(self, name: NSNotification.Name(rawValue: "Logout"), object: nil)
   }
 
   // MARK: - 창식 - Custumizing NavigationBar
   private func configureNaviBar() {
-
-//    self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back")
-//    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
-//    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//    self.navigationItem.backBarButtonItem?.tintColor = .darkGray
 
     let naviBar = self.navigationController?.navigationBar
     naviBar?.isTranslucent = false
@@ -87,6 +93,53 @@ class MyPageVC: CategoryTabBarViewController {
     let activityVC = UIActivityViewController(activityItems: ["공유"], applicationActivities: nil)
     activityVC.excludedActivityTypes = [.airDrop, .mail, .message, .print]
     self.present(activityVC, animated: true, completion: nil)
+  }
+
+  // MARK: - Networking
+  private func fetchAccountList() {
+    // MARK: - Networking
+    if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String],
+      let token = tokenInfo["token"] {
+      DataManager.shard.service.fetchAccountList(with: token) {
+        result in
+        switch result {
+        case .success(let socialUser):
+          let user = socialUser.first!
+          let url = URL(string: user.profileImageUrlStr)
+          self.profileView.profileData = (url!, user.nickName)
+
+        case .failure(let error):
+          logger(error.localizedDescription)
+        }
+      }
+    } else {
+      logger("token is nothing")
+
+    }
+  }
+
+  @objc private func myShoppingButtonDidTap(_ sender: Any) {
+
+//    self.indicatorBarView.didSelectCategoryCell = IndexPath(item: 1, section: 0)
+//    self.didSelectedCategoryCell = IndexPath(item: 1, section: 0)
+//    UIView.animate(withDuration: 0.5,
+//                    delay: 0,
+//                    usingSpringWithDamping: 0.7,
+//                    initialSpringVelocity: 1,
+//                    options: .curveEaseInOut,
+//                    animations: {
+//                    self.view.layoutIfNeeded()
+//    },
+//                    completion: nil)
+//    let xOffset = UIScreen.main.bounds.width
+//    self.categoryView.pageCollectionView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: true)
+//    self.categoryTabBarView.categoryTabBarCollectionView.selectItem(at: IndexPath(item: 1, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+    self.categoryTabBarView.collectionView(self.categoryTabBarView.categoryTabBarCollectionView, didSelectItemAt: IndexPath(item: 1, section: 0))
+    self.categoryTabBarView.categoryTabBarCollectionView.selectItem(at: IndexPath(item: 1, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+  }
+
+  @objc private func accountNoti(_ sender: Any) {
+    self.profileView.tableView.reloadData()
   }
 
   @objc private func settingDidTap(_ sender: Any) {

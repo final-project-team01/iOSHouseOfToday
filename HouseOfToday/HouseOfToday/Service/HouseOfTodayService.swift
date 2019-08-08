@@ -227,8 +227,6 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
     URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
 
-      print("postLoginDataForGetToKen response Status Code : ", (response as! HTTPURLResponse).statusCode)
-
       guard error == nil else { return completion(.failure(.clientError)) }
 
       guard let header = response as? HTTPURLResponse,
@@ -410,4 +408,63 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }
     }.resume()
   }
+
+  func fetchAccountList(with token: String, completion: @escaping (Result<[SocialUser], ServiceError>) -> Void) {
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/accounts/list/"
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "GET"
+
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    urlRequest.addValue("Token " + token, forHTTPHeaderField: "Authorization")
+
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let socialUser = try? JSONDecoder().decode([SocialUser].self, from: data) {
+        completion(.success(socialUser))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+    }.resume()
+  }
+
+  // MARK: - Home
+  func fetchHouseWarmingDetail(with id: Int, completion: @escaping (Result<HouseWarmingDetail, ServiceError>) -> Void) {
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/community/housewarming/" + String(id)
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "GET"
+
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let detail = try? JSONDecoder().decode(HouseWarmingDetail.self, from: data) {
+        completion(.success(detail))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+      }.resume()
+  }
+
 }

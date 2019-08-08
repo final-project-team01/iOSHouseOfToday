@@ -11,19 +11,18 @@ import SnapKit
 
 final class ProfileUserCell: UITableViewCell {
 
-  private lazy var userImageButton: UIButton = {
+  internal lazy var userImageButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "userImage"), for: .normal)
-    //    userImageButton?.contentMode = .scaleAspectFill
-//    button.layer.cornerRadius = button.frame.width / 2
-//    button.clipsToBounds = true
+    button.clipsToBounds = true
+    button.imageView?.contentMode = .scaleAspectFit
     addSubview(button)
     return button
   }()
 
-  private lazy var userNameLabel: UILabel = {
+  internal lazy var userNameLabel: UILabel = {
     let label = UILabel()
-    label.text = "데이지코"
+    label.text = "사용자"
     label.font = UIFont.boldSystemFont(ofSize: 20)
     addSubview(label)
     return label
@@ -53,6 +52,7 @@ final class ProfileUserCell: UITableViewCell {
     button.setTitleColor(.black, for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
     button.backgroundColor = .lightGray
+    button.clipsToBounds = true
     button.alpha = 0.7
     addSubview(button)
     return button
@@ -217,11 +217,8 @@ final class ProfileUserCell: UITableViewCell {
     super.layoutSubviews()
 
     userImageButton.layer.cornerRadius = userImageButton.frame.width / 2
-    userImageButton.clipsToBounds = true
-    userImageButton.imageView?.contentMode = .scaleAspectFit
 
     inviteFrendsButton.layer.cornerRadius = inviteFrendsButton.frame.height / 2
-    inviteFrendsButton.clipsToBounds = true
 
   }
 

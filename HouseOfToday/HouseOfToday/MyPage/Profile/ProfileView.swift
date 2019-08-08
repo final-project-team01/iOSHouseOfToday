@@ -22,14 +22,14 @@ final class ProfileView: UIView {
     tableView.reloadData()
   }
 
-  private lazy var tableView: UITableView = {
+  internal lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.dataSource = self.self
     tableView.delegate = self.self
-    tableView.register(cell: MyshoppingThumbCell.self)
     tableView.register(cell: ProfileUserCell.self)
-    tableView.register(cell: ProfileBaseCell.self)
+    tableView.register(cell: MyshoppingThumbCell.self)
     tableView.register(cell: ProfilePicTableViewCell.self)
+    tableView.register(cell: ProfileBaseCell.self)
     tableView.showsVerticalScrollIndicator = false
     tableView.allowsSelection = false
     tableView.refreshControl = refreshControl
@@ -38,6 +38,14 @@ final class ProfileView: UIView {
     return tableView
   }()
 
+  internal var profileData: (URL, String)? {
+    didSet {
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+    }
+  }
+
   internal var profileViewDidScroll: ((String) -> Void)?
 
   override init(frame: CGRect) {
@@ -45,22 +53,41 @@ final class ProfileView: UIView {
 
     tableViewAutoLayout()
     tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-
+    //fetchAccountList()
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  private func tableViewAutoLayout() {
+  // MARK: - Networking
+  private func fetchAccountList() {
+    // MARK: - Networking
+    if let tokenInfo = UserDefaults.standard.object(forKey: "tokenInfo") as? [String: String],
+      let token = tokenInfo["token"] {
+      DataManager.shard.service.fetchAccountList(with: token) {
+        result in
+        switch result {
+        case .success(let socialUser):
+          let user = socialUser.first!
+          let url = URL(string: user.profileImageUrlStr)
+          self.profileData = (url!, user.nickName)
 
-    tableView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
+        case .failure(let error):
+          logger(error.localizedDescription)
+        }
+      }
+    } else {
+      logger("token is nothing")
 
     }
-
   }
 
+  private func tableViewAutoLayout() {
+    tableView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+  }
 }
 
 extension ProfileView: UITableViewDataSource, UITableViewDelegate {
@@ -74,6 +101,15 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     //유저 정보
     case 0:
       let cell = tableView.dequeueReusableCell(withIdentifier: ProfileUserCell.identifier, for: indexPath) as! ProfileUserCell
+      if let profileData = self.profileData {
+        DispatchQueue.main.async {
+          cell.userImageButton.kf.setImage(with: profileData.0, for: .normal)
+          cell.userNameLabel.text = profileData.1
+        }
+      } else {
+        cell.userImageButton.setImage(UIImage(named: "userImage"), for: .normal)
+        cell.userNameLabel.text = "사용자"
+      }
       cell.separatorInset = UIEdgeInsets.zero
       return cell
 
@@ -83,12 +119,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             cell.separatorInset = UIEdgeInsets.zero
             return cell
     //사진
-    case 2: // FIXME: - 높이 유동적으로 상태에 따라 설정
-//      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
-//      cell.setLabelItems(title: .picture)
-//      cell.separatorInset = UIEdgeInsets.zero
-//      return cell
-
+    case 2:
       let cell = tableView.dequeueReusableCell(withIdentifier: ProfilePicTableViewCell.identifier, for: indexPath) as! ProfilePicTableViewCell
       cell.separatorInset = UIEdgeInsets.zero
       return cell
@@ -125,11 +156,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     case 1:
       return 100
     case 2:
-      // FIXME: - 셀 높이 조절
-//      let baseHeight:CGFloat = 30
-//      let itemCount = items.count % 3
-//      let itemHieght:CGFloat = 70
-//      let sum = baseHeight + ((itemCount + 1) * itemHieght)
+
       return 520
     default:
       return 80
@@ -146,5 +173,4 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
       callback("down")
     }
   }
-
 }

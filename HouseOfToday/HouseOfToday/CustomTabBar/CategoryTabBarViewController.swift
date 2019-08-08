@@ -34,7 +34,7 @@ class CategoryTabBarViewController: UIViewController {
   }
 
   // MARK: - 변수선언
-   lazy var categoryTabBarView: CategoryTabBarView = {
+  internal lazy var categoryTabBarView: CategoryTabBarView = {
     let ctv = CategoryTabBarView()
     ctv.isScrollEnabled = self.categoryTabBarScrollIsEnabled
     ctv.categoryTitles = categoryTitles
@@ -42,14 +42,14 @@ class CategoryTabBarViewController: UIViewController {
     return ctv
   }()
 
-  private lazy var indicatorBarView: IndicatorBarView = {
+  internal lazy var indicatorBarView: IndicatorBarView = {
     let v = IndicatorBarView()
     view.addSubview(v)
     v.categoryTitles = categoryTitles
     return v
   }()
 
-  private lazy var categoryView: CategoryView = {
+  internal lazy var categoryView: CategoryView = {
     let cv = CategoryView()
     cv.categoryViews = self.categoryViews
     view.addSubview(cv)
@@ -100,7 +100,7 @@ class CategoryTabBarViewController: UIViewController {
   }
 
   // scroll 에서 didSelectedCategoryCell 정보 필요해서 변수로 만들었다.
-  private var didSelectedCategoryCell: IndexPath?
+  internal var didSelectedCategoryCell: IndexPath?
   private func categoryDidScroll() {
     self.categoryTabBarView.categoryDidScroll = {
       [weak self] scrollView in

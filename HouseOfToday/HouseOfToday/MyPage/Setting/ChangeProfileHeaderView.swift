@@ -10,22 +10,25 @@ import UIKit
 
 class ChangeProfileHeaderView: UITableViewHeaderFooterView {
 
-  private lazy var backgroundImageView: UIImageView = {
+  internal lazy var backgroundImageView: UIImageView = {
     let iv = UIImageView(frame: .zero)
+    iv.image = UIImage(named: "homeTest2")
     iv.backgroundColor = .red
     addSubview(iv)
     return iv
   }()
 
-  private lazy var profileImageView: UIImageView = {
+  internal lazy var profileImageView: UIImageView = {
     let iv = UIImageView(frame: .zero)
     iv.backgroundColor = .yellow
     backgroundImageView.addSubview(iv)
+    iv.clipsToBounds = true
     return iv
   }()
 
   override init(reuseIdentifier: String?) {
     super.init(reuseIdentifier: reuseIdentifier)
+    makeConstraints()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -35,7 +38,7 @@ class ChangeProfileHeaderView: UITableViewHeaderFooterView {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    makeConstraints()
+    profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
   }
 
   private func makeConstraints() {

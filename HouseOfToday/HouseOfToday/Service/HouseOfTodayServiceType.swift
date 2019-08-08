@@ -24,4 +24,8 @@ protocol HouseOfTodayServiceType {
   func postOrderProducts(data: Data, completion: @escaping (Result<OrderProductList, ServiceError>) -> Void)
   func fetchCartList(completion: @escaping (Result<[ShoppingOptionCart], ServiceError>) -> Void)
 
+  func fetchAccountList(with token: String, completion: @escaping (Result<[SocialUser], ServiceError>) -> Void)
+
+  // Home
+  func fetchHouseWarmingDetail(with id: Int, completion: @escaping (Result<HouseWarmingDetail, ServiceError>) -> Void)
 }
