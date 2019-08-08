@@ -194,7 +194,8 @@ class PicDetailTableviewCell: UITableViewCell {
     let button = UIButton(type: .custom)
     button.setImage(UIImage(named: "opaPlusButton"), for: .normal)
     button.addTarget(self, action: #selector(didTapPlusButton(_:)), for: .touchUpInside)
-    addSubview(button)
+    productImageView.addSubview(button)
+    productImageView.isUserInteractionEnabled = true
     return button
   }()
 

@@ -24,4 +24,5 @@ protocol HouseOfTodayServiceType {
   func postOrderProducts(data: Data, completion: @escaping (Result<OrderProductList, ServiceError>) -> Void)
   func fetchCartList(completion: @escaping (Result<[ShoppingOptionCart], ServiceError>) -> Void)
 
+  func fetchHousewarmingList(completion: @escaping (Result<HousewarmingModel, ServiceError>) -> Void)
 }

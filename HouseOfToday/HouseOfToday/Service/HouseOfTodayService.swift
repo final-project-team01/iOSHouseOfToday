@@ -443,10 +443,37 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
       if let orderProducts = try? JSONDecoder().decode([ShoppingOptionCart].self, from: data) {
         completion(.success(orderProducts))
+
       } else {
         completion(.failure(.invalidFormat))
       }
+      }.resume()
 
+  }
+
+  // FIXME: - 정아 집들이 추가
+  func fetchHousewarmingList(completion: @escaping (Result<HousewarmingModel, ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/community/housewarming/"
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
+
+      guard error == nil else {return completion(.failure(.clientError))}
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode else {return completion(.failure(.noData))}
+
+      guard let data = data else {return completion(.failure(.noData))}
+
+      if let housewarmingList = try? JSONDecoder().decode(HousewarmingModel.self, from: data) {
+        completion(.success(housewarmingList))
+
+      } else {
+        completion(.failure(.invalidFormat))
+      }
     }.resume()
 
   }
@@ -479,6 +506,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
+
       }.resume()
   }
 }
