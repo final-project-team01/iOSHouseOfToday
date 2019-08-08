@@ -8,9 +8,15 @@
 
 import UIKit
 
+extension Notification.Name {
+  static let housewarmingID = Notification.Name("HousewarmingID")
+}
+
 class HouseWarmingView: UIView {
 
-    private let service: HouseOfTodayServiceType = HouseOfTodayService()
+  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+
+  private let notiCenter = NotificationCenter.default
 
   private lazy var refreshControl: UIRefreshControl = {
     let refreshControl = UIRefreshControl()
@@ -96,6 +102,13 @@ extension HouseWarmingView: UITableViewDataSource, UITableViewDelegate {
     }
 
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    let housewarmingID = housewarmingList?.housewarmingPosts[indexPath.row].id
+
+    notiCenter.post(name: .housewarmingID, object: nil, userInfo: ["HousewarmingID": housewarmingID])
   }
 
 }

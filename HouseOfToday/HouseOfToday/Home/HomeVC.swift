@@ -95,6 +95,12 @@ final class HomeVC: CategoryTabBarViewController {
                            name: .picDetailID,
                            object: nil
     )
+    
+    notiCenter.addObserver(self,
+                           selector: #selector(presenthousewarmingID(_:)),
+                           name: .housewarmingID,
+                           object: nil
+    )
 
   }
 
@@ -107,6 +113,9 @@ final class HomeVC: CategoryTabBarViewController {
                               object: nil)
     notiCenter.removeObserver(self,
                               name: .picDetailID,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: .housewarmingID,
                               object: nil)
 
   }
@@ -242,5 +251,21 @@ final class HomeVC: CategoryTabBarViewController {
     vc.fetchPicDetailList(id: id)
     navigationController?.pushViewController(vc, animated: true)
   }
+  
+  @objc private func presenthousewarmingID(_ sender: Notification) {
+    
+    guard let userInfo = sender.userInfo as? [String: Int],
+      let id = userInfo["HousewarmingID"]
+      else {
+        return
+    }
+    
+//    let vc = PicDetailVC() 창식이 View 로
+    
+//    vc.fetchPicDetailList(id: id)
+//    navigationController?.pushViewController(vc, animated: true)
+  }
+
+  
 
 }
