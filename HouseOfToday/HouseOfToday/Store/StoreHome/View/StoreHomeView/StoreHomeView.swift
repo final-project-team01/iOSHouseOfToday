@@ -239,7 +239,7 @@ extension StoreHomeView: UICollectionViewDataSource {
     if indexPath.section == 1 {
 
       let cell = collectionView.dequeue(DealOfTodayCell.self, indexPath)
-      cell.productInfo = productList[indexPath.item]
+      cell.productInfo = todayDeal[indexPath.item]
       return cell
 
     } else if indexPath.section == 2 {

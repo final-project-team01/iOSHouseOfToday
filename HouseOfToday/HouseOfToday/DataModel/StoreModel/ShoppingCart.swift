@@ -8,24 +8,6 @@
 
 import Foundation
 
-//final class ShoppingList {
-//  var shoppingCart: [ShoppingCart] = []
-//}
-
-//struct ShoppingCart {
-//  var productId: Int
-//  var optionId: Int
-//  var optionName: String
-//  var quantity: Int
-//  var price: Int
-//
-//  mutating func quantityManage(_ quantity: Int) {
-//    print("mutating pre: \(quantity)")
-//    self.quantity = quantity
-//    print("mutating: \(quantity)")
-//  }
-//}
-
 final class ShoppingCart {
   public let productId: Int
   public let optionId: Int
@@ -59,6 +41,7 @@ struct ShoppingOptionCart: Decodable {
   let user: String
   let brandName: String
   let product: String
+  let productId: String
   let deliverFee: String
   let deliver: String
   let productOption: String
@@ -71,6 +54,7 @@ struct ShoppingOptionCart: Decodable {
     case user
     case brandName = "brand_name"
     case product
+    case productId = "product_id"
     case deliverFee = "deliver_fee"
     case deliver
     case productOption = "product_option"
