@@ -13,12 +13,12 @@ final class SwipeView: UIView {
   // MARK: - Property
   static var height = UIScreen.main.bounds.height / 5
 
-  var pageNumber: Int = 10
+  var pageNumber: Int = 7
 
   private lazy var pageControl: UIPageControl = {
     let page = UIPageControl()
     page.currentPage = 0
-    page.numberOfPages = pageNumber
+    page.numberOfPages = 7
     page.hidesForSinglePage = true
     page.currentPageIndicatorTintColor = .white
     page.pageIndicatorTintColor = .darkGray
@@ -106,8 +106,9 @@ final class SwipeView: UIView {
 
   // 5초에 한번 호출
   private func nextImageShowing() {
-    let itemAt = pageControl.currentPage + 1 < 10 ? pageControl.currentPage + 1 : 0
+    let itemAt = pageControl.currentPage + 1 < 7 ? pageControl.currentPage + 1 : 0
     collectionView.selectItem(at: IndexPath(item: itemAt, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    pageControl.currentPage = itemAt
   }
 
   public func timerFire() {
