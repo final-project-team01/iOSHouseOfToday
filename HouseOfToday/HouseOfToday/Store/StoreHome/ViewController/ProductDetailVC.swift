@@ -372,10 +372,32 @@ final class ProductDetailVC: UIViewController {
     self.navigationItem.setHidesBackButton(true, animated: false)
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
     navigationItem.setLeftBarButton(backItem, animated: true)
+
+    let rightItem = UIBarButtonItem.setButton(self, action: #selector(cartButtonDidTap(_:)), imageName: "cart2")
+    navigationItem.setRightBarButton(rightItem, animated: true)
   }
 
   @objc private func backButtonDidTap(_ sender: Any) {
     self.navigationController?.popViewController(animated: true)
+  }
+
+  // MARK: - present ShoppingCartVC
+  @objc private func cartButtonDidTap(_ sender: Any) {
+
+    //    let shoppingCartVC = ShoppingCartVC()
+
+    let cartVC = CartVC()
+
+    let navi = UINavigationController(rootViewController: cartVC)
+
+    let transition = CATransition()
+    transition.duration = 0.5
+    transition.type = CATransitionType.moveIn
+    transition.subtype = CATransitionSubtype.fromRight
+    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    view.window!.layer.add(transition, forKey: kCATransition)
+
+    present(navi, animated: true)
   }
 
   // MARK: - update progress view

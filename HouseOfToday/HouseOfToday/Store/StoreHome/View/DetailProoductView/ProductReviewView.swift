@@ -8,6 +8,13 @@
 
 import UIKit
 
+extension ProductReviewView {
+
+  static var downloadDetail: Notification.Name {
+    return Notification.Name("downloadDetail")
+  }
+}
+
 final class ProductReviewView: UIView {
 
   // MARK: - Property
@@ -212,10 +219,21 @@ final class ProductReviewView: UIView {
     super.init(frame: frame)
 
     addSubview(starView)
+
+    notiCenter.addObserver(self,
+                           selector: #selector(downloadDetail(_:)),
+                           name: ProductReviewView.downloadDetail,
+                           object: self)
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  deinit {
+    notiCenter.removeObserver(self,
+                              name: ProductReviewView.downloadDetail,
+                              object: self)
   }
 
   override func layoutSubviews() {
@@ -399,6 +417,31 @@ final class ProductReviewView: UIView {
     writeReviewVC.productDetailData = productDetailData
 
     notiCenter.post(name: ProductDetailVC.present, object: nil, userInfo: ["viewController": writeReviewVC])
+  }
+
+  private let service: HouseOfTodayServiceType = HouseOfTodayService()
+
+  @objc private func downloadDetail(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: Int],
+      let id = userInfo["ID"]
+      else {
+        return print("fail down casting: downloadDetail")
+    }
+
+    self.downloadDetail(id: id)
+  }
+
+  private func downloadDetail(id: Int) {
+    service.fetchProductDetail(id: id) { result in
+      switch result {
+      case .success(let product):
+        print("success!!! ProductDetail")
+        self.productDetailData = product
+      case .failure(let error):
+        print("fetchProductDetail Error: \(error.localizedDescription)")
+      }
+    }
   }
 
 }

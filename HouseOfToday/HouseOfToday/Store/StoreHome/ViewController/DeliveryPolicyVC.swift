@@ -32,7 +32,15 @@ class DeliveryPolicyVC: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = .white
     configureAutoLayout()
+    configureNaviBar()
+  }
 
+  private func configureNaviBar() {
+    self.title = "리뷰보기"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationItem.setHidesBackButton(true, animated: false)
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
   }
 
   private func configureAutoLayout() {
@@ -58,6 +66,10 @@ class DeliveryPolicyVC: UIViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     fitToScrollView()
+  }
+
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 }
 
