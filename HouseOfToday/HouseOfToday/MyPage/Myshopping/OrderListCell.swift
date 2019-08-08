@@ -22,6 +22,7 @@ class OrderListCell: UITableViewCell {
   public lazy var productTitle: UILabel = {
     let label = UILabel(frame: .zero)
     label.text = "brand"
+    label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
     contentView.addSubview(label)
     return label
   }()
@@ -29,8 +30,8 @@ class OrderListCell: UITableViewCell {
   public lazy var optionLabel: UILabel = {
     let label = UILabel(frame: .zero)
     label.text = "option"
-    label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-    label.font = UIFont.systemFont(ofSize: 13)
+    label.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+//    label.font = UIFont.systemFont(ofSize: 13)
     contentView.addSubview(label)
     return label
   }()
@@ -45,8 +46,7 @@ class OrderListCell: UITableViewCell {
   public lazy var quantityLabel: UILabel = {
     let label = UILabel(frame: .zero)
     label.text = "quantity"
-    label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-    label.font = UIFont.systemFont(ofSize: 13)
+    label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
     contentView.addSubview(label)
     return label
   }()
@@ -55,6 +55,7 @@ class OrderListCell: UITableViewCell {
     let label = UILabel(frame: .zero)
     label.text = "주문완료 | 무료배송"
     label.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
     contentView.addSubview(label)
     return label
   }()
@@ -74,8 +75,8 @@ class OrderListCell: UITableViewCell {
   private func autolayoutViews() {
 
     thumnailImageView.snp.makeConstraints {
-      $0.top.equalTo(contentView)
-      $0.leading.equalTo(contentView)
+      $0.top.equalTo(contentView).offset(Metric.marginX)
+      $0.leading.equalTo(contentView).offset(Metric.marginX)
       $0.width.height.equalTo(70)
     }
 

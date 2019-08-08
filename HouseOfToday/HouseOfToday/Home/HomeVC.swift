@@ -128,6 +128,8 @@ final class HomeVC: CategoryTabBarViewController {
 
     let buttonWidth = UIScreen.main.bounds.width - rightItem.width
     searchButton.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: 35)
+    // MARK: - 창근 누가 자꾸 안보이게 하는겨?
+    tabBarController?.tabBar.isHidden = false
   }
 
   // MARK: - Action Methods

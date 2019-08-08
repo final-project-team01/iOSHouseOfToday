@@ -288,6 +288,18 @@ final class CartVC: UIViewController {
     return formatter.string(from: price as NSNumber) ?? ""
   }
 
+  private func alertBuying() {
+    let alert = UIAlertController(title: "주문", message: "주문을 완료했습니다.", preferredStyle: .alert)
+    let okAlert = UIAlertAction(title: "확인", style: .default) { [weak self] (_) in
+
+      self?.navigationController?.popViewController(animated: true)
+    }
+
+    alert.addAction(okAlert)
+
+    present(alert, animated: true)
+  }
+
   // MARK: - postCartList
   private func postCartList() {
 
@@ -296,7 +308,12 @@ final class CartVC: UIViewController {
     service.postCartList(data: orderList) { result in
       switch result {
       case .success(let cart):
+
         print("success!!! postCartList)")
+
+        DispatchQueue.main.async { [weak self] in
+          self?.alertBuying()
+        }
       case .failure(let error):
         print("postCartList Error: \(error.localizedDescription)")
       }

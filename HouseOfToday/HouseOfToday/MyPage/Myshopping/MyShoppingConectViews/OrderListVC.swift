@@ -14,14 +14,12 @@ class OrderListVC: UIViewController {
   private lazy var tableView: UITableView = {
     let tv = UITableView(frame: .zero, style: .plain)
     tv.register(cell: OrderListCell.self)
-//    tv.register(cell: ShoppingCartCell.self)
-//    tv.register(ShoppingHeaderView.self, forHeaderFooterViewReuseIdentifier: ShoppingHeaderView.identifier)
-//    tv.register(ShoppingFooterView.self, forHeaderFooterViewReuseIdentifier: ShoppingFooterView.identifier)
+    tv.register(OptionHeaderView.self, forHeaderFooterViewReuseIdentifier: OptionHeaderView.identifier)
     tv.alwaysBounceVertical = true
     tv.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     tv.dataSource = self
     tv.delegate = self
-    tv.rowHeight = 100
+    tv.rowHeight = 130
     tv.backgroundColor = .white
     tv.allowsSelection = true
     view.addSubview(tv)
@@ -101,6 +99,7 @@ extension OrderListVC: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeue(OrderListCell.self)
+    cell.selectionStyle = .none
 
     let info = showOrderList[indexPath.row]
 
