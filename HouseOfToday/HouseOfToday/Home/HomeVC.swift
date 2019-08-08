@@ -96,6 +96,12 @@ final class HomeVC: CategoryTabBarViewController {
                            object: nil
     )
 
+    notiCenter.addObserver(self,
+                           selector: #selector(presenthousewarmingID(_:)),
+                           name: .housewarmingID,
+                           object: nil
+    )
+
   }
 
   private func removeObservers() {
@@ -107,6 +113,9 @@ final class HomeVC: CategoryTabBarViewController {
                               object: nil)
     notiCenter.removeObserver(self,
                               name: .picDetailID,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: .housewarmingID,
                               object: nil)
 
   }
@@ -240,6 +249,21 @@ final class HomeVC: CategoryTabBarViewController {
     let vc = PicDetailVC()
 
     vc.fetchPicDetailList(id: id)
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
+  @objc private func presenthousewarmingID(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: Int],
+      let id = userInfo["HousewarmingID"]
+      else {
+        return
+    }
+
+    let vc = HouseWarmingDetailViewController()
+
+    vc.fetchHouseWarmingDetail(with: id)
+//    vc.fetchPicDetailList(id: id)
     navigationController?.pushViewController(vc, animated: true)
   }
 
