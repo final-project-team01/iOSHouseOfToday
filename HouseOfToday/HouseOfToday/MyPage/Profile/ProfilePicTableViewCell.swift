@@ -12,7 +12,7 @@ extension Notification.Name {
   static let presentPhotoView = Notification.Name("presentPhotoView")
 }
 
-class PictureTableViewCell: UITableViewCell {
+class ProfilePicTableViewCell: UITableViewCell {
 
   //notification
   private let notiCenter = NotificationCenter.default
@@ -82,7 +82,7 @@ class PictureTableViewCell: UITableViewCell {
 
     collectionView.delegate = self
     collectionView.dataSource = self
-    collectionView.register(cell: PictureCollectionViewCell.self)
+    collectionView.register(cell: PictureCVCell.self)
     collectionView.backgroundColor = .clear
 
     addSubview(collectionView)
@@ -171,7 +171,7 @@ class PictureTableViewCell: UITableViewCell {
 
 }
 
-extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension ProfilePicTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
     return 9
@@ -179,7 +179,7 @@ extension PictureTableViewCell: UICollectionViewDataSource, UICollectionViewDele
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureCollectionViewCell.identifier, for: indexPath) as! PictureCollectionViewCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureCVCell.identifier, for: indexPath) as! PictureCVCell
 
     return cell
 

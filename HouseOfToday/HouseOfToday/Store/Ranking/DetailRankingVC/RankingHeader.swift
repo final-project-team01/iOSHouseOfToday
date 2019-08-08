@@ -12,8 +12,6 @@ extension Notification.Name {
   static let presentRankingPickerVC = Notification.Name("presentPickerVC")
 }
 
-// FIXME: - 스크롤 어느정도 올리면 Header 없어지게 하는거 추가하기
-
 class RankingHeader: UITableViewHeaderFooterView {
 
   let pickerVC = PickerViewController()

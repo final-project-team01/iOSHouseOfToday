@@ -13,7 +13,7 @@ extension Notification.Name {
   static let presentRankingDetailView = Notification.Name("presentRankingDetailView")
 }
 
-class FooterTableCell: UITableViewHeaderFooterView {
+class TableFooter: UITableViewHeaderFooterView {
 
   private let notiCenter = NotificationCenter.default
 

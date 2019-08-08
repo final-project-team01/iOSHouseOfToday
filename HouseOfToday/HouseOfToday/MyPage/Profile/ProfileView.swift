@@ -29,7 +29,7 @@ final class ProfileView: UIView {
     tableView.register(cell: MyshoppingThumbCell.self)
     tableView.register(cell: ProfileUserCell.self)
     tableView.register(cell: ProfileBaseCell.self)
-    tableView.register(cell: PictureTableViewCell.self)
+    tableView.register(cell: ProfilePicTableViewCell.self)
     tableView.showsVerticalScrollIndicator = false
     tableView.allowsSelection = false
     tableView.refreshControl = refreshControl
@@ -89,7 +89,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
 //      cell.separatorInset = UIEdgeInsets.zero
 //      return cell
 
-      let cell = tableView.dequeueReusableCell(withIdentifier: PictureTableViewCell.identifier, for: indexPath) as! PictureTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: ProfilePicTableViewCell.identifier, for: indexPath) as! ProfilePicTableViewCell
       cell.separatorInset = UIEdgeInsets.zero
       return cell
 

@@ -127,6 +127,8 @@ class RankingCollectionCell: UICollectionViewCell {
     if ratingStarRankLabel.translatesAutoresizingMaskIntoConstraints {
       ratingStarRankLabel.snp.makeConstraints { make in
         make.top.equalTo(productNameLabel.snp.bottom).offset(margin)
+        make.leading.equalToSuperview()
+        make.bottom.equalToSuperview()
       }
     }
 
@@ -134,6 +136,7 @@ class RankingCollectionCell: UICollectionViewCell {
       reviewCountLabel.snp.makeConstraints { make in
         make.top.equalTo(productNameLabel.snp.bottom).offset(margin)
         make.leading.equalTo(ratingStarRankLabel.snp.trailing).offset(margin * 2)
+        make.bottom.equalToSuperview()
       }
     }
   }

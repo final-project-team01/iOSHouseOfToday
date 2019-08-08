@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class HeaderTableCell: UITableViewHeaderFooterView {
+class TableHeader: UITableViewHeaderFooterView {
 
     static var height = UIScreen.main.bounds.height/8
 
@@ -43,18 +43,18 @@ class HeaderTableCell: UITableViewHeaderFooterView {
 
     titleLabel.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(JMetric.inset.left)
+      make.trailing.equalToSuperview()
       make.bottom.equalTo(subtitleLabel.snp.top).inset(-10)
     }
 
     if subtitleLabel.text == "" {
-      subtitleLabel.snp.makeConstraints { make in
-        make.leading.equalToSuperview().inset(JMetric.inset.left)
-        make.top.equalToSuperview().inset(-10)
-      }
+
+      subtitleLabel.isHidden = true
 
     } else {
       self.subtitleLabel.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(JMetric.inset.left)
+      make.trailing.equalToSuperview()
       make.bottom.equalToSuperview()
 
       }

@@ -11,9 +11,9 @@ import SnapKit
 
 // FIXME: - 더보기 버튼 BEST100만 눌렀을 때만 넘어가기
 
-class TempRankingView: UIView {
+class RankingView: UIView {
 
-//  private let notiCenter = NotificationCenter.default
+  //  private let notiCenter = NotificationCenter.default
 
   private let sectionTitle = ["오늘의집 AWARDS", "인기", "생활용품 BEST", "패브릭 BEST", "주방용품 BEST", "가전제품 BEST", "반려동물 BEST", "가구 BEST"]
   private let sectionSubTitle = ["카테고리별 BEST 100", "조명&홈데코 BEST", "", "", "", "", "", ""]
@@ -41,8 +41,8 @@ class TempRankingView: UIView {
     tableView.delegate = self.self
     tableView.register(cell: RankingTableCell.self)
     tableView.register(cell: RankingHorizontalCell.self)
-    tableView.register(HeaderTableCell.self, forHeaderFooterViewReuseIdentifier: "HeaderTableCell")
-    tableView.register(FooterTableCell.self, forHeaderFooterViewReuseIdentifier: "FooterTableCell")
+    tableView.register(TableHeader.self, forHeaderFooterViewReuseIdentifier: "HeaderTableCell")
+    tableView.register(TableFooter.self, forHeaderFooterViewReuseIdentifier: "FooterTableCell")
     tableView.allowsSelection = false
     tableView.backgroundColor = .white
     tableView.showsVerticalScrollIndicator = false
@@ -122,11 +122,11 @@ class TempRankingView: UIView {
 
 }
 
-extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
+extension RankingView: UITableViewDataSource, UITableViewDelegate {
 
   // HeaderView Setting
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableCell") as? HeaderTableCell else {
+    guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableCell") as? TableHeader else {
       return nil
     }
     view.titleLabel.text = sectionTitle[section]
@@ -136,7 +136,7 @@ extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
 
   // FooterView Setting
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FooterTableCell") as? FooterTableCell else {
+    guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FooterTableCell") as? TableFooter else {
       return nil
     }
 
@@ -145,11 +145,11 @@ extension TempRankingView: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return HeaderTableCell.height
+    return TableHeader.height
   }
 
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    return FooterTableCell.height
+    return TableFooter.height
   }
 
   func numberOfSections(in tableView: UITableView) -> Int {
