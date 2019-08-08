@@ -182,8 +182,23 @@ final class StoreVC: CategoryTabBarViewController {
     print("Menu 버튼 클릭")
   }
 
+  // MARK: - present ShoppingCartVC
   @objc private func cartButtonDidTap(_ sender: Any) {
-    print("Cart 버튼 클릭")
+
+//    let shoppingCartVC = ShoppingCartVC()
+
+    let cartVC = CartVC()
+
+    let navi = UINavigationController(rootViewController: cartVC)
+
+    let transition = CATransition()
+    transition.duration = 0.5
+    transition.type = CATransitionType.moveIn
+    transition.subtype = CATransitionSubtype.fromRight
+    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    view.window!.layer.add(transition, forKey: kCATransition)
+
+    present(navi, animated: true)
   }
 
   @objc func presentRankingDetailView(_ sender: Notification) {

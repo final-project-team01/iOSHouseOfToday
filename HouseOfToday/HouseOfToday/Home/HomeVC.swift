@@ -133,7 +133,20 @@ final class HomeVC: CategoryTabBarViewController {
   // MARK: - Action Methods
   // 창식
   @objc private func cartButtonDidTap(_ sender: Any) {
-    print("Cart 버튼 클릭")
+
+    //    let shoppingCartVC = ShoppingCartVC()
+
+    let cartVC = CartVC()
+
+    let navi = UINavigationController(rootViewController: cartVC)
+
+    let transition = CATransition()
+    transition.duration = 0.5
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromRight
+    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    view.window!.layer.add(transition, forKey: kCATransition)
+    present(navi, animated: true)
   }
 
   // MARK: Notification Action Methods
