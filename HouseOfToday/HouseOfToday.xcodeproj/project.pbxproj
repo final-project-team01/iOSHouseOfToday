@@ -106,10 +106,10 @@
 		8E72B8DF22DF178D00E70D0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */; };
 		8E7712BA22FBFA6400B763DF /* MyPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7712B922FBFA6400B763DF /* MyPageManager.swift */; };
 		8E7712BE22FC721000B763DF /* HouseWarmingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7712BD22FC720F00B763DF /* HouseWarmingDetailViewController.swift */; };
-		8E7712C022FC766200B763DF /* CoverImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7712BF22FC766200B763DF /* CoverImageCollectionCell.swift */; };
 		8E7712C222FC767D00B763DF /* TitleCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7712C122FC767D00B763DF /* TitleCollectionCell.swift */; };
 		8E7712C422FC769300B763DF /* ContentCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7712C322FC769300B763DF /* ContentCollectionCell.swift */; };
 		8E7712C622FC788A00B763DF /* HouseWarmingDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7712C522FC788A00B763DF /* HouseWarmingDetail.swift */; };
+		8E7712C822FC992300B763DF /* CoverImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7712C722FC992300B763DF /* CoverImageHeaderView.swift */; };
 		8E9F6DBE22F2D29900DB9869 /* SecondSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F6DBD22F2D29900DB9869 /* SecondSectionViewController.swift */; };
 		8E9F6DC222F309B900DB9869 /* PushAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F6DC122F309B900DB9869 /* PushAlertViewController.swift */; };
 		8E9F6DC522F30EB800DB9869 /* PushTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F6DC422F30EB800DB9869 /* PushTableCell.swift */; };
@@ -277,10 +277,10 @@
 		8E72B8DE22DF178D00E70D0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8E7712B922FBFA6400B763DF /* MyPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageManager.swift; sourceTree = "<group>"; };
 		8E7712BD22FC720F00B763DF /* HouseWarmingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseWarmingDetailViewController.swift; sourceTree = "<group>"; };
-		8E7712BF22FC766200B763DF /* CoverImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageCollectionCell.swift; sourceTree = "<group>"; };
 		8E7712C122FC767D00B763DF /* TitleCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionCell.swift; sourceTree = "<group>"; };
 		8E7712C322FC769300B763DF /* ContentCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCollectionCell.swift; sourceTree = "<group>"; };
 		8E7712C522FC788A00B763DF /* HouseWarmingDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseWarmingDetail.swift; sourceTree = "<group>"; };
+		8E7712C722FC992300B763DF /* CoverImageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageHeaderView.swift; sourceTree = "<group>"; };
 		8E9F6DBD22F2D29900DB9869 /* SecondSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSectionViewController.swift; sourceTree = "<group>"; };
 		8E9F6DC122F309B900DB9869 /* PushAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAlertViewController.swift; sourceTree = "<group>"; };
 		8E9F6DC422F30EB800DB9869 /* PushTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTableCell.swift; sourceTree = "<group>"; };
@@ -743,7 +743,7 @@
 			children = (
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
 				8E7712BD22FC720F00B763DF /* HouseWarmingDetailViewController.swift */,
-				8E7712BF22FC766200B763DF /* CoverImageCollectionCell.swift */,
+				8E7712C722FC992300B763DF /* CoverImageHeaderView.swift */,
 				8E7712C122FC767D00B763DF /* TitleCollectionCell.swift */,
 				8E7712C322FC769300B763DF /* ContentCollectionCell.swift */,
 				ABD5D7EC22F424EB00E8FF72 /* Picture */,
@@ -1050,6 +1050,7 @@
 				AB7EEA9622DDD56600F33663 /* VoucherCell.swift in Sources */,
 				42490F6122DDC13800EE1A01 /* CategoryTabBarViewController.swift in Sources */,
 				ABBA8FB522E6EC37001D43D7 /* RankingTableCell.swift in Sources */,
+				8E7712C822FC992300B763DF /* CoverImageHeaderView.swift in Sources */,
 				4230868F22EF1A3C00203475 /* SimilarProductView.swift in Sources */,
 				42FF928822D5A48300639BAF /* AppDelegate.swift in Sources */,
 				42C4E5C022D5BB2B00A88466 /* AddUserActivityVC.swift in Sources */,
@@ -1125,7 +1126,6 @@
 				AB1AF93D22ED8B2C00299226 /* DetailRankingVC.swift in Sources */,
 				426BC32122FA5BB30056F997 /* CartVC.swift in Sources */,
 				8E7712C422FC769300B763DF /* ContentCollectionCell.swift in Sources */,
-				8E7712C022FC766200B763DF /* CoverImageCollectionCell.swift in Sources */,
 				42490F6922DDC15200EE1A01 /* CategoryView.swift in Sources */,
 				8E5B59E522D5AC7100BB01E8 /* Logger.swift in Sources */,
 				AB88243722F96EBF003EF059 /* TableViewFooter.swift in Sources */,

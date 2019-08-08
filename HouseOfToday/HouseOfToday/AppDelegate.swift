@@ -27,8 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.backgroundColor = .white
     window?.makeKeyAndVisible()
 
-    //window?.rootViewController = mainVC
-    window?.rootViewController = HouseWarmingDetailViewController()
+    window?.rootViewController = mainVC
 
     socialLoginSetting()
 

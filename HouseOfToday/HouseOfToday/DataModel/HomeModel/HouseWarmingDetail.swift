@@ -8,10 +8,17 @@
 
 import Foundation
 
+struct Content: Decodable {
+  let image: String?
+  let text: String?
+}
+
 struct HouseWarmingDetail: Decodable {
   let id: Int
+  let content: [Content]
   let coverImageUrlStr: String // 키값 바꾸기
   let title: String
+  let author: String
   let created: String // 작성일자
 
   let structure: String // 건물
@@ -25,13 +32,14 @@ struct HouseWarmingDetail: Decodable {
   let detailPart: String // 세부공정 : - 이면 없음
   let location: String // 지역 : 경기도 이천시
 
-  let likeCount: String
-  let scrapCount: String
-  let hitCount: String
-  let commentCount: String
+  let likeCount: Int
+  let scrapCount: Int
+  let hitCount: Int
+  let commentCount: Int
 
   private enum CodingKeys: String, CodingKey {
     case id
+    case author
     case coverImageUrlStr = "cover_image"
     case title
     case created
@@ -49,6 +57,7 @@ struct HouseWarmingDetail: Decodable {
     case scrapCount = "scrap_count"
     case hitCount = "hit_count"
     case commentCount = "comment_count"
+    case content = "housewarming_detail_content"
   }
 
 }
