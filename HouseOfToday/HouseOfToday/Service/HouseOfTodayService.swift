@@ -10,8 +10,8 @@ import Foundation
 
 final class HouseOfTodayService: HouseOfTodayServiceType {
 
-//  let baseURL = "http://52.78.112.247"
-  let baseURL = "http://clonehouseoftodayapi.jinukk.me/"
+  let baseURL = "http://52.78.112.247"
+//  let baseURL = "http://clonehouseoftodayapi.jinukk.me/"
 
   func fetchStoreHome(completion: @escaping (Result<StoreHomeList, ServiceError>) -> Void) {
 
@@ -35,7 +35,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-      }.resume()
+    }.resume()
 
   }
 
@@ -323,6 +323,38 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
 
-      }.resume()
+    }.resume()
+  }
+
+  func fetchCartList(completion: @escaping (Result<[ShoppingOptionCart], ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/cart/"
+
+    guard let url = urlComp?.url else { return print("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "GET"
+
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    urlRequest.addValue("Token 69e86dfbeca27eec3f6a96c0addffd9f272449e2", forHTTPHeaderField: "Authorization")
+
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      if let shoppingCartList = try? JSONDecoder().decode([ShoppingOptionCart].self, from: data) {
+        completion(.success(shoppingCartList))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+    }.resume()
+
   }
 }

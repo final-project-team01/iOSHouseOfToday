@@ -28,6 +28,8 @@ final class QuestionsAndAnswersVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+//    UITableView().contentSize
+
     tableView.snp.makeConstraints {
       $0.edges.equalTo(view.safeAreaLayoutGuide)
     }
