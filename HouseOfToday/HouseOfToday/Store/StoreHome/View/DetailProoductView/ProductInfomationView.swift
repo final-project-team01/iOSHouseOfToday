@@ -293,9 +293,12 @@ final class ProductInfomationView: UIView {
   @objc private func spreadImageViewAction(_ sender: UIButton) {
     print("spreadImageViewAction")
 
+    gradationImageView.isHidden = true
+    spreadButton.isHidden = true
+
     let totalHeight: CGFloat = getImagesHeight()
 
-    ProductInfomationView.height = totalHeight
+    ProductInfomationView.height = totalHeight + 100
     notiCenter.post(name: ProductDetailVC.cellSpread, object: nil, userInfo: ["TotalHeight": totalHeight])
   }
 }

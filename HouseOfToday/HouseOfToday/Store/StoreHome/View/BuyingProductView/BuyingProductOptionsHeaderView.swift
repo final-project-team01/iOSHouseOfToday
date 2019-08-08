@@ -71,6 +71,7 @@ final class BuyingProductOptionsHeaderView: UICollectionReusableView {
       optionButton.snp.makeConstraints {
         $0.top.equalToSuperview().offset(Metric.marginY)
         $0.leading.trailing.equalToSuperview().inset(Metric.marginX)
+        $0.bottom.equalToSuperview().offset(-Metric.marginY)
 
         if let titleLabel = optionButton.titleLabel,
           let imageView = optionButton.imageView {

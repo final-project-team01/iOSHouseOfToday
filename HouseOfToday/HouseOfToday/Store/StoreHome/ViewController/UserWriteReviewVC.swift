@@ -34,6 +34,7 @@ final class UserWriteReviewVC: UIViewController {
   private lazy var productTitle: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "Titleasdfasdflkjshdfliu laksdhflauksbdfalsbdflk aksdfhalskfdh"
+    label.numberOfLines = 2
     label.font = UIFont.systemFont(ofSize: 15)
     scrollView.addSubview(label)
     return label
@@ -108,6 +109,7 @@ final class UserWriteReviewVC: UIViewController {
     tv.textColor = .lightGray
     tv.font = UIFont.systemFont(ofSize: 12)
     tv.delegate = self
+//    tv.textInputMod
     scrollView.addSubview(tv)
     return tv
   }()
@@ -196,7 +198,7 @@ final class UserWriteReviewVC: UIViewController {
     didSet {
       guard let info = productDetailData else {return print("productDetailData is nil")}
 
-      if let first = info.detailImages.first {
+      if let first = info.thumnailImages.first {
         print("first.image: \(first.image)")
         if let url = URL(string: first.image) {
 
@@ -221,6 +223,10 @@ final class UserWriteReviewVC: UIViewController {
     makeRatingStarButton()
     autolayoutViews()
     autolayoutButtons()
+
+    settingViews()
+
+    reviewTextView.textContentType = .location
   }
 
   // MARK: - Setting Navigation Bar
@@ -259,7 +265,7 @@ final class UserWriteReviewVC: UIViewController {
       $0.leading.trailing.bottom.equalToSuperview()
     }
 
-    titileImageView.backgroundColor = .red
+    titileImageView.backgroundColor = .white
     titileImageView.snp.makeConstraints {
       $0.width.height.equalTo(100)
       $0.top.equalTo(scrollView.snp.top).offset(Metric.marginY/2)
@@ -269,6 +275,7 @@ final class UserWriteReviewVC: UIViewController {
     productTitle.snp.makeConstraints {
       $0.centerY.equalTo(titileImageView)
       $0.leading.equalTo(titileImageView.snp.trailing).offset(Metric.marginX)
+      $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(Metric.marginX)
     }
 
     pointLabel.snp.makeConstraints {
@@ -372,11 +379,32 @@ final class UserWriteReviewVC: UIViewController {
     }
   }
 
+  private func settingViews() {
+    guard let info = productDetailData else {return print("productDetailData is nil")}
+    if let first = info.thumnailImages.first {
+      print("first.image: \(first.image)")
+      if let url = URL(string: first.image) {
+
+        titileImageView.kf.setImage(with: url,
+                                    placeholder: nil,
+                                    options: [.transition(.fade(0)), .loadDiskFileSynchronously],
+                                    progressBlock: nil) { (_) in
+        }
+      }
+    }
+
+    productTitle.text = "[\(info.brandName)] \(info.name)"
+
+  }
+
+  private var clickedTab = 0
   @objc private func ratingStar(_ sender: UIButton) {
 
     if emotionTexts.count > sender.tag {
       emotionLabel.text = emotionTexts[sender.tag]
     }
+
+    clickedTab = sender.tag
 
     ratingStarButtons.forEach {
 
@@ -405,6 +433,61 @@ final class UserWriteReviewVC: UIViewController {
 
     // FIXME: - add upload
 
+    alertWriteReview()
+
+//    if let productId = productDetailData?.id {
+//
+//      let postData = NSMutableData(data: "product=\(productId)".data(using: String.Encoding.utf8)!)
+//      postData.append("&star_score=\(clickedTab)".data(using: String.Encoding.utf8)!)
+//      postData.append("&comment=\(reviewTextView.text)".data(using: String.Encoding.utf8)!)
+//
+//      postProductReview(post: postData as Data)
+//    }
+
+  }
+
+  private func alertWriteReview() {
+    let alert = UIAlertController(title: "Review", message: "리뷰를 작성합니다.", preferredStyle: .alert)
+    let okAlert = UIAlertAction(title: "작성", style: .default) { [weak self] (_) in
+      if let productId = self?.productDetailData?.id,
+        let text = self?.reviewTextView.text, let star = self?.clickedTab {
+
+        let postData = NSMutableData(data: "product=\(productId)".data(using: String.Encoding.utf8)!)
+        postData.append("&star_score=\(star)".data(using: String.Encoding.utf8)!)
+        postData.append("&comment=\(text)".data(using: String.Encoding.utf8)!)
+
+        self?.postProductReview(post: postData as Data)
+
+        NotificationCenter.default.post(name: ProductReviewView.downloadDetail, object: nil, userInfo: ["ID": productId])
+        self?.navigationController?.popViewController(animated: true)
+      }
+    }
+
+    let cancel = UIAlertAction(title: "취소", style: .cancel) { (_) in
+
+    }
+
+    alert.addAction(okAlert)
+    alert.addAction(cancel)
+
+    present(alert, animated: true)
+
+  }
+
+  private let service = HouseOfTodayService()
+
+  private func postProductReview(post: Data) {
+
+    service.postProductReview(data: post) { result in
+      switch result {
+      case .success(let list):
+        print("success!!! postProductReview)")
+
+//        self.shoppingOptionCart = list
+      case .failure(let error):
+        print("postProductReview Error: \(error.localizedDescription)")
+      }
+    }
   }
 }
 

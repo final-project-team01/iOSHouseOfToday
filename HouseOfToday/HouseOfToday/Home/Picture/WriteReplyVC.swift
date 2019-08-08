@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReplyVC: UIViewController {
+class WriteReplyVC: UIViewController {
 
   private lazy var replyStatusLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
@@ -90,7 +90,7 @@ class ReplyVC: UIViewController {
 
 }
 
-extension ReplyVC: UITextFieldDelegate {
+extension WriteReplyVC: UITextFieldDelegate {
 
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()

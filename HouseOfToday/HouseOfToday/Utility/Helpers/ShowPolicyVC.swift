@@ -20,7 +20,7 @@ class ShowPolicyVC: UIViewController {
 
   private lazy var confirmButton: UIButton = {
     let btn = UIButton(type: .custom)
-    btn.backgroundColor = UIColor(red: 0, green: 0, blue: 50, alpha: 0.5)
+    btn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
     btn.addTarget(self.self, action: #selector(touchConfirm(_:)), for: .touchUpInside)
     view.addSubview(btn)
     return btn
@@ -43,7 +43,7 @@ class ShowPolicyVC: UIViewController {
       $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-Metric.marginY*2)
       $0.leading.equalTo(view.safeAreaLayoutGuide).offset(Metric.marginX*2)
       $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-Metric.marginX*2)
-      $0.height.equalTo(50)
+      $0.height.equalTo(100)
     }
   }
 

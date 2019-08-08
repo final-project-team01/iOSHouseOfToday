@@ -20,9 +20,16 @@ class AddUserActivityView: UIView {
     return view
   }()
 
-  lazy var activityView: UIView = {
-    let view = UIView(frame: CGRect.zero)
-    view.backgroundColor = .blue
+//  lazy var activityView: UIView = {
+//    let view = UIView(frame: CGRect.zero)
+//    view.backgroundColor = .blue
+//    return view
+//  }()
+
+  lazy var activityView: UIImageView = {
+    let view = UIImageView(image: UIImage(named: "Activity"))
+    view.contentMode = .scaleAspectFit
+    view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
     return view
   }()
 
@@ -61,7 +68,7 @@ class AddUserActivityView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
 //    backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
-
+activityView.contentMode = .scaleAspectFill
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -108,7 +115,7 @@ class AddUserActivityView: UIView {
     UIView.animate(withDuration: 0.33) {
 
       self.activityView.snp.updateConstraints {
-        $0.top.equalTo(self.snp.bottom).offset(-UIScreen.main.bounds.height/2 - self.safeAreaInsets.bottom)
+        $0.top.equalTo(self.snp.bottom).offset(-self.activityView.frame.height - self.safeAreaInsets.bottom)//.offset(-UIScreen.main.bounds.height/2.2 - self.safeAreaInsets.bottom)
       }
       self.layoutIfNeeded()
     }

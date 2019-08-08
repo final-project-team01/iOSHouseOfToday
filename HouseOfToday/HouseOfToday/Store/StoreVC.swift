@@ -10,10 +10,10 @@ import UIKit
 
 extension StoreVC {
   static var presentProductList: Notification.Name {
-    return Notification.Name("presentPL")
+    return Notification.Name("presentProductList")
   }
   static var presentProductDetail: Notification.Name {
-    return Notification.Name("presentPD")
+    return Notification.Name("presentProductDetail")
   }
 //  static var presentProduct: Notification.Name {
 //    return Notification.Name("presentPL")
@@ -146,6 +146,9 @@ final class StoreVC: CategoryTabBarViewController {
 
     let buttonWidth = UIScreen.main.bounds.width - leftItem.width - rightItem.width
     searchButton.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: 35)
+
+    // MARK: - 창근 누가 자꾸 안보이게 하는겨?
+    tabBarController?.tabBar.isHidden = false
   }
 
   // MARK: - present VC
@@ -168,7 +171,7 @@ final class StoreVC: CategoryTabBarViewController {
     guard let userInfo = sender.userInfo as? [String: Int],
       let id = userInfo["productID"]
       else {
-        return
+        return print("fail down casting: ProductDetailVC")
     }
 
     let vc = ProductDetailVC()

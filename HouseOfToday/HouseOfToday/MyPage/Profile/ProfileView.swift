@@ -115,12 +115,21 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
 
     //나의 쇼핑
     case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: MyshoppingThumbCell.identifier, for: indexPath) as! MyshoppingThumbCell
-            cell.separatorInset = UIEdgeInsets.zero
-            return cell
+      let cell = tableView.dequeueReusableCell(withIdentifier: MyshoppingThumbCell.identifier, for: indexPath) as! MyshoppingThumbCell
+      cell.separatorInset = UIEdgeInsets.zero
+      return cell
     //사진
-    case 2:
-      let cell = tableView.dequeueReusableCell(withIdentifier: ProfilePicTableViewCell.identifier, for: indexPath) as! ProfilePicTableViewCell
+
+    case 2: // FIXME: - 높이 유동적으로 상태에 따라 설정
+      let cell = tableView.dequeueReusableCell(withIdentifier: ProfileBaseCell.identifier, for: indexPath) as! ProfileBaseCell
+      cell.setLabelItems(title: .picture)
+
+      if indexPath.row == 2 {
+        cell.rightSideCellButton.isEnabled = false
+      } else {
+        cell.rightSideCellButton.isEnabled = true
+      }
+
       cell.separatorInset = UIEdgeInsets.zero
       return cell
 
@@ -155,9 +164,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
       return 230
     case 1:
       return 100
-    case 2:
 
-      return 520
     default:
       return 80
 

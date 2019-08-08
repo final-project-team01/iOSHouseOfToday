@@ -43,7 +43,7 @@ final class ProfileBaseCell: UITableViewCell {
     return label
   }()
 
-  private lazy var rightSideCellButton: UIButton = {
+  lazy var rightSideCellButton: UIButton = {
     let button = UIButton(type: .custom)
     button.setTitleColor(.white, for: .normal)
     button.setTitle("바로가기", for: .normal)

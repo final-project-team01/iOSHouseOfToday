@@ -163,6 +163,7 @@ class MyPageVC: CategoryTabBarViewController {
       else {
         return print("fail downCasting")
     }
+    print("trackDeliveryHistoryVC")
     navigationController?.pushViewController(trackDeliveryHistoryVC, animated: true)
   }
 

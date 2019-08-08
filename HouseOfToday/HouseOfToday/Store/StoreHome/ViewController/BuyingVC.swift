@@ -332,29 +332,43 @@ final class BuyingVC: UIViewController {
     sender.isHighlighted.toggle()
   }
 
-  @objc private func touchUpBuyingButton(_ sender: UIButton) {
+  private func alertBuying() {
+    let alert = UIAlertController(title: "주문", message: "주문을 하시겠습니까?", preferredStyle: .alert)
+    let okAlert = UIAlertAction(title: "주문", style: .default) { [weak self] (_) in
 
-    var id = ""
-    var option = ""
-    var quantity = ""
+      var id = ""
+      var option = ""
+      var quantity = ""
 
-    shoppingCartList.forEach {
-      id = "\($0.productId)"
-      option += "\($0.productId),"
-      quantity += "\($0.quantity),"
+      self?.shoppingCartList.forEach {
+        id = "\($0.productId)"
+        option += "\($0.productId),"
+        quantity += "\($0.quantity),"
+      }
+
+      option.removeLast()
+      quantity.removeLast()
+
+      print("id: \(id), option: \(option), quantity: \(quantity)")
+
+      let postData = NSMutableData(data: "pd_id=\(id)".data(using: String.Encoding.utf8)!)
+      postData.append("&po_list=\(option)".data(using: String.Encoding.utf8)!)
+      postData.append("&qty_list=\(quantity)".data(using: String.Encoding.utf8)!)
+
+      self?.postOrderProducts(post: postData as Data)
+
     }
 
-    option.removeLast()
-    quantity.removeLast()
+    let cancel = UIAlertAction(title: "취소", style: .destructive)
 
-    print("id: \(id), option: \(option), quantity: \(quantity)")
+    alert.addAction(okAlert)
+    alert.addAction(cancel)
 
-    let postData = NSMutableData(data: "pd_id=\(id)".data(using: String.Encoding.utf8)!)
-    postData.append("&po_list=\(option)".data(using: String.Encoding.utf8)!)
-    postData.append("&qty_list=\(quantity)".data(using: String.Encoding.utf8)!)
+    present(alert, animated: true)
+  }
 
-    postOrderProducts(post: postData as Data)
-
+  @objc private func touchUpBuyingButton(_ sender: UIButton) {
+    alertBuying()
   }
 
   @objc private func touchUpShoppingBagButton(_ sender: UIButton) {
@@ -506,8 +520,9 @@ final class BuyingVC: UIViewController {
       case .success(let list):
         print(list)
 
-        DispatchQueue.main.async {
-          self.shoppingCartList.removeAll()
+        DispatchQueue.main.async { [weak self] in
+          self?.shoppingCartList.removeAll()
+          self?.presentingViewController?.dismiss(animated: false, completion: nil)
         }
 
         break

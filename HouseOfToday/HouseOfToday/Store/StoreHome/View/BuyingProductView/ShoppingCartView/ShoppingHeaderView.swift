@@ -40,7 +40,7 @@ class ShoppingHeaderView: UITableViewHeaderFooterView {
     return btn
   }()
 
-  public var selectAll: ((Bool) -> String)?
+  public var selectAll: ((Bool) -> Void)?
   public var deleteAll: (() -> Void)?
 
   // MARK: - View life cycle
@@ -85,8 +85,8 @@ class ShoppingHeaderView: UITableViewHeaderFooterView {
   @objc private func touchUpAllItemButton(_ sender: UIButton) {
     print("touchUpAllItemButton")
     allItemButton.isSelected.toggle()
-
-    allItemLabel.text = selectAll?(allItemButton.isSelected)
+    selectAll?(allItemButton.isSelected)
+//    allItemLabel.text = selectAll?(allItemButton.isSelected)
   }
 
   @objc private func touchUpSelectedItemDelete(_ sender: UIButton) {

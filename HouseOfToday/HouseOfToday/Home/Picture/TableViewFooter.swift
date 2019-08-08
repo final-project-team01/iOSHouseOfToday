@@ -75,11 +75,20 @@ class TableViewFooter: UITableViewHeaderFooterView {
   override init(reuseIdentifier: String?) {
     super .init(reuseIdentifier: reuseIdentifier)
     configureLabel()
-
+    backgroundColor = .clear
+//    backgroundColor?.withAlphaComponent(50)
+      contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3)
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    backgroundColor = .clear
+    //    backgroundColor?.withAlphaComponent(50)
+    contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3)
   }
 
   private func configureLabel() {

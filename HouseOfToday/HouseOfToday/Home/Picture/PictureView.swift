@@ -35,7 +35,6 @@ class PictureView: UIView {
     tableView.dataSource = self.self
     tableView.delegate = self.self
     tableView.register(cell: PictureTableViewCell.self)
-    //    tableView.rowHeight = UITableView.automaticDimension
     tableView.backgroundColor = .white
     tableView.showsVerticalScrollIndicator = false
     tableView.separatorStyle = .none
@@ -87,6 +86,7 @@ class PictureView: UIView {
 }
 
 extension PictureView: UITableViewDataSource, UITableViewDelegate {
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return pictureList.count
   }
