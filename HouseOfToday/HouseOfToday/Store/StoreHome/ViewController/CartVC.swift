@@ -12,6 +12,9 @@ extension CartVC {
   static var checkedButton: Notification.Name {
     return Notification.Name("checkedButton")
   }
+  static var buyingButton: Notification.Name {
+    return Notification.Name("BuyingButton")
+  }
 }
 
 final class CartVC: UIViewController {
@@ -52,28 +55,61 @@ final class CartVC: UIViewController {
       let cartList = shoppingOptionCart
 
       var tampArray: [ShoppingOptionCart] = []
-      for cart in cartList.sorted (by: { $0.productId < $1.productId }) {
+
+//      for index in 0..<cartList.sorted (by: { $0.productId < $1.productId }).count {
+//
+//        if tampArray.isEmpty {
+//          tampArray.append(cartList[index])
+//        } else if let last = tampArray.last {
+//
+//          if last.productId
+//        }
+//
+//
+//
+//        if index != cartList.count - 1 {
+//          continue
+//        }
+//
+//        productOptions.append(ShoppingCart(checked: true, options: tampArray))
+//      }
+      let sortCart = cartList.sorted (by: { $0.productId < $1.productId })
+      for index in 0..<sortCart.count {
 
         if tampArray.isEmpty {
-          tampArray.append(cart)
+
+          tampArray.append(sortCart[index])
+
+          if index == sortCart.count - 1 {
+            productOptions.append(ShoppingCart(checked: true, options: tampArray))
+          }
+
           continue
         }
 
         if let last = tampArray.last {
 
-          if last.productId == cart.productId {
-            tampArray.append(cart)
+          if last.productId == sortCart[index].productId {
+
+            tampArray.append(sortCart[index])
+
+            if index == sortCart.count - 1 {
+              productOptions.append(ShoppingCart(checked: true, options: tampArray))
+            }
+
             continue
+          } else {
+
+            productOptions.append(ShoppingCart(checked: true, options: tampArray))
+            tampArray.removeAll()
+
+            if index == sortCart.count - 1 {
+              tampArray.append(sortCart[index])
+              productOptions.append(ShoppingCart(checked: true, options: tampArray))
+            }
           }
-
-//          productOptions.append(tampArray)
-
-          productOptions.append(ShoppingCart(checked: true, options: tampArray))
-          tampArray = []
-          continue
         }
 
-        print("error")
       }
 
       print("productOptions \(productOptions.count)")
@@ -86,8 +122,8 @@ final class CartVC: UIViewController {
     }
   }
 
-  private lazy var selectAll: (_ selected: Bool) -> String = {[weak self] selected in
-    guard let `self` = self else { return ""}
+  private lazy var selectAll: (_ selected: Bool) -> Void = {[weak self] selected in
+    guard let `self` = self else { return }
 
 //    self.tableView.cellForRowAtIndexPath()
     for index in 0..<self.productOptions.count {
@@ -100,11 +136,25 @@ final class CartVC: UIViewController {
 
     }
 
-    let countingProduct = self.productOptions.reduce(0) {
-      $0 + ($1.checked == true ? $1.options.reduce(0, {$0 + $1.quantity}) : 0)
+    if let header = self.tableView.headerView(forSection: 0) as? ShoppingHeaderView,
+      let footer = self.tableView.footerView(forSection: 0) as? ShoppingFooterView {
+
+      let isAllchecked = self.productOptions.reduce(true) { $0 && $1.checked }
+      let countingProduct = self.productOptions.reduce(0) {
+        $0 + ($1.checked == true ? $1.options.reduce(0, {$0 + $1.quantity}) : 0)
+      }
+      let countingPrice = self.productOptions.reduce(0) {
+        $0 + ($1.checked == true ? $1.options.reduce(0, {$0 + $1.totalPrice}) : 0)
+      }
+
+      header.allItemButton.isSelected = isAllchecked
+      header.allItemLabel.text = "모두선택 (\(countingProduct)개)"
+
+      footer.selectedItemLabel.text = "\(countingProduct)개"
+      footer.selectedTotalPriceLabel.text = "\(self.formetter(price: countingPrice)))원"
     }
 
-    return "모두선택 (\(countingProduct)개)"
+    //return //"모두선택 (\(countingProduct)개)"
   }
   private lazy var deleteAll: () -> Void = {[weak self] in self?.productOptions.removeAll() }
 
@@ -120,6 +170,9 @@ final class CartVC: UIViewController {
   deinit {
     notiCenter.removeObserver(self,
                               name: CartVC.checkedButton,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: CartVC.buyingButton,
                               object: nil)
   }
 
@@ -138,6 +191,10 @@ final class CartVC: UIViewController {
     notiCenter.addObserver(self,
                            selector: #selector(checkedButton(_:)),
                            name: CartVC.checkedButton,
+                           object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(buyingButton(_:)),
+                           name: CartVC.buyingButton,
                            object: nil)
   }
 
@@ -188,12 +245,62 @@ final class CartVC: UIViewController {
       let countingProduct = productOptions.reduce(0) {
         $0 + ($1.checked == true ? $1.options.reduce(0, {$0 + $1.quantity}) : 0)
       }
+      let countingPrice = productOptions.reduce(0) {
+        $0 + ($1.checked == true ? $1.options.reduce(0, {$0 + $1.totalPrice}) : 0)
+      }
 
       header.allItemButton.isSelected = isAllchecked
       header.allItemLabel.text = "모두선택 (\(countingProduct)개)"
 
-      footer.selectedItemLabel.text = "\(productOptions.reduce(0) { $0 + $1.options.count})개"
-//      footer.
+      footer.selectedItemLabel.text = "\(countingProduct)개"
+      footer.selectedTotalPriceLabel.text = "\(formetter(price: countingPrice)))원"
+
+      tableView.reloadRows(at: [IndexPath(row: productOptions.count, section: 0)], with: .none)
+    }
+  }
+
+  @objc private func buyingButton(_ sender: Notification) {
+    print("noti buyingButton")
+
+//    print(getCheckedCartList())
+    postCartList()
+  }
+
+  private func getCheckedCartList() -> Data {
+
+    var optionIds = productOptions.reduce("") {
+      $0 + ($1.checked == true ? $1.options.reduce("", {$0 + "\($1.id),"}) : "")
+    }
+
+    optionIds.removeLast()
+
+    print("optionIds: \(optionIds)")
+
+    let postData = NSMutableData(data: "pk_list=\(optionIds)".data(using: String.Encoding.utf8)!)
+
+    return postData as Data
+  }
+
+  private func formetter(price: Int) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+
+    return formatter.string(from: price as NSNumber) ?? ""
+  }
+
+  // MARK: - postCartList
+  private func postCartList() {
+
+    let orderList = getCheckedCartList()
+
+    service.postCartList(data: orderList) { result in
+      switch result {
+      case .success(let cart):
+        print("success!!! postCartList)")
+      case .failure(let error):
+        print("postCartList Error: \(error.localizedDescription)")
+      }
+
     }
   }
 
@@ -241,7 +348,10 @@ extension CartVC: UITableViewDataSource {
 
     if let footer = footer as? ShoppingFooterView {
       footer.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
-
+      footer.selectedItemLabel.text = "\(shoppingOptionCart.count)개"
+      let countingPrice = productOptions.reduce(0) {
+        $0 + ($1.checked == true ? $1.options.reduce(0, {$0 + $1.totalPrice}) : 0)}
+      footer.selectedTotalPriceLabel.text = "\(formetter(price: countingPrice))원"
     }
 
     return footer
@@ -261,6 +371,13 @@ extension CartVC: UITableViewDataSource {
 
       let cell = tableView.dequeue(TotalPriceCell.self)
       cell.selectionStyle = .none
+
+      let countingPrice = productOptions.reduce(0) {
+        $0 + ($1.checked == true ? $1.options.reduce(0, {$0 + $1.totalPrice}) : 0)}
+      cell.totalProductPriceLabel.text = "\(formetter(price: countingPrice))원"
+      cell.totalDeleveryPriceLabel.text = "0원"
+      cell.totalDiscountPriceLabel.text = "- 0원"
+      cell.totalPaymentPriceLabel.text = "\(formetter(price: countingPrice))원"
       return cell
     } else {
 

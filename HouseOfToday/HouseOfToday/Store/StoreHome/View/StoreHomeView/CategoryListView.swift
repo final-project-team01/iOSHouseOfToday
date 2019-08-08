@@ -122,6 +122,6 @@ extension CategoryListView: UICollectionViewDelegate {
 
     let categoryId = categoryList[indexPath.item].id
 
-    notiCenter.post(name: StoreVC.presentProductList, object: nil, userInfo: ["categoryId": categoryId])
+    notiCenter.post(name: StoreVC.presentProductList, object: nil, userInfo: ["categoryId": Int(categoryId)])
   }
 }

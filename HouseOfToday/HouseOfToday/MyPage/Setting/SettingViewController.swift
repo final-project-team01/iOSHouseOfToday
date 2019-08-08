@@ -14,8 +14,11 @@ class SettingViewController: UIViewController {
   private lazy var settingTableView: UITableView = {
     let tv = UITableView(frame: .zero)
     tv.register(cell: UITableViewCell.self)
+    tv.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "footer")
     tv.dataSource = self
     tv.delegate = self
+
+    tv.estimatedRowHeight = 80
 
     view.addSubview(tv)
     return tv
@@ -83,7 +86,7 @@ class SettingViewController: UIViewController {
   // MARK: - Autolayout
   private func makeConstraints() {
     settingTableView.snp.makeConstraints {
-      $0.edges.equalTo(view.safeAreaLayoutGuide)
+      $0.edges.equalToSuperview()
     }
   }
 }
@@ -135,6 +138,14 @@ extension SettingViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 extension SettingViewController: UITableViewDelegate {
 
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableView.automaticDimension
+  }
+
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return 80
+  }
+
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch indexPath.section {
     case 0: // 첫 번째 섹션
@@ -177,6 +188,7 @@ extension SettingViewController: UITableViewDelegate {
     default:
       break
     }
+
   }
 
   private func pushWebView(with urlString: String) {

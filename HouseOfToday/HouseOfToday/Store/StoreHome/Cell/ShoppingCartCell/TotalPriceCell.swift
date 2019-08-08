@@ -13,7 +13,7 @@ class TotalPriceCell: UITableViewCell {
   // MARK: - Property
   static var identifier: String = "TotalPriceCell"
 
-  private lazy var grayView: UIView = {
+  public lazy var grayView: UIView = {
     let view = UIView(frame: .zero)
     view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     contentView.addSubview(view)
@@ -27,7 +27,7 @@ class TotalPriceCell: UITableViewCell {
     return label
   }()
 
-  private lazy var totalProductPriceLabel: UILabel = {
+  public lazy var totalProductPriceLabel: UILabel = {
     let label = UILabel(frame: .zero)
     label.text = "???,???원"
     contentView.addSubview(label)
@@ -41,7 +41,7 @@ class TotalPriceCell: UITableViewCell {
     return label
   }()
 
-  private lazy var totalDeleveryPriceLabel: UILabel = {
+  public lazy var totalDeleveryPriceLabel: UILabel = {
     let label = UILabel(frame: .zero)
     label.text = "+₊✚ ?원"
     contentView.addSubview(label)
@@ -55,7 +55,7 @@ class TotalPriceCell: UITableViewCell {
     return label
   }()
 
-  private lazy var totalDiscountPriceLabel: UILabel = {
+  public lazy var totalDiscountPriceLabel: UILabel = {
     let label = UILabel(frame: .zero)
     label.text = "- ??,???원"
     contentView.addSubview(label)
@@ -70,7 +70,7 @@ class TotalPriceCell: UITableViewCell {
     return label
   }()
 
-  private lazy var totalPaymentPriceLabel: UILabel = {
+  public lazy var totalPaymentPriceLabel: UILabel = {
     let label = UILabel(frame: .zero)
     label.text = "??,???원"
     label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)

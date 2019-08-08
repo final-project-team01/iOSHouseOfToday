@@ -20,7 +20,10 @@ extension ProductDetailVC {
     return Notification.Name("progressUpdate")
   }
   static var presentFormBottom: Notification.Name {
-    return Notification.Name("progressUpdate")
+    return Notification.Name("presentFormBottom")
+  }
+  static var presentPicDetail: Notification.Name {
+    return Notification.Name("presentPicDetail")
   }
 }
 
@@ -69,7 +72,7 @@ final class ProductDetailVC: UIViewController {
       print("productList called")
       DispatchQueue.main.async { [weak self] in
         let indexSet = IndexSet(integer: 1)
-//        self?.collectionView.reloadSections(indexSet)
+        self?.collectionView.reloadSections(indexSet)
       }
     }
   }
@@ -103,7 +106,8 @@ final class ProductDetailVC: UIViewController {
 
       DispatchQueue.main.async { [weak self] in
         let indexSet = IndexSet(integer: 0)
-//        self?.collectionView.reloadSections(indexSet)
+
+        self?.collectionView.reloadSections(indexSet)
         self?.fetchCategoryID(id: info.category)
       }
     }
@@ -164,7 +168,9 @@ final class ProductDetailVC: UIViewController {
     return iv
   }()
 
-  let buyingVC = BuyingVC()
+  private let buyingVC = BuyingVC()
+
+  private var ID = 0
 
   // MARK: - View life cycle
   override func viewDidLoad() {
@@ -177,6 +183,7 @@ final class ProductDetailVC: UIViewController {
     setupNotificationCenter()
     settingProgressView()
 
+    downloadDetail(id: ID)
   }
 
   deinit {
@@ -191,6 +198,9 @@ final class ProductDetailVC: UIViewController {
                               object: nil)
     notiCenter.removeObserver(self,
                               name: ProductDetailVC.presentFormBottom,
+                              object: nil)
+    notiCenter.removeObserver(self,
+                              name: ProductDetailVC.presentPicDetail,
                               object: nil)
   }
 
@@ -256,6 +266,10 @@ final class ProductDetailVC: UIViewController {
     notiCenter.addObserver(self,
                            selector: #selector(presentFromBottom(_:)),
                            name: ProductDetailVC.presentFormBottom,
+                           object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(presentPicDetail(_:)),
+                           name: ProductDetailVC.presentPicDetail,
                            object: nil)
   }
 
@@ -403,7 +417,7 @@ final class ProductDetailVC: UIViewController {
       else {
         return print("fail down casting-> presentFromBottom")
     }
-
+    print("fail down casting-> ??????")
     let transition: CATransition = CATransition()
     transition.duration = 0.5
     transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -427,8 +441,27 @@ final class ProductDetailVC: UIViewController {
     self.navigationController?.pushViewController(vc, animated: true)
   }
 
+  @objc private func presentPicDetail(_ sender: Notification) {
+
+    guard let userInfo = sender.userInfo as? [String: Int],
+      let index = userInfo["picDetail"]
+      else {
+        return print("fail down casting: -> presentVC")
+    }
+
+    let pic = PicDetailVC()
+    pic.fetchPicDetailList(id: index)
+    self.navigationController?.pushViewController(pic, animated: true)
+  }
+
   // MARK: - FetchProductDetail
   public func fetchProductDetail(id: Int) {
+
+    self.ID = id
+
+  }
+
+  private func downloadDetail(id: Int) {
     service.fetchProductDetail(id: id) { result in
       switch result {
       case .success(let product):

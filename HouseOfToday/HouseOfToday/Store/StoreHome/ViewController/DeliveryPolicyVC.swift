@@ -8,6 +8,66 @@
 
 import UIKit
 
+class DeliveryPolicyVC: UIViewController {
+
+  private let notiCenter = NotificationCenter.default
+
+  private lazy var scrollView: UIScrollView = {
+    let scrollView = UIScrollView()
+    scrollView.minimumZoomScale = 0.1
+    scrollView.delegate = self
+    view.addSubview(scrollView)
+    return scrollView
+  }()
+
+  private lazy var imageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "deliveryPolicy")
+    imageView.contentMode = .scaleAspectFit
+    self.scrollView.addSubview(imageView)
+    return imageView
+  }()
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    view.backgroundColor = .white
+    configureAutoLayout()
+
+  }
+
+  private func configureAutoLayout() {
+    scrollView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+
+    imageView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+  }
+
+  private func fitToScrollView() {
+    let zoomScale = (scrollView.frame.size.width) / (imageView.image!.size.width)
+
+    print("(scrollView.frame.size.width)", (scrollView.frame.size.width))
+    print("(imageView.image!.size.width)", (imageView.image!.size.width))
+    print("scrollView.frame.size.width / (imageView.image!.size.width)", scrollView.frame.size.width / (imageView.image!.size.width))
+
+    scrollView.setZoomScale(zoomScale, animated: false)
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    fitToScrollView()
+  }
+}
+
+extension DeliveryPolicyVC: UIScrollViewDelegate {
+  func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    return imageView
+  }
+}
+
+/*
 final class DeliveryPolicyVC: UIViewController {
 
   // MARK: - Property
@@ -39,16 +99,8 @@ final class DeliveryPolicyVC: UIViewController {
     policyImageViewAutolayout()
   }
 
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-
-  }
-
   // MARK: - Setting Navigation Bar
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    configureNaviBar()
-  }
+  
   private func configureNaviBar() {
     self.title = "리뷰보기"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -79,3 +131,4 @@ final class DeliveryPolicyVC: UIViewController {
   }
 
 }
+*/
