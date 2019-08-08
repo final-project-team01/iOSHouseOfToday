@@ -766,10 +766,6 @@
 			isa = PBXGroup;
 			children = (
 				42FF928922D5A48300639BAF /* HomeVC.swift */,
-				8E7712BD22FC720F00B763DF /* HouseWarmingDetailViewController.swift */,
-				8E7712C722FC992300B763DF /* CoverImageHeaderView.swift */,
-				8E7712C122FC767D00B763DF /* TitleCollectionCell.swift */,
-				8E7712C322FC769300B763DF /* ContentCollectionCell.swift */,
 				ABD5D7EC22F424EB00E8FF72 /* Picture */,
 				AB7EFE5522FC6715005675CC /* Housewarming */,
 			);
@@ -792,6 +788,10 @@
 			children = (
 				AB7EFE5622FC676B005675CC /* HouseWarmingView.swift */,
 				AB7EFE5822FC68E0005675CC /* HouseWarmingTableViewCell.swift */,
+				8E7712BD22FC720F00B763DF /* HouseWarmingDetailViewController.swift */,
+				8E7712C722FC992300B763DF /* CoverImageHeaderView.swift */,
+				8E7712C122FC767D00B763DF /* TitleCollectionCell.swift */,
+				8E7712C322FC769300B763DF /* ContentCollectionCell.swift */,
 			);
 			path = Housewarming;
 			sourceTree = "<group>";
