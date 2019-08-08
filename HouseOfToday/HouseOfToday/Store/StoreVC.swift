@@ -10,10 +10,10 @@ import UIKit
 
 extension StoreVC {
   static var presentProductList: Notification.Name {
-    return Notification.Name("presentPL")
+    return Notification.Name("presentProductList")
   }
   static var presentProductDetail: Notification.Name {
-    return Notification.Name("presentPD")
+    return Notification.Name("presentProductDetail")
   }
 //  static var presentProduct: Notification.Name {
 //    return Notification.Name("presentPL")
@@ -168,7 +168,7 @@ final class StoreVC: CategoryTabBarViewController {
     guard let userInfo = sender.userInfo as? [String: Int],
       let id = userInfo["productID"]
       else {
-        return
+        return print("fail down casting: ProductDetailVC")
     }
 
     let vc = ProductDetailVC()

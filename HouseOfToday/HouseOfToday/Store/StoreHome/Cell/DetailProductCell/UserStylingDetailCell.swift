@@ -13,7 +13,7 @@ class UserStylingDetailCell: UICollectionViewCell {
   // MARK: - Property
   static var identifier: String = "UserStylingDetailCell"
 
-  lazy var thumnailImageView: UIImageView = {
+  public lazy var thumnailImageView: UIImageView = {
     let iv = UIImageView(frame: CGRect.zero)
     iv.layer.masksToBounds = true
     iv.layer.cornerRadius = Metric.StylingShotSmallCellSize.width / 10
@@ -28,7 +28,7 @@ class UserStylingDetailCell: UICollectionViewCell {
     return view
   }()
 
-  private lazy var userImageView: UIImageView = {
+  public lazy var userImageView: UIImageView = {
     let iv = UIImageView(frame: CGRect.zero)
     iv.layer.masksToBounds = true
     iv.layer.cornerRadius = 5
@@ -37,7 +37,7 @@ class UserStylingDetailCell: UICollectionViewCell {
     return iv
   }()
 
-  private lazy var userNameLabel: UILabel = {
+  public lazy var userNameLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "TitleName"
     label.textColor = .white
@@ -46,7 +46,7 @@ class UserStylingDetailCell: UICollectionViewCell {
     return label
   }()
 
-  private lazy var totalShotCountLabel: UILabel = {
+  public lazy var totalShotCountLabel: UILabel = {
     let label = UILabel(frame: CGRect.zero)
     label.text = "1/9999"
     label.textColor = .white

@@ -10,7 +10,7 @@ import UIKit
 
 extension ReviewVC {
   static var sort: Notification.Name {
-    return Notification.Name("presentPL")
+    return Notification.Name("sort")
   }
 }
 
@@ -31,14 +31,19 @@ final class ReviewVC: UIViewController {
     colV.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     colV.dataSource = self
     colV.delegate = self
-    colV
     view.addSubview(colV)
     return colV
   }()
 
   let notiCenter = NotificationCenter.default
 
-  private var sortedReviewList: [ProductDetail.Review] = []
+  private var sortedReviewList: [ProductDetail.Review] = [] {
+    didSet {
+      guard !sortedReviewList.isEmpty else { return print("sortedReviewList is empty")}
+
+      collectionView.reloadData()
+    }
+  }
 
   private var reviewList: [ProductDetail.Review] = []
 
@@ -55,7 +60,6 @@ final class ReviewVC: UIViewController {
 
       sortedReviewList = reviewList.sorted(by: { $0.starScore > $1.starScore })
 
-      collectionView.reloadData()
     }
   }
 
@@ -118,7 +122,7 @@ final class ReviewVC: UIViewController {
         return print("fail down casting: sortReviewList")
     }
 
-    print("print success \(sort)")
+//    print("print success \(sort)")
     switch sort {
     case "0":
       sortedReviewList = reviewList.sorted(by: { $0.starScore > $1.starScore })
@@ -130,7 +134,6 @@ final class ReviewVC: UIViewController {
       break
     }
 
-    collectionView.reloadData()
   }
 }
 
