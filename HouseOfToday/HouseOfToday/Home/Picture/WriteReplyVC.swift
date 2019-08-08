@@ -53,6 +53,22 @@ class WriteReplyVC: UIViewController {
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
   }
 
+  // MARK: - Setting Navigation Bar
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureNaviBar()
+  }
+  private func configureNaviBar() {
+    self.title = "푸쉬 알림 설정"
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationItem.setHidesBackButton(true, animated: false)
+    let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
+    navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
+  }
+
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)
   }

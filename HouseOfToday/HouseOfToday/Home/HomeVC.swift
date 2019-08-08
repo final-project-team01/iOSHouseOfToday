@@ -47,7 +47,6 @@ final class HomeVC: CategoryTabBarViewController {
     super.viewDidLoad()
     addObservers()
     configureNaviBar()
-    //homeViewDidScroll()
   }
 
   override func viewDidAppear(_ animated: Bool) {

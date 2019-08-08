@@ -59,6 +59,7 @@ class HouseWarmingDetailViewController: UIViewController {
 
   private func configureNaviBar() {
     self.title = "집들이"
+    self.navigationController?.navigationBar.backgroundColor = .clear
     self.navigationController?.setNavigationBarHidden(false, animated: true)
     self.navigationItem.setHidesBackButton(true, animated: false)
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
