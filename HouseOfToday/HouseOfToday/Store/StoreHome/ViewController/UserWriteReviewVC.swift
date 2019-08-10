@@ -33,7 +33,7 @@ final class UserWriteReviewVC: UIViewController {
 
   private lazy var productTitle: UILabel = {
     let label = UILabel(frame: CGRect.zero)
-    label.text = "Titleasdfasdflkjshdfliu laksdhflauksbdfalsbdflk aksdfhalskfdh"
+    label.text = "선택된 상품이 없습니다."
     label.numberOfLines = 2
     label.font = UIFont.systemFont(ofSize: 15)
     scrollView.addSubview(label)
