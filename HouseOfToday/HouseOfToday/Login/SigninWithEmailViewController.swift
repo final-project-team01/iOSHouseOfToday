@@ -14,7 +14,7 @@ class SigninWithEmailViewController: UIViewController {
   // MARK: - My Properties
   var user: User?
 
-  let houseOfTodayService: HouseOfTodayServiceType = HouseOfTodayService()
+  let houseOfTodayService = HouseOfTodayService()
 
   // MARK: - UI Properties
   private lazy var emailTextField: LoginTextField = {
