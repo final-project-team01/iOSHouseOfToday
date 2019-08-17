@@ -458,8 +458,8 @@ final class UserWriteReviewVC: UIViewController {
 
         self?.postProductReview(post: postData as Data)
 
-        NotificationCenter.default.post(name: ProductReviewView.downloadDetail, object: nil, userInfo: ["ID": productId])
-        self?.navigationController?.popViewController(animated: true)
+//        NotificationCenter.default.post(name: ProductReviewView.downloadDetail, object: nil, userInfo: ["ID": productId])
+//        self?.navigationController?.popViewController(animated: true)
       }
     }
 
@@ -483,7 +483,10 @@ final class UserWriteReviewVC: UIViewController {
       case .success(let list):
         print("success!!! postProductReview)")
 
-//        self.shoppingOptionCart = list
+        DispatchQueue.main.async {
+          self.navigationController?.popViewController(animated: true)
+        }
+
       case .failure(let error):
         print("postProductReview Error: \(error.localizedDescription)")
       }

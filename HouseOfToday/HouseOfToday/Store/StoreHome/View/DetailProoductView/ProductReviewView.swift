@@ -8,13 +8,6 @@
 
 import UIKit
 
-extension ProductReviewView {
-
-  static var downloadDetail: Notification.Name {
-    return Notification.Name("downloadDetail")
-  }
-}
-
 final class ProductReviewView: UIView {
 
   // MARK: - Property
@@ -220,10 +213,10 @@ final class ProductReviewView: UIView {
 
     addSubview(starView)
 
-    notiCenter.addObserver(self,
-                           selector: #selector(downloadDetail(_:)),
-                           name: ProductReviewView.downloadDetail,
-                           object: self)
+//    notiCenter.addObserver(self,
+//                           selector: #selector(downloadDetail(_:)),
+//                           name: ProductReviewView.downloadDetail,
+//                           object: self)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -231,9 +224,9 @@ final class ProductReviewView: UIView {
   }
 
   deinit {
-    notiCenter.removeObserver(self,
-                              name: ProductReviewView.downloadDetail,
-                              object: self)
+//    notiCenter.removeObserver(self,
+//                              name: ProductReviewView.downloadDetail,
+//                              object: self)
   }
 
   override func layoutSubviews() {
