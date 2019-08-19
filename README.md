@@ -14,10 +14,15 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 ### 설계
 * AdobeXD
+
 <a href="/assets/design_adobeXD.gif" target="_blank"><img src="/assets/design_adobeXD.gif"></a>
+
 * Keynote
+
 <a href="/assets/design_keynote.pdf" target="_blank"><img src="/assets/design_keynote.gif"></a>
+
 * 데이터 모델 설계 (마인드맵)
+
 <a href="/assets/design_mindmap.pdf" target="_blank"><img src="/assets/design_mindmap.png"></a>
 
 ### 스크린샷
@@ -33,9 +38,12 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 ### 협업
 * Trello, Github
+
 <a href="/assets/teamwork_trello.png" target="_blank"><img src="/assets/teamwork_trello.png" width=300></a>
 <a href="/assets/teamwork_github.png" target="_blank"><img src="/assets/teamwork_github.png" width=300></a>
+
 * Slack (전체 팀 채널과 iOS팀 채널 두 개로 운영)
+
 <a href="/assets/teamwork_slack1.png" target="_blank"><img src="/assets/teamwork_slack1.png" width=300></a>
 <a href="/assets/teamwork_slack2.png" target="_blank"><img src="/assets/teamwork_slack2.png" width=300></a>
 
