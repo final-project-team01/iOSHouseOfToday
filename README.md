@@ -19,7 +19,7 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 * Keynote
 
-<a href="/assets/design_keynote.pdf" target="_blank"><img src="/assets/design_keynote.gif"></a>
+<a href="/assets/design_keynote.pdf" target="_blank"><img src="/assets/design_keynote.gif" width=600></a>
 
 * 데이터 모델 설계 (마인드맵)
 
