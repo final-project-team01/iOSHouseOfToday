@@ -54,9 +54,13 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 <a href="/assets/teamwork_slack2.png" target="_blank"><img src="/assets/teamwork_slack2.png" width=350></a>
 
 <br>
+
 ---
+
 <br>
+
 ### 문제해결 아카이브
+
 * Backend 개발자와 협의해서 REST API를 함께 설계
 * Frontend, Backend 개발자들과 협업하여 진행하였고, 해당 과정에서 iOS 앱 파트 담당.
 * 커스텀 UI(CustomCatetoryTabBar) 만들고 적용.
