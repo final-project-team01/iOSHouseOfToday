@@ -12,6 +12,8 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
   * Trello, Slack, Github
   * Dynamic AutoLayout
 
+<br>
+
 ### 설계
 * AdobeXD
 
@@ -25,11 +27,15 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 <a href="/assets/design_mindmap.pdf" target="_blank"><img src="/assets/design_mindmap.png"></a>
 
+<br>
+
 ### 스크린샷
 
 <a href="/assets/login.gif" target="_blank"><img src="/assets/login.gif" width="250"></a>
 <a href="/assets/home.gif" target="_blank"><img src="/assets/home.gif" width="250"></a>
 <a href="/assets/store.gif" target="_blank"><img src="/assets/store.gif" width="250"></a>
+
+<br>
 
 ### 데모영상
 <a href="https://youtu.be/gRF4_6vAdzI" target="_blank"><img src="/assets/thumnail.png"></a>
@@ -47,22 +53,10 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 <a href="/assets/teamwork_slack1.png" target="_blank"><img src="/assets/teamwork_slack1.png" width=350></a>
 <a href="/assets/teamwork_slack2.png" target="_blank"><img src="/assets/teamwork_slack2.png" width=350></a>
 
-### 문제해결 아카이브
-  * 심장이 두근거리는 애니메이션을 어떻게 구현할까
-    * <strong>AnimationKeyFrame</strong>으로 두근거림의 디테일을 해결했다.
-  * 사용자가 특별한 조언을 받는 느낌을 받아야 한다.
-    * <strong>MotionProximity</strong>를 활용해서 사용자의 손을 센서를 통해 인식할 수 있고 사용자가 단순히 버튼을 누르는 것이 아니라 마술을 부리는 것 같은 느낌을 줄 수 있었다.
-  * 깔끔한 디자인의 버튼을 구현하려면 부가설명이 없이 직관적이어야 한다.
-    * 다음 화면으로 넘어가는 버튼은 두근거리는 애니메이션을 적용해서 사용자가 직관적으로 누르고 싶게 만들 수 있었다.
-    * 되돌아 가기 버튼은 화살표가 반대쪽으로 돌아가는 애니메이션을 적용해서 사용자가 직관적으로 뒤로 간다는 느낌이 들게 만들 수 있었다.
-
 <br>
-<br>
-
 ---
-
-
-* 패스트캠퍼스에서 마지막에 진행하는 프로젝트 기간에 만드는 프로젝트.
+<br>
+### 문제해결 아카이브
 * Backend 개발자와 협의해서 REST API를 함께 설계
 * Frontend, Backend 개발자들과 협업하여 진행하였고, 해당 과정에서 iOS 앱 파트 담당.
 * 커스텀 UI(CustomCatetoryTabBar) 만들고 적용.
