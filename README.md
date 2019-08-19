@@ -27,7 +27,7 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 ### 스크린샷
 
-<a href="/assets/firstPage.gif" target="_blank"><img src="/assets/firstPage.gif" alt="My Image" width="250"></a>
+<a href="/assets/login.gif" target="_blank"><img src="/assets/login.gif" alt="My Image" width="250"></a>
 <a href="/assets/secondPage.gif" target="_blank"><img src="/assets/secondPage.gif" alt="My Image" width="250"></a>
 <a href="/assets/thirdPage.gif" target="_blank"><img src="/assets/thirdPage.gif" alt="My Image" width="250"></a>
 
@@ -46,7 +46,6 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 <a href="/assets/teamwork_slack1.png" target="_blank"><img src="/assets/teamwork_slack1.png" width=350></a>
 <a href="/assets/teamwork_slack2.png" target="_blank"><img src="/assets/teamwork_slack2.png" width=350></a>
-
 
 ### 문제해결 아카이브
   * 심장이 두근거리는 애니메이션을 어떻게 구현할까
