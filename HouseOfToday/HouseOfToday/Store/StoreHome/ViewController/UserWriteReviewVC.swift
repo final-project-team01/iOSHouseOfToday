@@ -435,15 +435,6 @@ final class UserWriteReviewVC: UIViewController {
 
     alertWriteReview()
 
-//    if let productId = productDetailData?.id {
-//
-//      let postData = NSMutableData(data: "product=\(productId)".data(using: String.Encoding.utf8)!)
-//      postData.append("&star_score=\(clickedTab)".data(using: String.Encoding.utf8)!)
-//      postData.append("&comment=\(reviewTextView.text)".data(using: String.Encoding.utf8)!)
-//
-//      postProductReview(post: postData as Data)
-//    }
-
   }
 
   private func alertWriteReview() {

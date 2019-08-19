@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ReviewModel: Decodable {
+struct ReviewType: Decodable {
   let product: Int
   let starScore: Int
   let comment: String

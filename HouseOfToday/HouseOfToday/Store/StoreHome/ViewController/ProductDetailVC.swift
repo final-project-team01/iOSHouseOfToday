@@ -109,7 +109,7 @@ final class ProductDetailVC: UIViewController {
         let indexSet = IndexSet(integer: 0)
 
         self?.collectionView.reloadSections(indexSet)
-        self?.fetchCategoryID(id: info.category)
+        self?.fetchCategoryID(id: info.category ?? 0)
       }
     }
   }
