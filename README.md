@@ -14,6 +14,8 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 <br>
 
+---
+
 ### 설계
 * AdobeXD
 
@@ -29,6 +31,8 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 <br>
 
+---
+
 ### 스크린샷
 
 <a href="/assets/login.gif" target="_blank"><img src="/assets/login.gif" width="250"></a>
@@ -37,10 +41,14 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 
 <br>
 
+---
+
 ### 데모영상
 <a href="https://youtu.be/gRF4_6vAdzI" target="_blank"><img src="/assets/thumnail.png"></a>
 
 <br>
+
+---
 
 ### 협업
 * Trello, Github
