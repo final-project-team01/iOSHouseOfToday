@@ -40,12 +40,12 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성해서 하나의 �
 * Trello, Github
 
 <a href="/assets/teamwork_trello.png" target="_blank"><img src="/assets/teamwork_trello.png" width=300></a>
-<a href="/assets/teamwork_github.png" target="_blank"><img src="/assets/teamwork_github.png" width=300></a>
+<a href="/assets/teamwork_github.png" target="_blank"><img src="/assets/teamwork_github.png" width=450></a>
 
 * Slack (전체 팀 채널과 iOS팀 채널 두 개로 운영)
 
-<a href="/assets/teamwork_slack1.png" target="_blank"><img src="/assets/teamwork_slack1.png" width=300></a>
-<a href="/assets/teamwork_slack2.png" target="_blank"><img src="/assets/teamwork_slack2.png" width=300></a>
+<a href="/assets/teamwork_slack1.png" target="_blank"><img src="/assets/teamwork_slack1.png" width=350></a>
+<a href="/assets/teamwork_slack2.png" target="_blank"><img src="/assets/teamwork_slack2.png" width=350></a>
 
 
 ### 문제해결 아카이브
