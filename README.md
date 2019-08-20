@@ -52,7 +52,7 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 
 <a href="https://youtu.be/gRF4_6vAdzI" target="_blank"><img src="/assets/thumnail.png"></a>
 
-* Web 부분
+* Web 부분 (클릭 시 웹페이지로 이동)
 
 <a href="http://ohome.co.kr/community" target="_blank"><img src="/assets/demo_webpage.png"></a>
 
