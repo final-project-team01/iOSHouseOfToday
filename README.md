@@ -61,13 +61,13 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 ---
 
 ### 협업
-* Trello
+* [Trello](https://trello.com/b/AZbLTdbp)
 
-<a href="/assets/teamwork_trello.png" target="_blank"><img src="/assets/teamwork_trello.png"> </a>
+<a href="https://trello.com/b/AZbLTdbp" target="_parent"><img src="/assets/teamwork_trello.png"> </a>
 
-* Github (FDS : Backend / WPS : Frontend / iOS)
+* [Github](https://github.com/final-project-team01) (FDS : Backend / WPS : Frontend / iOS)
 
-<a href="/assets/teamwork_github.png" target="_blank"><img src="/assets/teamwork_github.png"> </a>
+<a href="https://github.com/final-project-team01" target="_blank"><img src="/assets/teamwork_github.png"> </a>
 
 <br>
 
