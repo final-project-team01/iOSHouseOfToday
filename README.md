@@ -5,7 +5,7 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 
 * 기간 : 2019.07 ~ 현재
 * 소속 : 회식First팀 내 iOS개발 팀
-* 역할 : 자체 로그인과 소셜로그인(카카오, 구글, 네이버), 커스텀 UI(CustomCatetoryTabBar), 마이페이지와 사용자 프로필 전반 담당
+* 역할 : iOS팀 팀장으로써 다른 팀과의 의사소통 전반, 자체 로그인과 소셜로그인(카카오, 구글, 네이버), 커스텀 UI(CustomCatetoryTabBar), 마이페이지와 사용자 프로필 전반 담당
 * 사용기술
   * Swift5
   * 라이브러리 : SwiftLint, Kingfisher, SnapKit
@@ -19,6 +19,7 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 
 ### 설계
 * RestAPI 설계(Backend 팀과 함께 설계)
+
 <a href="/assets/design_API.gif" target="_blank"><img src="/assets/design_API.gif"></a>
 
 * 플로우 차트 - AdobeXD
@@ -48,22 +49,26 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 ---
 
 ### 데모영상
+* iOS 부분
+
 <a href="https://youtu.be/gRF4_6vAdzI" target="_blank"><img src="/assets/thumnail.png"></a>
+
+* Web 부분 (클릭 시 웹페이지로 이동)
+
+<a href="http://ohome.co.kr/community" target="_blank"><img src="/assets/demo_webpage.png"></a>
 
 <br>
 
 ---
 
 ### 협업
-* Trello, Github
+* [Trello](https://trello.com/b/AZbLTdbp)
 
-<a href="/assets/teamwork_trello.png" target="_blank"><img src="/assets/teamwork_trello.png" width=300></a>
-<a href="/assets/teamwork_github.png" target="_blank"><img src="/assets/teamwork_github.png" width=450></a>
+<a href="https://trello.com/b/AZbLTdbp" target="_parent"><img src="/assets/teamwork_trello.png"> </a>
 
-* Slack (전체 팀 채널과 iOS팀 채널 두 개로 운영)
+* [Github](https://github.com/final-project-team01) (FDS : Backend / WPS : Frontend / iOS)
 
-<a href="/assets/teamwork_slack1.png" target="_blank"><img src="/assets/teamwork_slack1.png" width=350></a>
-<a href="/assets/teamwork_slack2.png" target="_blank"><img src="/assets/teamwork_slack2.png" width=350></a>
+<a href="https://github.com/final-project-team01" target="_blank"><img src="/assets/teamwork_github.png"> </a>
 
 <br>
 
