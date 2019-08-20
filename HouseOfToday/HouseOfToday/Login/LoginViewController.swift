@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
   let loginWithEmailVC = SigninWithEmailViewController()
   let signUpWithEmailVC = SignUpWithEmailViewController()
 
-  let houseOfTodayService: HouseOfTodayServiceType = HouseOfTodayService()
+  let houseOfTodayService = HouseOfTodayService()
 
   // MARK: - UI Properties
   private lazy var mainImageView: UIImageView = {
