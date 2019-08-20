@@ -18,6 +18,7 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 
 ### 설계
 * RestAPI 설계(Backend 팀과 함께 설계)
+
 <a href="/assets/design_API.gif" target="_blank"><img src="/assets/design_API.gif"></a>
 
 * 플로우 차트 - AdobeXD
