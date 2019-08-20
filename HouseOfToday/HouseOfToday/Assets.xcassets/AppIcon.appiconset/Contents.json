@@ -38,7 +38,9 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "logo 2.png",
+      
+      "filename" : "logo.png",
+
       "scale" : "3x"
     },
     {

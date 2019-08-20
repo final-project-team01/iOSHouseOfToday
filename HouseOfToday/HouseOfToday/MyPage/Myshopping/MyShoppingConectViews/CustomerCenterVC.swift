@@ -8,7 +8,7 @@
 
 import UIKit
 
-// FIXME: - GG 내일 해보자 ViewLifeCycle?
+// FIXME: - 핀치 하면 작아지는 문제 이미지`고정`하기
 
 extension  Notification.Name {
   static let customerCenterVC = Notification.Name("CustomerCenterVC")
