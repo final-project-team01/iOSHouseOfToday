@@ -17,15 +17,18 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 ---
 
 ### 설계
-* AdobeXD
+* RestAPI 설계(Backend 팀과 함께 설계)
+<a href="/assets/design_API.gif" target="_blank"><img src="/assets/design_API.gif"></a>
+
+* 플로우 차트 - AdobeXD
 
 <a href="/assets/design_adobeXD.gif" target="_blank"><img src="/assets/design_adobeXD.gif"></a>
 
-* Keynote
+* 명세서 작성 - Keynote
 
 <a href="/assets/design_keynote.pdf" target="_blank"><img src="/assets/design_keynote.gif" width=600></a>
 
-* 데이터 모델 설계 (마인드맵)
+* 데이터 모델 설계 - 마인드맵
 
 <a href="/assets/design_mindmap.pdf" target="_blank"><img src="/assets/design_mindmap.png"></a>
 
@@ -68,8 +71,8 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 <br>
 
 ### 문제해결 아카이브
-
-* Backend 개발자와 협의해서 REST API를 함께 설계
+* Backend와 협업할 떄에는 초반에 API 설계와 변수 네이밍 맞추기 같은 작업을 함께 진행하는 것이 좋다는 조언을 받음
+  * Backend 개발자와 협의해서 프로젝트를 시작하기 전에 REST API를 설계
 * Frontend, Backend 개발자들과 협업하여 진행하였고, 해당 과정에서 iOS 앱 파트 담당.
 * 커스텀 UI(CustomCatetoryTabBar) 만들고 적용.
 * 자체 로그인 기능 뿐만 아니라 소셜로그인(카카오톡, 네이버, 구글)기능 구현.
