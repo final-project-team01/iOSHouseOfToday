@@ -61,10 +61,10 @@ Backend, Frontend, iOS까지 총 10명이 한 팀으로 구성하여 하나의 �
 ### 협업
 * Trello
 
-<a href="/assets/teamwork_trello.png" target="_blank"><img src="/assets/teamwork_trello.png" </a>
+<a href="/assets/teamwork_trello.png" target="_blank"><img src="/assets/teamwork_trello.png"> </a>
 
 * Github
-<a href="/assets/teamwork_github.png" target="_blank"><img src="/assets/teamwork_github.png" </a>
+<a href="/assets/teamwork_github.png" target="_blank"><img src="/assets/teamwork_github.png"> </a>
 
 <br>
 
