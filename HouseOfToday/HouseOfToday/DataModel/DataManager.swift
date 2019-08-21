@@ -43,7 +43,6 @@ class DataManager {
       switch result {
       case .success(let list):
         print("success!!! List Count: \(list.count)")
-//        self.product = list
       case .failure(let error):
         print("fetchProductList Error: \(error.localizedDescription)")
       }

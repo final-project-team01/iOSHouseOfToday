@@ -36,6 +36,7 @@ final class QuestionsAndAnswersVC: UIViewController {
     tv.delegate = self
     tv.estimatedRowHeight = 700
     tv.rowHeight = UITableView.automaticDimension
+    tv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
     view.addSubview(tv)
     return tv
   }()
@@ -47,8 +48,6 @@ final class QuestionsAndAnswersVC: UIViewController {
   // MARK: - View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-
-//    UITableView().contentSize
 
     tableView.snp.makeConstraints {
       $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -63,7 +62,6 @@ final class QuestionsAndAnswersVC: UIViewController {
       $0.top.equalToSuperview().inset(Metric.marginY/2)
       $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(50)
-
     }
   }
 

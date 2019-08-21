@@ -135,6 +135,8 @@ final class ReviewVC: UIViewController {
         break
       }
 
+//      collectionView.performBatchUpdates({
+//      }, completion: nil)
       collectionView.reloadData()
     }
   }
@@ -147,6 +149,7 @@ extension ReviewVC: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    print("section :", section, "count :", sortedReviewList.count)
     return sortedReviewList.count
   }
 
@@ -159,7 +162,7 @@ extension ReviewVC: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeue(ReviewCell.self, indexPath)
-
+    print("cellForItemAt: \(indexPath.item)")
     return cell
   }
 
