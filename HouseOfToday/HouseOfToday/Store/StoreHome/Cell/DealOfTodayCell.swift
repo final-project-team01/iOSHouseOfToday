@@ -333,7 +333,6 @@ final class DealOfTodayCell: UICollectionViewCell {
       self?.thumnailImageView.snp.updateConstraints {
         $0.height.equalTo(Metric.dealOfTodayCellSize.height)
       }
-      print("showAnimationCell")
       self?.layoutIfNeeded()
     }
   }
