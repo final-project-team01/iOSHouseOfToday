@@ -104,6 +104,9 @@ class QnaCell: UITableViewCell {
       } else {
         completeLabel.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         completeLabel.text = "미완료"
+
+        answerLabel.text = ""//info.aComment
+        answerInfoLabel.text = ""//\(info.aAuthor) | \(info.aCreated)"
       }
 
       autolayoutViews(type: info.completed)

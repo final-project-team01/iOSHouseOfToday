@@ -160,8 +160,9 @@ final class DealOfTodayCell: UICollectionViewCell {
 
     if thumnailImageView.translatesAutoresizingMaskIntoConstraints {
       thumnailImageView.snp.makeConstraints {
-        $0.top.leading.bottom.equalToSuperview()
-        $0.width.equalTo(self.snp.height)
+        $0.top.leading.equalToSuperview()
+        $0.height.equalTo(Metric.dealOfTodayCellSize.height)
+        $0.width.equalTo(thumnailImageView.snp.height)
       }
     }
 
@@ -184,7 +185,7 @@ final class DealOfTodayCell: UICollectionViewCell {
       productNameLabel.snp.makeConstraints {
         $0.top.equalTo(brandLabel.snp.bottom)
         $0.leading.equalTo(thumnailImageView.snp.trailing).offset(margin)
-        $0.trailing.equalToSuperview()
+        $0.trailing.equalToSuperview()//.priority(250)
       }
     }
 
@@ -212,8 +213,6 @@ final class DealOfTodayCell: UICollectionViewCell {
     if discountLabel.translatesAutoresizingMaskIntoConstraints {
       discountLabel.snp.makeConstraints {
         $0.top.lessThanOrEqualTo(reviewCountLabel.snp.bottom).offset(15)
-//        $0.top.greaterThanOrEqualTo(reviewCountLabel.snp.bottom).offset(20)
-//        $0.bottom.lessThanOrEqualTo(self.snp.bottom)
         $0.leading.equalTo(thumnailImageView.snp.trailing).offset(margin)
       }
     }
@@ -222,8 +221,6 @@ final class DealOfTodayCell: UICollectionViewCell {
       priceLabel.snp.makeConstraints {
         $0.top.equalTo(discountLabel.snp.bottom)
         $0.leading.equalTo(thumnailImageView.snp.trailing).offset(margin)
-//        $0.bottom.lessThanOrEqualTo(self.snp.bottom)
-//        $0.bottom.greaterThanOrEqualTo(self.snp.bottom)
       }
     }
   }
@@ -323,6 +320,21 @@ final class DealOfTodayCell: UICollectionViewCell {
     formatter.numberStyle = .decimal
 
     return formatter.string(from: price as NSNumber) ?? ""
+  }
+
+  public func showAnimationCell() {
+
+    thumnailImageView.snp.updateConstraints {
+      $0.height.equalTo(Metric.dealOfTodayCellSize.height + 200)
+    }
+    layoutIfNeeded()
+
+    UIView.animate(withDuration: 1) { [weak self] in
+      self?.thumnailImageView.snp.updateConstraints {
+        $0.height.equalTo(Metric.dealOfTodayCellSize.height)
+      }
+      self?.layoutIfNeeded()
+    }
   }
 
 }

@@ -25,6 +25,9 @@ extension ProductDetailVC {
   static var presentPicDetail: Notification.Name {
     return Notification.Name("presentPicDetail")
   }
+  static var downloadDetail: Notification.Name {
+    return Notification.Name("downloadDetail")
+  }
 }
 
 final class ProductDetailVC: UIViewController {
@@ -83,7 +86,6 @@ final class ProductDetailVC: UIViewController {
       print("productListTemp called" )
       productList = products.map {
         let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
-        //        let review = $0.review.map { $0.score }
 
         return ProductList(id: $0.id,
                            brandName: $0.brandName,
@@ -94,7 +96,6 @@ final class ProductDetailVC: UIViewController {
                            starAvg: $0.starAvg,
                            thumnailUrl: imageUrl)
       }
-
     }
   }
 
@@ -108,7 +109,7 @@ final class ProductDetailVC: UIViewController {
         let indexSet = IndexSet(integer: 0)
 
         self?.collectionView.reloadSections(indexSet)
-        self?.fetchCategoryID(id: info.category)
+        self?.fetchCategoryID(id: info.category ?? 0)
       }
     }
   }
@@ -128,7 +129,6 @@ final class ProductDetailVC: UIViewController {
     btn.titleLabel?.font = UIFont.systemFont(ofSize: 10)
     btn.titleEdgeInsets = UIEdgeInsets(top: 10, left: -40, bottom: -20, right: 0)
     btn.imageEdgeInsets = UIEdgeInsets(top: -10, left: 0, bottom: 10, right: 0)
-//    btn.backgroundColor = .red
     btn.addTarget(self, action: #selector(touchBookMarkButton(_:)), for: .touchUpInside)
     bottomBarView.addSubview(btn)
     return btn
@@ -183,7 +183,6 @@ final class ProductDetailVC: UIViewController {
     setupNotificationCenter()
     settingProgressView()
 
-    downloadDetail(id: ID)
   }
 
   deinit {
@@ -202,11 +201,16 @@ final class ProductDetailVC: UIViewController {
     notiCenter.removeObserver(self,
                               name: ProductDetailVC.presentPicDetail,
                               object: nil)
+    notiCenter.removeObserver(self,
+                              name: ProductDetailVC.downloadDetail,
+                              object: nil)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     configureNaviBar()
+
+    downloadDetail(id: ID)
   }
 
   override func viewDidDisappear(_ animated: Bool) {
@@ -270,6 +274,10 @@ final class ProductDetailVC: UIViewController {
     notiCenter.addObserver(self,
                            selector: #selector(presentPicDetail(_:)),
                            name: ProductDetailVC.presentPicDetail,
+                           object: nil)
+    notiCenter.addObserver(self,
+                           selector: #selector(reloadDetail(_:)),
+                           name: ProductDetailVC.downloadDetail,
                            object: nil)
   }
 
@@ -476,6 +484,11 @@ final class ProductDetailVC: UIViewController {
     self.navigationController?.pushViewController(pic, animated: true)
   }
 
+  @objc private func reloadDetail(_ sender: Notification) {
+
+//    downloadDetail(id: ID)
+  }
+
   // MARK: - FetchProductDetail
   public func fetchProductDetail(id: Int) {
 
@@ -489,6 +502,10 @@ final class ProductDetailVC: UIViewController {
       case .success(let product):
         print("success!!! ProductDetail")
         self.productDetail = product
+
+//        DispatchQueue.main.async {
+//          self.reloadProductInfo?()
+//        }
       case .failure(let error):
         print("fetchProductDetail Error: \(error.localizedDescription)")
       }
@@ -510,6 +527,14 @@ final class ProductDetailVC: UIViewController {
     }
   }
 
+  private var reloadProductInfo: (() -> Void)?
+
+  private func reloadProduct() {
+    guard let reload = reloadProductInfo else { return print("reloadProductInfo is nil")}
+
+    reload()
+  }
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -522,7 +547,7 @@ extension ProductDetailVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if section == 0 {
       print("numberOfItemsInSection")
-      return 1
+      return self.productDetail == nil ? 0 : 1 //1
     } else {
       print("productList.count: \(productList.count)")
       return productList.count
@@ -535,7 +560,9 @@ extension ProductDetailVC: UICollectionViewDataSource {
       if indexPath.item == 0 {
         let cell = collectionView.dequeue(ProductMainCell.self, indexPath)
         if reloadedHeight == 0 {
-          cell.productDetail = self.productDetail
+//          cell.productDetail = self.productDetail
+          reloadProductInfo = { [weak self] in cell.productDetail = self?.productDetail }
+          reloadProductInfo?()
         } else {
           cell.updateHeight()
         }
@@ -571,7 +598,7 @@ extension ProductDetailVC: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
     if let cell = cell as? PopularityProductCell {
-      cell.productInfo = productList[indexPath.item]
+      cell.productInfo = self.productList[indexPath.item]
     }
   }
 

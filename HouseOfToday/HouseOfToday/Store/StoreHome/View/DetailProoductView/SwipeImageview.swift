@@ -29,7 +29,7 @@ final class SwipeImageview: UIView {
   private lazy var collectionView: UICollectionView = {
     let colV = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     colV.register(cell: SwipeImageCell.self)
-    colV.backgroundColor = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+    colV.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     colV.dataSource = self
     colV.delegate = self
     colV.isPagingEnabled = true

@@ -49,7 +49,6 @@ class HouseWarmingDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     makeConstraints()
-//    fetchHouseWarmingDetail(with: 1)
   }
 
   // MARK: - Setting Navigation Bar
@@ -59,7 +58,8 @@ class HouseWarmingDetailViewController: UIViewController {
   }
 
   private func configureNaviBar() {
-    self.title = "프로필"
+    self.title = "집들이"
+    self.navigationController?.navigationBar.backgroundColor = .clear
     self.navigationController?.setNavigationBarHidden(false, animated: true)
     self.navigationItem.setHidesBackButton(true, animated: false)
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
