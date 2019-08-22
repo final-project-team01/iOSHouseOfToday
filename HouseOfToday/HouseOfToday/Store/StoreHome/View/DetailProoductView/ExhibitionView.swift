@@ -130,7 +130,6 @@ final class ExhibitionView: UIView {
       guard let info = productDetailData else { return print("productDetailData is nil")}
 
       qnaTotalCountLabel.text = "\(info.qna.count)"
-
     }
   }
 
@@ -230,8 +229,10 @@ final class ExhibitionView: UIView {
     print("touchQnA")
     let questionsAndAnswersVC = QuestionsAndAnswersVC()
 
-    if let qna = productDetailData?.qna {
+    if let qna = productDetailData?.qna,
+      let id = productDetailData?.id {
       questionsAndAnswersVC.qnaList = qna
+      questionsAndAnswersVC.productId = id
     }
 
     NotificationCenter.default.post(name: ProductDetailVC.present, object: nil, userInfo: ["viewController": questionsAndAnswersVC])

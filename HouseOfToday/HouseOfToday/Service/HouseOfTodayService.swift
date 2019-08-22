@@ -144,7 +144,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-      }.resume()
+    }.resume()
   }
 
   func fetchRankingList(completion: @escaping (Result<RankingModel, ServiceError>) -> Void) {
@@ -168,9 +168,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-
-      }.resume()
-
+    }.resume()
   }
 
   func postSignUpUserData(withBody body: Data?, completion: @escaping (Result<User, ServiceError>) -> Void) {
@@ -209,8 +207,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-
-      }.resume()
+    }.resume()
   }
 
   func postLoginDataForGetToKen(toPath path: String, withBody body: Data?, completion: @escaping (Result<String, ServiceError>) -> Void) {
@@ -242,8 +239,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-
-      }.resume()
+    }.resume()
   }
 
   func fetchPictureList(completion: @escaping (Result<[PictureModel], ServiceError>) -> Void) {
@@ -267,7 +263,6 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       } else {
         completion(.failure(.invalidFormat))
       }
-
       }.resume()
 
   }
@@ -509,7 +504,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
       }.resume()
   }
 
-  func postProductReview(data: Data, completion: @escaping (Result<ReviewModel, ServiceError>) -> Void) {
+  func postProductReview(data: Data, completion: @escaping (Result<ReviewType, ServiceError>) -> Void) {
 
     var urlComp = URLComponents(string: baseURL)
     urlComp?.path = "/products/product/review/"
@@ -539,7 +534,7 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
 
       print(str)
 
-      if let reviewModel = try? JSONDecoder().decode(ReviewModel.self, from: data) {
+      if let reviewModel = try? JSONDecoder().decode(ReviewType.self, from: data) {
         completion(.success(reviewModel))
       } else {
         completion(.failure(.invalidFormat))
@@ -599,6 +594,46 @@ final class HouseOfTodayService: HouseOfTodayServiceType {
         completion(.failure(.invalidFormat))
       }
       }.resume()
+  }
+
+  func postQnA(data: Data, completion: @escaping (Result<QnAType, ServiceError>) -> Void) {
+
+    var urlComp = URLComponents(string: baseURL)
+    urlComp?.path = "/products/product/qna/"
+    guard let url = urlComp?.url else { return logger("guard get url fail")}
+
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "POST"
+
+    urlRequest.httpBody = data
+    urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    urlRequest.addValue("Token 69e86dfbeca27eec3f6a96c0addffd9f272449e2", forHTTPHeaderField: "Authorization")
+
+    //    print(urlRequest.allHTTPHeaderFields)
+    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+
+      print("response Status Code : ", (response as! HTTPURLResponse).statusCode)
+
+      guard error == nil else { return completion(.failure(.clientError)) }
+
+      guard let header = response as? HTTPURLResponse,
+        (200..<300) ~= header.statusCode
+        else { return completion(.failure(.invalidStatusCode)) }
+
+      guard let data = data else { return completion(.failure(.noData)) }
+
+      guard let str = try? JSONSerialization.jsonObject(with: data, options: []) else { return print("JSONSerialization Error")}
+
+      print(str)
+
+      if let qnaType = try? JSONDecoder().decode(QnAType.self, from: data) {
+        completion(.success(qnaType))
+      } else {
+        completion(.failure(.invalidFormat))
+      }
+
+    }.resume()
+
   }
 
 }

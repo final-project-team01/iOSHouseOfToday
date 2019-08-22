@@ -66,16 +66,6 @@ final class RatingStarView: UIView {
         $0.edges.equalToSuperview()
       }
     }
-//    colorView.translatesAutoresizingMaskIntoConstraints = false
-//    colorView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//    colorView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-//    colorView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-//
-//    starImageView.translatesAutoresizingMaskIntoConstraints = false
-//    starImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//    starImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-//    starImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-//    starImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
   }
 
   private func layout(rating: CGFloat) {

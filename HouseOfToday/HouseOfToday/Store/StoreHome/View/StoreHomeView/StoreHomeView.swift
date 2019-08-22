@@ -100,23 +100,6 @@ final class StoreHomeView: UIView {
     }
   }
 
-//  private var productListTemp: [ProductListTemp] = [] {
-//    didSet {
-//       productList = productListTemp.map {
-//        let imageUrl = $0.thumnailImages.map { Resizing.url($0.image, Int(Metric.popularityProductCellSize.width * 2)).get  }
-//
-//        return ProductList(id: $0.id,
-//                           brandName: $0.brandName,
-//                           productName: $0.productName,
-//                           discountRate: $0.discountRate ?? "0",
-//                           price: $0.price,
-//                           reviewCount: $0.reviewCount,
-//                           starAvg: $0.starAvg,
-//                           thumnailUrl: imageUrl)
-//      }
-//    }
-//  }
-
   internal var storeHomeViewDidScroll: ((String) -> Void)?
 
   // MARK: - View life cycle
@@ -162,20 +145,6 @@ final class StoreHomeView: UIView {
       }
     }
   }
-
-//  private func fetchProductList() {
-////    print("fetchProductList Start")
-//    service.fetchProductList { result in
-//      switch result {
-//      case .success(let list):
-//        print("success!!! productList List Count: \(list.count)")
-//
-//        self.productListTemp = list
-//      case .failure(let error):
-//        print("fetchProductList Error: \(error.localizedDescription)")
-//      }
-//    }
-//  }
 
 }
 
@@ -267,6 +236,12 @@ extension StoreHomeView: UICollectionViewDelegate {
 
     if let cell = cell as? PopularityProductCell {
       cell.productInfo = productList[indexPath.item]
+    } else if let cell = cell as? DealOfTodayCell, indexPath.item == 1 {
+//      cell.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+      cell.showAnimationCell()
+//      UIView.animate(withDuration: 1) {
+//        cell.transform = .identity
+//      }
     }
   }
 

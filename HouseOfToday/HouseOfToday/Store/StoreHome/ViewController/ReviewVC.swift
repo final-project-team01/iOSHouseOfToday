@@ -10,7 +10,7 @@ import UIKit
 
 extension ReviewVC {
   static var sort: Notification.Name {
-    return Notification.Name("sort")
+    return Notification.Name("sortReviewList")
   }
 }
 
@@ -39,27 +39,26 @@ final class ReviewVC: UIViewController {
 
   private var sortedReviewList: [ProductDetail.Review] = [] {
     didSet {
-      guard !sortedReviewList.isEmpty else { return print("sortedReviewList is empty")}
+      //guard !sortedReviewList.isEmpty else { return print("sortedReviewList is empty")}
 
-      collectionView.reloadData()
+//      DispatchQueue.main.async { [weak self] in
+//        self?.collectionView.reloadData()
+//        self?.collectionView.collectionViewLayout.invalidateLayout()
+//        self?.collectionView.layoutSubviews()
+//      }
+
     }
   }
-
-  private var reviewList: [ProductDetail.Review] = []
 
   public var productDetailData: ProductDetail? {
     didSet {
       guard let info = productDetailData else {return print("productDetailData is nil")}
 
-      let reviewCount = "\(formetter(price: info.reviewCount))"
-      reviewList = info.review
-      //      starPointLabel.text = "\(info.starAvg)"
-      //      reviewCountLabel.text = reviewCount
-      //      purchaseSatisfactionLabel.text = "\(reviewCount)의 구매만족도"
-      //      showTotalReviewButton.setTitle("\(reviewCount)개 리뷰 전체보기 ", for: .normal)
-
+//      let reviewCount = "\(formetter(price: info.reviewCount))"
+      let reviewList = info.review
       sortedReviewList = reviewList.sorted(by: { $0.starScore > $1.starScore })
 
+      collectionView.reloadData()
     }
   }
 
@@ -85,6 +84,7 @@ final class ReviewVC: UIViewController {
     super.viewWillAppear(animated)
     configureNaviBar()
   }
+
   private func configureNaviBar() {
     self.title = "리뷰보기"
     self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -122,18 +122,23 @@ final class ReviewVC: UIViewController {
         return print("fail down casting: sortReviewList")
     }
 
-//    print("print success \(sort)")
-    switch sort {
-    case "0":
-      sortedReviewList = reviewList.sorted(by: { $0.starScore > $1.starScore })
-    case "1":
-      sortedReviewList = reviewList.sorted(by: { $0.created > $1.created })
-    case "2":
-      sortedReviewList = reviewList.sorted(by: { $0.starScore < $1.starScore })
-    default:
-      break
-    }
+    if let reviewList = productDetailData?.review {
 
+      switch sort {
+      case "0":
+        sortedReviewList = reviewList.sorted(by: { $0.starScore > $1.starScore })
+      case "1":
+        sortedReviewList = reviewList.sorted(by: { $0.created > $1.created })
+      case "2":
+        sortedReviewList = reviewList.sorted(by: { $0.starScore < $1.starScore })
+      default:
+        break
+      }
+
+//      collectionView.performBatchUpdates({
+//      }, completion: nil)
+      collectionView.reloadData()
+    }
   }
 }
 
@@ -144,6 +149,7 @@ extension ReviewVC: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    print("section :", section, "count :", sortedReviewList.count)
     return sortedReviewList.count
   }
 
@@ -156,11 +162,17 @@ extension ReviewVC: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeue(ReviewCell.self, indexPath)
-    guard let data = productDetailData else { return cell}
+    print("cellForItemAt: \(indexPath.item)")
+    return cell
+  }
+
+  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    guard let data = productDetailData,
+        let cell = cell as? ReviewCell else { return}
     cell.reviewList = sortedReviewList[indexPath.item]
+
     cell.reviewTitle.text = "[\(data.brandName)] \(data.name)"
     cell.optionLabel.text = "선택: \(data.productOption[Int.random(in: 0 ..< data.productOption.count)].name)"
-    return cell
   }
 
 }
@@ -175,10 +187,6 @@ extension ReviewVC: UICollectionViewDelegate {
 extension ReviewVC: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
-//    if section == 0 {
       return CGSize(width: UIScreen.main.bounds.width, height: 200)
-//    } else {
-//      return CGSize(width: UIScreen.main.bounds.width, height: DefaultHeaderView.height)
-//    }
   }
 }

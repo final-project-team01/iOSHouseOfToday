@@ -435,15 +435,6 @@ final class UserWriteReviewVC: UIViewController {
 
     alertWriteReview()
 
-//    if let productId = productDetailData?.id {
-//
-//      let postData = NSMutableData(data: "product=\(productId)".data(using: String.Encoding.utf8)!)
-//      postData.append("&star_score=\(clickedTab)".data(using: String.Encoding.utf8)!)
-//      postData.append("&comment=\(reviewTextView.text)".data(using: String.Encoding.utf8)!)
-//
-//      postProductReview(post: postData as Data)
-//    }
-
   }
 
   private func alertWriteReview() {
@@ -458,8 +449,8 @@ final class UserWriteReviewVC: UIViewController {
 
         self?.postProductReview(post: postData as Data)
 
-        NotificationCenter.default.post(name: ProductReviewView.downloadDetail, object: nil, userInfo: ["ID": productId])
-        self?.navigationController?.popViewController(animated: true)
+//        NotificationCenter.default.post(name: ProductReviewView.downloadDetail, object: nil, userInfo: ["ID": productId])
+//        self?.navigationController?.popViewController(animated: true)
       }
     }
 
@@ -483,7 +474,10 @@ final class UserWriteReviewVC: UIViewController {
       case .success(let list):
         print("success!!! postProductReview)")
 
-//        self.shoppingOptionCart = list
+        DispatchQueue.main.async {
+          self.navigationController?.popViewController(animated: true)
+        }
+
       case .failure(let error):
         print("postProductReview Error: \(error.localizedDescription)")
       }
