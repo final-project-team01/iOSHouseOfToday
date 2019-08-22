@@ -34,7 +34,7 @@ struct ProductDetail: Decodable {
   let discountRate: String
   let starAvg: String
   let reviewCount: Int
-  let category: Int
+  let category: Int?
 
   let thumnailImages: [ProductImages]
   let detailImages: [ProductImages]
@@ -120,7 +120,7 @@ struct ProductDetail: Decodable {
     let completed: Bool
     let created: String
     let aAuthor: String
-    let aComment: String
+    let aComment: String?
     let aCreated: String
     let user: Int
     let product: Int

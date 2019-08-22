@@ -32,9 +32,14 @@ class ExpertVC: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = .white
     configureAutoLayout()
-    configureNaviBar()
 
 //    imageView.contentMode = .scaleAspectFill
+  }
+
+  // MARK: - Setting Navigation Bar
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureNaviBar()
   }
 
   private func configureNaviBar() {
@@ -43,6 +48,9 @@ class ExpertVC: UIViewController {
     self.navigationItem.setHidesBackButton(true, animated: false)
     let backItem = UIBarButtonItem.setButton(self, action: #selector(backButtonDidTap(_:)), imageName: "back")
     navigationItem.setLeftBarButton(backItem, animated: true)
+  }
+  @objc private func backButtonDidTap(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
   }
 
   private func configureAutoLayout() {
@@ -71,9 +79,6 @@ class ExpertVC: UIViewController {
     fitToScrollView()
   }
 
-  @objc private func backButtonDidTap(_ sender: Any) {
-    self.navigationController?.popViewController(animated: true)
-  }
 }
 
 extension ExpertVC: UIScrollViewDelegate {
